@@ -1,0 +1,138 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+project.ext {
+    supportLibraryVersion = "28.0.0"
+    daggerVersion = "2.15"
+    butterKnifeVersion = "8.5.1"
+    rxJavaVersion = "2.2.5"
+    rxAndroidVersion = "2.1.0"
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.lemobs_sigelu.gestao_estoques"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            minSdkVersion 16
+            versionNameSuffix "-dev"
+            applicationIdSuffix '.dev'
+            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
+            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.dev.sigelu.com/v1/\"")
+            buildConfigField("String", "FOTO_URL", "\"https://api.obras.dev.sigelu.com/obra-direta/diario/foto/\"")
+        }
+        cidade {
+            minSdkVersion 16
+            versionNameSuffix "-cidade"
+            applicationIdSuffix '.cidade'
+            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
+            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.cidade.sigelu.com/v1/\"")
+            buildConfigField("String", "FOTO_URL", "\"https://api.obras.cidade.sigelu.com/obra-direta/diario/foto/\"")
+        }
+        homolog {
+            minSdkVersion 16
+            versionNameSuffix "-homologação"
+            applicationIdSuffix '.homolog'
+            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
+            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.maricahom.sigelu.com/v1/\"")
+            buildConfigField("String", "FOTO_URL", "\"https://api.obras.maricahom.sigelu.com/obra-direta/diario/foto/\"")
+        }
+        prod {
+            minSdkVersion 16
+            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
+            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.marica.sigelu.com/v1/\"")
+            buildConfigField("String", "FOTO_URL", "\"https://api.obras.marica.sigelu.com/obra-direta/diario/foto/\"")
+        }
+        demo {
+            minSdkVersion 16
+            versionNameSuffix "-demonstração"
+            applicationIdSuffix '.demo'
+            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
+            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.maricademo.sigelu.com/v1/\"")
+            buildConfigField("String", "FOTO_URL", "\"https://api.obras.maricademo.sigelu.com/obra-direta/diario/foto/\"")
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin/'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    buildToolsVersion '28.0.3'
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    /* Coisas que a Google deveria ter por padrão */
+    implementation "com.android.support:cardview-v7:$project.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:$project.supportLibraryVersion"
+    implementation "com.android.support:design:$project.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    /* OkHttp3 */
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    /* Retrofit e moshi */
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.0.0'
+
+    /* CardView */
+    implementation "com.android.support:cardview-v7:$project.supportLibraryVersion"
+
+    /* Ormlite */
+    implementation group: 'com.j256.ormlite', name: 'ormlite-android', version: '4.45'
+
+    /* Dagger */
+    compileOnly "com.google.dagger:dagger:$project.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
+
+    // Dagger Android
+    implementation "com.google.dagger:dagger-android:$project.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+
+    /* Rx Java */
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+
+    //Life cycle para RX
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+}
