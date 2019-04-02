@@ -27,7 +27,8 @@ class MaterialRepository {
                     val nucleosComMaterial = it.disponibilidade_nucleos.map {
                         NucleoComMaterial(it.id,
                             it.nome ?: "",
-                            it.quantidade ?: 0.0)
+                            it.quantidade ?: 0.0,
+                            unidadeMedida.sigla)
                     }
 
                     Material(

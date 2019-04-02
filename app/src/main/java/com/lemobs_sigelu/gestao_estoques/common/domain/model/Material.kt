@@ -6,5 +6,4 @@ class Material(val id: Int,
                val saldo: Double,
                val disponivel: Double,
                val unidadeMedida: UnidadeMedida,
-               val disponibilidadeNucleos: List<NucleoComMaterial>) {
-}
+               val disponibilidadeNucleos: List<NucleoComMaterial>)

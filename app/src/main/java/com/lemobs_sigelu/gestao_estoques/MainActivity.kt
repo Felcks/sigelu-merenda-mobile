@@ -12,9 +12,13 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_troca_tela.setOnClickListener {
+        btn_listar_materiais.setOnClickListener {
             val intent = Intent(this, ListaMaterialActivity::class.java)
             startActivity(intent)
+        }
+
+        btn_cadastrar_entrega_materiais.setOnClickListener {
+            
         }
     }
 }
