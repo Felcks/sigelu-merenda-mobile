@@ -3,9 +3,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -65,5 +69,29 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         val adapter = ListaPedidoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val actionBar : ActionBar? = supportActionBar
+
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_atualiza, menu)
+
+        if(actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return when (item?.itemId) {
+            R.id.btn_update -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

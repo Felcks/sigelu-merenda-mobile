@@ -123,7 +123,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
 
-    // Dagger Android
+    /* Dagger Android */
     implementation "com.google.dagger:dagger-android:$project.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
@@ -132,9 +132,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
 
-    //Life cycle para RX
+    /* Life cycle para RX */
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    /* FloatActionButton com subFabs */
+    implementation 'com.github.clans:fab:1.6.4'
 }
 
 android {
