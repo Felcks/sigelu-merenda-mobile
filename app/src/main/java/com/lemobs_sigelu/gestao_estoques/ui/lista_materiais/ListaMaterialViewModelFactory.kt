@@ -4,8 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaMaterialUseCase
 
-class ViewModelFactory (val carregaListaObraUseCase: CarregaListaMaterialUseCase): ViewModelProvider.Factory{
-
+class ListaMaterialViewModelFactory (val carregaListaObraUseCase: CarregaListaMaterialUseCase): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListaMaterialViewModel::class.java!!)) {

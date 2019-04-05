@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Cores do tema -->
     <color name="colorPrimary">#5c636d</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#44B8B5</color>
+    <color name="colorAccentDark">#009fa3</color>
+
+    <!-- Cores auxiliares -->
+    <color name="primary_text">#222222</color>
+    <color name="secondary_text">#757575</color>
+
+    <!-- Cores situação de pedido -->
+    <color name="pedido_em_analise">#d84315</color>
+    <color name="pedido_aprovado">#237a85</color>
+    <color name="pedido_entregue">#43a047</color>
+    <color name="pedido_reprovado">#990000</color>
+    <color name="pedido_parcial">#FFDD00</color>
 </resources>

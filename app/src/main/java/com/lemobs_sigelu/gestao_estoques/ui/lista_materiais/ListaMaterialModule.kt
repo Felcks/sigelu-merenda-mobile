@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaMaterialUseCase
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.MaterialRepository
 import dagger.Module
 import dagger.Provides
 
@@ -14,7 +14,7 @@ class ListaMaterialModule {
     }
 
     @Provides
-    fun provideLobbyViewModelFactory(carregaListaObraUseCase: CarregaListaMaterialUseCase): ViewModelFactory {
-        return ViewModelFactory(carregaListaObraUseCase)
+    fun provideLobbyViewModelFactory(carregaListaMaterialUseCase: CarregaListaMaterialUseCase): ListaMaterialViewModelFactory {
+        return ListaMaterialViewModelFactory(carregaListaMaterialUseCase)
     }
 }

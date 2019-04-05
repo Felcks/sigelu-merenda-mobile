@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: AppCompatActivity() {
@@ -13,7 +14,7 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_listar_materiais.setOnClickListener {
-            val intent = Intent(this, ListaMaterialActivity::class.java)
+            val intent = Intent(this, ListaPedidoActivity::class.java)
             startActivity(intent)
         }
 

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/ll_obra"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:orientation="vertical"
+                                             android:clickable="true"
+                                             android:focusable="true"
+                                             android:layout_marginBottom="@dimen/espacamento_grande">
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:textAlignment="inherit"
+            android:gravity="start"
+            android:padding="@dimen/espacamento_grande"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pedido nº 320005"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="@id/iv_alert"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toLeftOf="@id/iv_alert"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <ImageView
+                android:id="@+id/iv_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="#fff"
+                android:visibility="visible"
+                android:layout_marginRight="@dimen/espacamento_curto"
+                android:background="@drawable/ic_sheet"
+                app:layout_constraintTop_toTopOf="@+id/ll_titulo"
+                app:layout_constraintBottom_toBottomOf="@id/tv_titulo"
+                app:layout_constraintRight_toRightOf="parent"
+                android:foregroundGravity="left"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+            android:orientation="vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingLeft="@dimen/espacamento_medio"
+            android:paddingRight="@dimen/espacamento_medio">
+
+        <TextView
+                android:id="@+id/layout_origem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Origem:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_origem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintLeft_toRightOf="@id/layout_origem"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+
+        <TextView
+                android:id="@+id/layout_destino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_origem"
+                android:text="Destino:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_destino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/layout_origem"
+                app:layout_constraintLeft_toRightOf="@id/layout_destino"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+        <TextView
+                android:id="@+id/layout_data_pedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_destino"
+                android:text="Data do pedido:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_data_pedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/layout_destino"
+                app:layout_constraintLeft_toRightOf="@+id/layout_data_pedido"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+        <TextView
+                android:id="@+id/layout_data_entrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_data_pedido"
+                android:text="Data da entrega:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_data_entrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/tv_data_pedido"
+                app:layout_constraintLeft_toRightOf="@+id/layout_data_entrega"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/rl_situacao"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/rounded_button_states"
+                android:gravity="center"
+                android:padding="@dimen/espacamento_medio"
+                app:layout_constraintTop_toBottomOf="@id/layout_data_entrega"
+                tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                    android:id="@+id/tv_situacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="Aprovada"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

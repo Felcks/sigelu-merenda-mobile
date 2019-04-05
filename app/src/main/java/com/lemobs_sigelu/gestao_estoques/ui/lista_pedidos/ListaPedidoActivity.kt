@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais
+package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -7,30 +7,29 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_lista_materiais.*
+import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
 
-class ListaMaterialActivity: AppCompatActivity() {
+class ListaPedidoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var listaMaterialViewModelFactory: ListaMaterialViewModelFactory
-    var viewModel: ListaMaterialViewModel? = null
-    private var adapter: ListaMaterialAdapter? = null
+    lateinit var viewModelFactory: ListaPedidoViewModelFactory
+    var viewModel: ListaPedidoViewModel? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_materiais)
+        setContentView(R.layout.activity_lista_pedido)
 
-        viewModel = ViewModelProviders.of(this, listaMaterialViewModelFactory).get(ListaMaterialViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarLista()
+        viewModel!!.carregaLista()
     }
-
 
     fun processResponse(response: Response?) {
         when (response?.status) {
@@ -49,7 +48,7 @@ class ListaMaterialActivity: AppCompatActivity() {
 
         Log.i("script2", "sucesso ao carregar")
         if(result is List<*>){
-            this.iniciarAdapter(result as List<Material>)
+            this.iniciarAdapter(result as List<Pedido>)
         }
     }
 
@@ -58,13 +57,13 @@ class ListaMaterialActivity: AppCompatActivity() {
         Log.i("script2", "Erro ao carregar")
     }
 
-    private fun iniciarAdapter(list: List<Material>){
+    private fun iniciarAdapter(list: List<Pedido>){
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        this.adapter = ListaMaterialAdapter(applicationContext, list)
+        val adapter = ListaPedidoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
     }
 }

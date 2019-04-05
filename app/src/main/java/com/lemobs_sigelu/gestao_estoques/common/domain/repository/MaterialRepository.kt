@@ -1,6 +1,9 @@
-package com.lemobs_sigelu.gestao_estoques.common.domain.model
+package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.NucleoComMaterial
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import io.reactivex.Observable
 
 class MaterialRepository {
@@ -19,16 +22,20 @@ class MaterialRepository {
                 val materiais: List<Material> = response.body()!!.map {
 
                     val unidadeMedida = it.unidade_medida?.let {
-                        UnidadeMedida(it.id,
+                        UnidadeMedida(
+                            it.id,
                             it.nome ?: "",
-                            it.sigla ?: "")
+                            it.sigla ?: ""
+                        )
                     } ?: UnidadeMedida(0, "", "")
 
                     val nucleosComMaterial = it.disponibilidade_nucleos.map {
-                        NucleoComMaterial(it.id,
+                        NucleoComMaterial(
+                            it.id,
                             it.nome ?: "",
                             it.quantidade ?: 0.0,
-                            unidadeMedida.sigla)
+                            unidadeMedida.sigla
+                        )
                     }
 
                     Material(
@@ -38,7 +45,8 @@ class MaterialRepository {
                         it.saldo ?: 0.0,
                         it.disponivel ?: 0.0,
                         unidadeMedida,
-                        nucleosComMaterial)
+                        nucleosComMaterial
+                    )
                 }
 
                 subscriber.onNext(materiais)

@@ -28,6 +28,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.lista_pedidos.ListaPedidoActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+
         <activity
                 android:name="com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity"
                 android:configChanges="orientation"
