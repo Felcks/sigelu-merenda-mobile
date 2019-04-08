@@ -18,4 +18,29 @@ class MaterialDePedidoRepository {
 
     fun getTituloDePedido(): String = pedido_1.getCodigoFormatado()
 
+    private fun checarCorretudeDosMateriais(list: List<MaterialDePedido>): Boolean{
+
+        for(item in list){
+
+            if(item.recebido + item.entregue > item.contratado ){
+                return false
+            }
+        }
+        return true
+    }
+
+    fun enviarEntregaDeMateriais(list: List<MaterialDePedido>): Observable<Boolean> {
+
+        if(!checarCorretudeDosMateriais(list)){
+            return Observable.create { subscriber ->
+                subscriber.onNext(false)
+                subscriber.onComplete()
+            }
+        }
+
+        return Observable.create { subscriber ->
+            subscriber.onNext(true)
+            subscriber.onComplete()
+        }
+    }
 }

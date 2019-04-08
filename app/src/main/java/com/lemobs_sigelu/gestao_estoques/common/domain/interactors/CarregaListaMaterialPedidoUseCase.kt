@@ -13,5 +13,8 @@ class CarregaListaMaterialPedidoUseCase @Inject constructor(val repository: Mate
 
     fun getTituloPedido() = repository.getTituloDePedido()
 
+    fun enviarEntregaDeMateriais(list: List<MaterialDePedido>): Observable<Boolean>{
+        return repository.enviarEntregaDeMateriais(list)
+    }
 
 }

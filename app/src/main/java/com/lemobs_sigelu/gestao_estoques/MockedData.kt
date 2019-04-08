@@ -1,9 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import java.util.*
 
 val pedido_1 = Pedido(1, "180001", "Inoã", "Centro", Date(), Date(), SituacaoPedido.EM_ANALISE)
@@ -21,4 +18,8 @@ val UNIDADES_MOCKADAS = listOf<UnidadeMedida>(unidade_medida_1, unidade_medida_2
 val material_de_pedido_1 = MaterialDePedido(1, "Areia", 1000.0,  500.0, unidade_medida_1)
 val material_de_pedido_2 = MaterialDePedido(1, "Água", 10.0,  1.1, unidade_medida_2)
 val MATERIAL_DE_PEDIDO_MOCKADOS = listOf<MaterialDePedido>(material_de_pedido_1, material_de_pedido_2)
+
+val situacao_de_pedido_1 = SituacaoDePedido(1, "Pedido feito", Date())
+val situacao_de_pedido_2 = SituacaoDePedido(2, "Entrega 1", Date())
+val situacoes_de_pedido = listOf<SituacaoDePedido>(situacao_de_pedido_1, situacao_de_pedido_2)
 

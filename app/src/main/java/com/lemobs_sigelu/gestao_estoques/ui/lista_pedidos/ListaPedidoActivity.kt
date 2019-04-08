@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos.ListaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido.VisualizarPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
@@ -70,12 +71,17 @@ class ListaPedidoActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaPedidoAdapter(applicationContext, list, entregaClickListener)
+        val adapter = ListaPedidoAdapter(applicationContext, list, entregaClickListener, visualizarPedidoClickListener)
         rv_lista.adapter = adapter
     }
 
     private val entregaClickListener = View.OnClickListener {
         val intent = Intent(applicationContext, ListaMateriaisPedidoActivity::class.java)
+        startActivity(intent)
+    }
+
+    private val visualizarPedidoClickListener = View.OnClickListener {
+        val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
         startActivity(intent)
     }
 
