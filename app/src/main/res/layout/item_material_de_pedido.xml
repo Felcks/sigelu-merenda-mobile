@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:id="@+id/ll_borda"
+                                             android:background="@android:color/darker_gray"
+                                             android:layout_marginTop="@dimen/espacamento_medio"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@android:color/white"
+                                                 android:padding="@dimen/espacamento_medio"
+                                                 android:layout_marginBottom="@dimen/espacamento_minimo">
+
+        <TextView android:id="@+id/tv_nome_material"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="20sp"
+                  android:textColor="@color/primary_text"
+                  android:text="Areia"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+        <TextView
+                android:id="@+id/tv_pedido_total_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pedido Total: "
+                android:layout_marginTop="@dimen/espacamento_curto"
+                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+        <TextView android:id="@+id/tv_pedido_total"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="50"
+                  android:textColor="@color/primary_text"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_pedido_total_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"
+        />
+
+        <TextView android:id="@+id/tv_material_recebido_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Recebido: "
+                  app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
+                  app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+        <TextView android:id="@+id/tv_material_recebido"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/primary_text"
+                  android:text="20"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_material_recebido_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"
+        />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -138,6 +138,9 @@ dependencies {
 
     /* FloatActionButton com subFabs */
     implementation 'com.github.clans:fab:1.6.4'
+
+    /* TIMELINE VIEW */
+    implementation 'com.github.vipulasri:timelineview:1.0.6'
 }
 
 android {

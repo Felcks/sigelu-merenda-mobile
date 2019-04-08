@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaPedidoUseCase
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,15 +18,13 @@ class ListaPedidoViewModel(val carregaListaPedidoUseCase: CarregaListaPedidoUseC
         disposables.clear()
     }
 
-    fun carregaLista() {
-        carregarLista(carregaListaPedidoUseCase)
-    }
+
 
     fun response(): MutableLiveData<Response> {
         return response
     }
 
-    fun carregarLista(carregaListaPedidoUseCase: CarregaListaPedidoUseCase) {
+    fun carregaLista(){
 
         disposables.add(carregaListaPedidoUseCase.executa()
             .subscribeOn(Schedulers.io())
@@ -36,5 +35,9 @@ class ListaPedidoViewModel(val carregaListaPedidoUseCase: CarregaListaPedidoUseC
                 { throwable -> response.setValue(Response.error(throwable)) }
             )
         )
+    }
+
+    fun armazenaIdDePedido(context: Context, id: Int){
+        carregaListaPedidoUseCase.armazenaIdDePedido(context, id)
     }
 }

@@ -80,21 +80,19 @@ class ListaPedidoActivity: AppCompatActivity() {
         startActivity(intent)
     }
 
-    private val visualizarPedidoClickListener = View.OnClickListener {
-        val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
-        startActivity(intent)
+    private val visualizarPedidoClickListener = object : ListClickListener {
+        override fun onClick(id: Int) {
+
+            viewModel!!.armazenaIdDePedido(applicationContext,id)
+            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        val actionBar : ActionBar? = supportActionBar
-
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_atualiza, menu)
-
-        if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true)
-        }
 
         return true
     }
