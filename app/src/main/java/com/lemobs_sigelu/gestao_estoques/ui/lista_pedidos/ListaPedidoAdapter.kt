@@ -11,7 +11,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(val context: Context,
-                         val list: List<Pedido>): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
+                         val list: List<Pedido>,
+                         val entregaClickListener: View.OnClickListener): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -36,6 +37,7 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada()
         holder.itemView.tv_situacao.text = item.situacaoPedido.nomeVisualizacao
         holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacaoPedido.color)
+        holder.itemView.iv_entrega.setOnClickListener(entregaClickListener)
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

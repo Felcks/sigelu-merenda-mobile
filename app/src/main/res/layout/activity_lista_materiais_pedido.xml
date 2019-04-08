@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="match_parent"
+                                             android:padding="@dimen/espacamento_medio"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:id="@+id/ll_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccentDark"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título do pedido escrito pelo programador"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView android:id="@+id/rv_lista"
+                                            app:layout_constraintTop_toBottomOf="@id/ll_titulo"
+                                            app:layout_constraintLeft_toLeftOf="parent"
                                             android:layout_width="match_parent"
-                                            android:layout_height="match_parent"/>
+                                            android:layout_height="wrap_content"/>
 
 </android.support.constraint.ConstraintLayout>

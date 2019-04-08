@@ -7,9 +7,11 @@ import javax.inject.Inject
 
 class CarregaListaMaterialPedidoUseCase @Inject constructor(val repository: MaterialDePedidoRepository) {
 
-    fun executa(pedido_id: Int): Observable<List<MaterialDePedido>> {
-        return repository.getMateriais(pedido_id)
+    fun getListaMaterialPedido(): Observable<List<MaterialDePedido>> {
+        return repository.getMateriaisDePedido()
     }
+
+    fun getTituloPedido() = repository.getTituloDePedido()
 
 
 }

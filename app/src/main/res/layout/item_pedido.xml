@@ -29,13 +29,13 @@
                 android:text="Pedido nº 320005"
                 android:textColor="@android:color/white"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="@id/iv_alert"
+                app:layout_constraintRight_toRightOf="@id/iv_entrega"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintRight_toLeftOf="@id/iv_alert"
+                app:layout_constraintRight_toLeftOf="@id/iv_entrega"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
         <ImageView
-                android:id="@+id/iv_alert"
+                android:id="@+id/iv_entrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -164,8 +164,6 @@
                     app:layout_constraintRight_toRightOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
-
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

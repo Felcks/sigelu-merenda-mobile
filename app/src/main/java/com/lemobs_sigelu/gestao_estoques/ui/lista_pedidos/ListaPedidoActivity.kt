@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -10,10 +11,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos.ListaMateriaisPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
@@ -23,7 +27,6 @@ class ListaPedidoActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ListaPedidoViewModelFactory
     var viewModel: ListaPedidoViewModel? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -67,8 +70,13 @@ class ListaPedidoActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaPedidoAdapter(applicationContext, list)
+        val adapter = ListaPedidoAdapter(applicationContext, list, entregaClickListener)
         rv_lista.adapter = adapter
+    }
+
+    private val entregaClickListener = View.OnClickListener {
+        val intent = Intent(applicationContext, ListaMateriaisPedidoActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,6 +97,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         return when (item?.itemId) {
             R.id.btn_update -> {
+                viewModel!!.carregaLista()
                 true
             }
             else -> super.onOptionsItemSelected(item)
