@@ -40,4 +40,30 @@ class VisualizarPedidoViewModel(val useCase: VisualizarPedidoUseCase): ViewModel
         )
     }
 
+    fun carregarMateriaisDePedido(context: Context) {
+
+        disposables.add(useCase.getMateriaisDePedido(context)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result -> response.setValue(Response.success(result)) },
+                { throwable -> response.setValue(Response.error(throwable)) }
+            )
+        )
+    }
+
+    fun carregarSituacoesDePedido(context: Context){
+
+        disposables.add(useCase.getSituacoesDoPedido(context)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result -> response.setValue(Response.success(result)) },
+                { throwable -> response.setValue(Response.error(throwable)) }
+            )
+        )
+    }
+
 }

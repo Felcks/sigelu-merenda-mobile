@@ -44,7 +44,6 @@ class GeralFragment: Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregarPedido(this.context!!)
-
     }
 
     fun processResponse(response: Response?) {

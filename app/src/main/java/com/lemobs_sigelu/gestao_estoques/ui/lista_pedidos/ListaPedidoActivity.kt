@@ -37,6 +37,8 @@ class ListaPedidoActivity: AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaLista()
+
+        this.iniciarAdapter(listOf())
     }
 
     fun processResponse(response: Response?) {
