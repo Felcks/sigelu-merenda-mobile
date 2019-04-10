@@ -4,7 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import java.util.*
 
 val pedido_1 = Pedido(0, "180001", "Inoã", "Centro", Date(), Date(), SituacaoPedido.EM_ANALISE)
-val pedido_2 = Pedido(1, "180002", "Centro", "Capuaçu", Date(), Date(), SituacaoPedido.APROVADO)
+val pedido_2 = Pedido(1, "180002", "Calaboca", "Capuaçu", Date(), Date(), SituacaoPedido.APROVADO)
 val pedido_3 = Pedido(2, "180003", "Itacuruça", "Itaguai", Date(), Date(), SituacaoPedido.ENTREGUE)
 val pedido_4 = Pedido(3, "180004", "Venezuela", "Matro grosso", Date(), Date(), SituacaoPedido.REPROVADO)
 val pedido_5 = Pedido(4, "180005", "Israel", "florentina", Date(), Date(), SituacaoPedido.PARCIAL)

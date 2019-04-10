@@ -19,7 +19,7 @@ class FlowSharedPreferences {
             editor.apply()
         }
 
-        fun getUserId(context: Context): Int {
+        fun getPedidoId(context: Context): Int {
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
             return prefs.getInt(KEY_PEDIDO_ID, -1)
         }

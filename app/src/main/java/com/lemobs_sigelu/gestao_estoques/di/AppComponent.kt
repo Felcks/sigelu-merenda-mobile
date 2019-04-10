@@ -4,13 +4,16 @@ import com.lemobs_sigelu.gestao_estoques.App
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(
     AndroidInjectionModule::class,
     AppModule::class,
-    ActivitiesModule::class))
+    AndroidSupportInjectionModule::class,
+    ActivitiesModule::class,
+    FragmentsModule::class))
 
 interface AppComponent {
 

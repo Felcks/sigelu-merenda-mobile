@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoDePedido
@@ -9,17 +10,17 @@ import javax.inject.Inject
 
 class VisualizarPedidoUseCase @Inject constructor(val repository: VisualizarPedidoRepository) {
 
-    fun getPedido(): Observable<Pedido> {
-        return repository.getPedido()
+    fun getPedido(context: Context): Observable<Pedido> {
+        return repository.getPedido(context)
     }
 
-    fun getTituloPedido() = repository.getTituloDePedido()
+    fun getTituloPedido(context: Context) = repository.getTituloDePedido(context)
 
-    fun getSituacoesDoPedido(): Observable<List<SituacaoDePedido>> {
-        return repository.getSituacoesDoPedido()
+    fun getSituacoesDoPedido(context: Context): Observable<List<SituacaoDePedido>> {
+        return repository.getSituacoesDoPedido(context)
     }
 
-    fun getMateriaisDePedido(): Observable<List<MaterialDePedido>> {
-        return repository.getMateriaisDePedido()
+    fun getMateriaisDePedido(context: Context): Observable<List<MaterialDePedido>> {
+        return repository.getMateriaisDePedido(context)
     }
 }
