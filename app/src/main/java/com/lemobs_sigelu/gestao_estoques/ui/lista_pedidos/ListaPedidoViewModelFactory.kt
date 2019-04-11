@@ -2,9 +2,9 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoUseCase
 
-class ListaPedidoViewModelFactory (val useCase: CarregaListaPedidoUseCase): ViewModelProvider.Factory{
+class ListaPedidoViewModelFactory (val useCase: ListaPedidoUseCase): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListaPedidoViewModel::class.java!!)) {

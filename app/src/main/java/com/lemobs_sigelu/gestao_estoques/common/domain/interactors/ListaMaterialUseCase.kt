@@ -5,9 +5,9 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.MaterialReposi
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CarregaListaMaterialUseCase @Inject constructor(val repository: MaterialRepository): CarregadorDeListagem<Material> {
+class ListaMaterialUseCase @Inject constructor(val repository: MaterialRepository) {
 
-    override fun executa(): Observable<List<Material>> {
+    fun executa(): Observable<List<Material>> {
         return repository.getMateriais()
     }
 }

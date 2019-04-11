@@ -27,22 +27,4 @@ class VisualizarPedidoRepository {
         val pedido = PEDIDOS_MOCKADOS[pedido_id]
         return pedido.getCodigoFormatado()
     }
-
-    fun getSituacoesDoPedido(context: Context): Observable<List<SituacaoDePedido>> {
-
-        return Observable.create { subscribe ->
-            val pedido_id = FlowSharedPreferences.getPedidoId(context)
-            subscribe.onNext(LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS[pedido_id])
-            subscribe.onComplete()
-        }
-    }
-
-    fun getMateriaisDePedido(context: Context): Observable<List<MaterialDePedido>> {
-
-        return Observable.create { subscribe ->
-            val pedido_id = FlowSharedPreferences.getPedidoId(context)
-            subscribe.onNext(LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS[pedido_id])
-            subscribe.onComplete()
-        }
-    }
 }

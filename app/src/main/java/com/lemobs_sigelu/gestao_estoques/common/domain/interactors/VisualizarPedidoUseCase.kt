@@ -4,23 +4,27 @@ import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaSituacaoPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.VisualizarPedidoRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class VisualizarPedidoUseCase @Inject constructor(val repository: VisualizarPedidoRepository) {
+class VisualizarPedidoUseCase @Inject constructor(val visualizarRepository: VisualizarPedidoRepository,
+                                                  val carregaListaMaterialPedidoRepository: CarregaListaMaterialPedidoRepository,
+                                                  val carregaListaSituacaoPedidoRespository: CarregaListaSituacaoPedidoRepository) {
 
     fun getPedido(context: Context): Observable<Pedido> {
-        return repository.getPedido(context)
+        return visualizarRepository.getPedido(context)
     }
 
-    fun getTituloPedido(context: Context) = repository.getTituloDePedido(context)
+    fun getTituloPedido(context: Context) = visualizarRepository.getTituloDePedido(context)
 
     fun getSituacoesDoPedido(context: Context): Observable<List<SituacaoDePedido>> {
-        return repository.getSituacoesDoPedido(context)
+        return carregaListaSituacaoPedidoRespository.getSituacoesDePedido(context)
     }
 
     fun getMateriaisDePedido(context: Context): Observable<List<MaterialDePedido>> {
-        return repository.getMateriaisDePedido(context)
+        return carregaListaMaterialPedidoRepository.getMateriaisDePedido(context)
     }
 }

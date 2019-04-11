@@ -2,13 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaMaterialUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaMaterialUseCase
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ListaMaterialViewModel(val carregaListaObraUseCase: CarregaListaMaterialUseCase): ViewModel() {
+class ListaMaterialViewModel(val carregaListaObraUseCase: ListaMaterialUseCase): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -25,7 +25,7 @@ class ListaMaterialViewModel(val carregaListaObraUseCase: CarregaListaMaterialUs
         return response
     }
 
-    private fun carregarLista(carregaListaObraUseCase: CarregaListaMaterialUseCase) {
+    private fun carregarLista(carregaListaObraUseCase: ListaMaterialUseCase) {
 
         disposables.add(carregaListaObraUseCase.executa()
             .subscribeOn(Schedulers.io())

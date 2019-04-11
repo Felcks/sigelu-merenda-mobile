@@ -1,10 +1,9 @@
-package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos
+package com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,8 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import kotlinx.android.synthetic.main.item_material_entrega.view.*
 
-class ListaMateriaisPedidoAdapter(val context: Context,
-                                  val list: List<MaterialDePedido>): RecyclerView.Adapter<ListaMateriaisPedidoAdapter.MyViewHolder>() {
+class EntregaMateriaisPedidoAdapter(val context: Context,
+                                    val list: List<MaterialDePedido>): RecyclerView.Adapter<EntregaMateriaisPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -35,6 +34,7 @@ class ListaMateriaisPedidoAdapter(val context: Context,
         holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.unidadeMedida.sigla}"
         holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.unidadeMedida.sigla}"
         holder.itemView.tv_unidade_medida.text = item.unidadeMedida.sigla
+        holder.itemView.edt_quantidade_entregue.setText("")
 
         holder.itemView.edt_quantidade_entregue.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -58,6 +58,10 @@ class ListaMateriaisPedidoAdapter(val context: Context,
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    fun updateAllItens(){
+        notifyDataSetChanged()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -16,8 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
-import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos.ListaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido.VisualizarPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
@@ -36,7 +34,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregaLista()
+        viewModel!!.carregaListaPedido()
 
         this.iniciarAdapter(listOf())
     }
@@ -78,14 +76,14 @@ class ListaPedidoActivity: AppCompatActivity() {
     }
 
     private val entregaClickListener = View.OnClickListener {
-        val intent = Intent(applicationContext, ListaMateriaisPedidoActivity::class.java)
+        val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
         startActivity(intent)
     }
 
     private val visualizarPedidoClickListener = object : ListClickListener {
         override fun onClick(id: Int) {
 
-            viewModel!!.armazenaIdDePedido(applicationContext,id)
+            viewModel!!.armazenaPedidoNoFluxo(applicationContext,id)
             val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             startActivity(intent)
         }
@@ -103,7 +101,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         return when (item?.itemId) {
             R.id.btn_update -> {
-                viewModel!!.carregaLista()
+                viewModel!!.carregaListaPedido()
                 true
             }
             else -> super.onOptionsItemSelected(item)

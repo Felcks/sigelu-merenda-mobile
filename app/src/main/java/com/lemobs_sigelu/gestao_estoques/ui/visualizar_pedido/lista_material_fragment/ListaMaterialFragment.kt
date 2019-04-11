@@ -73,4 +73,9 @@ class ListaMaterialFragment : Fragment() {
         val adapter = ListaMaterialAdapter(context!!, list)
         rv_lista.adapter = adapter
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel!!.carregarMateriaisDePedido(this.context!!)
+    }
 }

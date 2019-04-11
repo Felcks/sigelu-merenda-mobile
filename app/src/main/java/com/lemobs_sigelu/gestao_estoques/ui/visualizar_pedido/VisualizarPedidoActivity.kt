@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -9,14 +8,8 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.getDataFormatada
-import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos.ListaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import javax.inject.Inject
@@ -38,7 +31,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
         this.createTableLayout()
         btn_cadastrar_entrega_materiais.setOnClickListener {
-            val intent = Intent(this, ListaMateriaisPedidoActivity::class.java)
+            val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
             startActivity(intent)
         }
     }

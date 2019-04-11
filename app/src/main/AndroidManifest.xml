@@ -40,7 +40,7 @@
         </activity>
 
         <activity
-                android:name=".ui.lista_materiais_pedidos.ListaMateriaisPedidoActivity"
+                android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"
                 android:label="Cadastrar Entrega de Materiais"/>
 
         <activity android:name=".ui.visualizar_pedido.VisualizarPedidoActivity"

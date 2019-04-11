@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos
+package com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -14,32 +13,32 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.pedido_1
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_materiais_pedido.*
 import javax.inject.Inject
 
-class ListaMateriaisPedidoActivity: AppCompatActivity() {
+class EntregaMateriaisPedidoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ListaMateriaisPedidoViewModelFactory
-    var viewModel: ListaMateriaisPedidoViewModel? = null
+    lateinit var viewModelFactory: EntregaMateriaisPedidoViewModelFactory
+    var viewModel: EntregaMateriaisPedidoViewModel? = null
 
-    private var adapter: ListaMateriaisPedidoAdapter? = null
+    private var adapter: EntregaMateriaisPedidoAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_materiais_pedido)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaMateriaisPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(EntregaMateriaisPedidoViewModel::class.java)
 
-        tv_titulo.text = viewModel!!.getTituloPedido()
+        tv_titulo.text = viewModel!!.getTituloPedido(applicationContext)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarLista()
+        viewModel!!.carregarLista(applicationContext)
 
         viewModel!!.responseEnvioDeMaterial.observe(this, Observer<Response> { response -> processResponseEnvioMaterial(response)})
+
+        this.iniciarAdapter(listOf())
     }
 
     fun processResponse(response: Response?) {
@@ -74,9 +73,10 @@ class ListaMateriaisPedidoActivity: AppCompatActivity() {
 
         if(result == true){
             Toast.makeText(this.applicationContext, "Envio com sucesso!", Toast.LENGTH_SHORT).show()
+            this.adapter?.updateAllItens()
         }
         else{
-            Toast.makeText(this.applicationContext, "Aconteceu algum erro bugado!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.applicationContext, "Existe itens com informações incorretas!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -91,7 +91,7 @@ class ListaMateriaisPedidoActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        this.adapter = ListaMateriaisPedidoAdapter(applicationContext, list)
+        this.adapter = EntregaMateriaisPedidoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
     }
 
@@ -100,7 +100,7 @@ class ListaMateriaisPedidoActivity: AppCompatActivity() {
         if(item?.itemId ==  R.id.btn_done){
 
             if(adapter != null)
-                this.viewModel!!.enviarMateriais(adapter!!.list)
+                this.viewModel!!.enviarMateriais(applicationContext, adapter!!.list)
         }
 
         return super.onOptionsItemSelected(item)

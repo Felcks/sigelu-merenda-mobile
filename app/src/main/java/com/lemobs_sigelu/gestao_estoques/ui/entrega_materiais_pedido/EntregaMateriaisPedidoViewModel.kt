@@ -1,15 +1,16 @@
-package com.lemobs_sigelu.gestao_estoques.ui.lista_materiais_pedidos
+package com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaMaterialPedidoUseCase
+import android.content.Context
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EntregaMaterialUseCase
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ListaMateriaisPedidoViewModel(val useCase: CarregaListaMaterialPedidoUseCase): ViewModel(){
+class EntregaMateriaisPedidoViewModel(val useCase: EntregaMaterialUseCase): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -23,12 +24,12 @@ class ListaMateriaisPedidoViewModel(val useCase: CarregaListaMaterialPedidoUseCa
         return response
     }
 
-    fun getTituloPedido() = useCase.getTituloPedido()
+    fun getTituloPedido(context: Context) = useCase.getTituloPedido(context)
 
 
-    fun carregarLista() {
+    fun carregarLista(context: Context) {
 
-        disposables.add(useCase.getListaMaterialPedido()
+        disposables.add(useCase.getListaMaterialPedido(context)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -39,9 +40,9 @@ class ListaMateriaisPedidoViewModel(val useCase: CarregaListaMaterialPedidoUseCa
         )
     }
 
-    fun enviarMateriais(list: List<MaterialDePedido>) {
+    fun enviarMateriais(context: Context, list: List<MaterialDePedido>) {
 
-        disposables.add(useCase.enviarEntregaDeMateriais(list)
+        disposables.add(useCase.enviarEntregaDeMateriais(context, list)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseEnvioDeMaterial.setValue(Response.loading()) }

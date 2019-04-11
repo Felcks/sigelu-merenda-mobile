@@ -1,7 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CarregaListaPedidoUseCase
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FluxoPedidoRepository
 import dagger.Module
 import dagger.Provides
 
@@ -9,12 +10,17 @@ import dagger.Provides
 class ListaPedidoModule {
 
     @Provides
-    fun provideListaPedido(): PedidoRepository {
-        return PedidoRepository()
+    fun provideCarregaListaPedidoRepo(): CarregaListaPedidoRepository {
+        return CarregaListaPedidoRepository()
     }
 
     @Provides
-    fun provideListaPedidoViewModelFactory(carregaListaPedidoUseCase: CarregaListaPedidoUseCase): ListaPedidoViewModelFactory {
-        return ListaPedidoViewModelFactory(carregaListaPedidoUseCase)
+    fun provideCarregaFluxoPedidoRepo(): FluxoPedidoRepository {
+        return FluxoPedidoRepository()
+    }
+
+    @Provides
+    fun provideListaPedidoViewModelFactory(listaPedidoUseCase: ListaPedidoUseCase): ListaPedidoViewModelFactory {
+        return ListaPedidoViewModelFactory(listaPedidoUseCase)
     }
 }
