@@ -63,25 +63,25 @@
 
         <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_item_cadastrar_pedido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_sheet"
                 fab:fab_size="mini"
-                fab:fab_label="Cadastrar pedido"
                 app:fab_colorNormal="@color/colorAccentDark"
                 app:fab_colorPressed="@color/colorAccent"
                 app:fab_colorRipple="@android:color/white"
+                app:fab_label="Cadastrar Novo Pedido"
         />
 
         <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_item_cadastrar_entrega"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_shopping_cart"
-                fab:fab_label="Cadastrar entrega"
                 app:fab_colorNormal="@color/colorAccentDark"
                 app:fab_colorPressed="@color/colorAccent"
                 app:fab_colorRipple="@android:color/white"
+                app:fab_label="Cadastrar Entrega Sem Pedido"
         />
 
     </com.github.clans.fab.FloatingActionMenu>

@@ -49,3 +49,8 @@ val LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS = listOf<List<SituacaoDePedido>>(
     listOf(situacao_de_pedido_0, situacao_de_pedido_4)
 )
 
+val obra_0 = Obra(0, "180000001")
+val obra_1 = Obra(1, "190000004")
+val obra_2 = Obra(2, "180000007")
+val LISTA_OBRAS_MOCKADAS = listOf<Obra>(obra_0, obra_1, obra_2)
+
