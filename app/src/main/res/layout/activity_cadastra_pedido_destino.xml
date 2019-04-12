@@ -10,12 +10,14 @@
             android:layout_height="100dp"
             android:text="Núcleo"
             android:textColor="@android:color/white"
-            android:background="@drawable/rounded_button_states"
-            app:layout_constraintVertical_bias="0.3"
+            android:background="@drawable/square_button_normal"
+            app:layout_constraintVertical_bias="0.01"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginLeft="@dimen/espacamento_curto"
     />
 
     <Button
@@ -24,12 +26,26 @@
             android:layout_height="100dp"
             android:text="Obra"
             android:textColor="@android:color/white"
-            android:background="@drawable/rounded_button_states"
-            app:layout_constraintVertical_bias="0.6"
+            android:background="@drawable/square_button_normal"
+            app:layout_constraintVertical_bias="0.01"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginRight="@dimen/espacamento_curto"
     />
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_lista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/btn_obra"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/espacamento_medio"
+    >
+
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

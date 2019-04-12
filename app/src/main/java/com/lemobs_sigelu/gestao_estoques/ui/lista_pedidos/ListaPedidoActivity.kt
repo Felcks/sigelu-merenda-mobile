@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastrar_pedido_destino.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido.VisualizarPedidoActivity
 import dagger.android.AndroidInjection
@@ -37,6 +38,11 @@ class ListaPedidoActivity: AppCompatActivity() {
         viewModel!!.carregaListaPedido()
 
         this.iniciarAdapter(listOf())
+
+        menu_item_cadastrar_pedido.setOnClickListener {
+            val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun processResponse(response: Response?) {
@@ -47,22 +53,15 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderLoadingState() {
-
-        Log.i("script2", "Carregando")
-    }
+    private fun renderLoadingState() {}
 
     private fun renderDataState(result: Any?) {
-
-        Log.i("script2", "sucesso ao carregar")
         if(result is List<*>){
             this.iniciarAdapter(result as List<Pedido>)
         }
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-
-        Log.i("script2", "Erro ao carregar")
     }
 
     private fun iniciarAdapter(list: List<Pedido>){
@@ -73,20 +72,6 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         val adapter = ListaPedidoAdapter(applicationContext, list, entregaClickListener, visualizarPedidoClickListener)
         rv_lista.adapter = adapter
-    }
-
-    private val entregaClickListener = View.OnClickListener {
-        val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
-        startActivity(intent)
-    }
-
-    private val visualizarPedidoClickListener = object : ListClickListener {
-        override fun onClick(id: Int) {
-
-            viewModel!!.armazenaPedidoNoFluxo(applicationContext,id)
-            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,6 +90,20 @@ class ListaPedidoActivity: AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private val entregaClickListener = View.OnClickListener {
+        val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
+        startActivity(intent)
+    }
+
+    private val visualizarPedidoClickListener = object : ListClickListener {
+        override fun onClick(id: Int) {
+
+            viewModel!!.armazenaPedidoNoFluxo(applicationContext,id)
+            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+            startActivity(intent)
         }
     }
 }
