@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fillViewport="true"
+              android:gravity="center_horizontal"
+              android:background="@android:color/white"
+              android:focusedByDefault="true"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:id="@+id/ll_all">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme"
+            app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:elevation="0dp"
+                app:popupTheme="@style/AppTheme"
+                app:title="Selecione um material"
+                app:titleTextColor="@android:color/white"
+                app:titleTextAppearance="@style/Toolbar.TitleText">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+        <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                android:id="@+id/search_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edit_text_states"
+                android:hint="Buscar material"
+                android:textColor="@color/secondary_text"
+                android:textSize="14dp"
+                android:drawablePadding="8dp"
+                android:padding="12dp"
+                android:maxLines="1"
+                android:nextFocusUp="@id/ll_all"
+                android:nextFocusLeft="@id/ll_all"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:drawableLeft="@drawable/ic_magnifying_glass"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+            <!--<include layout="@layout/progressbar_carregamento"-->
+                     <!--android:id="@+id/ll_loading"-->
+                     <!--android:visibility="gone"/>-->
+
+            <!--<include layout="@layout/textview_erro_insumos"-->
+                     <!--android:id="@+id/ll_erro"-->
+                     <!--android:visibility="gone"/>-->
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:visibility="visible"
+                    android:layout_marginTop="16dp">
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

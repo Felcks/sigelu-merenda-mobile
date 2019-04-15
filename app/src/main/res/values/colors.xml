@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#44B8B5</color>
     <color name="colorAccentDark">#009fa3</color>
+    <color name="divider">#BDBDBD</color>
 
     <!-- Cores auxiliares -->
     <color name="primary_text">#222222</color>

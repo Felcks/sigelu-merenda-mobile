@@ -14,6 +14,7 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
 
     private val disposables = CompositeDisposable()
     var responseObras = MutableLiveData<Response>()
+    var responseFluxo = MutableLiveData<Response>()
 
     override fun onCleared() {
         disposables.clear()
@@ -22,6 +23,8 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
     fun response(): MutableLiveData<Response> {
         return responseObras
     }
+
+    fun responseFluxo(): MutableLiveData<Response> = responseFluxo
 
     fun carregaListaObra(context: Context) {
 
@@ -36,8 +39,19 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
         )
     }
 
-    fun confirmaPedido(context: Context) {
+    fun confirmaPedido(context: Context, obraSelecionadaId: Int) {
 
+        responseFluxo.value = Response.loading()
+        try {
+            if(cadastrarPedidoDestinoUseCase.confirmaDestinoDePedido(context, obraSelecionadaId)){
+                responseFluxo.value = Response.success(true)
+            } else{
+                responseFluxo.value = Response.success(false)
+            }
+        }
+        catch (t: Throwable){
+            responseFluxo.value = Response.error(t)
+        }
     }
 
     fun setDestinoPedidoNucleo(){
@@ -48,7 +62,5 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
         cadastrarPedidoDestinoUseCase.setDestinoPedidoObra()
     }
 
-    fun setObraPedido(obra: Obra){
-        cadastrarPedidoDestinoUseCase.setObraPedido(obra)
-    }
+
 }

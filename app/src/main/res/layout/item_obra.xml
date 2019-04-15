@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/ll_obra"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:orientation="vertical"
+                                             android:clickable="true"
+                                             android:focusable="true">
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:textAlignment="inherit"
+            android:gravity="start"
+            android:padding="@dimen/espacamento_grande"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="18000002 - Construção / Estrada do Espirado"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="@id/iv_entrega"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toLeftOf="@id/iv_entrega"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+            android:orientation="vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingLeft="@dimen/espacamento_medio"
+            android:paddingRight="@dimen/espacamento_medio">
+
+        <TextView
+                android:id="@+id/layout_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distância:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintLeft_toRightOf="@id/layout_1"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+
+        <TextView
+                android:id="@+id/layout_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_1"
+                android:text="Conclusão Prevista:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/layout_1"
+                app:layout_constraintLeft_toRightOf="@id/layout_2"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+        <TextView
+                android:id="@+id/layout_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_2"
+                android:text="Situação:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/layout_2"
+                app:layout_constraintLeft_toRightOf="@+id/layout_3"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+        <TextView
+                android:id="@+id/layout_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_3"
+                android:text="Endereço:"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/layout_3"
+                app:layout_constraintLeft_toRightOf="@+id/layout_4"
+                android:text="-"
+                android:padding="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text" />
+
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/rl_situacao"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/rounded_button_states"
+                android:gravity="center"
+                android:padding="@dimen/espacamento_medio"
+                app:layout_constraintTop_toBottomOf="@id/layout_4"
+                tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                    android:id="@+id/tv_situacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="Previsão de conclusão em"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

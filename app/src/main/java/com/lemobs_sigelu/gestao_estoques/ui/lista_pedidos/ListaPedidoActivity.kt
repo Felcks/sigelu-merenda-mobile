@@ -6,12 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.adapters.ListaPedidoAdapter
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -70,7 +70,12 @@ class ListaPedidoActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaPedidoAdapter(applicationContext, list, entregaClickListener, visualizarPedidoClickListener)
+        val adapter = ListaPedidoAdapter(
+            applicationContext,
+            list,
+            entregaClickListener,
+            visualizarPedidoClickListener
+        )
         rv_lista.adapter = adapter
     }
 

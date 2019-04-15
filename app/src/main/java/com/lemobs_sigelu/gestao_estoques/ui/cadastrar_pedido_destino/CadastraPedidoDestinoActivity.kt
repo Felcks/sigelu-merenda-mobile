@@ -3,16 +3,22 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastrar_pedido_destino
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import com.lemobs_sigelu.gestao_estoques.MainActivity
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_destino.*
 import javax.inject.Inject
@@ -23,8 +29,9 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     lateinit var viewModelFactory: CadastraPedidoDestinoViewModelFactory
     var viewModel: CadastraPedidoDestinoViewModel? = null
 
-    var colorAccent: Int = 0
-    var colorAccentDark: Int = 0
+    private var colorAccent: Int = 0
+    private var colorAccentDark: Int = 0
+    private var adapter: ListaObraAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -33,6 +40,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraPedidoDestinoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseFluxo().observe(this, Observer<Response> { response -> processResponseFluxo(response) })
         viewModel!!.carregaListaObra(applicationContext)
 
         this.colorAccent = ContextCompat.getColor(applicationContext, R.color.colorAccent)
@@ -42,12 +50,14 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
             btn_nucleo.setBackgroundColor(colorAccent)
             btn_obra.setBackgroundColor(colorAccentDark)
             viewModel!!.setDestinoPedidoNucleo()
+            rv_lista.visibility = View.GONE
         }
 
         btn_obra.setOnClickListener {
             btn_obra.setBackgroundColor(colorAccent)
             btn_nucleo.setBackgroundColor(colorAccentDark)
             viewModel!!.setDestinoPedidoObra()
+            rv_lista.visibility = View.VISIBLE
         }
     }
 
@@ -62,20 +72,46 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     private fun renderLoadingState() {
     }
 
+    private fun renderErrorState(throwable: Throwable?) {
+    }
+
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-
+            this.iniciarAdapter(result)
         }
     }
 
-    private fun renderErrorState(throwable: Throwable?) {
+    fun processResponseFluxo(response: Response?){
+        when(response?.status) {
+            Status.SUCCESS -> renderResponseFluxo()
+            Status.ERROR -> renderErrorState(response.error)
+        }
+    }
+
+    fun renderResponseFluxo(){
+        val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun renderErroFluxo(){
+
+    }
+
+    private fun iniciarAdapter(list: List<*>){
+
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista.layoutManager = layoutManager
+
+        this.adapter = ListaObraAdapter(applicationContext, list)
+        rv_lista.adapter = adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId ==  R.id.btn_done){
-            viewModel!!.confirmaPedido(applicationContext)
+            viewModel!!.confirmaPedido(applicationContext, adapter?.getObraSelecionadaId() ?: 0)
         }
 
         return super.onOptionsItemSelected(item)
@@ -94,5 +130,12 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private val obraClickListener = View.OnClickListener {
+        //viewModel!!.setObraPedido()
+
+        //val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
+        //startActivity(intent)
     }
 }

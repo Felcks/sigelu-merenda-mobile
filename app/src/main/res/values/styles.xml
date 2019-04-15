@@ -16,4 +16,9 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <!-- Toolbar title theme -->
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

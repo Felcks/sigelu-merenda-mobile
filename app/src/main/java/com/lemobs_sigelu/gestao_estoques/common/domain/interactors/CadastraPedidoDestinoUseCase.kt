@@ -15,10 +15,6 @@ class CadastraPedidoDestinoUseCase @Inject constructor(val carregaListaObraRepos
         return carregaListaObraRepository.getObras()
     }
 
-    fun confirmaDestinoDePedido(context: Context) {
-        fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(context)
-    }
-
     fun setDestinoPedidoNucleo(){
         fluxoCadastraPedidoDestinoRepository.setDestinoPedidoNucleo()
     }
@@ -27,7 +23,7 @@ class CadastraPedidoDestinoUseCase @Inject constructor(val carregaListaObraRepos
         fluxoCadastraPedidoDestinoRepository.setDestinoPedidoObra()
     }
 
-    fun setObraPedido(obra: Obra){
-        fluxoCadastraPedidoDestinoRepository.setObraPedido(obra)
+    fun confirmaDestinoDePedido(context: Context, obraSelecionadaId: Int): Boolean {
+        return fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(context, obraSelecionadaId)
     }
 }

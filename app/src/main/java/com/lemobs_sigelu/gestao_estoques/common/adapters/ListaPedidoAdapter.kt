@@ -1,19 +1,20 @@
-package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
+package com.lemobs_sigelu.gestao_estoques.common.adapters
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListClickListener
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(val context: Context,
                          val list: List<Pedido>,
                          val entregaClickListener: View.OnClickListener,
-                         val visualizarPedidoClickListener: ListClickListener): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
+                         val visualizarPedidoClickListener: ListClickListener
+): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 

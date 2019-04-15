@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
             android:id="@+id/btn_nucleo"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="Núcleo"
             android:textColor="@android:color/white"
             android:background="@drawable/square_button_normal"
@@ -16,14 +16,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="0.25"
             android:layout_marginLeft="@dimen/espacamento_curto"
     />
 
     <Button
             android:id="@+id/btn_obra"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="Obra"
             android:textColor="@android:color/white"
             android:background="@drawable/square_button_normal"
@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_bias=".75"
             android:layout_marginRight="@dimen/espacamento_curto"
     />
 
@@ -43,6 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/btn_obra"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/espacamento_medio"
     >
 
