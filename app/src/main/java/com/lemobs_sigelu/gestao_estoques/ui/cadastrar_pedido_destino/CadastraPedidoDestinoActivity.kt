@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.MainActivity
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.adapters.ListaObraAdapter
@@ -84,14 +85,23 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
     fun processResponseFluxo(response: Response?){
         when(response?.status) {
-            Status.SUCCESS -> renderResponseFluxo()
+            Status.SUCCESS -> renderResponseFluxo(response.data)
             Status.ERROR -> renderErrorState(response.error)
+            else -> {}
         }
     }
 
-    fun renderResponseFluxo(){
-        val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
-        startActivity(intent)
+    fun renderResponseFluxo(result: Any?){
+
+        if(result is Boolean) {
+            if(result) {
+                val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(applicationContext, "Selecione um destino para o pedido", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun renderErroFluxo(){
@@ -130,12 +140,5 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    private val obraClickListener = View.OnClickListener {
-        //viewModel!!.setObraPedido()
-
-        //val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
-        //startActivity(intent)
     }
 }

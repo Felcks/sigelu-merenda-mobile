@@ -10,8 +10,11 @@ class CadastraPedidoDestinoRepository {
 
     var pedidoDeCadastro: PedidoDeCadastro? = null
 
-    fun confirmaPedidoDestino(context: Context, obraSelecionadaId: Int): Boolean{
+    fun confirmaPedidoDestino(context: Context, obraSelecionadaId: Int): Boolean {
 
+        if(pedidoDeCadastro == null){
+            return false
+        }
 
         if(pedidoDeCadastro?.destino == PedidoDeCadastro.Companion.PedidoDestino.OBRA){
             //TODO Buscar no banco por Index não por posição

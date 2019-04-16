@@ -47,7 +47,7 @@
                   android:label="Visualizando Pedido" />
 
         <activity android:name=".ui.cadastrar_pedido_destino.CadastraPedidoDestinoActivity"
-                  android:label="Destino do Pedido" />
+                  android:label="Selecione o Destino do Pedido" />
 
     </application>
 </manifest>
