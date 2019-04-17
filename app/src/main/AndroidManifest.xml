@@ -43,11 +43,14 @@
                 android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"
                 android:label="Cadastrar Entrega de Materiais"/>
 
-        <activity android:name=".ui.visualizar_pedido.VisualizarPedidoActivity"
+        <activity android:name=".ui.visualiza_pedido.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
 
-        <activity android:name=".ui.cadastrar_pedido_destino.CadastraPedidoDestinoActivity"
+        <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
                   android:label="Selecione o Destino do Pedido" />
+
+        <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
+                  android:label="Adicione um Material ao Pedido" />
 
     </application>
 </manifest>

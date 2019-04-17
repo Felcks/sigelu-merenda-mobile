@@ -1,15 +1,17 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
-import com.lemobs_sigelu.gestao_estoques.ui.cadastrar_pedido_destino.CadastraPedidoDestinoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastrar_pedido_destino.CadastraPedidoDestinoModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialModule
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoModule
-import com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido.VisualizarPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.visualizar_pedido.VisualizarPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -30,4 +32,7 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoDestinoModule::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(SelecionaMaterialPedidoModule::class))
+    abstract fun bindSelecionaMaterialPedidoActivity(): SelecionaMaterialPedidoActivity
 }

@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoUseCase
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FluxoPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaPedidoRepository
 import dagger.Module
 import dagger.Provides
 
@@ -15,8 +15,8 @@ class ListaPedidoModule {
     }
 
     @Provides
-    fun provideCarregaFluxoPedidoRepo(): FluxoPedidoRepository {
-        return FluxoPedidoRepository()
+    fun provideCarregaFluxoPedidoRepo(): SelecionaPedidoRepository {
+        return SelecionaPedidoRepository()
     }
 
     @Provides

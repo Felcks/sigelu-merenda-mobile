@@ -54,3 +54,19 @@ val obra_1 = Obra(1, "190000004")
 val obra_2 = Obra(2, "180000007")
 val LISTA_OBRAS_MOCKADAS = listOf<Obra>(obra_0, obra_1, obra_2)
 
+val MATERIAL_DISPONIVEL_CENTRAL = MATERIAL_DE_PEDIDO_MOCKADOS_1
+val MATERIAL_DISPONIVEL_NUCLEO = MATERIAL_DE_PEDIDO_MOCKADOS_4
+
+val MATERIAL_PARA_CADASTRO_1 = MaterialParaCadastro(0, "Areia", "Areia quente!", unidade_medida_1, 1000.0)
+val MATERIAL_PARA_CADASTRO_2 = MaterialParaCadastro(1, "Água", "Agua gelada", unidade_medida_2, 500.0)
+val MATERIAIS_PARA_CADASTRO_NUCLEO = listOf<MaterialParaCadastro>(MATERIAL_PARA_CADASTRO_1, MATERIAL_PARA_CADASTRO_2)
+
+val MATERIAL_PARA_CADASTRO_3 = MaterialParaCadastro(2, "Bica Corrida", "C O R R I D A", unidade_medida_1, 55.0)
+val MATERIAL_PARA_CADASTRO_4 = MaterialParaCadastro(3, "Bloco de 15", "Quinze", unidade_medida_2, 88.0)
+val MATERIAIS_PARA_CADASTRO_OBRA = listOf<MaterialParaCadastro>(MATERIAL_PARA_CADASTRO_3, MATERIAL_PARA_CADASTRO_4)
+
+
+/* Parte de pedido mockando um banco de dados */
+var pedidoDeCadastro: PedidoDeCadastro? = null
+var materiaisDePedido: MutableList<MaterialDePedido> = mutableListOf()
+

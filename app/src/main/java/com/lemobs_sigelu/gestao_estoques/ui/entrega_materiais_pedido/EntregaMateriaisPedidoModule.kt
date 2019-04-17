@@ -1,9 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EntregaMaterialUseCase
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FluxoEntregaMaterialPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.VisualizarPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialDoPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EntregaMaterialDoPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.VisualizaPedidoRepository
 import dagger.Module
 import dagger.Provides
 
@@ -11,18 +11,18 @@ import dagger.Provides
 class EntregaMateriaisPedidoModule {
 
     @Provides
-    fun provideCarregaListaMaterialRepo(): CarregaListaMaterialPedidoRepository {
-        return CarregaListaMaterialPedidoRepository()
+    fun provideCarregaListaMaterialRepo(): CarregaListaMaterialDoPedidoRepository {
+        return CarregaListaMaterialDoPedidoRepository()
     }
 
     @Provides
-    fun provideVisualizarPedidoRepo(): VisualizarPedidoRepository {
-        return VisualizarPedidoRepository()
+    fun provideVisualizarPedidoRepo(): VisualizaPedidoRepository {
+        return VisualizaPedidoRepository()
     }
 
     @Provides
-    fun fluxoEntregaMaterialPedidoRepo(): FluxoEntregaMaterialPedidoRepository {
-        return FluxoEntregaMaterialPedidoRepository()
+    fun fluxoEntregaMaterialPedidoRepo(): EntregaMaterialDoPedidoRepository {
+        return EntregaMaterialDoPedidoRepository()
     }
 
     @Provides
