@@ -1,5 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_materiais_pedido.VisualizaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_materiais_pedido.VisualizaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
@@ -35,4 +39,10 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(SelecionaMaterialPedidoModule::class))
     abstract fun bindSelecionaMaterialPedidoActivity(): SelecionaMaterialPedidoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(VisualizaMateriaisPedidoModule::class))
+    abstract fun bindVisualizaMateriaisPedidoActivity(): VisualizaMateriaisPedidoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraMaterialPedidoModule::class))
+    abstract fun bindCadastraMaterialPedidoActivity(): CadastraMaterialPedidoActivity
 }

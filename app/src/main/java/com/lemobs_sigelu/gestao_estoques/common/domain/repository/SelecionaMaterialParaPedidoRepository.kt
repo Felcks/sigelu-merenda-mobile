@@ -1,18 +1,20 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.MATERIAL_DE_PEDIDO_MOCKADOS
-import com.lemobs_sigelu.gestao_estoques.materiaisDePedido
+import com.lemobs_sigelu.gestao_estoques.*
+import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 
 class SelecionaMaterialParaPedidoRepository {
 
     fun selecionaMaterial(context: Context, id: Int): Boolean{
 
-        val material = MATERIAL_DE_PEDIDO_MOCKADOS[id]
-        if(!materiaisDePedido.contains(material)){
-            materiaisDePedido.add(material)
-            FlowSharedPreferences.setMaterialAdicionadoId(context, id)
+        //TODO finge que materiaisDeCadastro é a tabela no banco
+        //TODO Lembrar de conferir tudo por id e não por instância
+        val material = MATERIAIS_PARA_CADASTRO_NUCLEO[id]
+        if(!materiaisCadastrados.contains(material)){
+            materiaisCadastrados.add(material)
+            CadastraPedidoSharedPreferences.setMaterialAdicionadoId(context, id)
             return true
         }
         else{

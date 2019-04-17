@@ -52,5 +52,11 @@
         <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
                   android:label="Adicione um Material ao Pedido" />
 
+        <activity android:name=".ui.visualiza_materiais_pedido.VisualizaMateriaisPedidoActivity"
+                  android:label="Materiais Solicitados" />
+
+        <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
+                  android:label="Confirmar Pedido de Material"/>
+
     </application>
 </manifest>

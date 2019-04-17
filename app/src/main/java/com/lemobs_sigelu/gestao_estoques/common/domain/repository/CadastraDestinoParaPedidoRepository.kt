@@ -5,6 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.LISTA_OBRAS_MOCKADAS
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoDeCadastro
 import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
+import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 
 class CadastraDestinoParaPedidoRepository {
@@ -19,7 +20,7 @@ class CadastraDestinoParaPedidoRepository {
             //TODO Buscar no banco por Index não por posição
             val obra = LISTA_OBRAS_MOCKADAS[obraSelecionadaId]
             pedidoDeCadastro?.obra = obra
-            FlowSharedPreferences.setObraDestinoPedidoId(context, obraSelecionadaId)
+            CadastraPedidoSharedPreferences.setObraDestinoPedidoId(context, obraSelecionadaId)
         }
 
         //TODO Salvar o pedido no banco

@@ -61,12 +61,13 @@ val MATERIAL_PARA_CADASTRO_1 = MaterialParaCadastro(0, "Areia", "Areia quente!",
 val MATERIAL_PARA_CADASTRO_2 = MaterialParaCadastro(1, "Água", "Agua gelada", unidade_medida_2, 500.0)
 val MATERIAIS_PARA_CADASTRO_NUCLEO = listOf<MaterialParaCadastro>(MATERIAL_PARA_CADASTRO_1, MATERIAL_PARA_CADASTRO_2)
 
-val MATERIAL_PARA_CADASTRO_3 = MaterialParaCadastro(2, "Bica Corrida", "C O R R I D A", unidade_medida_1, 55.0)
-val MATERIAL_PARA_CADASTRO_4 = MaterialParaCadastro(3, "Bloco de 15", "Quinze", unidade_medida_2, 88.0)
+val MATERIAL_PARA_CADASTRO_3 = MaterialParaCadastro(1, "Bica Corrida", "CORRIDA", unidade_medida_1, 55.0)
+val MATERIAL_PARA_CADASTRO_4 = MaterialParaCadastro(0, "Bloco de 15", "Quinze", unidade_medida_2, 88.0)
 val MATERIAIS_PARA_CADASTRO_OBRA = listOf<MaterialParaCadastro>(MATERIAL_PARA_CADASTRO_3, MATERIAL_PARA_CADASTRO_4)
 
 
 /* Parte de pedido mockando um banco de dados */
 var pedidoDeCadastro: PedidoDeCadastro? = null
 var materiaisDePedido: MutableList<MaterialDePedido> = mutableListOf()
+var materiaisCadastrados = mutableListOf<MaterialParaCadastro>()
 
