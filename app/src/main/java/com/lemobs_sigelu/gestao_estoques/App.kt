@@ -31,4 +31,12 @@ class App : Application(), HasActivityInjector, HasSupportFragmentInjector {
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+
+    companion object {
+        lateinit var instance: App
+    }
+
+    init {
+        instance = this
+    }
 }

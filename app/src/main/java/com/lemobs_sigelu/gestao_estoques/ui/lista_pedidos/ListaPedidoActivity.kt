@@ -10,7 +10,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import com.j256.ormlite.support.ConnectionSource
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
+import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
+import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaPedidoAdapter
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -20,6 +25,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMate
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
+import java.util.*
 import javax.inject.Inject
 
 class ListaPedidoActivity: AppCompatActivity() {
@@ -33,6 +39,11 @@ class ListaPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_pedido)
 
+
+        DatabaseHelper.connectionSource
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        pedidoDAO.queryForAll()
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaListaPedido()
@@ -43,6 +54,23 @@ class ListaPedidoActivity: AppCompatActivity() {
             val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
             startActivity(intent)
         }
+
+        this.mockDatabase()
+    }
+
+    private fun mockDatabase(){
+
+        val situacaoDTO1 = SituacaoDTO(1, "Em análise")
+        val situacaoDTO2 = SituacaoDTO(2, "Aprovado")
+        val situacaoDTO3 = SituacaoDTO(3, "Entregue")
+        val situacaoDTO4 = SituacaoDTO(4, "Reprovado")
+        val situacaoDTO5 = SituacaoDTO(5, "Parcial")
+
+
+        val pedido_1 = PedidoDTO(0, "180001", "Inoã", "Centro", Date(), Date(), situacaoDTO1)
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        pedidoDAO.add(pedido_1)
+        //val pedido_2 = Pedido(1, "180002", "Calaboca", "Capuaçu", Date(), Date(), SituacaoPedido.APROVADO)
     }
 
     fun processResponse(response: Response?) {
