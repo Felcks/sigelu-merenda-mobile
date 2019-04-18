@@ -11,7 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.ui.visualiza_materiais_pedido.VisualizaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
 import javax.inject.Inject
@@ -53,15 +53,16 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
 
         if(item?.itemId == R.id.btn_done){
 
-            val valor = tv_5.text.toString().replace(',', '.').toDouble()
-            val resultado = viewModel!!.confirmaCadastroMaterial(applicationContext, valor)
-            if(resultado) {
-                val intent = Intent(this, VisualizaMateriaisPedidoActivity::class.java)
-                startActivity(intent)
-                this.finish()
-            }
-            else{
-                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+            if(tv_5.text.isNotEmpty()) {
+                val valor = tv_5.text.toString().replace(',', '.').toDouble()
+                val resultado = viewModel!!.confirmaCadastroMaterial(applicationContext, valor)
+                if (resultado) {
+                    val intent = Intent(this, ConfirmaMateriaisPedidoActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
+                } else {
+                    Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

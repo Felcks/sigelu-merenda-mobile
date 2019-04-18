@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:id="@+id/ll_borda"
+                                             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/ll_borda"
                                              android:background="@android:color/darker_gray"
                                              android:layout_marginTop="@dimen/espacamento_medio"
                                              android:layout_width="match_parent"
@@ -9,10 +9,12 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
+                                                 android:layout_height="154dp"
                                                  android:background="@android:color/white"
                                                  android:padding="@dimen/espacamento_medio"
-                                                 android:layout_margin="@dimen/espacamento_curto">
+                                                 android:layout_margin="@dimen/espacamento_curto"
+                                                 tools:layout_editor_absoluteY="2dp"
+                                                 tools:layout_editor_absoluteX="4dp">
 
         <TextView android:id="@+id/tv_nome_material"
                   android:layout_width="wrap_content"

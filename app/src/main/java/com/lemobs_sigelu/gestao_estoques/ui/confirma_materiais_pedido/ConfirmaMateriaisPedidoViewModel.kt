@@ -1,15 +1,15 @@
-package com.lemobs_sigelu.gestao_estoques.ui.visualiza_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaMateriaisPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoUseCase
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class VisualizaMateriaisPedidoViewModel (val useCase: VisualizaMateriaisPedidoUseCase): ViewModel() {
+class ConfirmaMateriaisPedidoViewModel (val useCase: CadastraMateriaisPedidoUseCase): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -33,5 +33,13 @@ class VisualizaMateriaisPedidoViewModel (val useCase: VisualizaMateriaisPedidoUs
                 { throwable -> response.setValue(Response.error(throwable)) }
             )
         )
+    }
+
+    fun confirmaPedido(context: Context): Boolean{
+        return useCase.confirmaPedido(context)
+    }
+
+    fun cancelaPedido(context: Context){
+        useCase.cancelaPedido(context)
     }
 }
