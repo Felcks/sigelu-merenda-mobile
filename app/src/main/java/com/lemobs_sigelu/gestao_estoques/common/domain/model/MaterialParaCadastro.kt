@@ -5,10 +5,16 @@ class MaterialParaCadastro (id: Int, nome: String, descricao: String, unidadeMed
 
     private var quantidade_pedida: Double = 0.0
 
-    fun setQuantidadePedida(valor: Double){
-        if(valor < quantidade_disponivel)
+    fun setQuantidadePedida(valor: Double): Boolean{
+        if(valor < quantidade_disponivel) {
             quantidade_pedida = valor
-        else
+            return true
+        }
+        else {
             quantidade_pedida = quantidade_disponivel
+            return false
+        }
     }
+
+    fun getQuantidadePedida(): Double = quantidade_pedida
 }

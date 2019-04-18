@@ -29,12 +29,12 @@ class CadastraPedidoSharedPreferences {
         }
 
 
-        fun getMaterialAdicionadoId(context: Context): Int {
+        fun getMaterialSelecionadoId(context: Context): Int {
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
             return prefs.getInt(KEY_MATERIAL_ADICIONADO_ID, -1)
         }
 
-        fun setMaterialAdicionadoId(context: Context, id: Int) {
+        fun setMaterialSelecionadoId(context: Context, id: Int) {
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
             val editor: SharedPreferences.Editor = prefs.edit()

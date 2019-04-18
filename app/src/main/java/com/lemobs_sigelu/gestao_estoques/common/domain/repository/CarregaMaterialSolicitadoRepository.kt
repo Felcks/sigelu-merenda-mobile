@@ -9,7 +9,7 @@ class CarregaMaterialSolicitadoRepository {
 
     fun carregaMaterial(context: Context): MaterialParaCadastro {
 
-        val materialId = CadastraPedidoSharedPreferences.getMaterialAdicionadoId(context)
+        val materialId = CadastraPedidoSharedPreferences.getMaterialSelecionadoId(context)
         return MATERIAIS_PARA_CADASTRO_OBRA[materialId]
     }
 }

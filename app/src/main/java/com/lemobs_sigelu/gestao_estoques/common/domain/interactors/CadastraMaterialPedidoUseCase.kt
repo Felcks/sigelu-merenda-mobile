@@ -9,8 +9,12 @@ import javax.inject.Inject
 class CadastraMaterialPedidoUseCase @Inject constructor(private val cadastraMaterialParaPedidoRepository: CadastraMaterialParaPedidoRepository,
                                                         private val carregaMaterialSolicitadoRepository: CarregaMaterialSolicitadoRepository) {
 
-    fun cadastraQuantidadeDeMaterial(context: Context, materialId: Int, value: Double){
-        cadastraMaterialParaPedidoRepository.cadastraQuantidadeDeMaterial(context, materialId, value)
+    fun cadastraQuantidadeDeMaterial(context: Context, value: Double): Boolean{
+        return cadastraMaterialParaPedidoRepository.cadastraQuantidadeDeMaterial(context, value)
+    }
+
+    fun confirmaCadastroMaterial(context: Context, valor: Double): Boolean{
+        return cadastraMaterialParaPedidoRepository.confirmaCadastroMaterial(context, valor)
     }
 
     fun carregaMaterialSolicitado(context: Context): MaterialParaCadastro{

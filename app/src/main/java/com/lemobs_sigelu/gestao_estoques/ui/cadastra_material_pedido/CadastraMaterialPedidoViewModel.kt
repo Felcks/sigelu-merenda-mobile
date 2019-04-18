@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraMaterialPedidoViewModel (val useCase: CadastraMaterialPedidoUseCase): ViewModel() {
+class CadastraMaterialPedidoViewModel (private val useCase: CadastraMaterialPedidoUseCase): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -25,5 +25,13 @@ class CadastraMaterialPedidoViewModel (val useCase: CadastraMaterialPedidoUseCas
 
     fun getMaterial(context: Context): MaterialParaCadastro {
         return useCase.carregaMaterialSolicitado(context)
+    }
+
+    fun setQuantidadeMaterial(context: Context, double: Double): Boolean {
+        return useCase.cadastraQuantidadeDeMaterial(context, double)
+    }
+
+    fun confirmaCadastroMaterial(context: Context, valor: Double): Boolean {
+        return useCase.confirmaCadastroMaterial(context, valor)
     }
 }

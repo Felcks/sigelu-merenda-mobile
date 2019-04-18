@@ -14,7 +14,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_lista_materiais_pedido.*
+import kotlinx.android.synthetic.main.activity_entrega_materiais_pedido.*
 import javax.inject.Inject
 
 class EntregaMateriaisPedidoActivity: AppCompatActivity() {
@@ -28,7 +28,7 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_materiais_pedido)
+        setContentView(R.layout.activity_entrega_materiais_pedido)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EntregaMateriaisPedidoViewModel::class.java)
 

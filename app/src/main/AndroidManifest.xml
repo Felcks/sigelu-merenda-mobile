@@ -53,7 +53,10 @@
                   android:label="Adicione um Material ao Pedido" />
 
         <activity android:name=".ui.visualiza_materiais_pedido.VisualizaMateriaisPedidoActivity"
-                  android:label="Materiais Solicitados" />
+                  android:label="Materiais Solicitados"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"
+                  android:theme="@style/AppThemeNoActionBar" />
 
         <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
                   android:label="Confirmar Pedido de Material"/>

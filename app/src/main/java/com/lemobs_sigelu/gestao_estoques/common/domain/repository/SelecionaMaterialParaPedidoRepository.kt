@@ -13,8 +13,7 @@ class SelecionaMaterialParaPedidoRepository {
         //TODO Lembrar de conferir tudo por id e não por instância
         val material = MATERIAIS_PARA_CADASTRO_NUCLEO[id]
         if(!materiaisCadastrados.contains(material)){
-            materiaisCadastrados.add(material)
-            CadastraPedidoSharedPreferences.setMaterialAdicionadoId(context, id)
+            CadastraPedidoSharedPreferences.setMaterialSelecionadoId(context, id)
             return true
         }
         else{
