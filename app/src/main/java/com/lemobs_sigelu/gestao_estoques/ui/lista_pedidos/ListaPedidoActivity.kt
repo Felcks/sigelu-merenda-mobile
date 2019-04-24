@@ -4,18 +4,18 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import com.j256.ormlite.support.ConnectionSource
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
-import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
-import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
+import com.lemobs_sigelu.gestao_estoques.bd.*
+import com.lemobs_sigelu.gestao_estoques.bd_model.*
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaPedidoAdapter
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -23,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import java.util.*
@@ -39,10 +40,10 @@ class ListaPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_pedido)
 
-
-        DatabaseHelper.connectionSource
-        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        pedidoDAO.queryForAll()
+        if(AppSharedPreferences.getPrimeiraVez(applicationContext)){
+            this.mockPedidos()
+            AppSharedPreferences.setPrimeiraVez(applicationContext)
+        }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
@@ -54,11 +55,12 @@ class ListaPedidoActivity: AppCompatActivity() {
             val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
             startActivity(intent)
         }
-
-        this.mockDatabase()
     }
 
-    private fun mockDatabase(){
+    private fun mockPedidos(){
+
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        val situacaoDAO = SituacaoDAO(DatabaseHelper.connectionSource)
 
         val situacaoDTO1 = SituacaoDTO(1, "Em análise")
         val situacaoDTO2 = SituacaoDTO(2, "Aprovado")
@@ -66,11 +68,63 @@ class ListaPedidoActivity: AppCompatActivity() {
         val situacaoDTO4 = SituacaoDTO(4, "Reprovado")
         val situacaoDTO5 = SituacaoDTO(5, "Parcial")
 
+        val pedido_1 = PedidoDTO(1, "180001", "Inoã", "Centro", Date(), Date(), situacaoDTO1)
+        val pedido_2 = PedidoDTO(2, "180002", "Calaboca", "Capuaçu", Date(), Date(), situacaoDTO2)
+        val pedido_3 = PedidoDTO(3, "180003", "Itacuruça", "Itaguai", Date(), Date(), situacaoDTO3)
+        val pedido_4 = PedidoDTO(4, "180004", "Venezuela", "Matro grosso", Date(), Date(), situacaoDTO4)
+        val pedido_5 = PedidoDTO(5, "180005", "Israel", "florentina", Date(), Date(), situacaoDTO5)
+        val mutableList = mutableListOf<PedidoDTO>(pedido_1, pedido_2, pedido_3, pedido_4, pedido_5)
 
-        val pedido_1 = PedidoDTO(0, "180001", "Inoã", "Centro", Date(), Date(), situacaoDTO1)
-        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        for(pedido in mutableList) {
+            situacaoDAO.add(pedido.situacao!!)
+            pedidoDAO.add(pedido)
+        }
+
+        /* PEDIDO 1 */
+        val situacaoHistorico = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_1)
+        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+        situacaoHistoricoDAO.add(situacaoHistorico)
+        pedido_1.historico_situacoes = arrayListOf(situacaoHistorico)
         pedidoDAO.add(pedido_1)
-        //val pedido_2 = Pedido(1, "180002", "Calaboca", "Capuaçu", Date(), Date(), SituacaoPedido.APROVADO)
+
+        val materialBase = MaterialDTO(1, "Areia", "Descrição")
+        val materialDAO = MaterialDAO(DatabaseHelper.connectionSource)
+        materialDAO.add(materialBase)
+
+        val materialPedido = MaterialDePedidoDTO(null, materialBase,
+            1000.0, 10.0, pedido_1)
+        val materialPedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
+        materialPedidoDAO.add(materialPedido)
+        pedido_1.materiais = arrayListOf(materialPedido)
+        pedidoDAO.add(pedido_1)
+
+
+        /* PEDIDO 2 */
+        val situacaoHistorico2 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_2)
+        val situacaoHistorico3 = SituacaoHistoricoDTO(null, "Aprovado", Date(), pedido_2)
+        situacaoHistoricoDAO.add(situacaoHistorico2)
+        situacaoHistoricoDAO.add(situacaoHistorico3)
+        pedido_2.historico_situacoes = arrayListOf(situacaoHistorico, situacaoHistorico2)
+        pedidoDAO.add(pedido_2)
+
+        val materialBase3 = MaterialDTO(2, "Água", "Descrição")
+        materialDAO.add(materialBase3)
+
+        val materialPedido2 = MaterialDePedidoDTO(null, materialBase,
+            333.0, 50.0, pedido_2)
+        val materialPedido3 = MaterialDePedidoDTO(null, materialBase3,
+            250.0, 100.0, pedido_2)
+
+
+        materialPedidoDAO.add(materialPedido2)
+        materialPedidoDAO.add(materialPedido3)
+        pedido_2.materiais = arrayListOf(materialPedido2, materialPedido3)
+        pedidoDAO.add(pedido_2)
+    }
+
+    private fun mockSituacoesDePedido(){
+
+
     }
 
     fun processResponse(response: Response?) {

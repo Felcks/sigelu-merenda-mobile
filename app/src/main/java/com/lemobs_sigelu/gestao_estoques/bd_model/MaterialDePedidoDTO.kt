@@ -1,0 +1,37 @@
+package com.lemobs_sigelu.gestao_estoques.bd_model
+
+import com.j256.ormlite.field.DatabaseField
+import com.j256.ormlite.table.DatabaseTable
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
+
+@DatabaseTable(tableName = "material_de_pedido")
+class MaterialDePedidoDTO (
+
+    @DatabaseField(id = true, unique = true)
+    val id: Int? = null,
+
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    val base: MaterialDTO? = null,
+
+    @DatabaseField
+    val contratado: Double? = null,
+
+    @DatabaseField
+    val recebido: Double? = null,
+
+    @DatabaseField(foreign = true)
+    val pedido: PedidoDTO? = null
+
+) : HasEquivalentDomain<MaterialDePedido> {
+
+    override fun getEquivalentDomain(): MaterialDePedido {
+        return MaterialDePedido(id ?: 0,
+            base?.nome ?: "",
+            base?.descricao ?: "",
+            contratado ?: 0.0,
+            recebido ?: 0.0,
+            base?.unidade_medida?.getEquivalentDomain() ?: UnidadeMedida(0, "", ""))
+    }
+}

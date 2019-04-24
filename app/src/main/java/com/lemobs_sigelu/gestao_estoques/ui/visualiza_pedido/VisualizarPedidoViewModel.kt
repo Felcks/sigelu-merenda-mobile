@@ -25,6 +25,8 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
 
     fun getTituloPedido(context: Context) = useCase.getTituloPedido(context)
 
+    fun getSituacaoPedido(context: Context) = useCase.getSituacaoPedido(context)
+
     fun carregarPedido(context: Context) {
 
         disposables.add(useCase.getPedido(context)

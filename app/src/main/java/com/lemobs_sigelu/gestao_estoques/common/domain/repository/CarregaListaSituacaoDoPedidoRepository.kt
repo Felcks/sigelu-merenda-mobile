@@ -1,19 +1,28 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoDePedido
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
 class CarregaListaSituacaoDoPedidoRepository {
 
-    fun getSituacoesDePedido(context: Context): Observable<List<SituacaoDePedido>> {
+    fun getSituacoesDePedido(context: Context): Observable<List<SituacaoHistorico>> {
 
         return Observable.create { subscribe ->
-            val pedido_id = FlowSharedPreferences.getPedidoId(context)
-            subscribe.onNext(LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS[pedido_id])
+
+            subscribe.onNext(getSituacoesPedidoBD(context) ?: listOf())
             subscribe.onComplete()
         }
+    }
+
+    private fun getSituacoesPedidoBD(context: Context): List<SituacaoHistorico>? {
+
+        val pedidoID = FlowSharedPreferences.getPedidoId(context)
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        return pedidoDAO.queryForId(pedidoID)?.getEquivalentDomain()?.historicoSituacoes
     }
 }

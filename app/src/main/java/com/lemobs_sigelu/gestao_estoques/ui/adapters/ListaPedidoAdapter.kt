@@ -37,8 +37,8 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_destino.text = item.destino
         holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada()
         holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada()
-        holder.itemView.tv_situacao.text = item.situacaoPedido.nomeVisualizacao
-        holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacaoPedido.color)
+        holder.itemView.tv_situacao.text = item.situacao.nome
+        holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao.getColor())
 
         holder.itemView.iv_entrega.setOnClickListener(entregaClickListener)
 

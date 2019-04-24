@@ -1,7 +1,12 @@
 package com.lemobs_sigelu.gestao_estoques.bd_model
 
+import com.j256.ormlite.dao.ForeignCollection
 import com.j256.ormlite.field.DatabaseField
+import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import java.util.*
 
 @DatabaseTable(tableName = "pedido")
@@ -25,6 +30,27 @@ class PedidoDTO (
     @DatabaseField
     var data_entrega: Date? = null,
 
-    @DatabaseField(canBeNull = false, foreign = true, foreignAutoCreate = true)
-    var situacao: SituacaoDTO? = null
-)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    var situacao: SituacaoDTO? = null,
+
+    @ForeignCollectionField(eager = true)
+    var historico_situacoes: Collection<SituacaoHistoricoDTO>? = null,
+
+    @ForeignCollectionField(eager = true)
+    var materiais: Collection<MaterialDePedidoDTO>? = null
+
+) : HasEquivalentDomain<Pedido> {
+
+    override fun getEquivalentDomain(): Pedido {
+
+        return Pedido(id ?: 0,
+            codigo ?: "",
+            origem ?: "",
+            destino ?: "",
+            data_pedido ?: Date(),
+            data_entrega ?: Date(),
+            situacao!!.getEquivalentDomain(),
+            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf(),
+            materiais?.map { it.getEquivalentDomain() } ?: listOf())
+    }
+}

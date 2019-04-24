@@ -76,7 +76,7 @@
                 android:padding="5dp"
                 android:text="Cadastrar Entrega"
                 android:textColor="@android:color/white"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
     </LinearLayout>
 
 

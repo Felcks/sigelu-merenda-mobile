@@ -3,23 +3,23 @@ package com.lemobs_sigelu.gestao_estoques
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import java.util.*
 
-val pedido_1 = Pedido(0, "180001", "Inoã", "Centro", Date(), Date(), SituacaoPedido.EM_ANALISE)
-val pedido_2 = Pedido(1, "180002", "Calaboca", "Capuaçu", Date(), Date(), SituacaoPedido.APROVADO)
-val pedido_3 = Pedido(2, "180003", "Itacuruça", "Itaguai", Date(), Date(), SituacaoPedido.ENTREGUE)
-val pedido_4 = Pedido(3, "180004", "Venezuela", "Matro grosso", Date(), Date(), SituacaoPedido.REPROVADO)
-val pedido_5 = Pedido(4, "180005", "Israel", "florentina", Date(), Date(), SituacaoPedido.PARCIAL)
-val PEDIDOS_MOCKADOS = listOf<Pedido>(pedido_1, pedido_2, pedido_3, pedido_4, pedido_5)
+//val pedido_1 = Pedido(0, "180001", "Inoã", "Centro", Date(), Date(), situacao.EM_ANALISE)
+//val pedido_2 = Pedido(1, "180002", "Calaboca", "Capuaçu", Date(), Date(), situacao.APROVADO)
+//val pedido_3 = Pedido(2, "180003", "Itacuruça", "Itaguai", Date(), Date(), situacao.ENTREGUE)
+//val pedido_4 = Pedido(3, "180004", "Venezuela", "Matro grosso", Date(), Date(), situacao.REPROVADO)
+//val pedido_5 = Pedido(4, "180005", "Israel", "florentina", Date(), Date(), situacao.PARCIAL)
+//val PEDIDOS_MOCKADOS = listOf<Pedido>(pedido_1, pedido_2, pedido_3, pedido_4, pedido_5)
 
 
 val unidade_medida_1 = UnidadeMedida(1, "Quilograma", "kg")
 val unidade_medida_2 = UnidadeMedida(2, "Litros", "lt")
 val UNIDADES_MOCKADAS = listOf<UnidadeMedida>(unidade_medida_1, unidade_medida_2)
 
-val material_de_pedido_1 = MaterialDePedido(0, "Areia", 1000.0,  500.0, unidade_medida_1)
-val material_de_pedido_2 = MaterialDePedido(1, "Água", 10.0,  1.1, unidade_medida_2)
-val material_de_pedido_3 = MaterialDePedido(2, "Bica Corrida", 95.0,  33.1, unidade_medida_1)
-val material_de_pedido_4 = MaterialDePedido(3, "Bloco de 15", 82.0,  40.1, unidade_medida_1)
-val material_de_pedido_5 = MaterialDePedido(4, "Tijolo Especial", 82.0,  40.1, unidade_medida_1)
+val material_de_pedido_1 = MaterialDePedido(0, "Areia", "a", 1000.0,  500.0, unidade_medida_1)
+val material_de_pedido_2 = MaterialDePedido(1, "Água", "b", 10.0,  1.1, unidade_medida_2)
+val material_de_pedido_3 = MaterialDePedido(2, "Bica Corrida", "c", 95.0,  33.1, unidade_medida_1)
+val material_de_pedido_4 = MaterialDePedido(3, "Bloco de 15", "d", 82.0,  40.1, unidade_medida_1)
+val material_de_pedido_5 = MaterialDePedido(4, "Tijolo Especial", "e", 82.0,  40.1, unidade_medida_1)
 
 val MATERIAL_DE_PEDIDO_MOCKADOS = listOf<MaterialDePedido>(material_de_pedido_1, material_de_pedido_2)
 val MATERIAL_DE_PEDIDO_MOCKADOS_1 = listOf<MaterialDePedido>(material_de_pedido_2, material_de_pedido_1)
@@ -33,15 +33,15 @@ val LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS = listOf<List<MaterialDePedido>>(MATERIA
     MATERIAL_DE_PEDIDO_MOCKADOS_4)
 
 
-val situacao_de_pedido_0 = SituacaoDePedido(0, "Pedido feito", Date())
-val situacao_de_pedido_1 = SituacaoDePedido(1, "Entrega 1", Date())
-val situacao_de_pedido_2 = SituacaoDePedido(2, "Entrega 2", Date())
-val situacao_de_pedido_3 = SituacaoDePedido(3, "Reprovado", Date())
-val situacao_de_pedido_4 = SituacaoDePedido(4, "Parcial", Date())
-val situacao_de_pedido_5 = SituacaoDePedido(5, "Em Análise", Date())
-val situacao_de_pedido_6 = SituacaoDePedido(6, "Entregue", Date())
-val situacoes_de_pedido = listOf<SituacaoDePedido>(situacao_de_pedido_1, situacao_de_pedido_2)
-val LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS = listOf<List<SituacaoDePedido>>(
+val situacao_de_pedido_0 = SituacaoHistorico(0, "Pedido feito", Date())
+val situacao_de_pedido_1 = SituacaoHistorico(1, "Entrega 1", Date())
+val situacao_de_pedido_2 = SituacaoHistorico(2, "Entrega 2", Date())
+val situacao_de_pedido_3 = SituacaoHistorico(3, "Reprovado", Date())
+val situacao_de_pedido_4 = SituacaoHistorico(4, "Parcial", Date())
+val situacao_de_pedido_5 = SituacaoHistorico(5, "Em Análise", Date())
+val situacao_de_pedido_6 = SituacaoHistorico(6, "Entregue", Date())
+val situacoes_de_pedido = listOf<SituacaoHistorico>(situacao_de_pedido_1, situacao_de_pedido_2)
+val LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS = listOf<List<SituacaoHistorico>>(
     listOf(situacao_de_pedido_0, situacao_de_pedido_5),
     listOf(situacao_de_pedido_0, situacao_de_pedido_1),
     listOf(situacao_de_pedido_0, situacao_de_pedido_1, situacao_de_pedido_2, situacao_de_pedido_6),

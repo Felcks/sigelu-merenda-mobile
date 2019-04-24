@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModel
@@ -61,11 +61,11 @@ class ListaSituacaoFragment : Fragment() {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result as List<SituacaoDePedido>)
+            this.iniciarAdapter(result as List<SituacaoHistorico>)
         }
     }
 
-    private fun iniciarAdapter(list: List<SituacaoDePedido>){
+    private fun iniciarAdapter(list: List<SituacaoHistorico>){
 
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL

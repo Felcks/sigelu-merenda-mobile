@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import dagger.android.AndroidInjection
@@ -26,14 +27,21 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         setContentView(R.layout.activity_visualizar_pedido)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
-
         tv_titulo.text = viewModel!!.getTituloPedido(this.applicationContext)
 
         this.createTableLayout()
-        btn_cadastrar_entrega_materiais.setOnClickListener {
-            val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
-            startActivity(intent)
+
+        val situacaoPedido = viewModel!!.getSituacaoPedido(this.applicationContext)
+        if(situacaoPedido.id == 2 || situacaoPedido.id == 5){
+
+            btn_cadastrar_entrega_materiais.visibility = View.VISIBLE
+            btn_cadastrar_entrega_materiais.setOnClickListener {
+                val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
+                startActivity(intent)
+            }
         }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

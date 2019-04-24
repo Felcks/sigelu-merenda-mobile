@@ -9,7 +9,9 @@ class Pedido(val id: Int,
              val destino: String,
              val dataPedido: Date,
              val dataEntrega: Date,
-             val situacaoPedido: SituacaoPedido){
+             val situacao: Situacao,
+             val historicoSituacoes: List<SituacaoHistorico>,
+             val materiais: List<MaterialDePedido>){
 
     fun getCodigoFormatado(): String{
         return "Código - $codigo"
