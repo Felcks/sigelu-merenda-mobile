@@ -14,7 +14,8 @@ class CarregaListaMaterialDoPedidoRepository {
     fun getMateriaisDePedido(context: Context): Observable<List<MaterialDePedido>> {
 
         return Observable.create { subscribe ->
-            
+
+            val b = getMateriaisPedidoBD(context) ?: listOf()
             subscribe.onNext(getMateriaisPedidoBD(context) ?: listOf())
             subscribe.onComplete()
         }

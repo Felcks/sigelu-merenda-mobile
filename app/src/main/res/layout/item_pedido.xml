@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textColor="#fff"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:layout_marginRight="@dimen/espacamento_curto"
                 android:background="@drawable/ic_sheet"
                 app:layout_constraintTop_toTopOf="@+id/ll_titulo"

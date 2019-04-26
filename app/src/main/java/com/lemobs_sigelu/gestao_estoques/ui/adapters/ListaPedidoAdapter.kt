@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListClickListener
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(val context: Context,
                          val list: List<Pedido>,
-                         val entregaClickListener: View.OnClickListener,
+                         val entregaClickListener: ListaPedidoActivity,
                          val visualizarPedidoClickListener: ListClickListener
 ): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
@@ -40,7 +41,13 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_situacao.text = item.situacao.nome
         holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao.getColor())
 
-        holder.itemView.iv_entrega.setOnClickListener(entregaClickListener)
+        if(item.situacao.id == 2 || item.situacao.id == 5) {
+
+            holder.itemView.iv_entrega.visibility = View.VISIBLE
+            holder.itemView.iv_entrega.setOnClickListener {
+                entregaClickListener.entregaPedido(item.id)
+            }
+        }
 
         holder.itemView.ll_principal.setOnClickListener{visualizarPedidoClickListener.onClick(item.id)}
 

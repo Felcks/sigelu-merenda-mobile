@@ -2,9 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.MaterialDePedidoDAO
+import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
@@ -27,11 +31,22 @@ class EntregaMaterialDoPedidoRepository {
         return existeItemModificado
     }
 
-    private fun concluirEntregaDeMateriais(list: List<MaterialDePedido>){
+    private fun concluirEntregaDeMateriais(context: Context, list: List<MaterialDePedido>){
 
-        for (item in list){
-            item.recebido += item.entregue
-            item.entregue = 0.0
+        val materialPedidaoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        val pedidoID = FlowSharedPreferences.getPedidoId(context)
+        val pedido = pedidoDAO.queryForId(pedidoID)
+
+        if(pedido != null) {
+            var i = 1
+            for (item in list) {
+                item.recebido += item.entregue
+                item.entregue = 0.0
+                val a = item.getEquivalentDTO(pedido, i)
+                materialPedidaoDAO.add(item.getEquivalentDTO(pedido, i))
+                i += 1
+            }
         }
     }
 
@@ -46,7 +61,7 @@ class EntregaMaterialDoPedidoRepository {
 
         return Observable.create { subscriber ->
 
-            this.concluirEntregaDeMateriais(list)
+            this.concluirEntregaDeMateriais(context, list)
             subscriber.onNext(true)
             subscriber.onComplete()
         }

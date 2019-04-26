@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.j256.ormlite.support.ConnectionSource
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.bd.*
@@ -24,6 +25,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedi
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import java.util.*
@@ -92,7 +94,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         materialDAO.add(materialBase)
 
         val materialPedido = MaterialDePedidoDTO(null, materialBase,
-            1000.0, 10.0, pedido_1)
+            1000.0, 0.0, pedido_1)
         val materialPedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
         materialPedidoDAO.add(materialPedido)
         pedido_1.materiais = arrayListOf(materialPedido)
@@ -102,8 +104,10 @@ class ListaPedidoActivity: AppCompatActivity() {
         /* PEDIDO 2 */
         val situacaoHistorico2 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_2)
         val situacaoHistorico3 = SituacaoHistoricoDTO(null, "Aprovado", Date(), pedido_2)
+        val situacaoHistorico4 = SituacaoHistoricoDTO(null, "Entrega 1", Date(), pedido_2)
         situacaoHistoricoDAO.add(situacaoHistorico2)
         situacaoHistoricoDAO.add(situacaoHistorico3)
+        situacaoHistoricoDAO.add(situacaoHistorico4)
         pedido_2.historico_situacoes = arrayListOf(situacaoHistorico, situacaoHistorico2)
         pedidoDAO.add(pedido_2)
 
@@ -120,6 +124,11 @@ class ListaPedidoActivity: AppCompatActivity() {
         materialPedidoDAO.add(materialPedido3)
         pedido_2.materiais = arrayListOf(materialPedido2, materialPedido3)
         pedidoDAO.add(pedido_2)
+
+
+        
+        ///MOCK MATERIAIS
+
     }
 
     private fun mockSituacoesDePedido(){
@@ -155,7 +164,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         val adapter = ListaPedidoAdapter(
             applicationContext,
             list,
-            entregaClickListener,
+            this,
             visualizarPedidoClickListener
         )
         rv_lista.adapter = adapter
@@ -183,6 +192,21 @@ class ListaPedidoActivity: AppCompatActivity() {
     private val entregaClickListener = View.OnClickListener {
         val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
         startActivity(intent)
+    }
+
+    fun entregaPedido(pedidoID: Int){
+
+        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+        val pedidoDTO = pedidoDAO.queryForId(pedidoID)
+
+        if(pedidoDTO != null){
+            viewModel!!.armazenaPedidoNoFluxo(applicationContext,pedidoID)
+            val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
+            startActivity(intent)
+        }
+        else{
+            Toast.makeText(applicationContext, "Ocorreu um erro desconhecido", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private val visualizarPedidoClickListener = object : ListClickListener {
