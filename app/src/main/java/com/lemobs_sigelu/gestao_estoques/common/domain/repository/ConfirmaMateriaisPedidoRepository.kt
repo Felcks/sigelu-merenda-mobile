@@ -48,6 +48,7 @@ class ConfirmaMateriaisPedidoRepository {
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
         pedidoDAO.add(pedido.getEquivalentDTO())
 
+        materiaisCadastrados.removeAll { true }
         return true
     }
 
