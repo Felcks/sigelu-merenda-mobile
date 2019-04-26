@@ -2,6 +2,8 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.*
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
@@ -19,11 +21,18 @@ class CarregaListaMaterialParaCadastroRepository {
             if(pedido != null){
                 when(pedido.destino){
                     PedidoDeCadastro.Companion.PedidoDestino.NUCLEO -> {
-                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_OBRA.toMutableList())
+
+                        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
+                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
+                        list = removeMateriaisJaCadastrados(list)
+//                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_OBRA.toMutableList())
                         subscribe.onNext(list)
                     }
                     PedidoDeCadastro.Companion.PedidoDestino.OBRA -> {
-                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_NUCLEO.toMutableList())
+//                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_NUCLEO.toMutableList())
+                        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
+                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
+                        list = removeMateriaisJaCadastrados(list)
                         subscribe.onNext(list)
                     }
                 }
@@ -34,11 +43,19 @@ class CarregaListaMaterialParaCadastroRepository {
 
     private fun removeMateriaisJaCadastrados(materiaisCandidatos: MutableList<MaterialParaCadastro>): MutableList<MaterialParaCadastro>{
 
+        val trueMaterial = mutableListOf<MaterialParaCadastro>()
         for (m in materiaisCandidatos) {
-            if (materiaisCadastrados.contains(m))
-                materiaisCandidatos.remove(m)
+            var jaCadastrado = false
+            for (i in materiaisCadastrados){
+                if (i.id == m.id) {
+                    jaCadastrado = true
+                    break
+                }
+            }
+            if(!jaCadastrado)
+                trueMaterial.add(m)
         }
 
-        return materiaisCandidatos
+        return trueMaterial
     }
 }

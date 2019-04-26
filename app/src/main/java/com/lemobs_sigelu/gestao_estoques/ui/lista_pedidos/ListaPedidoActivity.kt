@@ -89,7 +89,13 @@ class ListaPedidoActivity: AppCompatActivity() {
         pedido_1.historico_situacoes = arrayListOf(situacaoHistorico)
         pedidoDAO.add(pedido_1)
 
-        val materialBase = MaterialDTO(1, "Areia", "Descrição")
+        val unidadeMedida1 = UnidadeMedidaDTO(1, "Quilograma", "kg")
+        val unidadeMedida2 = UnidadeMedidaDTO(2, "Litro", "lt")
+        val unidadeMedidaDAO = UnidadeMedidaDAO(DatabaseHelper.connectionSource)
+        unidadeMedidaDAO.add(unidadeMedida1)
+        unidadeMedidaDAO.add(unidadeMedida2)
+
+        val materialBase = MaterialDTO(1, "Areia", "A areia fica quente no verão", unidadeMedida1)
         val materialDAO = MaterialDAO(DatabaseHelper.connectionSource)
         materialDAO.add(materialBase)
 
@@ -111,7 +117,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         pedido_2.historico_situacoes = arrayListOf(situacaoHistorico, situacaoHistorico2)
         pedidoDAO.add(pedido_2)
 
-        val materialBase3 = MaterialDTO(2, "Água", "Descrição")
+        val materialBase3 = MaterialDTO(2, "Água", "A água é molhada", unidadeMedida2)
         materialDAO.add(materialBase3)
 
         val materialPedido2 = MaterialDePedidoDTO(null, materialBase,
@@ -126,9 +132,12 @@ class ListaPedidoActivity: AppCompatActivity() {
         pedidoDAO.add(pedido_2)
 
 
-        
         ///MOCK MATERIAIS
-
+        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
+        val materialDeCadastro1 = MaterialDeCadastroDTO(1, materialBase, 100.0)
+        val materialDeCadastro2 = MaterialDeCadastroDTO(2, materialBase3, 50.0)
+        materialDeCadastroDAO.add(materialDeCadastro1)
+        materialDeCadastroDAO.add(materialDeCadastro2)
     }
 
     private fun mockSituacoesDePedido(){

@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/fab_add"
             android:layout_margin="@dimen/espacamento_medio"/>
 
 </android.support.constraint.ConstraintLayout>

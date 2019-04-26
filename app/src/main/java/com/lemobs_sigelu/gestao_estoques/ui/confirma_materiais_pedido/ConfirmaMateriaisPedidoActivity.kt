@@ -4,9 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -92,10 +96,34 @@ class ConfirmaMateriaisPedidoActivity: AppCompatActivity(){
                         this.viewModel!!.cancelaPedido(applicationContext)
                         val intent = Intent(this, ListaPedidoActivity::class.java)
                         startActivity(intent)
-                        this.finish()
+                        this.finishAffinity()
                     },
                     {}).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuInflater.inflate(R.menu.menu_done, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId == R.id.btn_done){
+
+            viewModel!!.confirmaPedido(applicationContext)
+            Toast.makeText(applicationContext, "Pedido realizado!!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ListaPedidoActivity::class.java)
+            startActivity(intent)
+            this.finishAffinity()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

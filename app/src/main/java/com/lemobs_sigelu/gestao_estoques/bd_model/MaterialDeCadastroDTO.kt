@@ -22,7 +22,7 @@ class MaterialDeCadastroDTO (
 ): HasEquivalentDomain<MaterialParaCadastro> {
 
     override fun getEquivalentDomain(): MaterialParaCadastro {
-        return MaterialParaCadastro(id ?: 0,
+         return MaterialParaCadastro(id ?: 0,
             base?.nome ?: "",
             base?.descricao ?: "",
             base?.unidade_medida?.getEquivalentDomain() ?: UnidadeMedida(0, "", ""),

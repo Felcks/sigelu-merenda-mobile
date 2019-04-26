@@ -13,6 +13,7 @@ object DatabaseHelper : OrmLiteSqliteOpenHelper(App.instance, "${BuildConfig.APP
 
     override fun onCreate(database: SQLiteDatabase?, connectionSource: ConnectionSource?) {
         TableUtils.createTableIfNotExists(connectionSource, MaterialDTO::class.java)
+        TableUtils.createTableIfNotExists(connectionSource, MaterialDeCadastroDTO::class.java)
         TableUtils.createTableIfNotExists(connectionSource, MaterialDePedidoDTO::class.java)
         TableUtils.createTableIfNotExists(connectionSource, PedidoDTO::class.java)
         TableUtils.createTableIfNotExists(connectionSource, SituacaoDTO::class.java)
@@ -23,6 +24,7 @@ object DatabaseHelper : OrmLiteSqliteOpenHelper(App.instance, "${BuildConfig.APP
 
     override fun onUpgrade(database: SQLiteDatabase?, connectionSource: ConnectionSource?, oldVersion: Int, newVersion: Int) {
         TableUtils.dropTable<MaterialDTO, Any>(connectionSource, MaterialDTO::class.java, true)
+        TableUtils.dropTable<MaterialDeCadastroDTO, Any>(connectionSource, MaterialDeCadastroDTO::class.java, true)
         TableUtils.dropTable<MaterialDePedidoDTO, Any>(connectionSource, MaterialDePedidoDTO::class.java, true)
         TableUtils.dropTable<PedidoDTO, Any>(connectionSource, PedidoDTO::class.java, true)
         TableUtils.dropTable<SituacaoDTO, Any>(connectionSource, SituacaoDTO::class.java, true)

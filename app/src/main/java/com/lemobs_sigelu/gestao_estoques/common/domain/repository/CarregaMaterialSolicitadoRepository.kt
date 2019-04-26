@@ -2,6 +2,8 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.MATERIAIS_PARA_CADASTRO_OBRA
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
 
@@ -10,6 +12,8 @@ class CarregaMaterialSolicitadoRepository {
     fun carregaMaterial(context: Context): MaterialParaCadastro {
 
         val materialId = CadastraPedidoSharedPreferences.getMaterialSelecionadoId(context)
-        return MATERIAIS_PARA_CADASTRO_OBRA[materialId]
+        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
+        val material = materialDeCadastroDAO.queryForId(materialId)
+        return material!!.getEquivalentDomain()
     }
 }
