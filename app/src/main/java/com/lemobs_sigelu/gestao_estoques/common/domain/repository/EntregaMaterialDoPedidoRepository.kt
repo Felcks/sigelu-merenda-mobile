@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDePedidoDAO
 import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
@@ -43,8 +42,7 @@ class EntregaMaterialDoPedidoRepository {
             for (item in list) {
                 item.recebido += item.entregue
                 item.entregue = 0.0
-                val a = item.getEquivalentDTO(pedido, i)
-                materialPedidaoDAO.add(item.getEquivalentDTO(pedido, i))
+                materialPedidaoDAO.add(item.getEquivalentDTO(pedido))
                 i += 1
             }
         }

@@ -15,22 +15,22 @@ val unidade_medida_1 = UnidadeMedida(1, "Quilograma", "kg")
 val unidade_medida_2 = UnidadeMedida(2, "Litros", "lt")
 val UNIDADES_MOCKADAS = listOf<UnidadeMedida>(unidade_medida_1, unidade_medida_2)
 
-val material_de_pedido_1 = MaterialDePedido(0, "Areia", "a", 1000.0,  500.0, unidade_medida_1)
-val material_de_pedido_2 = MaterialDePedido(1, "Água", "b", 10.0,  1.1, unidade_medida_2)
-val material_de_pedido_3 = MaterialDePedido(2, "Bica Corrida", "c", 95.0,  33.1, unidade_medida_1)
-val material_de_pedido_4 = MaterialDePedido(3, "Bloco de 15", "d", 82.0,  40.1, unidade_medida_1)
-val material_de_pedido_5 = MaterialDePedido(4, "Tijolo Especial", "e", 82.0,  40.1, unidade_medida_1)
-
-val MATERIAL_DE_PEDIDO_MOCKADOS = listOf<MaterialDePedido>(material_de_pedido_1, material_de_pedido_2)
-val MATERIAL_DE_PEDIDO_MOCKADOS_1 = listOf<MaterialDePedido>(material_de_pedido_2, material_de_pedido_1)
-val MATERIAL_DE_PEDIDO_MOCKADOS_2 = listOf<MaterialDePedido>(material_de_pedido_3, material_de_pedido_4)
-val MATERIAL_DE_PEDIDO_MOCKADOS_3 = listOf<MaterialDePedido>(material_de_pedido_4, material_de_pedido_2)
-val MATERIAL_DE_PEDIDO_MOCKADOS_4 = listOf<MaterialDePedido>(material_de_pedido_5, material_de_pedido_2, material_de_pedido_3)
-val LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS = listOf<List<MaterialDePedido>>(MATERIAL_DE_PEDIDO_MOCKADOS,
-    MATERIAL_DE_PEDIDO_MOCKADOS_1,
-    MATERIAL_DE_PEDIDO_MOCKADOS_2,
-    MATERIAL_DE_PEDIDO_MOCKADOS_3,
-    MATERIAL_DE_PEDIDO_MOCKADOS_4)
+//val material_de_pedido_1 = MaterialDePedido(0, "Areia", "a", 1000.0,  500.0, unidade_medida_1)
+//val material_de_pedido_2 = MaterialDePedido(1, "Água", "b", 10.0,  1.1, unidade_medida_2)
+//val material_de_pedido_3 = MaterialDePedido(2, "Bica Corrida", "c", 95.0,  33.1, unidade_medida_1)
+//val material_de_pedido_4 = MaterialDePedido(3, "Bloco de 15", "d", 82.0,  40.1, unidade_medida_1)
+////val material_de_pedido_5 = MaterialDePedido(4, "Tijolo Especial", "e", 82.0,  40.1, unidade_medida_1)
+//
+//val MATERIAL_DE_PEDIDO_MOCKADOS = listOf<MaterialDePedido>(material_de_pedido_1, material_de_pedido_2)
+//val MATERIAL_DE_PEDIDO_MOCKADOS_1 = listOf<MaterialDePedido>(material_de_pedido_2, material_de_pedido_1)
+//val MATERIAL_DE_PEDIDO_MOCKADOS_2 = listOf<MaterialDePedido>(material_de_pedido_3, material_de_pedido_4)
+//val MATERIAL_DE_PEDIDO_MOCKADOS_3 = listOf<MaterialDePedido>(material_de_pedido_4, material_de_pedido_2)
+//val MATERIAL_DE_PEDIDO_MOCKADOS_4 = listOf<MaterialDePedido>(material_de_pedido_5, material_de_pedido_2, material_de_pedido_3)
+//val LISTA_MATERIAIS_DE_PEDIDOS_MOCKADOS = listOf<List<MaterialDePedido>>(MATERIAL_DE_PEDIDO_MOCKADOS,
+//    MATERIAL_DE_PEDIDO_MOCKADOS_1,
+//    MATERIAL_DE_PEDIDO_MOCKADOS_2,
+//    MATERIAL_DE_PEDIDO_MOCKADOS_3,
+//    MATERIAL_DE_PEDIDO_MOCKADOS_4)
 
 
 val situacao_de_pedido_0 = SituacaoHistorico(0, "Pedido feito", Date())
@@ -53,9 +53,9 @@ val obra_0 = Obra(0, "180000001")
 val obra_1 = Obra(1, "190000004")
 val obra_2 = Obra(2, "180000007")
 val LISTA_OBRAS_MOCKADAS = listOf<Obra>(obra_0, obra_1, obra_2)
-
-val MATERIAL_DISPONIVEL_CENTRAL = MATERIAL_DE_PEDIDO_MOCKADOS_1
-val MATERIAL_DISPONIVEL_NUCLEO = MATERIAL_DE_PEDIDO_MOCKADOS_4
+//
+//val MATERIAL_DISPONIVEL_CENTRAL = MATERIAL_DE_PEDIDO_MOCKADOS_1
+//val MATERIAL_DISPONIVEL_NUCLEO = MATERIAL_DE_PEDIDO_MOCKADOS_4
 
 val MATERIAL_PARA_CADASTRO_1 = MaterialParaCadastro(0, "Areia", "Areia quente!", unidade_medida_1, 1000.0)
 val MATERIAL_PARA_CADASTRO_2 = MaterialParaCadastro(1, "Água", "Agua gelada", unidade_medida_2, 500.0)

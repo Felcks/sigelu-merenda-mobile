@@ -33,6 +33,6 @@ class Pedido(val id: Int,
         return PedidoDTO(id, codigo, origem, destino, dataPedido, dataEntrega,
             situacao.getEquivalentDTO(),
             listOf(),
-            materiais.map { it.getEquivalentDTO(fakePedidoDTO, it.id) })
+            materiais.map { it.getEquivalentDTO(fakePedidoDTO) })
     }
 }

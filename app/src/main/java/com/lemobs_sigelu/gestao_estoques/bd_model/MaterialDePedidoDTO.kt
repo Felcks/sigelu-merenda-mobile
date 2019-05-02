@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.bd_model
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialBase
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 
@@ -28,10 +29,8 @@ class MaterialDePedidoDTO (
 
     override fun getEquivalentDomain(): MaterialDePedido {
         return MaterialDePedido(id ?: 0,
-            base?.nome ?: "",
-            base?.descricao ?: "",
+            base?.getEquivalentDomain() ?: MaterialBase(0, "", "", UnidadeMedida(0, "", "")),
             contratado ?: 0.0,
-            recebido ?: 0.0,
-            base?.unidade_medida?.getEquivalentDomain() ?: UnidadeMedida(0, "", ""))
+            recebido ?: 0.0)
     }
 }

@@ -5,10 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDePedidoDAO
 import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
 import com.lemobs_sigelu.gestao_estoques.bd.UnidadeMedidaDAO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
 import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
 import java.util.*
@@ -30,18 +27,19 @@ class ConfirmaMateriaisPedidoRepository {
             listOf<SituacaoHistorico>(SituacaoHistorico(10, "Em enálise", Date())),
             materiaisCadastrados.map {
                 MaterialDePedido(it.id * 10,
-                    it.nome,
-                    it.descricao,
+                    MaterialBase(it.id,
+                        it.nome,
+                        it.descricao,
+                        it.unidadeMedida),
                     it.getQuantidadePedida(),
-                    0.0,
-                    it.unidadeMedida)
+                    0.0)
             }
         )
 
         val materialDePedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
         var a = 1
         for(i in pedido.materiais) {
-            materialDePedidoDAO.add(i.getEquivalentDTO(pedido.getEquivalentDTO(), a))
+            materialDePedidoDAO.add(i.getEquivalentDTO(pedido.getEquivalentDTO()))
             a += 1
         }
 
