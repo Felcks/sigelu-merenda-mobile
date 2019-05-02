@@ -49,9 +49,9 @@ val LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS = listOf<List<SituacaoHistorico>>(
     listOf(situacao_de_pedido_0, situacao_de_pedido_4)
 )
 
-val obra_0 = Obra(0, "180000001")
-val obra_1 = Obra(1, "190000004")
-val obra_2 = Obra(2, "180000007")
+val obra_0 = Obra(0, "190000005", "42 km", "01/08/2019", "Em andamento", "R. Pref. Hilario Costa Silva, 62", "Construção")
+val obra_1 = Obra(1, "190000004", "42 km", "31/10/2019", "Em andamento", "R. Padre Arlindo Viêira", "Reforma")
+val obra_2 = Obra(2, "180000007", "42 km", "25/09/2019", "Paralisada", "R. Judemir Rangel, 31", "Construção")
 val LISTA_OBRAS_MOCKADAS = listOf<Obra>(obra_0, obra_1, obra_2)
 //
 //val MATERIAL_DISPONIVEL_CENTRAL = MATERIAL_DE_PEDIDO_MOCKADOS_1

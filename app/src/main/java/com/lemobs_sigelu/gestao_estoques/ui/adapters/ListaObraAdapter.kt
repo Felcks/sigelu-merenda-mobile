@@ -37,11 +37,11 @@ class ListaObraAdapter(val context: Context,
         val item = this.list[position]
         if(item is Obra) {
             holder.itemView.ll_principal.setBackgroundColor(this.colorWhiteObraSelecionada!!)
-            holder.itemView.tv_titulo.text = item.codigo
-            holder.itemView.tv_1.text = "".tracoSeVazio()
-            holder.itemView.tv_2.text = "".tracoSeVazio()
-            holder.itemView.tv_3.text = "".tracoSeVazio()
-            holder.itemView.tv_4.text = "".tracoSeVazio()
+            holder.itemView.tv_titulo.text = item.getTitulo()
+            holder.itemView.tv_1.text = item.distancia.tracoSeVazio()
+            holder.itemView.tv_2.text = item.conclusaoPrevista.tracoSeVazio()
+            holder.itemView.tv_3.text = item.situacao.tracoSeVazio()
+            holder.itemView.tv_4.text = item.endereco.tracoSeVazio()
 
             holder.itemView.ll_principal.setOnClickListener {
 
