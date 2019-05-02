@@ -45,16 +45,16 @@
 
         <activity
                 android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"
-                android:label="Cadastrar Entrega de Materiais"/>
+                android:label="Cadastrar Recebimento"/>
 
         <activity android:name=".ui.visualiza_pedido.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
 
         <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
-                  android:label="Selecione o Destino do Pedido" />
+                  android:label="Cadastro de Pedido (1/2)" />
 
         <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
-                  android:label="Adicione um Material ao Pedido" />
+                  android:label="Cadastro de Pedido (2/2)" />
 
         <activity android:name=".ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity"
                   android:label="Materiais Solicitados"

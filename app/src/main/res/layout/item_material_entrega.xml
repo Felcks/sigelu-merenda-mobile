@@ -53,8 +53,7 @@
                   android:layout_height="wrap_content"
                   android:text="Recebido: "
                   app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
-                  app:layout_constraintLeft_toLeftOf="parent"
-        />
+                  app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_material_recebido"
                   android:layout_width="wrap_content"
@@ -63,8 +62,25 @@
                   android:text="20"
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_material_recebido_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"
-        />
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"/>
+
+        <TextView android:id="@+id/tv_material_saldo_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Saldo: "
+                  app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_material_saldo"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/primary_text"
+                  android:text="20"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_material_saldo_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_saldo_layout"/>
+
+
 
         <TextView android:id="@+id/tv_quantidade_entregue_layout"
                   android:layout_width="wrap_content"
@@ -72,10 +88,9 @@
                   android:text="Quantidade na entrega:"
                   android:textSize="16sp"
                   android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
+                  app:layout_constraintTop_toBottomOf="@id/tv_material_saldo_layout"
                   app:layout_constraintLeft_toLeftOf="parent"
-                  app:layout_constraintRight_toRightOf="parent"
-        />
+                  app:layout_constraintRight_toRightOf="parent"/>
 
         <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
                 android:id="@+id/edt_quantidade_entregue"
@@ -96,8 +111,7 @@
                 android:layout_marginLeft="@dimen/espacamento_maximo_2"
                 app:layout_constraintTop_toBottomOf="@id/tv_quantidade_entregue_layout"
                 app:layout_constraintLeft_toLeftOf="@id/tv_quantidade_entregue_layout"
-                app:layout_constraintRight_toRightOf="@id/tv_quantidade_entregue_layout"
-        />
+                app:layout_constraintRight_toRightOf="@id/tv_quantidade_entregue_layout"/>
 
         <TextView android:id="@+id/tv_unidade_medida"
                   android:layout_width="wrap_content"
@@ -106,8 +120,7 @@
                   android:textSize="16sp"
                   android:textColor="@color/primary_text"
                   app:layout_constraintBaseline_toBaselineOf="@id/edt_quantidade_entregue"
-                  app:layout_constraintRight_toRightOf="@id/edt_quantidade_entregue"
-        />
+                  app:layout_constraintRight_toRightOf="@id/edt_quantidade_entregue" />
 
     </android.support.constraint.ConstraintLayout>
 

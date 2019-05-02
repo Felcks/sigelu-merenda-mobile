@@ -33,6 +33,7 @@ class EntregaMateriaisPedidoAdapter(val context: Context,
         holder.itemView.tv_nome_material.text = item.nome
         holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.unidadeMedida.sigla}"
         holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.unidadeMedida.sigla}"
+        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.unidadeMedida.sigla}"
         holder.itemView.tv_unidade_medida.text = item.unidadeMedida.sigla
         holder.itemView.edt_quantidade_entregue.setText("")
 
@@ -45,7 +46,7 @@ class EntregaMateriaisPedidoAdapter(val context: Context,
                     val valorEntregue = holder.itemView.edt_quantidade_entregue.text.toString().replace(',', '.').toDouble()
                     item.entregue = valorEntregue
 
-                    if (valorEntregue + item.recebido < item.contratado) {
+                    if (valorEntregue + item.recebido <= item.contratado) {
                         holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_aceita))
                     } else {
                         holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_rejeitada))

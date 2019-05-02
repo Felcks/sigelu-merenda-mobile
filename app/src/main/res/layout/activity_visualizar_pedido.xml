@@ -74,7 +74,7 @@
                 android:background="@drawable/rounded_button_states"
                 android:drawableLeft="@drawable/ic_sheet"
                 android:padding="5dp"
-                android:text="Cadastrar Entrega"
+                android:text="Cadastrar Recebimento"
                 android:textColor="@android:color/white"
                 android:visibility="invisible"/>
     </LinearLayout>

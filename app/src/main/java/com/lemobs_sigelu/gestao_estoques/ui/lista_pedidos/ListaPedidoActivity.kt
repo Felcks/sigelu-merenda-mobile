@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.bd.*
 import com.lemobs_sigelu.gestao_estoques.bd_model.*
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaPedidoAdapter
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity
@@ -70,17 +71,42 @@ class ListaPedidoActivity: AppCompatActivity() {
         val situacaoDTO4 = SituacaoDTO(4, "Reprovado")
         val situacaoDTO5 = SituacaoDTO(5, "Parcial")
 
-        val pedido_1 = PedidoDTO(1, "180001", "Inoã", "Centro", Date(), Date(), situacaoDTO1)
-        val pedido_2 = PedidoDTO(2, "180002", "Calaboca", "Capuaçu", Date(), Date(), situacaoDTO2)
-        val pedido_3 = PedidoDTO(3, "180003", "Itacuruça", "Itaguai", Date(), Date(), situacaoDTO3)
-        val pedido_4 = PedidoDTO(4, "180004", "Venezuela", "Matro grosso", Date(), Date(), situacaoDTO4)
-        val pedido_5 = PedidoDTO(5, "180005", "Israel", "florentina", Date(), Date(), situacaoDTO5)
+        val pedido_1 = PedidoDTO(1, "330001", "-", "Núcleo 1", Date(), Date(), situacaoDTO1)
+        val pedido_2 = PedidoDTO(2, "330002", "Núcleo Central", "Núcleo 1", Date(), Date(), situacaoDTO2)
+        val pedido_3 = PedidoDTO(3, "330003", "Núcleo 2", "Obra 180001", Date(), Date(), situacaoDTO3)
+        val pedido_4 = PedidoDTO(4, "330004", "-", "Obra 180017", Date(), Date(), situacaoDTO4)
+        val pedido_5 = PedidoDTO(5, "330005", "Fornecedor", "Núcleo 1", Date(), Date(), situacaoDTO5)
         val mutableList = mutableListOf<PedidoDTO>(pedido_1, pedido_2, pedido_3, pedido_4, pedido_5)
-
         for(pedido in mutableList) {
             situacaoDAO.add(pedido.situacao!!)
             pedidoDAO.add(pedido)
         }
+
+        /* Unidade de Medida */
+        val unidadeMedidaDAO = UnidadeMedidaDAO(DatabaseHelper.connectionSource)
+        val un_quilograma = UnidadeMedidaDTO(1, "Quilograma", "kg")
+        val un_litro = UnidadeMedidaDTO(2, "Litro", "lt")
+        val un_metro_cubico = UnidadeMedidaDTO(3, "Metro cúbico", "m³")
+        val un_unidade = UnidadeMedidaDTO(4, "Unidade", "un.")
+        val un_metro = UnidadeMedidaDTO(5, "Metro", "m")
+        val un_litro_por_metro = UnidadeMedidaDTO(6, "Litro por Metro", "L/m")
+
+        unidadeMedidaDAO.add(un_quilograma)
+        unidadeMedidaDAO.add(un_metro_cubico)
+        unidadeMedidaDAO.add(un_unidade)
+        unidadeMedidaDAO.add(un_metro)
+        unidadeMedidaDAO.add(un_litro_por_metro)
+
+        /* Material Base */
+        val materialDAO = MaterialDAO(DatabaseHelper.connectionSource)
+        val material_arame_queimado = MaterialDTO(1, "Arame Queimado", "", un_quilograma)
+        val material_areia = MaterialDTO(2, "Areia", "", un_metro_cubico)
+        val material_boca_de_lobo = MaterialDTO(3, "Boca de Lobo", "", un_unidade)
+        val material_tabua = MaterialDTO(4, "Tábua", "", un_metro)
+        materialDAO.add(material_arame_queimado)
+        materialDAO.add(material_areia)
+        materialDAO.add(material_boca_de_lobo)
+        materialDAO.add(material_tabua)
 
         /* PEDIDO 1 */
         val situacaoHistorico = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_1)
@@ -89,18 +115,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         pedido_1.historico_situacoes = arrayListOf(situacaoHistorico)
         pedidoDAO.add(pedido_1)
 
-        val unidadeMedida1 = UnidadeMedidaDTO(1, "Quilograma", "kg")
-        val unidadeMedida2 = UnidadeMedidaDTO(2, "Litro", "lt")
-        val unidadeMedidaDAO = UnidadeMedidaDAO(DatabaseHelper.connectionSource)
-        unidadeMedidaDAO.add(unidadeMedida1)
-        unidadeMedidaDAO.add(unidadeMedida2)
-
-        val materialBase = MaterialDTO(1, "Areia", "A areia fica quente no verão", unidadeMedida1)
-        val materialDAO = MaterialDAO(DatabaseHelper.connectionSource)
-        materialDAO.add(materialBase)
-
-        val materialPedido = MaterialDePedidoDTO(null, materialBase,
-            1000.0, 0.0, pedido_1)
+        val materialPedido = MaterialDePedidoDTO(null, material_arame_queimado, 100.0, 0.0, pedido_1)
         val materialPedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
         materialPedidoDAO.add(materialPedido)
         pedido_1.materiais = arrayListOf(materialPedido)
@@ -110,39 +125,81 @@ class ListaPedidoActivity: AppCompatActivity() {
         /* PEDIDO 2 */
         val situacaoHistorico2 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_2)
         val situacaoHistorico3 = SituacaoHistoricoDTO(null, "Aprovado", Date(), pedido_2)
-        val situacaoHistorico4 = SituacaoHistoricoDTO(null, "Entrega 1", Date(), pedido_2)
         situacaoHistoricoDAO.add(situacaoHistorico2)
         situacaoHistoricoDAO.add(situacaoHistorico3)
-        situacaoHistoricoDAO.add(situacaoHistorico4)
         pedido_2.historico_situacoes = arrayListOf(situacaoHistorico, situacaoHistorico2)
         pedidoDAO.add(pedido_2)
 
-        val materialBase3 = MaterialDTO(2, "Água", "A água é molhada", unidadeMedida2)
-        materialDAO.add(materialBase3)
-
-        val materialPedido2 = MaterialDePedidoDTO(null, materialBase,
-            333.0, 50.0, pedido_2)
-        val materialPedido3 = MaterialDePedidoDTO(null, materialBase3,
-            250.0, 100.0, pedido_2)
-
-
+        val materialPedido2 = MaterialDePedidoDTO(null, material_areia, 333.0, 0.0, pedido_2)
+        val materialPedido3 = MaterialDePedidoDTO(null, material_boca_de_lobo, 250.0, 0.0, pedido_2)
         materialPedidoDAO.add(materialPedido2)
         materialPedidoDAO.add(materialPedido3)
         pedido_2.materiais = arrayListOf(materialPedido2, materialPedido3)
         pedidoDAO.add(pedido_2)
 
+        /* PEDIDO 3 */
+        val situacaoHistorico_3_1 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_3)
+        val situacaoHistorico_3_2 = SituacaoHistoricoDTO(null, "Aprovado", Date(), pedido_3)
+        val situacaoHistorico_3_3 = SituacaoHistoricoDTO(null, "Entregue", Date(), pedido_3)
+        situacaoHistoricoDAO.add(situacaoHistorico_3_1)
+        situacaoHistoricoDAO.add(situacaoHistorico_3_2)
+        situacaoHistoricoDAO.add(situacaoHistorico_3_3)
+        pedido_3.historico_situacoes = arrayListOf(situacaoHistorico_3_1, situacaoHistorico_3_2, situacaoHistorico_3_3)
+        pedidoDAO.add(pedido_3)
+
+        val materialPedido_3_2 = MaterialDePedidoDTO(null, material_areia, 50.0, 50.0, pedido_3)
+        val materialPedido_3_1 = MaterialDePedidoDTO(null, material_tabua, 100.0, 100.0, pedido_3)
+        materialPedidoDAO.add(materialPedido_3_1)
+        materialPedidoDAO.add(materialPedido_3_2)
+        pedido_3.materiais = arrayListOf(materialPedido_3_1, materialPedido_3_2)
+        pedidoDAO.add(pedido_3)
+
+        /* PEDIDO 4 */
+        val situacaoHistorico_4_1 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_4)
+        val situacaoHistorico_4_2 = SituacaoHistoricoDTO(null, "Reprovado", Date(), pedido_4)
+        situacaoHistoricoDAO.add(situacaoHistorico_4_1)
+        situacaoHistoricoDAO.add(situacaoHistorico_4_2)
+        pedido_4.historico_situacoes = arrayListOf(situacaoHistorico_4_1, situacaoHistorico_4_2)
+        pedidoDAO.add(pedido_4)
+
+        val materialPedido_4_1 = MaterialDePedidoDTO(null, material_boca_de_lobo, 9999.0, 0.0, pedido_4)
+        materialPedidoDAO.add(materialPedido_4_1)
+        pedido_4.materiais = arrayListOf(materialPedido_4_1)
+        pedidoDAO.add(pedido_4)
+
+        /* PEDIDO 5 */
+        val situacaoHistorico_5_1 = SituacaoHistoricoDTO(null, "Em análise", Date(), pedido_5)
+        val situacaoHistorico_5_2 = SituacaoHistoricoDTO(null, "Aprovado", Date(), pedido_5)
+        val situacaoHistorico_5_3 = SituacaoHistoricoDTO(null, "Entrega Parcial 1", Date(), pedido_5)
+        val situacaoHistorico_5_4 = SituacaoHistoricoDTO(null, "Entrega Parcial 2", Date(), pedido_5)
+        situacaoHistoricoDAO.add(situacaoHistorico_5_1)
+        situacaoHistoricoDAO.add(situacaoHistorico_5_2)
+        situacaoHistoricoDAO.add(situacaoHistorico_5_3)
+        situacaoHistoricoDAO.add(situacaoHistorico_5_4)
+        pedido_5.historico_situacoes = arrayListOf(situacaoHistorico_5_1, situacaoHistorico_5_2, situacaoHistorico_5_3, situacaoHistorico_5_4)
+        pedidoDAO.add(pedido_5)
+
+        val materialPedido_5_1 = MaterialDePedidoDTO(null, material_arame_queimado, 100.0, 40.0, pedido_5)
+        val materialPedido_5_2 = MaterialDePedidoDTO(null, material_areia, 100.0, 40.0, pedido_5)
+        val materialPedido_5_3 = MaterialDePedidoDTO(null, material_boca_de_lobo, 100.0, 40.0, pedido_5)
+        val materialPedido_5_4 = MaterialDePedidoDTO(null, material_tabua, 100.0, 40.0, pedido_5)
+        materialPedidoDAO.add(materialPedido_5_1)
+        materialPedidoDAO.add(materialPedido_5_2)
+        materialPedidoDAO.add(materialPedido_5_3)
+        materialPedidoDAO.add(materialPedido_5_4)
+        pedido_5.materiais = arrayListOf(materialPedido_5_1, materialPedido_5_2, materialPedido_5_3, materialPedido_5_4)
+        pedidoDAO.add(pedido_5)
 
         ///MOCK MATERIAIS
         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-        val materialDeCadastro1 = MaterialDeCadastroDTO(1, materialBase, 100.0)
-        val materialDeCadastro2 = MaterialDeCadastroDTO(2, materialBase3, 50.0)
+        val materialDeCadastro1 = MaterialDeCadastroDTO(1, material_arame_queimado, 100.0)
+        val materialDeCadastro2 = MaterialDeCadastroDTO(2, material_areia, 100.0)
+        val materialDeCadastro3 = MaterialDeCadastroDTO(2, material_boca_de_lobo, 100.0)
+        val materialDeCadastro4 = MaterialDeCadastroDTO(2, material_tabua, 100.0)
         materialDeCadastroDAO.add(materialDeCadastro1)
         materialDeCadastroDAO.add(materialDeCadastro2)
-    }
-
-    private fun mockSituacoesDePedido(){
-
-
+        materialDeCadastroDAO.add(materialDeCadastro3)
+        materialDeCadastroDAO.add(materialDeCadastro4)
     }
 
     fun processResponse(response: Response?) {
