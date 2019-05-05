@@ -12,7 +12,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(val context: Context,
-                         val list: List<Pedido>,
+                         var list: List<Pedido>,
                          val entregaClickListener: ListaPedidoActivity,
                          val visualizarPedidoClickListener: ListClickListener
 ): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
@@ -50,7 +50,11 @@ class ListaPedidoAdapter(val context: Context,
         }
 
         holder.itemView.ll_principal.setOnClickListener{visualizarPedidoClickListener.onClick(item.id)}
+    }
 
+    fun updateAllItens(list: List<Pedido>){
+        this.list = list
+        notifyDataSetChanged()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

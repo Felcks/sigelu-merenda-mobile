@@ -66,4 +66,9 @@ class GeralFragment: Fragment() {
             tv_data_entrega.text = result.dataEntrega.getDataFormatada()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel!!.carregarPedido(this.context!!)
+    }
 }

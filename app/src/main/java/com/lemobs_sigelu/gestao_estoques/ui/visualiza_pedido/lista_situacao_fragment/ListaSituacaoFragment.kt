@@ -74,4 +74,9 @@ class ListaSituacaoFragment : Fragment() {
         val adapter = ListaSituacaoAdapter(context!!, list)
         rv_lista.adapter = adapter
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel!!.carregarSituacoesDePedido(this.context!!)
+    }
 }

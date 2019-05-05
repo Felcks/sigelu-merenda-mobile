@@ -40,8 +40,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +51,11 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.ativarBotaoDeCadastrarEntrega()
     }
 
     fun createTableLayout() {
@@ -69,6 +72,21 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
             val tableLayout: TabLayout = tab_layout
             tableLayout.setupWithViewPager(vp)
+        }
+    }
+
+    private fun ativarBotaoDeCadastrarEntrega(){
+        val situacaoPedido = viewModel!!.getSituacaoPedido(this.applicationContext)
+        if(situacaoPedido.id == 2 || situacaoPedido.id == 5){
+
+            btn_cadastrar_entrega_materiais.visibility = View.VISIBLE
+            btn_cadastrar_entrega_materiais.setOnClickListener {
+                val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        else{
+            btn_cadastrar_entrega_materiais.visibility = View.GONE
         }
     }
 }

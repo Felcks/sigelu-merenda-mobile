@@ -1,5 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,4 +16,10 @@ fun String.tracoSeVazio(): String{
         return "-"
     }
     return this
+}
+
+fun View.esconderTeclado(){
+    val manager = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    manager?.hideSoftInputFromWindow(this.windowToken, 0)
 }

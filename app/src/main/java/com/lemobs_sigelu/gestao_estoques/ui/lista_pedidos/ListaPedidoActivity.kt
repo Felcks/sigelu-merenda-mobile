@@ -37,6 +37,7 @@ class ListaPedidoActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ListaPedidoViewModelFactory
     var viewModel: ListaPedidoViewModel? = null
+    var adapter: ListaPedidoAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -223,17 +224,22 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     private fun iniciarAdapter(list: List<Pedido>){
 
-        val layoutManager = LinearLayoutManager(applicationContext)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_lista.layoutManager = layoutManager
+        if(this.adapter == null) {
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaPedidoAdapter(
-            applicationContext,
-            list,
-            this,
-            visualizarPedidoClickListener
-        )
-        rv_lista.adapter = adapter
+            this.adapter = ListaPedidoAdapter(
+                applicationContext,
+                list,
+                this,
+                visualizarPedidoClickListener
+            )
+            rv_lista.adapter = adapter
+        }
+        else{
+            this.adapter!!.updateAllItens(list)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -282,5 +288,10 @@ class ListaPedidoActivity: AppCompatActivity() {
             val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel!!.carregaListaPedido()
     }
 }

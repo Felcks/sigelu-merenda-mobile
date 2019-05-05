@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.esconderTeclado
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_entrega_materiais_pedido.*
 import javax.inject.Inject
@@ -90,6 +91,12 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
+        rv_lista.setItemViewCacheSize(list.size)
+        rv_lista.setHasFixedSize(true)
+        rv_lista.setOnTouchListener { v, event ->
+            v.esconderTeclado()
+            false
+        }
 
         this.adapter = EntregaMateriaisPedidoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
@@ -99,8 +106,9 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
 
         if(item?.itemId ==  R.id.btn_done){
 
-            if(adapter != null)
+            if(adapter != null) {
                 this.viewModel!!.enviarMateriais(applicationContext, adapter!!.list)
+            }
         }
 
         return super.onOptionsItemSelected(item)
