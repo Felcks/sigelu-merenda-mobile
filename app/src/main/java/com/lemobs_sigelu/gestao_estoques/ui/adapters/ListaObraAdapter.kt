@@ -17,14 +17,10 @@ class ListaObraAdapter(val context: Context,
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private var obraSelecionadaId = 0
     private var itemSelecionadaPos = -1
-    private var colorGrayObraSelecionada: Int? = null
-    private var colorWhiteObraSelecionada: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
         val view = mLayoutInflater.inflate(R.layout.item_obra, parent, false)
-        this.colorGrayObraSelecionada = ContextCompat.getColor(context, android.R.color.darker_gray)
-        this.colorWhiteObraSelecionada = ContextCompat.getColor(context, android.R.color.white)
         return MyViewHolder(view)
     }
 
@@ -36,12 +32,14 @@ class ListaObraAdapter(val context: Context,
 
         val item = this.list[position]
         if(item is Obra) {
-            holder.itemView.ll_principal.setBackgroundColor(this.colorWhiteObraSelecionada!!)
+            holder.itemView.iv_done.visibility = View.INVISIBLE
             holder.itemView.tv_titulo.text = item.getTitulo()
             holder.itemView.tv_1.text = item.distancia.tracoSeVazio()
             holder.itemView.tv_2.text = item.conclusaoPrevista.tracoSeVazio()
             holder.itemView.tv_3.text = item.situacao.tracoSeVazio()
             holder.itemView.tv_4.text = item.endereco.tracoSeVazio()
+            holder.itemView.tv_situacao.text = item.getStatusDeConclusao()
+            holder.itemView.rl_situacao.setBackgroundColor(ContextCompat.getColor(context, item.getColor()))
 
             holder.itemView.ll_principal.setOnClickListener {
 
@@ -51,7 +49,7 @@ class ListaObraAdapter(val context: Context,
                     itemSelecionadaPos = position
 
                     obraSelecionadaId = item.id
-                    holder.itemView.ll_principal.setBackgroundColor(this.colorGrayObraSelecionada!!)
+                    holder.itemView.iv_done.visibility = View.VISIBLE
                 }
             }
         }

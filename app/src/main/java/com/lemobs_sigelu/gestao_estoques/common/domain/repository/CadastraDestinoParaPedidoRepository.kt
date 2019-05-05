@@ -32,6 +32,6 @@ class CadastraDestinoParaPedidoRepository {
     }
 
     fun setDestinoPedidoObra(){
-        pedidoDeCadastro = PedidoDeCadastro(PedidoDeCadastro.Companion.PedidoDestino.NUCLEO)
+        pedidoDeCadastro = PedidoDeCadastro(PedidoDeCadastro.Companion.PedidoDestino.OBRA)
     }
 }

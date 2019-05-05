@@ -23,3 +23,8 @@ fun View.esconderTeclado(){
 
     manager?.hideSoftInputFromWindow(this.windowToken, 0)
 }
+
+fun String.toDate(): Date {
+    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return simpleDateFormat.parse(this) as Date
+}

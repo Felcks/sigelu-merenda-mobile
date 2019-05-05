@@ -12,7 +12,7 @@ import java.util.*
 @DatabaseTable(tableName = "pedido")
 class PedidoDTO (
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     var id: Int? = null,
 
     @DatabaseField

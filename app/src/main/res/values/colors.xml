@@ -23,4 +23,12 @@
     <color name="quantidade_aceita">#43a047</color>
     <color name="quantidade_rejeitada">#990000</color>
 
+    <!-- CORES DAS OBRAS NO MAPS -->
+    <color name="obra_concluida">#43a047</color>
+    <color name="obra_planejada">#d84315</color>
+    <color name="obra_planejada_atraso">#d84315</color>
+    <color name="obra_andamento">#237a85</color>
+    <color name="obra_andamento_atraso">#237a85</color>
+    <color name="obra_pausada">#990000</color>
+    <color name="obra_pausada_atraso">#990000</color>
 </resources>

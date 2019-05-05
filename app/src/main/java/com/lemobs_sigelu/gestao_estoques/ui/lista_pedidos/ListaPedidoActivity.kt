@@ -100,10 +100,10 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         /* Material Base */
         val materialDAO = MaterialDAO(DatabaseHelper.connectionSource)
-        val material_arame_queimado = MaterialDTO(1, "Arame Queimado", "", un_quilograma)
-        val material_areia = MaterialDTO(2, "Areia", "", un_metro_cubico)
-        val material_boca_de_lobo = MaterialDTO(3, "Boca de Lobo", "", un_unidade)
-        val material_tabua = MaterialDTO(4, "Tábua", "", un_metro)
+        val material_arame_queimado = MaterialDTO(1, "Arame Queimado", "Sem descrição", un_quilograma)
+        val material_areia = MaterialDTO(2, "Areia", "Sem descrição", un_metro_cubico)
+        val material_boca_de_lobo = MaterialDTO(3, "Boca de Lobo", "Sem descrição", un_unidade)
+        val material_tabua = MaterialDTO(4, "Tábua", "Sem descrição", un_metro)
         materialDAO.add(material_arame_queimado)
         materialDAO.add(material_areia)
         materialDAO.add(material_boca_de_lobo)

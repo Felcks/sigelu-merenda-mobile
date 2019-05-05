@@ -17,10 +17,17 @@ class ConfirmaMateriaisPedidoRepository {
         if(pedidoDeCadastro == null)
             return false
 
+        val destino = if (pedidoDeCadastro!!.destino == PedidoDeCadastro.Companion.PedidoDestino.NUCLEO){
+            pedidoDeCadastro!!.destino.nome
+        }
+        else{
+            "Obra ${pedidoDeCadastro!!.obra?.codigo}"
+        }
+
         val pedido = Pedido(100,
             "1800099",
             "Centro",
-            pedidoDeCadastro!!.destino.nome,
+            destino,
             Date(),
             Date(),
             Situacao(1, "Em análise"),
@@ -36,15 +43,21 @@ class ConfirmaMateriaisPedidoRepository {
             }
         )
 
-        val materialDePedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
-        var a = 1
-        for(i in pedido.materiais) {
-            materialDePedidoDAO.add(i.getEquivalentDTO(pedido.getEquivalentDTO()))
-            a += 1
-        }
 
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        pedidoDAO.add(pedido.getEquivalentDTO())
+        val pedidoDTO = pedido.getEquivalentDTOParaAdicao()
+        pedidoDAO.add(pedidoDTO)
+        val materiaisDTO = pedido.materiais.map {
+            it.getEquivalentDTO(pedidoDTO)
+        }
+        pedidoDTO.materiais = materiaisDTO
+        pedidoDTO.codigo = "33000${pedidoDTO.id}"
+        pedidoDAO.add(pedidoDTO)
+
+        val materialDePedidoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
+        for(i in pedido.materiais) {
+            materialDePedidoDAO.add(i.getEquivalentDTO(pedidoDTO))
+        }
 
         materiaisCadastrados.removeAll { true }
         return true
