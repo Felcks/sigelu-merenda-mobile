@@ -19,4 +19,12 @@ class MaterialDePedido (val id: Int,
             recebido,
             pedidoDTO)
     }
+
+    fun getEquivalentDTOParaAdicao(pedidoDTO: PedidoDTO): MaterialDePedidoDTO {
+        return MaterialDePedidoDTO(null,
+            base.getEquivalentDTO(),
+            contratado,
+            recebido,
+            pedidoDTO)
+    }
 }

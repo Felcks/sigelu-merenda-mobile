@@ -3,8 +3,11 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeCadastroDTO
 
-class MaterialParaCadastro (val id: Int, nome: String, descricao: String, unidadeMedida: UnidadeMedida,
-                            val quantidade_disponivel: Double): MaterialBase(id, nome, descricao, unidadeMedida){
+class MaterialParaCadastro (val id: Int,
+                            nome: String,
+                            descricao: String,
+                            unidadeMedida: UnidadeMedida,
+                            var quantidade_disponivel: Double): MaterialBase(id, nome, descricao, unidadeMedida){
 
     private var quantidade_pedida: Double = 0.0
 

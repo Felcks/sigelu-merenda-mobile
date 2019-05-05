@@ -1,10 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.MaterialDePedidoDAO
-import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
-import com.lemobs_sigelu.gestao_estoques.bd.UnidadeMedidaDAO
+import com.lemobs_sigelu.gestao_estoques.bd.*
+import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
 import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
@@ -33,7 +31,7 @@ class ConfirmaMateriaisPedidoRepository {
             Situacao(1, "Em análise"),
             listOf<SituacaoHistorico>(SituacaoHistorico(10, "Em enálise", Date())),
             materiaisCadastrados.map {
-                MaterialDePedido(it.id * 10,
+                MaterialDePedido(it.id,
                     MaterialBase(it.id,
                         it.nome,
                         it.descricao,
@@ -48,7 +46,7 @@ class ConfirmaMateriaisPedidoRepository {
         val pedidoDTO = pedido.getEquivalentDTOParaAdicao()
         pedidoDAO.add(pedidoDTO)
         val materiaisDTO = pedido.materiais.map {
-            it.getEquivalentDTO(pedidoDTO)
+            it.getEquivalentDTOParaAdicao(pedidoDTO)
         }
         pedidoDTO.materiais = materiaisDTO
         pedidoDTO.codigo = "33000${pedidoDTO.id}"
@@ -58,6 +56,16 @@ class ConfirmaMateriaisPedidoRepository {
         for(i in pedido.materiais) {
             materialDePedidoDAO.add(i.getEquivalentDTO(pedidoDTO))
         }
+
+        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
+        for (item in materiaisCadastrados) {
+            item.quantidade_disponivel -= item.getQuantidadePedida()
+            materialDeCadastroDAO.add(item.getEquivalentDTO(item.id))
+        }
+
+        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+        val situacao = SituacaoHistoricoDTO(null, "Em análise", Date(), pedidoDTO)
+        situacaoHistoricoDAO.add(situacao)
 
         materiaisCadastrados.removeAll { true }
         return true

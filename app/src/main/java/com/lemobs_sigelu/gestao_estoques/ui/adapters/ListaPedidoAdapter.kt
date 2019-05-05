@@ -48,6 +48,9 @@ class ListaPedidoAdapter(val context: Context,
                 entregaClickListener.entregaPedido(item.id)
             }
         }
+        else{
+            holder.itemView.iv_entrega.visibility = View.GONE
+        }
 
         holder.itemView.ll_principal.setOnClickListener{visualizarPedidoClickListener.onClick(item.id)}
     }

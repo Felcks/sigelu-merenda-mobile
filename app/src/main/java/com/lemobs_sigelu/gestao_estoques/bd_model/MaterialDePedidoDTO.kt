@@ -10,7 +10,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 @DatabaseTable(tableName = "material_de_pedido")
 class MaterialDePedidoDTO (
 
-    @DatabaseField(id = true, unique = true)
+    @DatabaseField(generatedId = true, unique = true)
     val id: Int? = null,
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
