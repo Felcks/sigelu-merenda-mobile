@@ -86,7 +86,6 @@ class ListaPedidoActivity: AppCompatActivity() {
         /* Unidade de Medida */
         val unidadeMedidaDAO = UnidadeMedidaDAO(DatabaseHelper.connectionSource)
         val un_quilograma = UnidadeMedidaDTO(1, "Quilograma", "kg")
-        val un_litro = UnidadeMedidaDTO(2, "Litro", "lt")
         val un_metro_cubico = UnidadeMedidaDTO(3, "Metro cúbico", "m³")
         val un_unidade = UnidadeMedidaDTO(4, "Unidade", "un.")
         val un_metro = UnidadeMedidaDTO(5, "Metro", "m")
