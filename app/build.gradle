@@ -15,6 +15,14 @@ project.ext {
 }
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'sigelu_estoques'
+            keyPassword 's1g3luEst0qu3s'
+            storeFile file('/home/felcks/Documents/sigelu_estoques.jks')
+            storePassword 's1g3luEst0qu3s'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId 'com.lemobs_sigelu.estoques'
@@ -28,6 +36,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     flavorDimensions "default"
