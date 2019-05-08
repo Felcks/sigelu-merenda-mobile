@@ -29,9 +29,9 @@ class ListaMaterialCadastradoAdapter(val context: Context,
         val item = this.list[position]
 
         if(item is MaterialParaCadastro){
-            holder.itemView.tv_1.text = item.nome
-            holder.itemView.tv_2.text = item.descricao
-            holder.itemView.tv_3.text = item.unidadeMedida.getNomeESiglaPorExtenso()
+            holder.itemView.tv_1.text = item.base.nome
+            holder.itemView.tv_2.text = item.base.descricao
+            holder.itemView.tv_3.text = item.base.unidadeMedida.getNomeESiglaPorExtenso()
             holder.itemView.tv_4.setText(item.quantidade_disponivel.toString())
             holder.itemView.tv_5.setText(item.getQuantidadePedida().toString())
         }

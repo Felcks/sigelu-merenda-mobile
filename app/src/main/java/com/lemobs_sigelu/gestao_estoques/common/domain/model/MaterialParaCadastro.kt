@@ -4,10 +4,8 @@ import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeCadastroDTO
 
 class MaterialParaCadastro (val id: Int,
-                            nome: String,
-                            descricao: String,
-                            unidadeMedida: UnidadeMedida,
-                            var quantidade_disponivel: Double): MaterialBase(id, nome, descricao, unidadeMedida){
+                            val base: MaterialBase,
+                            var quantidade_disponivel: Double){
 
     private var quantidade_pedida: Double = 0.0
 
@@ -24,10 +22,10 @@ class MaterialParaCadastro (val id: Int,
 
     fun getQuantidadePedida(): Double = quantidade_pedida
 
-    fun getEquivalentDTO(materialbaseId: Int): MaterialDeCadastroDTO {
+    fun getEquivalentDTO(): MaterialDeCadastroDTO {
 
         return MaterialDeCadastroDTO(id,
-            MaterialDTO(materialbaseId, nome, descricao, unidadeMedida.getEquivalentDTO()),
+            base.getEquivalentDTO(),
             quantidade_disponivel)
     }
 }

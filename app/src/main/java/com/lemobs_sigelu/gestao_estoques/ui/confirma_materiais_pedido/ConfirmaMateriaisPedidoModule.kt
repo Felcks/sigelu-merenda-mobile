@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoUseCase
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialCadastradoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ConfirmaMateriaisPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraPedidoRepository
 import dagger.Module
 import dagger.Provides
 
@@ -20,8 +20,8 @@ class ConfirmaMateriaisPedidoModule {
     }
 
     @Provides
-    fun provideConfirmaMateriaisRepository(): ConfirmaMateriaisPedidoRepository{
-        return ConfirmaMateriaisPedidoRepository()
+    fun provideConfirmaMateriaisRepository(): CadastraPedidoRepository{
+        return CadastraPedidoRepository()
     }
 
 }

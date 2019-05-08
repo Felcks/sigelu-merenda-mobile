@@ -1,4 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-class MaterialDeSituacao {
-}
+class MaterialDeSituacao(val id: Int,
+                         val base: MaterialBase,
+                         val recebido: Double,
+                         val situacaoHistorico: SituacaoHistorico)

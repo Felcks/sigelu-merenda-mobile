@@ -32,10 +32,10 @@ class ListaMaterialDeCadastroSimplesAdapter(val context: Context,
         val item = this.list[position]
 
         if(item is MaterialParaCadastro){
-            holder.itemView.tv_name.text = item.nome
+            holder.itemView.tv_name.text = item.base.nome
 
             holder.itemView.btn_add.setOnClickListener {
-                selecionaMaterial.selecionaMaterial(item.material_id)
+                selecionaMaterial.selecionaMaterial(item.base.material_id)
             }
         }
     }

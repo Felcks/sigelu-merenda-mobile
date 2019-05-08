@@ -29,4 +29,5 @@ class MaterialDeSituacaoDAO : BaseDaoImpl<MaterialDeSituacaoDTO, Integer> {
     fun queryForId(id: Int): MaterialDeSituacaoDTO? {
         return dao.queryForId(id)
     }
+
 }

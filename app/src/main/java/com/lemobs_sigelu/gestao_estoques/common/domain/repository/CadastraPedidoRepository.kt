@@ -2,13 +2,14 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.bd.*
+import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeSituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
 import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
 import java.util.*
 
-class ConfirmaMateriaisPedidoRepository {
+class CadastraPedidoRepository {
 
     fun cadastraPedido(context: Context): Boolean{
 
@@ -32,10 +33,7 @@ class ConfirmaMateriaisPedidoRepository {
             listOf<SituacaoHistorico>(SituacaoHistorico(10, "Em enálise", Date())),
             materiaisCadastrados.map {
                 MaterialDePedido(it.id,
-                    MaterialBase(it.id,
-                        it.nome,
-                        it.descricao,
-                        it.unidadeMedida),
+                    it.base,
                     it.getQuantidadePedida(),
                     0.0)
             }
@@ -60,12 +58,14 @@ class ConfirmaMateriaisPedidoRepository {
         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
         for (item in materiaisCadastrados) {
             item.quantidade_disponivel -= item.getQuantidadePedida()
-            materialDeCadastroDAO.add(item.getEquivalentDTO(item.id))
+            materialDeCadastroDAO.add(item.getEquivalentDTO())
         }
 
         val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
-        val situacao = SituacaoHistoricoDTO(null, "Em análise", Date(), pedidoDTO)
-        situacaoHistoricoDAO.add(situacao)
+        val situacaoHistoricoDTO = SituacaoHistoricoDTO(null, "Em análise", Date(), pedidoDTO)
+        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
+
+        this.associaMateriaisASituacaoHistorico(materiaisCadastrados, situacaoHistoricoDTO)
 
         materiaisCadastrados.removeAll { true }
         return true
@@ -75,5 +75,22 @@ class ConfirmaMateriaisPedidoRepository {
 
         pedidoDeCadastro = null
         materiaisCadastrados.removeAll { true }
+    }
+
+    fun associaMateriaisASituacaoHistorico(materiais: List<MaterialParaCadastro>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
+
+        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
+        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), 0.0, situacaoHistoricoDTO) }
+
+        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
+        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
+
+
+        for(item in materiaisDeSituacaoDTO){
+            materialDeSituacaoDAO.add(item)
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.MATERIAIS_PARA_CADASTRO_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
 import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
@@ -16,7 +15,7 @@ class CadastraMaterialParaPedidoRepository {
         val material = materialDAO.queryForId(materialId)!!.getEquivalentDomain()
 
         val success = material.setQuantidadePedida(value)
-        materialDAO.add(material.getEquivalentDTO(materialId))
+        materialDAO.add(material.getEquivalentDTO())
         return success
     }
 
