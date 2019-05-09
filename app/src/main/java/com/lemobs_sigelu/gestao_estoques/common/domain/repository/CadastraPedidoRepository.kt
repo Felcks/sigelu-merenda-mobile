@@ -30,7 +30,7 @@ class CadastraPedidoRepository {
             Date(),
             Date(),
             Situacao(1, "Em análise"),
-            listOf<SituacaoHistorico>(SituacaoHistorico(10, "Em enálise", Date())),
+            listOf<SituacaoHistorico>(SituacaoHistorico(10, "Em enálise", Date(), listOf())),
             materiaisCadastrados.map {
                 MaterialDePedido(it.id,
                     it.base,
@@ -65,8 +65,6 @@ class CadastraPedidoRepository {
         val situacaoHistoricoDTO = SituacaoHistoricoDTO(null, "Em análise", Date(), pedidoDTO)
         situacaoHistoricoDAO.add(situacaoHistoricoDTO)
 
-        this.associaMateriaisASituacaoHistorico(materiaisCadastrados, situacaoHistoricoDTO)
-
         materiaisCadastrados.removeAll { true }
         return true
     }
@@ -77,20 +75,4 @@ class CadastraPedidoRepository {
         materiaisCadastrados.removeAll { true }
     }
 
-    fun associaMateriaisASituacaoHistorico(materiais: List<MaterialParaCadastro>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
-
-        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
-        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), 0.0, situacaoHistoricoDTO) }
-
-        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
-        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
-        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
-
-
-        for(item in materiaisDeSituacaoDTO){
-            materialDeSituacaoDAO.add(item)
-        }
-
-
-    }
 }

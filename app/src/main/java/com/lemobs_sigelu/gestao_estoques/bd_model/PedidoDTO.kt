@@ -7,6 +7,7 @@ import com.j256.ormlite.table.DatabaseTable
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import java.util.*
 
 @DatabaseTable(tableName = "pedido")
@@ -50,7 +51,7 @@ class PedidoDTO (
             data_pedido ?: Date(),
             data_entrega ?: Date(),
             situacao!!.getEquivalentDomain(),
-            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf(),
+            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
             materiais?.map { it.getEquivalentDomain() } ?: listOf())
     }
 }

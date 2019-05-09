@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDeSituacao
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import java.util.*
@@ -11,7 +12,7 @@ import java.util.*
 @DatabaseTable(tableName = "situacao_historico")
 class SituacaoHistoricoDTO (
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     val id: Int? = null,
 
     @DatabaseField
@@ -31,6 +32,7 @@ class SituacaoHistoricoDTO (
     override fun getEquivalentDomain(): SituacaoHistorico {
         return SituacaoHistorico(id ?: 0,
             nome ?: "",
-            data_criacao ?: Date())
+            data_criacao ?: Date(),
+            materiais?.map { it.getEquivalentDomain() } ?: listOf<MaterialDeSituacao>())
     }
 }

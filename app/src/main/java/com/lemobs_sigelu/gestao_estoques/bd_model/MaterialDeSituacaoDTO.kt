@@ -27,8 +27,6 @@ class MaterialDeSituacaoDTO (
     fun getEquivalentDomain(): MaterialDeSituacao{
         return MaterialDeSituacao(id ?: 0,
             base?.getEquivalentDomain() ?: MaterialBase(0, "", "", UnidadeMedida(0, "", "")),
-            recebido ?: 0.0,
-            situacao_historico?.getEquivalentDomain() ?: SituacaoHistorico(0, "", Date())
-        )
+            recebido ?: 0.0)
     }
 }

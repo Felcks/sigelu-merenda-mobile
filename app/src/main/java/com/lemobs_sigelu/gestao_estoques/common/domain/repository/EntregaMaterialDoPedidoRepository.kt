@@ -1,14 +1,13 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.MaterialDePedidoDAO
-import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
-import com.lemobs_sigelu.gestao_estoques.bd.SituacaoHistoricoDAO
+import com.lemobs_sigelu.gestao_estoques.bd.*
+import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeSituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
@@ -73,33 +72,51 @@ class EntregaMaterialDoPedidoRepository {
 
         if(conferirSeEntregaCompleta(context, list)){
 
-            val situacao = SituacaoHistoricoDTO(null, "Entregue", Date(), pedido)
-            situacaoHistoricoDAO.add(situacao)
+            val situacaoHistoricoDTO  = SituacaoHistoricoDTO(null, "Entregue", Date(), pedido)
+            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
 
             if(pedido.historico_situacoes != null) {
                 val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
                 listaSituacoes.addAll(pedido.historico_situacoes!!)
-                listaSituacoes.add(situacao)
+                listaSituacoes.add(situacaoHistoricoDTO )
                 pedidoDAO.add(pedido)
             }
 
             pedido.situacao = SituacaoDTO(3, "Entregue")
             pedidoDAO.add(pedido)
+
+
+            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
         }
         else{
-            val situacao = SituacaoHistoricoDTO(null, "Entrega Parcial ${quantidadeSituacoes-1}", Date(), pedido)
-            situacaoHistoricoDAO.add(situacao)
+            val situacaoHistoricoDTO = SituacaoHistoricoDTO(null, "Entrega Parcial ${quantidadeSituacoes-1}", Date(), pedido)
+            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
 
             if(pedido.historico_situacoes != null) {
                 val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
                 listaSituacoes.addAll(pedido.historico_situacoes!!)
-                listaSituacoes.add(situacao)
+                listaSituacoes.add(situacaoHistoricoDTO )
                 pedidoDAO.add(pedido)
             }
 
             pedido.situacao = SituacaoDTO(5, "Parcial")
             pedidoDAO.add(pedido)
+
+            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
         }
+    }
+
+    fun associaMateriaisASituacaoHistorico(materiais: List<MaterialDePedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
+
+        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
+        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), it.recebido, situacaoHistoricoDTO) }
+        for(item in materiaisDeSituacaoDTO){
+            materialDeSituacaoDAO.add(item)
+        }
+
+        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
+        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
     }
 
     fun enviarEntregaDeMateriais(context: Context, list: List<MaterialDePedido>): Observable<Boolean> {

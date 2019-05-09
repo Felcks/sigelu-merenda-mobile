@@ -33,13 +33,13 @@ val UNIDADES_MOCKADAS = listOf<UnidadeMedida>(unidade_medida_1, unidade_medida_2
 //    MATERIAL_DE_PEDIDO_MOCKADOS_4)
 
 
-val situacao_de_pedido_0 = SituacaoHistorico(0, "Pedido feito", Date())
-val situacao_de_pedido_1 = SituacaoHistorico(1, "Entrega 1", Date())
-val situacao_de_pedido_2 = SituacaoHistorico(2, "Entrega 2", Date())
-val situacao_de_pedido_3 = SituacaoHistorico(3, "Reprovado", Date())
-val situacao_de_pedido_4 = SituacaoHistorico(4, "Parcial", Date())
-val situacao_de_pedido_5 = SituacaoHistorico(5, "Em Análise", Date())
-val situacao_de_pedido_6 = SituacaoHistorico(6, "Entregue", Date())
+val situacao_de_pedido_0 = SituacaoHistorico(0, "Pedido feito", Date(), listOf())
+val situacao_de_pedido_1 = SituacaoHistorico(1, "Entrega 1", Date(), listOf())
+val situacao_de_pedido_2 = SituacaoHistorico(2, "Entrega 2", Date(), listOf())
+val situacao_de_pedido_3 = SituacaoHistorico(3, "Reprovado", Date(), listOf())
+val situacao_de_pedido_4 = SituacaoHistorico(4, "Parcial", Date(), listOf())
+val situacao_de_pedido_5 = SituacaoHistorico(5, "Em Análise", Date(), listOf())
+val situacao_de_pedido_6 = SituacaoHistorico(6, "Entregue", Date(), listOf())
 val situacoes_de_pedido = listOf<SituacaoHistorico>(situacao_de_pedido_1, situacao_de_pedido_2)
 val LISTA_SITUACOES_DE_PEDIDOS_MOCKADOS = listOf<List<SituacaoHistorico>>(
     listOf(situacao_de_pedido_0, situacao_de_pedido_5),

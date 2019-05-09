@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.lista_situacao_fragment
 
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.github.vipulasri.timelineview.TimelineView
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
+import kotlinx.android.synthetic.main.fragment_pedido_situacoes.*
 import kotlinx.android.synthetic.main.item_situacao_de_pedido.view.*
 
 class ListaSituacaoAdapter (val context: Context,
@@ -30,7 +32,7 @@ class ListaSituacaoAdapter (val context: Context,
 
         holder.itemView.tv_data.text = item.data.getDataFormatada()
         holder.itemView.tv_titulo.text = item.nome
-
+        this.startAdapterMateriais(holder, item)
 
         if(position == 0){
             holder.itemView.time_marker.setMarker(context.resources.getDrawable(R.drawable.ic_marker_timeline_inactive))
@@ -44,11 +46,20 @@ class ListaSituacaoAdapter (val context: Context,
         return TimelineView.getTimeLineViewType(position,itemCount)
     }
 
+    private fun startAdapterMateriais(holder: TimeLineViewHolder, situacaoHistorico: SituacaoHistorico){
+
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        holder.itemView.rv_lista_materiais.layoutManager = layoutManager
+
+        val adapter = ListaMateriaisAdapter(context, situacaoHistorico.materiais)
+        holder.itemView.rv_lista_materiais.adapter = adapter
+    }
+
     inner class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
-        var mTimelineView: TimelineView
+        var mTimelineView: TimelineView = itemView.findViewById(R.id.time_marker) as TimelineView
 
         init {
-            mTimelineView = itemView.findViewById(R.id.time_marker) as TimelineView
             mTimelineView.initLine(viewType)
         }
     }
