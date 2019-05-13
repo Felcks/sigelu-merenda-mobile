@@ -9,9 +9,11 @@ apply plugin: 'kotlin-kapt'
 project.ext {
     supportLibraryVersion = "28.0.0"
     daggerVersion = "2.15"
-    butterKnifeVersion = "8.5.1"
+    butterKnifeVersion = "8.8.1"
     rxJavaVersion = "2.2.5"
     rxAndroidVersion = "2.1.0"
+    timberVersion = "4.6.0"
+    androidPluginVersion = "3.3.1"
 }
 
 android {
@@ -23,6 +25,9 @@ android {
             storePassword 's1g3luEst0qu3s'
         }
     }
+    dataBinding {
+        enabled = true
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId 'com.lemobs_sigelu.estoques'
@@ -31,6 +36,11 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
     buildTypes {
         release {
@@ -153,6 +163,16 @@ dependencies {
 
     /* TIMELINE VIEW */
     implementation 'com.github.vipulasri:timelineview:1.0.6'
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$project.timberVersion"
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$project.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
+
+    kapt 'com.android.databinding:compiler:3.1.4'
+
 }
 
 android {

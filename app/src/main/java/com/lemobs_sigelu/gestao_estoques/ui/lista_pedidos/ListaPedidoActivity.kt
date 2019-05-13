@@ -13,6 +13,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import butterknife.OnClick
 import com.j256.ormlite.support.ConnectionSource
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.bd.*
@@ -202,7 +203,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         materialDeCadastroDAO.add(materialDeCadastro4)
     }
 
-    fun processResponse(response: Response?) {
+    private fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
             Status.SUCCESS -> renderDataState(response.data)
@@ -218,8 +219,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderErrorState(throwable: Throwable?) {
-    }
+    private fun renderErrorState(throwable: Throwable?) {}
 
     private fun iniciarAdapter(list: List<Pedido>){
 
@@ -258,11 +258,6 @@ class ListaPedidoActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private val entregaClickListener = View.OnClickListener {
-        val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
-        startActivity(intent)
     }
 
     fun entregaPedido(pedidoID: Int){

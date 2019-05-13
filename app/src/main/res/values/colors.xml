@@ -7,6 +7,7 @@
     <color name="colorAccent">#44B8B5</color>
     <color name="colorAccentDark">#009fa3</color>
     <color name="divider">#BDBDBD</color>
+    <color name="divider_light">#ECECEC</color>
 
     <!-- Cores auxiliares -->
     <color name="primary_text">#222222</color>
@@ -31,4 +32,6 @@
     <color name="obra_andamento_atraso">#237a85</color>
     <color name="obra_pausada">#990000</color>
     <color name="obra_pausada_atraso">#990000</color>
+
+    <!-- CORES TELA DE LOGIN -->
 </resources>

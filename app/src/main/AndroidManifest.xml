@@ -29,12 +29,7 @@
                   android:configChanges="orientation"
                   android:screenOrientation="portrait">
 
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
 
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -64,6 +59,16 @@
 
         <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
                   android:label="Confirmar Pedido de Material"/>
+
+        <activity android:name=".ui.login.LoginActivity"
+                  android:label="SIGELU Estoques - Login">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 </manifest>
