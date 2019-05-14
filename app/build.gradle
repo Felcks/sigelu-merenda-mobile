@@ -107,10 +107,6 @@ android {
     buildToolsVersion '28.0.3'
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -171,8 +167,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$project.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
 
-    kapt 'com.android.databinding:compiler:3.1.4'
-
+    //kapt 'com.android.databinding:compiler:3.3.1'
 }
 
 android {

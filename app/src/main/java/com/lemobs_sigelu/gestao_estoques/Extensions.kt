@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques
 
 import android.content.Context
+import android.databinding.BindingAdapter
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import java.text.SimpleDateFormat
@@ -28,3 +29,10 @@ fun String.toDate(): Date {
     val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return simpleDateFormat.parse(this) as Date
 }
+
+@set:BindingAdapter("isVisible")
+inline var View.isVisible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }
