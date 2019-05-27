@@ -35,4 +35,8 @@ class RestApi {
     fun getMateriais(): Call<List<MaterialDataResponse>>{
         return api.getMateriais()
     }
+
+    fun getPermissoes(authorization: String): Call<List<String>>{
+        return api.getPermissoes(authorization)
+    }
 }

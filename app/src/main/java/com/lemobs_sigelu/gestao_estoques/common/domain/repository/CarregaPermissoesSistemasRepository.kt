@@ -9,7 +9,7 @@ import io.reactivex.Observable
  */
 class CarregaPermissoesSistemasRepository {
 
-    val api = AccountApi()
+    val api = RestApi()
 
     fun carregaPermissoesModulo(auth: String):  Observable<List<String>> {
 

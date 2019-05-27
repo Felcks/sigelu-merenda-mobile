@@ -2,15 +2,18 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
 import butterknife.OnClick
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityLoginBinding
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
@@ -21,8 +24,6 @@ class LoginActivity: AppCompatActivity(){
     @Inject
     lateinit var viewModelFactory: LoginViewModelFactory
     var viewModel: LoginViewModel? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -40,11 +41,6 @@ class LoginActivity: AppCompatActivity(){
         }
     }
 
-//    @OnClick(R.id.btn_login)
-//    private fun login(){
-//        viewModel!!.login()
-//    }
-
     private fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
@@ -59,12 +55,14 @@ class LoginActivity: AppCompatActivity(){
 
     private fun renderDataState(result: Any?) {
         viewModel!!.loading.value = false
-        ll_loading.visibility = View.INVISIBLE
+        val intent = Intent(this, ListaPedidoActivity::class.java)
+        startActivity(intent)
+        finishAffinity()
     }
 
     private fun renderErrorState(throwable: Throwable?) {
         viewModel!!.loading.value = false
-        ll_loading.visibility = View.INVISIBLE
+        Toast.makeText(applicationContext, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
 }

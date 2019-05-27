@@ -25,8 +25,4 @@ class AccountApi {
     fun login(username: String, senha: String): Call<LoginDataResponse> {
         return api.login(username, senha)
     }
-
-    fun getPermissoes(authorization: String): Call<List<String>>{
-        return api.getPermissoes(authorization)
-    }
 }

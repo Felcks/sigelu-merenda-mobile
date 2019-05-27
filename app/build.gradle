@@ -58,7 +58,7 @@ android {
             versionNameSuffix "-dev"
             applicationIdSuffix '.dev'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
-            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.obras.dev.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.dev.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.dev.sigelu.com/obra-direta/diario/foto/\"")
         }
@@ -66,8 +66,8 @@ android {
             minSdkVersion 16
             versionNameSuffix "-cidade"
             applicationIdSuffix '.cidade'
-            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
-            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            resValue "string", "google_maps_api_key", "AIzaSyAy05_nuFY7Trn0pAtz6DcLyLKbnCE_4E0"
+            buildConfigField("String", "BASE_URL", "\"https://api.obras.cidade.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.cidade.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.cidade.sigelu.com/obra-direta/diario/foto/\"")
         }
@@ -75,15 +75,15 @@ android {
             minSdkVersion 16
             versionNameSuffix "-homologação"
             applicationIdSuffix '.homolog'
-            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
-            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            resValue "string", "google_maps_api_key", "AIzaSyBGK2Q2VxeXHikz4fVeE3rJQ4yKwHC22pk"
+            buildConfigField("String", "BASE_URL", "\"https://api.obras.maricahom.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.maricahom.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.maricahom.sigelu.com/obra-direta/diario/foto/\"")
         }
         prod {
             minSdkVersion 16
-            resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
-            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            resValue "string", "google_maps_api_key", "AIzaSyAOG7_mKY-O9GjwPAaA8MFaba02j7f2Hfk"
+            buildConfigField("String", "BASE_URL", "\"https://api.obras.marica.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.marica.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.marica.sigelu.com/obra-direta/diario/foto/\"")
         }
@@ -92,7 +92,7 @@ android {
             versionNameSuffix "-demonstração"
             applicationIdSuffix '.demo'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
-            buildConfigField("String", "BASE_URL", "\"https://private-f11d1-gestaodeestoques.apiary-mock.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.obras.maricademo.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.maricademo.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.maricademo.sigelu.com/obra-direta/diario/foto/\"")
         }

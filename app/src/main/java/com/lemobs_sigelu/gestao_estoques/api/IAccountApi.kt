@@ -19,7 +19,4 @@ interface IAccountApi {
     @GET("token")
     fun login(@Query(value = "username") username: String,
               @Query(value = "senha") senha: String) : Call<LoginDataResponse>
-
-    @GET("usuario/permissao")
-    fun getPermissoes(@Header("Authorization") auth: String): Call<List<String>>
 }
