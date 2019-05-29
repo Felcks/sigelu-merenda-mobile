@@ -6,6 +6,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import butterknife.OnClick
@@ -50,18 +51,19 @@ class LoginActivity: AppCompatActivity(){
     }
 
     private fun renderLoadingState() {
-        viewModel!!.loading.value = true
+        viewModel!!.loading.set(true)
+        Log.i("script2", "está em loading state")
     }
 
     private fun renderDataState(result: Any?) {
-        viewModel!!.loading.value = false
+        viewModel!!.loading.set(false)
         val intent = Intent(this, ListaPedidoActivity::class.java)
         startActivity(intent)
         finishAffinity()
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        viewModel!!.loading.value = false
+        viewModel!!.loading.set(false)
         Toast.makeText(applicationContext, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 

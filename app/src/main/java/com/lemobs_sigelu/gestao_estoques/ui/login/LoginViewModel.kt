@@ -25,7 +25,7 @@ class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
 
     var username: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
-    var loading: MutableLiveData<Boolean> = MutableLiveData()
+    var loading: ObservableField<Boolean> = ObservableField(false)
 
     override fun onCleared() {
         disposables.clear()
@@ -37,7 +37,7 @@ class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
 
     fun login(){
 
-        if(loading.value == true)
+        if(loading.get() == true)
             return
 
         response.value = Response.loading()
