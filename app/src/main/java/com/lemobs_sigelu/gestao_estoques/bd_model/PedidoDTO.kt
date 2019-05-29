@@ -50,7 +50,7 @@ class PedidoDTO (
             destino ?: "",
             data_pedido ?: Date(),
             data_entrega ?: Date(),
-            situacao!!.getEquivalentDomain(),
+            situacao?.getEquivalentDomain() ?: Situacao(1, "a"),
             historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
             materiais?.map { it.getEquivalentDomain() } ?: listOf())
     }

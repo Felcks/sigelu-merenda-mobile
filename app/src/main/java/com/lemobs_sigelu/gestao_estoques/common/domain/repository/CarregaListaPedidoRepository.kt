@@ -29,10 +29,7 @@ class CarregaListaPedidoRepository {
                         it.tipo_destino ?: "",
                         Date(),
                         Date(),
-                        Situacao(it.situacao.id, it.situacao.nome),
-                        listOf(),
-                        listOf()
-                    )
+                        Situacao(it.situacao.id, it.situacao.nome))
                 }
                 subscriber.onNext(list ?: listOf())
                 subscriber.onComplete()

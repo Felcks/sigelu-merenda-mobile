@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoUseCase
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,6 +15,7 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var responseEnvioDeMaterial = MutableLiveData<Response>()
+    val loading : ObservableField<Boolean> = ObservableField(true)
 
     override fun onCleared() {
         disposables.clear()
@@ -23,13 +25,13 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
         return response
     }
 
-    fun getTituloPedido(context: Context) = useCase.getTituloPedido(context)
+    fun getTituloPedido() = useCase.getTituloPedido()
 
-    fun getSituacaoPedido(context: Context) = useCase.getSituacaoPedido(context)
+    fun getSituacaoPedido() = useCase.getSituacaoPedido()
 
-    fun carregarPedido(context: Context) {
+    fun carregarPedido() {
 
-        disposables.add(useCase.getPedido(context)
+        disposables.add(useCase.getPedido()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -38,6 +40,17 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
                 { throwable -> response.setValue(Response.error(throwable)) }
             )
         )
+    }
+
+    fun getPedidoBD() {
+
+        val pedido = useCase.getPedidoBD()
+        if(pedido != null){
+            response.value = Response.success(pedido)
+        }
+        else{
+            response.value = Response.error(Throwable(""))
+        }
     }
 
     fun carregarMateriaisDePedido(context: Context) {

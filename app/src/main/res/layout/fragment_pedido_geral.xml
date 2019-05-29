@@ -65,7 +65,7 @@
     <TextView android:id="@+id/tv_data_pedido"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="29/03/1997"
+              android:text=""
               android:textColor="@color/primary_text"
               app:layout_constraintRight_toRightOf="parent"
               app:layout_constraintBaseline_toBaselineOf="@id/tv_data_pedido_layout"/>
@@ -89,7 +89,7 @@
     <TextView android:id="@+id/tv_data_entrega"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="15/03/2017"
+              android:text=""
               android:textColor="@color/primary_text"
               app:layout_constraintBaseline_toBaselineOf="@id/tv_data_entrega_layout"
               app:layout_constraintRight_toRightOf="parent"/>

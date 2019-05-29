@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
+import com.lemobs_sigelu.gestao_estoques.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModelFactory
 import dagger.android.support.AndroidSupportInjection
@@ -42,7 +43,7 @@ class GeralFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarPedido(this.context!!)
+        viewModel!!.getPedidoBD()
     }
 
     fun processResponse(response: Response?) {
@@ -62,13 +63,13 @@ class GeralFragment: Fragment() {
         if(result is Pedido){
             tv_origem.text = result.origem
             tv_destino.text = result.destino
-            tv_data_pedido.text = result.dataPedido.getDataFormatada()
-            tv_data_entrega.text = result.dataEntrega.getDataFormatada()
+            tv_data_pedido.text = result.dataPedido?.getDataFormatada()?.tracoSeVazio()
+            tv_data_entrega.text = result.dataEntrega?.getDataFormatada()?.tracoSeVazio()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel!!.carregarPedido(this.context!!)
+        viewModel!!.carregarPedido()
     }
 }

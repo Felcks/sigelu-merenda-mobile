@@ -1,85 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:padding="@dimen/espacamento_medio"
-                                             android:background="@android:color/white"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-            android:id="@+id/ll_titulo"
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccentDark"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
-
-        <TextView
-                android:id="@+id/tv_titulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Título do pedido escrito pelo programador"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-    </LinearLayout>
-
-    <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            android:singleLine="true"
-            android:layout_marginTop="@dimen/espacamento_medio"
-            app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-
-    <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/espacamento_grande"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout"
-            app:layout_constraintLeft_toLeftOf="@id/tab_layout"
-            app:layout_constraintBottom_toTopOf="@id/footer"
-            app:layout_constraintVertical_bias="0"/>
-
-
-    <LinearLayout
-            android:id="@+id/footer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:padding="@dimen/espacamento_medio"
             android:background="@android:color/white"
-            android:padding="@dimen/espacamento_curto"
-            android:layout_marginBottom="@dimen/espacamento_grande"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-        <Button
-                android:id="@+id/btn_cadastrar_entrega_materiais"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:id="@+id/ll_titulo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button_states"
-                android:drawableLeft="@drawable/ic_sheet"
-                android:padding="5dp"
-                android:text="Cadastrar Recebimento"
-                android:textColor="@android:color/white"
-                android:visibility="invisible"/>
-    </LinearLayout>
+                android:background="@color/colorAccentDark"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                    android:id="@+id/tv_titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical">
+
+            <include layout="@layout/progressbar_carregamento"
+                     android:id="@+id/ll_loading"
+                     app:isVisible="@{viewModel.loading}"
+                     android:visibility="visible"/>
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabMode="fixed"
+                        app:tabGravity="fill"
+                        app:tabMaxWidth="0dp"
+                        android:singleLine="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginTop="@dimen/espacamento_medio"/>
+
+                <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="@dimen/espacamento_grande"
+                        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                        app:layout_constraintLeft_toLeftOf="@id/tab_layout"
+                        app:layout_constraintBottom_toTopOf="@id/footer"
+                        app:layout_constraintVertical_bias="0"/>
 
 
+                <LinearLayout
+                        android:id="@+id/footer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="@dimen/espacamento_curto"
+                        android:layout_marginBottom="@dimen/espacamento_grande"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
 
 
-</android.support.constraint.ConstraintLayout>
+                    <Button
+                            android:id="@+id/btn_cadastrar_entrega_materiais"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_button_states"
+                            android:drawableLeft="@drawable/ic_sheet"
+                            android:padding="5dp"
+                            android:text="Cadastrar Recebimento"
+                            android:textColor="@android:color/white"
+                            android:visibility="invisible"/>
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

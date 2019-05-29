@@ -1,7 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.pedido_listagem.PedidoListagemDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -43,5 +44,9 @@ class RestApi {
 
     fun getPedidos(): Call<List<PedidoListagemDataResponse>>{
         return api.getPedidos(auth)
+    }
+
+    fun getPedido(pedidoEstoqueID: Int): Call<PedidoDataResponse>{
+        return api.getPedido(auth, pedidoEstoqueID)
     }
 }
