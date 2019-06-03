@@ -12,12 +12,15 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.SITUACAO_EM_ANALISE_ID
+import com.lemobs_sigelu.gestao_estoques.SITUACAO_REPROVADO_ID
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityLoginBinding
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.tracoSeVazio
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import javax.inject.Inject
@@ -60,21 +63,16 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
     private fun renderDataState(result: Any?) {
         viewModel?.loading?.set(false)
-        tv_titulo.text = viewModel!!.getTituloPedido()
-        this.createTableLayout()
 
-        val situacaoPedido = viewModel!!.getSituacaoPedido()
-        if(situacaoPedido.id == 2 || situacaoPedido.id == 5){
+        if(result is Pedido) {
 
-            btn_cadastrar_entrega_materiais.visibility = View.VISIBLE
-            btn_cadastrar_entrega_materiais.setOnClickListener {
-                val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
-                startActivity(intent)
-            }
+            tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
+            this.createTableLayout()
+            this.ativarBotaoDeCadastrarEntrega()
         }
     }
 
-    fun createTableLayout() {
+    private fun createTableLayout() {
 
         if(view_pager.adapter == null) {
 
@@ -92,8 +90,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     }
 
     private fun ativarBotaoDeCadastrarEntrega(){
-        val situacaoPedido = viewModel!!.getSituacaoPedido()
-        if(situacaoPedido.id == 2 || situacaoPedido.id == 5){
+
+        val situacaoPedido = viewModel!!.getSituacaoDePedido()
+        if(situacaoPedido.id == SITUACAO_EM_ANALISE_ID || situacaoPedido.id == SITUACAO_REPROVADO_ID){
 
             btn_cadastrar_entrega_materiais.visibility = View.VISIBLE
             btn_cadastrar_entrega_materiais.setOnClickListener {

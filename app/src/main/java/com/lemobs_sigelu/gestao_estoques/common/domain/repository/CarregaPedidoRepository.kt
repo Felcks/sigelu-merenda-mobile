@@ -50,18 +50,6 @@ class CarregaPedidoRepository {
         }
     }
 
-    fun getTituloDePedido(): String {
-
-        val pedido = getPedidoBD()
-        return pedido?.getCodigoFormatado() ?: "-"
-    }
-
-    fun getSituacaoPedido(): Situacao {
-
-        val pedido = getPedidoBD()
-        return pedido?.situacao ?: Situacao(1, "Em análise")
-    }
-
     fun getPedidoBD(): Pedido? {
 
             val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)

@@ -24,8 +24,6 @@ class EntregaMateriaisPedidoViewModel(val useCase: EntregaMaterialUseCase): View
         return response
     }
 
-    fun getTituloPedido(context: Context) = useCase.getTituloPedido(context)
-
 
     fun carregarLista(context: Context) {
 

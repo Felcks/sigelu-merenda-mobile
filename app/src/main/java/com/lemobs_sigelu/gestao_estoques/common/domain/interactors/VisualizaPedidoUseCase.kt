@@ -22,10 +22,6 @@ class VisualizaPedidoUseCase @Inject constructor(val visualizarRepository: Carre
         return visualizarRepository.getPedidoBD()
     }
 
-    fun getTituloPedido() = visualizarRepository.getTituloDePedido()
-
-    fun getSituacaoPedido() = visualizarRepository.getSituacaoPedido()
-
     fun getSituacoesDoPedido(context: Context): Observable<List<SituacaoHistorico>> {
         return carregaListasituacaoRespository.getSituacoesDePedido(context)
     }

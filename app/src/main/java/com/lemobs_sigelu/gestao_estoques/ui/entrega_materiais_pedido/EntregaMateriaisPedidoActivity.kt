@@ -32,13 +32,10 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
         setContentView(R.layout.activity_entrega_materiais_pedido)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EntregaMateriaisPedidoViewModel::class.java)
-
-        tv_titulo.text = viewModel!!.getTituloPedido(applicationContext)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregarLista(applicationContext)
 
         viewModel!!.responseEnvioDeMaterial.observe(this, Observer<Response> { response -> processResponseEnvioMaterial(response)})
-
         this.iniciarAdapter(listOf())
     }
 

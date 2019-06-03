@@ -16,8 +16,6 @@ class EntregaMaterialUseCase @Inject constructor(val carregaListaMaterialPedidoR
         return carregaListaMaterialPedidoRepository.getMateriaisDePedido(context)
     }
 
-    fun getTituloPedido(context: Context) = visualizarPedidoRepository.getTituloDePedido()
-
     fun enviarEntregaDeMateriais(context: Context, list: List<MaterialDePedido>): Observable<Boolean>{
         return fluxoEntregaMaterialPedidoRepository.enviarEntregaDeMateriais(context, list)
     }

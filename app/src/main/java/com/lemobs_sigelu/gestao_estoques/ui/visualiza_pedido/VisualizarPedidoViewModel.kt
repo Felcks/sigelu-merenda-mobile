@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +16,9 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
-    var responseEnvioDeMaterial = MutableLiveData<Response>()
     val loading : ObservableField<Boolean> = ObservableField(true)
+
+    private var pedido: Pedido? = null
 
     override fun onCleared() {
         disposables.clear()
@@ -25,31 +28,33 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
         return response
     }
 
-    fun getTituloPedido() = useCase.getTituloPedido()
+    fun carregarPedido(recarregar: Boolean = false) {
 
-    fun getSituacaoPedido() = useCase.getSituacaoPedido()
+        if(recarregar || this.pedido == null) {
 
-    fun carregarPedido() {
+            disposables.add(useCase.getPedido()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { response.setValue(Response.loading()) }
+                .subscribe(
+                    { result ->
+                        this.pedido = result
+                        response.setValue(Response.success(this.pedido!!))
+                    },
+                    { throwable ->
 
-        disposables.add(useCase.getPedido()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { response.setValue(Response.loading()) }
-            .subscribe(
-                { result -> response.setValue(Response.success(result)) },
-                { throwable -> response.setValue(Response.error(throwable)) }
+                        this.pedido = useCase.getPedidoBD()
+                        if(pedido != null)
+                            response.value = Response.success(this.pedido!!)
+                        else
+                            response.value = Response.error(throwable)
+
+                    }
+                )
             )
-        )
-    }
-
-    fun getPedidoBD() {
-
-        val pedido = useCase.getPedidoBD()
-        if(pedido != null){
-            response.value = Response.success(pedido)
         }
         else{
-            response.value = Response.error(Throwable(""))
+            response.value = Response.success(this.pedido!!)
         }
     }
 
@@ -79,4 +84,7 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
         )
     }
 
+    fun getSituacaoDePedido(): Situacao{
+        return pedido?.situacao ?: Situacao(1, "Em andamento")
+    }
 }
