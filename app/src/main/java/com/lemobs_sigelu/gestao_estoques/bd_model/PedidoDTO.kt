@@ -40,18 +40,18 @@ class PedidoDTO (
     @ForeignCollectionField(eager = true)
     var materiais: Collection<MaterialDePedidoDTO>? = null
 
-) : HasEquivalentDomain<Pedido> {
+) {
 
-    override fun getEquivalentDomain(): Pedido {
-
-        return Pedido(id ?: 0,
-            codigo ?: "",
-            origem ?: "",
-            destino ?: "",
-            data_pedido ?: Date(),
-            data_entrega ?: Date(),
-            situacao?.getEquivalentDomain() ?: Situacao(1, "a"),
-            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
-            materiais?.map { it.getEquivalentDomain() } ?: listOf())
-    }
+//    override fun getEquivalentDomain(): Pedido {
+//
+//        return Pedido(id ?: 0,
+//            codigo ?: "",
+//            origem ?: "",
+//            destino ?: "",
+//            data_pedido ?: Date(),
+//            data_entrega ?: Date(),
+//            situacao?.getEquivalentDomain() ?: Situacao(1, "a"),
+//            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
+//            materiais?.map { it.getEquivalentDomain() } ?: listOf())
+//    }
 }

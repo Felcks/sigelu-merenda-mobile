@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDePedidoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
 import java.util.*
@@ -11,10 +10,10 @@ class Pedido(val id: Int,
              val destino: String,
              val dataPedido: Date?,
              val dataEntrega: Date?,
-             val situacao: Situacao): HasEquivalentDTO<PedidoDTO>{
+             val situacao: Situacao){
 
     var historicoSituacoes: List<SituacaoHistorico> = listOf()
-    var materiais: List<MaterialDePedido> = listOf()
+    var materiais: List<ItemPedido> = listOf()
 
     constructor(id: Int,
                 codigo: String,
@@ -24,7 +23,7 @@ class Pedido(val id: Int,
                 dataEntrega: Date?,
                 situacao: Situacao,
                 historicoSituacoes: List<SituacaoHistorico>,
-                materiais: List<MaterialDePedido>) : this(id, codigo, origem, destino, dataPedido, dataEntrega, situacao){
+                materiais: List<ItemPedido>) : this(id, codigo, origem, destino, dataPedido, dataEntrega, situacao){
 
         this.historicoSituacoes = historicoSituacoes
         this.materiais = materiais
@@ -42,14 +41,14 @@ class Pedido(val id: Int,
         return dataEntrega?.getDataFormatada() ?: ""
     }
 
-    override fun getEquivalentDTO(): PedidoDTO {
-        val fakePedidoDTO = PedidoDTO(id)
-
-        return PedidoDTO(id, codigo, origem, destino, dataPedido, dataEntrega,
-            situacao.getEquivalentDTO(),
-            listOf(),
-            materiais.map { it.getEquivalentDTO(fakePedidoDTO) })
-    }
+//    override fun getEquivalentDTO(): PedidoDTO {
+//        val fakePedidoDTO = PedidoDTO(id)
+//
+//        return PedidoDTO(id, codigo, origem, destino, dataPedido, dataEntrega,
+//            situacao.getEquivalentDTO(),
+//            listOf(),
+//            materiais.map { it.getEquivalentDTO(fakePedidoDTO) })
+//    }
 
     fun getEquivalentDTOParaAdicao(): PedidoDTO {
 

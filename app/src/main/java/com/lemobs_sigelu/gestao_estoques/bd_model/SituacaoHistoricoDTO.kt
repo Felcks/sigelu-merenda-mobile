@@ -33,6 +33,6 @@ class SituacaoHistoricoDTO (
         return SituacaoHistorico(id ?: 0,
             nome ?: "",
             data_criacao ?: Date(),
-            materiais?.map { it.getEquivalentDomain() } ?: listOf<MaterialDeSituacao>())
+            listOf())
     }
 }

@@ -16,12 +16,12 @@ class SelecionaMaterialParaPedidoRepository {
         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
         val material = materialDeCadastroDAO.queryForId(id)
 //        val material = MATERIAIS_PARA_CADASTRO_NUCLEO[id]
-        if(material != null) {
-            if (!materiaisCadastrados.contains(material.getEquivalentDomain())) {
-                CadastraPedidoSharedPreferences.setMaterialSelecionadoId(context, id)
-                return true
-            }
-        }
+//        if(material != null) {
+//            if (!materiaisCadastrados.contains(material.getEquivalentDomain())) {
+//                CadastraPedidoSharedPreferences.setMaterialSelecionadoId(context, id)
+//                return true
+//            }
+//        }
 
 
         return false

@@ -31,7 +31,7 @@ class ListaMateriaisAdapter (val context: Context,
 
         val item = list[position]
 
-        holder.itemView.tv_material_nome.text = item.base.nome
+        holder.itemView.tv_material_nome.text = item.base.nomeAlternativo
         holder.itemView.tv_material_unidade.text = "(${item.base.unidadeMedida.sigla})"
         holder.itemView.tv_material_recebido.text = item.recebido.toString()
     }

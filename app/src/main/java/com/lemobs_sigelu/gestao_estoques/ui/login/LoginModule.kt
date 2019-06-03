@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.login
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaPermissoesSistemasRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciadorCredenciaisRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.LoginRepository
@@ -30,7 +30,7 @@ class LoginModule {
     }
 
     @Provides
-    fun provideViewModelFactory(useCase: LoginUseCase): LoginViewModelFactory {
-        return LoginViewModelFactory(useCase)
+    fun provideViewModelFactory(controller: LoginController): LoginViewModelFactory {
+        return LoginViewModelFactory(controller)
     }
 }

@@ -12,9 +12,9 @@ import javax.inject.Inject
  * Created by felcks on May, 2019
  */
 
-class LoginUseCase @Inject constructor(val loginRepository: LoginRepository,
-                                       val carregaPermissoesSistemasRepository: CarregaPermissoesSistemasRepository,
-                                       val gerenciadorCredenciaisRepository: GerenciadorCredenciaisRepository){
+class LoginController @Inject constructor(val loginRepository: LoginRepository,
+                                          val carregaPermissoesSistemasRepository: CarregaPermissoesSistemasRepository,
+                                          val gerenciadorCredenciaisRepository: GerenciadorCredenciaisRepository){
 
 
     fun login(usuario: String, senha: String): Observable<LoginDataResponse> {

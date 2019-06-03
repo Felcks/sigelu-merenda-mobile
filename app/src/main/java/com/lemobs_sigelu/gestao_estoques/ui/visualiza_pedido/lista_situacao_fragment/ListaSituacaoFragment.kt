@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModel
@@ -42,8 +43,8 @@ class ListaSituacaoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
-        viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarSituacoesDePedido(this.context!!)
+        viewModel!!.responseSituacoes.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.carregarSituacoesDePedido()
     }
 
     fun processResponse(response: Response?) {
@@ -61,11 +62,11 @@ class ListaSituacaoFragment : Fragment() {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result as List<SituacaoHistorico>)
+            this.iniciarAdapter(result as List<SituacaoPedido>)
         }
     }
 
-    private fun iniciarAdapter(list: List<SituacaoHistorico>){
+    private fun iniciarAdapter(list: List<SituacaoPedido>){
 
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -73,10 +74,5 @@ class ListaSituacaoFragment : Fragment() {
 
         val adapter = ListaSituacaoAdapter(context!!, list)
         rv_lista.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel!!.carregarSituacoesDePedido(this.context!!)
     }
 }

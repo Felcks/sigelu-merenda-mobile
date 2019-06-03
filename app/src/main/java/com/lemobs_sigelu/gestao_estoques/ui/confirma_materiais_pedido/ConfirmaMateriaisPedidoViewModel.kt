@@ -3,13 +3,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaMateriaisPedidoViewModel (val useCase: CadastraMateriaisPedidoUseCase): ViewModel() {
+class ConfirmaMateriaisPedidoViewModel (val controller: CadastraMateriaisPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -24,7 +24,7 @@ class ConfirmaMateriaisPedidoViewModel (val useCase: CadastraMateriaisPedidoUseC
 
     fun carregarListaMateriais(context: Context) {
 
-        disposables.add(useCase.carregaMateriais(context)
+        disposables.add(controller.carregaMateriais(context)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -36,10 +36,10 @@ class ConfirmaMateriaisPedidoViewModel (val useCase: CadastraMateriaisPedidoUseC
     }
 
     fun confirmaPedido(context: Context): Boolean{
-        return useCase.confirmaPedido(context)
+        return controller.confirmaPedido(context)
     }
 
     fun cancelaPedido(context: Context){
-        useCase.cancelaPedido(context)
+        controller.cancelaPedido(context)
     }
 }

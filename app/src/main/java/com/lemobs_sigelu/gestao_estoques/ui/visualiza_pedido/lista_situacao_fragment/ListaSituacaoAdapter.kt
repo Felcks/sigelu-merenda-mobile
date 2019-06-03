@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import com.github.vipulasri.timelineview.TimelineView
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
 import kotlinx.android.synthetic.main.fragment_pedido_situacoes.*
 import kotlinx.android.synthetic.main.item_situacao_de_pedido.view.*
 
 class ListaSituacaoAdapter (val context: Context,
-                            val list: List<SituacaoHistorico>): RecyclerView.Adapter<ListaSituacaoAdapter.TimeLineViewHolder>() {
+                            val list: List<SituacaoPedido>): RecyclerView.Adapter<ListaSituacaoAdapter.TimeLineViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -31,8 +32,8 @@ class ListaSituacaoAdapter (val context: Context,
         val item = list[position]
 
         holder.itemView.tv_data.text = item.data.getDataFormatada()
-        holder.itemView.tv_titulo.text = item.nome
-        this.startAdapterMateriais(holder, item)
+        holder.itemView.tv_titulo.text = item.situacao.nome
+        //this.startAdapterMateriais(holder, item)
 
         if(position == 0){
             holder.itemView.time_marker.setMarker(context.resources.getDrawable(R.drawable.ic_marker_timeline_inactive))

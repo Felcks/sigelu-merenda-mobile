@@ -8,11 +8,11 @@ import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
 
 class CarregaMaterialSolicitadoRepository {
 
-    fun carregaMaterial(context: Context): MaterialParaCadastro {
+    fun carregaMaterial(context: Context): MaterialParaCadastro? {
 
         val materialId = CadastraPedidoSharedPreferences.getMaterialSelecionadoId(context)
         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
         val material = materialDeCadastroDAO.queryForId(materialId)
-        return material!!.getEquivalentDomain()
+        return null
     }
 }

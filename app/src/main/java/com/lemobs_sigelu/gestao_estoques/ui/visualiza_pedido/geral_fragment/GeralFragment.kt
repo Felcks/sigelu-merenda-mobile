@@ -2,7 +2,6 @@ package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.geral_fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -19,7 +18,6 @@ import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoGeralBinding
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
 import com.lemobs_sigelu.gestao_estoques.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoViewModel
-import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_pedido_geral.*
 
 class GeralFragment: Fragment() {
@@ -30,11 +28,6 @@ class GeralFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_geral, container, false)
         return binding?.root
-    }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

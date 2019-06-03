@@ -10,7 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.esconderTeclado
@@ -63,7 +63,7 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result as List<MaterialDePedido>)
+            this.iniciarAdapter(result as List<ItemPedido>)
         }
     }
 
@@ -83,7 +83,7 @@ class EntregaMateriaisPedidoActivity: AppCompatActivity() {
         Toast.makeText(this.applicationContext, "Provavelmente problema de conexão", Toast.LENGTH_SHORT).show()
     }
 
-    private fun iniciarAdapter(list: List<MaterialDePedido>){
+    private fun iniciarAdapter(list: List<ItemPedido>){
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL

@@ -7,8 +7,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaOb
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CadastraPedidoDestinoUseCase @Inject constructor(val carregaListaObraRepository: CarregaListaObraRepository,
-                                                       val fluxoCadastraPedidoDestinoRepository: CadastraDestinoParaPedidoRepository
+class CadastraPedidoDestinoController @Inject constructor(val carregaListaObraRepository: CarregaListaObraRepository,
+                                                          val fluxoCadastraPedidoDestinoRepository: CadastraDestinoParaPedidoRepository
 ){
 
     fun getObras(context: Context): Observable<List<Obra>> {

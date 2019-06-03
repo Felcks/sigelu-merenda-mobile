@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.ObservableField
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -12,10 +12,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(){
+class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var responseMateriais = MutableLiveData<Response>()
+    var responseSituacoes = MutableLiveData<Response>()
     val loading : ObservableField<Boolean> = ObservableField(true)
 
     private var pedido: Pedido? = null
@@ -32,7 +34,7 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
 
         if(recarregar || this.pedido == null) {
 
-            disposables.add(useCase.getPedido()
+            disposables.add(controller.getPedido()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { response.setValue(Response.loading()) }
@@ -43,43 +45,51 @@ class VisualizarPedidoViewModel(val useCase: VisualizaPedidoUseCase): ViewModel(
                     },
                     { throwable ->
 
-                        this.pedido = useCase.getPedidoBD()
+                        this.pedido = controller.getPedidoBD()
                         if(pedido != null)
-                            response.value = Response.success(this.pedido!!)
+                            response.setValue(Response.success(this.pedido!!))
                         else
-                            response.value = Response.error(throwable)
+                            response.setValue(Response.error(throwable))
 
                     }
                 )
             )
         }
         else{
-            response.value = Response.success(this.pedido!!)
+            response.setValue(Response.success(this.pedido!!))
         }
     }
 
-    fun carregarMateriaisDePedido(context: Context) {
+    fun carregarMateriaisDePedido() {
 
-        disposables.add(useCase.getMateriaisDePedido(context)
+        disposables.add(controller.getMateriaisDePedido()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { response.setValue(Response.loading()) }
+            .doOnSubscribe { responseMateriais.setValue(Response.loading()) }
             .subscribe(
-                { result -> response.setValue(Response.success(result)) },
-                { throwable -> response.setValue(Response.error(throwable)) }
+                {
+                    result -> responseMateriais.setValue(Response.success(result))
+                },
+                {
+                    throwable -> responseMateriais.setValue(Response.error(throwable))
+                }
             )
         )
     }
 
-    fun carregarSituacoesDePedido(context: Context){
+    fun carregarSituacoesDePedido(){
 
-        disposables.add(useCase.getSituacoesDoPedido(context)
+        disposables.add(controller.getSituacoesDoPedido()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { response.setValue(Response.loading()) }
+            .doOnSubscribe { responseSituacoes.setValue(Response.loading()) }
             .subscribe(
-                { result -> response.setValue(Response.success(result)) },
-                { throwable -> response.setValue(Response.error(throwable)) }
+                { result ->
+                    responseSituacoes.setValue(Response.success(result))
+                },
+                {
+                    throwable -> responseSituacoes.setValue(Response.error(throwable))
+                }
             )
         )
     }

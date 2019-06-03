@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialDoPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaSituacaoDoPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaPedidoRepository
@@ -26,7 +26,7 @@ class VisualizarPedidoModule {
     }
 
     @Provides
-    fun provideListaPedidoViewModelFactory(useCase: VisualizaPedidoUseCase): VisualizarPedidoViewModelFactory {
-        return VisualizarPedidoViewModelFactory(useCase)
+    fun provideListaPedidoViewModelFactory(controller: VisualizaPedidoController): VisualizarPedidoViewModelFactory {
+        return VisualizarPedidoViewModelFactory(controller)
     }
 }

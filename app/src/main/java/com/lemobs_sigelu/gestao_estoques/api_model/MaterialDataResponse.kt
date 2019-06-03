@@ -1,5 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api_model
 
+import com.lemobs_sigelu.gestao_estoques.api_model.commons.UnidadeMedidaDataResponse
+
 class MaterialDataResponse (val id: Int,
                             val nome: String?,
                             val preco: Double?,

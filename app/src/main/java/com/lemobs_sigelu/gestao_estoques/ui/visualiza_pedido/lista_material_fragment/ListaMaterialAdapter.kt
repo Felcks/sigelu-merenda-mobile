@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import kotlinx.android.synthetic.main.item_material_de_pedido.view.*
 
 class ListaMaterialAdapter (val context: Context,
-                            val list: List<MaterialDePedido>): RecyclerView.Adapter<ListaMaterialAdapter.MyViewHolder>() {
+                            val list: List<ItemPedido>): RecyclerView.Adapter<ListaMaterialAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -28,10 +28,13 @@ class ListaMaterialAdapter (val context: Context,
 
         val item = list[position]
 
-        holder.itemView.tv_nome_material.text = item.base.nome
-        holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
-        holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
-        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+
+        holder.itemView.tv_nome_material.text = item.itemEstoque.nomeAlternativo
+        holder.itemView.tv_descricao_material.text = item.itemEstoque.descricao
+        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque.unidadeMedida.sigla}"
+//        holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+//        holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+//        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

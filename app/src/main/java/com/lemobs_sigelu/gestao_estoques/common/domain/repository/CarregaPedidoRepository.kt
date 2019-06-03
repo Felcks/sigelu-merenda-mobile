@@ -54,12 +54,13 @@ class CarregaPedidoRepository {
 
             val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
             val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-            return pedidoDAO.queryForId(pedidoEstoqueID)?.getEquivalentDomain()
+        return null
+            //return pedidoDAO.queryForId(pedidoEstoqueID)?.getEquivalentDomain()
     }
 
     private fun salvaPedido(pedido: Pedido) {
 
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        pedidoDAO.add(pedido.getEquivalentDTO())
+        //pedidoDAO.add(pedido.getEquivalentDTO())
     }
 }

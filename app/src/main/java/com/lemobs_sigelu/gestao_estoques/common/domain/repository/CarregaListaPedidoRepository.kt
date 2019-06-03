@@ -45,6 +45,6 @@ class CarregaListaPedidoRepository {
 
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
         val pedidosDTO = pedidoDAO.queryForAll()
-        return pedidosDTO.map { it.getEquivalentDomain() }
+        return listOf()
     }
 }

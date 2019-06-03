@@ -7,8 +7,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaPedid
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ListaPedidoUseCase @Inject constructor(val carregaListaPedidoRepository: CarregaListaPedidoRepository,
-                                             val fluxoPedidoRepository: SelecionaPedidoRepository) {
+class ListaPedidoController @Inject constructor(val carregaListaPedidoRepository: CarregaListaPedidoRepository,
+                                                val fluxoPedidoRepository: SelecionaPedidoRepository) {
 
     fun carregaListaPedido(): Observable<List<Pedido>> {
         return carregaListaPedidoRepository.getPedidos()

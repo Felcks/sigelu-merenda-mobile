@@ -3,13 +3,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ListaPedidoViewModel(val listaPedidoUseCase: ListaPedidoUseCase): ViewModel(){
+class ListaPedidoViewModel(val listaPedidoController: ListaPedidoController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -24,7 +24,7 @@ class ListaPedidoViewModel(val listaPedidoUseCase: ListaPedidoUseCase): ViewMode
 
     fun carregaListaPedido(){
 
-        disposables.add(listaPedidoUseCase.carregaListaPedido()
+        disposables.add(listaPedidoController.carregaListaPedido()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -36,6 +36,6 @@ class ListaPedidoViewModel(val listaPedidoUseCase: ListaPedidoUseCase): ViewMode
     }
 
     fun armazenaPedidoNoFluxo(context: Context, id: Int){
-        listaPedidoUseCase.armazenaPedidoNoFluxo(context, id)
+        listaPedidoController.armazenaPedidoNoFluxo(context, id)
     }
 }

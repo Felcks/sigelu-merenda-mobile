@@ -2,23 +2,18 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import android.databinding.ObservableField
-import android.util.Log
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api_model.login.LoginDataResponse
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Permissao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.di.AppComponent
 import com.squareup.moshi.JsonDataException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import java.net.UnknownHostException
 
-class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
+class LoginViewModel (private val loginController: LoginController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -50,7 +45,7 @@ class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
             return
         }
 
-        disposables.add(loginUseCase.login(username, password)
+        disposables.add(loginController.login(username, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -69,7 +64,7 @@ class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
 
         val auth: String = loginResponse.token_usuario.substring(7)
 
-        disposables.add(loginUseCase.carregaPermissoesModulo(auth)
+        disposables.add(loginController.carregaPermissoesModulo(auth)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -86,7 +81,7 @@ class LoginViewModel (private val loginUseCase: LoginUseCase): ViewModel(){
                     if(!permissaoConcedida)
                         response.value = Response.error(Throwable("Permissão negada ao módulo"))
                     else {
-                        loginUseCase.salvarCredenciaisUsuario(loginResponse)
+                        loginController.salvarCredenciaisUsuario(loginResponse)
                         response.value = Response.success(Object())
                     }
                 },

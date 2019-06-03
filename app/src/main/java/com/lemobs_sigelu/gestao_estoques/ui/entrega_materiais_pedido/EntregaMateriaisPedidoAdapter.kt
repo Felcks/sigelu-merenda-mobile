@@ -10,12 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.esconderTeclado
 import kotlinx.android.synthetic.main.item_material_entrega.view.*
 
 class EntregaMateriaisPedidoAdapter(val context: Context,
-                                    val list: List<MaterialDePedido>): RecyclerView.Adapter<EntregaMateriaisPedidoAdapter.MyViewHolder>() {
+                                    val list: List<ItemPedido>): RecyclerView.Adapter<EntregaMateriaisPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     var hasFocus = false
@@ -41,11 +41,11 @@ class EntregaMateriaisPedidoAdapter(val context: Context,
         item.entregue = 0.0
         editTexts[position] = holder.itemView.edt_quantidade_entregue
 
-        holder.itemView.tv_nome_material.text = item.base.nome
-        holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
-        holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
-        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
-        holder.itemView.tv_unidade_medida.text = item.base.unidadeMedida.sigla
+//        holder.itemView.tv_nome_material.text = item.base.nome
+//        holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+//        holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+//        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
+//        holder.itemView.tv_unidade_medida.text = item.base.unidadeMedida.sigla
         holder.itemView.edt_quantidade_entregue.setText("")
         holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(android.R.color.darker_gray))
 
@@ -72,11 +72,11 @@ class EntregaMateriaisPedidoAdapter(val context: Context,
                         holder.itemView.edt_quantidade_entregue.text.toString().replace(',', '.').toDouble()
                     item.entregue = valorEntregue
 
-                    if (valorEntregue + item.recebido <= item.contratado) {
-                        holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_aceita))
-                    } else {
-                        holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_rejeitada))
-                    }
+//                    if (valorEntregue + item.recebido <= item.contratado) {
+//                        holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_aceita))
+//                    } else {
+//                        holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(R.color.quantidade_rejeitada))
+//                    }
                 } else {
                     item.entregue = 0.0
                     holder.itemView.ll_borda.setBackgroundColor(context.resources.getColor(android.R.color.darker_gray))

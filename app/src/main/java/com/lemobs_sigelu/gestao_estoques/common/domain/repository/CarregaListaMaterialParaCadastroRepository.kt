@@ -4,11 +4,8 @@ import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoDeCadastro
-import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
 class CarregaListaMaterialParaCadastroRepository {
@@ -23,17 +20,17 @@ class CarregaListaMaterialParaCadastroRepository {
                     PedidoDeCadastro.Companion.PedidoDestino.NUCLEO -> {
 
                         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
-                        list = removeMateriaisJaCadastrados(list)
+//                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
+//                        list = removeMateriaisJaCadastrados(list)
 //                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_OBRA.toMutableList())
-                        subscribe.onNext(list)
+                        //subscribe.onNext(list)
                     }
                     PedidoDeCadastro.Companion.PedidoDestino.OBRA -> {
 //                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_NUCLEO.toMutableList())
                         val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
-                        list = removeMateriaisJaCadastrados(list)
-                        subscribe.onNext(list)
+//                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
+//                        list = removeMateriaisJaCadastrados(list)
+//                        subscribe.onNext(list)
                     }
                 }
             }

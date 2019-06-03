@@ -6,65 +6,61 @@ import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeSituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
-import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.item_material_entrega.view.*
 import java.util.*
 
 class EntregaMaterialDoPedidoRepository {
 
-    private fun checarCorretudeDosMateriais(list: List<MaterialDePedido>): Boolean{
+    private fun checarCorretudeDosMateriais(list: List<ItemPedido>): Boolean{
 
-        var existeItemModificado = false
-        for(item in list){
+//        var existeItemModificado = false
+//        for(item in list){
+//
+//            if(item.entregue > 0){
+//                existeItemModificado = true
+//            }
+//
+//            if(item.recebido + item.entregue > item.contratado){
+//                return false
+//            }
+//        }
 
-            if(item.entregue > 0){
-                existeItemModificado = true
-            }
-
-            if(item.recebido + item.entregue > item.contratado){
-                return false
-            }
-        }
-
-        return existeItemModificado
+        return false
     }
 
-    private fun concluirEntregaDeMateriais(context: Context, list: List<MaterialDePedido>){
+    private fun concluirEntregaDeMateriais(context: Context, list: List<ItemPedido>){
 
-        val materialPedidaoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
-        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        val pedidoID = FlowSharedPreferences.getPedidoId(context)
-        val pedido = pedidoDAO.queryForId(pedidoID)
-
-        if(pedido != null) {
-            for (item in list) {
-                item.recebido += item.entregue
-                item.entregue = 0.0
-                materialPedidaoDAO.add(item.getEquivalentDTO(pedido))
-            }
-
-            gerarEntrega(context, list, pedido)
-        }
+//        val materialPedidaoDAO = MaterialDePedidoDAO(DatabaseHelper.connectionSource)
+//        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+//        val pedidoID = FlowSharedPreferences.getPedidoId(context)
+//        val pedido = pedidoDAO.queryForId(pedidoID)
+//
+//        if(pedido != null) {
+//            for (item in list) {
+//                item.recebido += item.entregue
+//                item.entregue = 0.0
+//                materialPedidaoDAO.add(item.getEquivalentDTO(pedido))
+//            }
+//
+//            gerarEntrega(context, list, pedido)
+//        }
 
     }
 
-    private fun conferirSeEntregaCompleta(context: Context, list: List<MaterialDePedido>): Boolean {
-
-        for(i in list){
-            if(i.recebido < i.contratado)
-                return false
-        }
-
+    private fun conferirSeEntregaCompleta(context: Context, list: List<ItemPedido>): Boolean {
+//
+//        for(i in list){
+//            if(i.recebido < i.contratado)
+//                return false
+//        }
+//
+//        return true
         return true
     }
 
-    private fun gerarEntrega(context: Context, list: List<MaterialDePedido>, pedido: PedidoDTO){
+    private fun gerarEntrega(context: Context, list: List<ItemPedido>, pedido: PedidoDTO){
 
         val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
@@ -106,20 +102,20 @@ class EntregaMaterialDoPedidoRepository {
         }
     }
 
-    fun associaMateriaisASituacaoHistorico(materiais: List<MaterialDePedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
+    fun associaMateriaisASituacaoHistorico(materiais: List<ItemPedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
 
-        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
-        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), it.recebido, situacaoHistoricoDTO) }
-        for(item in materiaisDeSituacaoDTO){
-            materialDeSituacaoDAO.add(item)
-        }
-
-        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
-        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
-        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
+//        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
+//        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), it.recebido, situacaoHistoricoDTO) }
+//        for(item in materiaisDeSituacaoDTO){
+//            materialDeSituacaoDAO.add(item)
+//        }
+//
+//        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
+//        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+//        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
     }
 
-    fun enviarEntregaDeMateriais(context: Context, list: List<MaterialDePedido>): Observable<Boolean> {
+    fun enviarEntregaDeMateriais(context: Context, list: List<ItemPedido>): Observable<Boolean> {
 
         if(!checarCorretudeDosMateriais(list)){
             return Observable.create { subscriber ->

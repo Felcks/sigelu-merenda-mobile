@@ -1,29 +1,70 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialDePedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
 class CarregaListaMaterialDoPedidoRepository {
 
-    fun getMateriaisDePedido(context: Context): Observable<List<MaterialDePedido>> {
+    val api = RestApi()
+
+    fun getMateriaisDePedido(): Observable<List<ItemPedido>> {
 
         return Observable.create { subscribe ->
 
-            val b = getMateriaisPedidoBD(context) ?: listOf()
-            subscribe.onNext(getMateriaisPedidoBD(context) ?: listOf())
-            subscribe.onComplete()
+            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+            val callResponse = api.getItensDePedido(pedidoEstoqueID)
+            val response = callResponse.execute()
+
+            if(response.isSuccessful && response.body() != null){
+
+                val itens: List<ItemPedido> = response.body()!!.map {
+
+                    val unidadeMedida = with(it.item_estoque.unidade_medida){
+                        UnidadeMedida(this.id,
+                            this.nome ?: "",
+                            this.sigla ?: "")
+                    }
+
+                    val itemEstoque = with(it.item_estoque){
+                        ItemEstoque(this.id,
+                            this.codigo ?: "",
+                            this.descricao ?: "",
+                            this.nome_alternativo ?: "",
+                            unidadeMedida)
+                    }
+
+                    val categoria = Categoria(it.categoria.id,
+                        it.categoria.nome ?: "")
+
+                    ItemPedido(it.id,
+                        it.quantidade_unidade ?: 0.0,
+                        it.preco_unidade ?: 0.0,
+                        itemEstoque,
+                        categoria)
+                }
+
+                subscribe.onNext(itens)
+                subscribe.onComplete()
+            }
+            else{
+                subscribe.onError(Throwable(response.message()))
+            }
         }
     }
 
-    fun getMateriaisPedidoBD(context: Context): List<MaterialDePedido>?{
+    fun getMateriaisPedidoBD(context: Context): List<ItemPedido>?{
 
         val pedidoID = FlowSharedPreferences.getPedidoId(context)
         val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        return pedidoDAO.queryForId(pedidoID)?.getEquivalentDomain()?.materiais
+        return listOf() //pedidoDAO.queryForId(pedidoID)?.getEquivalentDomain()?.materiais
     }
 }

@@ -29,7 +29,7 @@ class ListaMaterialCadastradoAdapter(val context: Context,
         val item = this.list[position]
 
         if(item is MaterialParaCadastro){
-            holder.itemView.tv_1.text = item.base.nome
+            holder.itemView.tv_1.text = item.base.nomeAlternativo
             holder.itemView.tv_2.text = item.base.descricao
             holder.itemView.tv_3.text = item.base.unidadeMedida.getNomeESiglaPorExtenso()
             holder.itemView.tv_4.setText(item.quantidade_disponivel.toString())

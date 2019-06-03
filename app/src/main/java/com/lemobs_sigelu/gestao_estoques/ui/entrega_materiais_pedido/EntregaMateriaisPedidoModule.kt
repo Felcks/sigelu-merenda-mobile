@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EntregaMaterialUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EntregaMaterialController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialDoPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EntregaMaterialDoPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaPedidoRepository
@@ -26,7 +26,7 @@ class EntregaMateriaisPedidoModule {
     }
 
     @Provides
-    fun provideListaPedidoViewModelFactory(carregaListaPedidoUseCase: EntregaMaterialUseCase): EntregaMateriaisPedidoViewModelFactory {
-        return EntregaMateriaisPedidoViewModelFactory(carregaListaPedidoUseCase)
+    fun provideListaPedidoViewModelFactory(carregaListaPedidoController: EntregaMaterialController): EntregaMateriaisPedidoViewModelFactory {
+        return EntregaMateriaisPedidoViewModelFactory(carregaListaPedidoController)
     }
 }

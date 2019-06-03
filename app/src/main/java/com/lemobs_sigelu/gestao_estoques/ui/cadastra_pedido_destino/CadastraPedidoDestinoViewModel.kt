@@ -3,13 +3,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: CadastraPedidoDestinoUseCase): ViewModel() {
+class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoController: CadastraPedidoDestinoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var responseObras = MutableLiveData<Response>()
@@ -27,7 +27,7 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
 
     fun carregaListaObra(context: Context) {
 
-        disposables.add(cadastrarPedidoDestinoUseCase.getObras(context)
+        disposables.add(cadastrarPedidoDestinoController.getObras(context)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseObras.setValue(Response.loading()) }
@@ -42,7 +42,7 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
 
         responseFluxo.value = Response.loading()
         try {
-            if(cadastrarPedidoDestinoUseCase.confirmaDestinoDePedido(context, obraSelecionadaId)){
+            if(cadastrarPedidoDestinoController.confirmaDestinoDePedido(context, obraSelecionadaId)){
                 responseFluxo.value = Response.success(true)
             } else{
                 responseFluxo.value = Response.success(false)
@@ -54,11 +54,11 @@ class CadastraPedidoDestinoViewModel(val cadastrarPedidoDestinoUseCase: Cadastra
     }
 
     fun setDestinoPedidoNucleo(){
-        cadastrarPedidoDestinoUseCase.setDestinoPedidoNucleo()
+        cadastrarPedidoDestinoController.setDestinoPedidoNucleo()
     }
 
     fun setDestinoPedidoObra(){
-        cadastrarPedidoDestinoUseCase.setDestinoPedidoObra()
+        cadastrarPedidoDestinoController.setDestinoPedidoObra()
     }
 
 

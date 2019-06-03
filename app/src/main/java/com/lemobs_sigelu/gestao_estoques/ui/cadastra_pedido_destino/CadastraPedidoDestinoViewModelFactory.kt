@@ -2,13 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
 
-class CadastraPedidoDestinoViewModelFactory (val useCase: CadastraPedidoDestinoUseCase): ViewModelProvider.Factory{
+class CadastraPedidoDestinoViewModelFactory (val controller: CadastraPedidoDestinoController): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CadastraPedidoDestinoViewModel::class.java!!)) {
-            return CadastraPedidoDestinoViewModel(useCase) as T
+            return CadastraPedidoDestinoViewModel(controller) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -5,7 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.MaterialReposi
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ListaMaterialUseCase @Inject constructor(val repository: MaterialRepository) {
+class ListaMaterialController @Inject constructor(val repository: MaterialRepository) {
 
     fun executa(): Observable<List<Material>> {
         return repository.getMateriais()

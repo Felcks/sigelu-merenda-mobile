@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
@@ -39,7 +39,7 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_situacao.text = item.situacao.nome
         holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao.getColor())
 
-        if(item.situacao.id == 2 || item.situacao.id == 5) {
+        if(item.situacao.id == SITUACAO_APROVADO_ID || item.situacao.id == SITUACAO_PARCIAL_ID) {
 
             holder.itemView.iv_entrega.visibility = View.VISIBLE
             holder.itemView.iv_entrega.setOnClickListener {

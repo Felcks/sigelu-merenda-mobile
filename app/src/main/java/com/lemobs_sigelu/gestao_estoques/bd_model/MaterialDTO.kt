@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.bd_model
 
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialBase
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 
 @DatabaseTable(tableName = "material_base")
@@ -21,12 +21,12 @@ class MaterialDTO (
     val unidade_medida: UnidadeMedidaDTO? = null
 ) {
 
-    fun getEquivalentDomain(): MaterialBase{
-
-        return MaterialBase(id ?: 0,
-            nome ?: "",
-            descricao ?: "",
-            unidade_medida?.getEquivalentDomain() ?: UnidadeMedida(0, "", "")
-        )
-    }
+//    fun getEquivalentDomain(): ItemEstoque{
+//
+//        return ItemEstoque(id ?: 0,
+//            nome ?: "",
+//            descricao ?: "",
+//            unidade_medida?.getEquivalentDomain() ?: UnidadeMedida(0, "", "")
+//        )
+//    }
 }

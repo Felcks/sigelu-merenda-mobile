@@ -25,6 +25,7 @@
                 android:orientation="vertical"
                 android:padding="8dp"
                 android:gravity="center"
+                isVisible="@{!viewModel.loading}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
 

@@ -3,7 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.bd_model
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.HasEquivalentDomain
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialBase
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 
@@ -20,11 +20,10 @@ class MaterialDeCadastroDTO (
     @DatabaseField
     val disponivel: Double? = null
 
-): HasEquivalentDomain<MaterialParaCadastro> {
-
-    override fun getEquivalentDomain(): MaterialParaCadastro {
-         return MaterialParaCadastro(id ?: 0,
-            base?.getEquivalentDomain() ?:  MaterialBase(0, "", "", UnidadeMedida(0, "", "")),
-            disponivel ?: 0.0)
-    }
-}
+)
+//    override fun getEquivalentDomain(): MaterialParaCadastro {
+//         return MaterialParaCadastro(id ?: 0,
+//            base?.getEquivalentDomain() ?:  ItemEstoque(0, "", "", UnidadeMedida(0, "", "")),
+//            disponivel ?: 0.0)
+//    }
+//}

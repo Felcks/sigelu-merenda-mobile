@@ -2,13 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginUseCase
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 
-class LoginViewModelFactory(val useCase: LoginUseCase): ViewModelProvider.Factory{
+class LoginViewModelFactory(val controller: LoginController): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(useCase) as T
+            return LoginViewModel(controller) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

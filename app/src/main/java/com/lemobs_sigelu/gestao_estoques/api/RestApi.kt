@@ -3,6 +3,9 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.SituacaoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -48,5 +51,13 @@ class RestApi {
 
     fun getPedido(pedidoEstoqueID: Int): Call<PedidoDataResponse>{
         return api.getPedido(auth, pedidoEstoqueID)
+    }
+
+    fun getItensDePedido(pedidoEstoqueID: Int): Call<List<ItemPedidoDataResponse>>{
+        return api.getItensDePedido(auth, pedidoEstoqueID)
+    }
+
+    fun getSituacoesDePedido(pedidoEstoqueID: Int): Call<List<SituacaoPedidoDataResponse>>{
+        return api.getSituacoesDePedido(auth, pedidoEstoqueID)
     }
 }
