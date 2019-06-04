@@ -4,6 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.SituacaoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
@@ -59,5 +60,13 @@ class RestApi {
 
     fun getSituacoesDePedido(pedidoEstoqueID: Int): Call<List<SituacaoPedidoDataResponse>>{
         return api.getSituacoesDePedido(auth, pedidoEstoqueID)
+    }
+
+    fun getEnviosDePedido(pedidoEstoqueID: Int): Call<List<EnvioDataResponse>>{
+        return api.getEnviosDePedido(auth, pedidoEstoqueID)
+    }
+
+    fun getItensEnvioDePedido(pedidoEstoqueID: Int, envioID: Int): Call<List<ItemPedidoDataResponse>>{
+        return api.getItensEnvioDePedido(auth, pedidoEstoqueID, envioID)
     }
 }

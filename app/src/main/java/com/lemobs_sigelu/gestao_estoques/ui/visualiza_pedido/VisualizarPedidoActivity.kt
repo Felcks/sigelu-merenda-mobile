@@ -78,7 +78,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             val collectionPagerAdapter = VisualizarPedidoPageAdapter(supportFragmentManager, viewModel)
             val vp: ViewPager = view_pager
             vp.adapter = collectionPagerAdapter
-            vp.offscreenPageLimit = 3
+            vp.offscreenPageLimit = 4
             vp.currentItem = currentItem
 
             val tableLayout: TabLayout = tab_layout

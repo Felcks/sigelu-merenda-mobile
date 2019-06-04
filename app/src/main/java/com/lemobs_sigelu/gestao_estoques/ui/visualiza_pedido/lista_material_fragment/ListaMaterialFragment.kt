@@ -50,11 +50,18 @@ class ListaMaterialFragment : Fragment() {
         }
     }
 
-    private fun renderLoadingState() {}
+    private fun renderLoadingState() {
+        viewModel!!.loadingMateriais.set(true)
+    }
 
-    private fun renderErrorState(throwable: Throwable?) {}
+    private fun renderErrorState(throwable: Throwable?) {
+        viewModel!!.errorMateriais.set(true)
+        viewModel!!.loadingMateriais.set(false)
+    }
 
     private fun renderDataState(result: Any?) {
+        viewModel!!.errorMateriais.set(false)
+        viewModel!!.loadingMateriais.set(false)
 
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemPedido>)

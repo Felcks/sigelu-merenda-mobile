@@ -16,6 +16,10 @@
             android:padding="@dimen/espacamento_medio"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
+        <include layout="@layout/progressbar_carregamento"
+                 android:id="@+id/ll_loading"
+                 app:isVisible="@{viewModel.loadingEnvios}"/>
+
         <TextView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/tv_erro"
@@ -25,12 +29,9 @@
                 android:gravity="center"
                 android:textColor="@color/primary_text"
                 android:textSize="14sp"
-                app:isVisible="@{viewModel.errorMateriais}"
-                android:text="@{viewModel.errorMateriaisText}"/>
+                app:isVisible="@{viewModel.errorEnvios}"
+                android:text="@{viewModel.errorEnviosText}"/>
 
-        <include layout="@layout/progressbar_carregamento"
-                 android:id="@+id/ll_loading"
-                 app:isVisible="@{viewModel.loadingMateriais}"/>
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_lista"
@@ -38,7 +39,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isVisible="@{!viewModel.loadingMateriais}"/>
+                app:isVisible="@{!viewModel.loadingEnvios}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,9 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialDoPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaSituacaoDoPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import dagger.Module
 import dagger.Provides
 
@@ -23,6 +21,16 @@ class VisualizarPedidoModule {
     @Provides
     fun provideCarregaListaSituacaoRepository(): CarregaListaSituacaoDoPedidoRepository {
         return CarregaListaSituacaoDoPedidoRepository()
+    }
+
+    @Provides
+    fun provideCarregaListaEnvioRepository(): CarregaListaEnvioRepository {
+        return CarregaListaEnvioRepository()
+    }
+
+    @Provides
+    fun provideCarregaListaItensEnvioRepository(): CarregaListaItensDeEnvioRepository {
+        return CarregaListaItensDeEnvioRepository()
     }
 
     @Provides

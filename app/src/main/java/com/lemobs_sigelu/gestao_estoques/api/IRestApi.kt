@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
 import retrofit2.Call
@@ -34,4 +35,12 @@ interface IRestApi {
     fun getSituacoesDePedido(@Header("Authorization") auth: String,
                              @Path("pedido_estoque_id") pedido_estoque_id: Int): Call<List<SituacaoPedidoDataResponse>>
 
+    @GET("pedido-estoque/{pedido_estoque_id}/envio")
+    fun getEnviosDePedido(@Header("Authorization") auth: String,
+                         @Path("pedido_estoque_id") pedido_estoque_id: Int): Call<List<EnvioDataResponse>>
+
+    @GET("pedido-estoque/{pedido_estoque_id}/envio/{envio_id}/item")
+    fun getItensEnvioDePedido(@Header("Authorization") auth: String,
+                              @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                              @Path("envio_id") envio_id: Int): Call<List<ItemPedidoDataResponse>>
 }
