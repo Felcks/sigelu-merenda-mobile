@@ -20,54 +20,59 @@
 
         <!-- MAIN ACTIVITY -->
         <activity
-                android:name="com.lemobs_sigelu.gestao_estoques.MainActivity"
+                android:name="com.lemobs_sigelu.gestao_estoques.ui.main.MainActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait">
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
+        <!-- LISTA PEDIDO ACTIVITY -->
         <activity android:name=".ui.lista_pedidos.ListaPedidoActivity"
                   android:configChanges="orientation"
-                  android:screenOrientation="portrait">
+                  android:screenOrientation="portrait"/>
 
-
-        </activity>
-
+        <!-- LISTA MATERIAL ACTIVITY -->
         <activity
                 android:name="com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity"
                 android:configChanges="orientation"
-                android:screenOrientation="portrait">
-        </activity>
+                android:screenOrientation="portrait"/>
 
+        <!-- ENTREGA MATERIAIS PEDIDO ACTIVITY -->
         <activity
                 android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"
                 android:label="Cadastrar Recebimento"/>
 
+        <!-- VISUALIZA PEDIDO ACTIVITY -->
         <activity android:name=".ui.visualiza_pedido.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
 
+        <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
                   android:label="Cadastro de Pedido (1/2)" />
 
+        <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
                   android:label="Cadastro de Pedido (2/2)" />
 
+        <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity"
                   android:label="Materiais Solicitados"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar" />
 
+        <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
                   android:label="Confirmar Pedido de Material"/>
 
+        <!-- LOGIN ACTIVITY -->
         <activity android:name=".ui.login.LoginActivity"
                   android:label="SIGELU Estoques - Login">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
