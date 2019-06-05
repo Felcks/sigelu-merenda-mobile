@@ -9,8 +9,10 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -18,9 +20,13 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityLoginBinding
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import javax.inject.Inject
+import io.reactivex.plugins.RxJavaPlugins
+
+
 
 class VisualizarPedidoActivity: AppCompatActivity() {
 
@@ -32,6 +38,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizar_pedido)
+        RxJavaPlugins.setErrorHandler { throwable -> Log.i("script2", throwable.message)}
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
@@ -91,14 +98,23 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         val situacaoPedido = viewModel!!.getSituacaoDePedido()
         if(situacaoPedido.id == SITUACAO_APROVADO_ID || situacaoPedido.id == SITUACAO_PARCIAL_ID){
 
-            btn_cadastrar_entrega_materiais.visibility = View.VISIBLE
-            btn_cadastrar_entrega_materiais.setOnClickListener {
-                val intent = Intent(this, EntregaMateriaisPedidoActivity::class.java)
-                startActivity(intent)
+            btn_cadastra_recebimento.visibility = View.VISIBLE
+            btn_cadastra_recebimento.setOnClickListener {
+
+                if(viewModel!!.loadingEnvios.get() == true){
+
+                }
+                else if(viewModel!!.envios().size == 0){
+                    Toast.makeText(App.instance, "Não há envios.", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
         else{
-            btn_cadastrar_entrega_materiais.visibility = View.GONE
+            btn_cadastra_recebimento.visibility = View.GONE
         }
     }
 

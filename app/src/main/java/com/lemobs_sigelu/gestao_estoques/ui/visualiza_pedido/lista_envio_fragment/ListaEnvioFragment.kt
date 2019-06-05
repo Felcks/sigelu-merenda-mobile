@@ -88,7 +88,7 @@ class ListaEnvioFragment : Fragment() {
     private fun renderErrorStateItens(throwable: Throwable?) {
 
         viewModel!!.loadingEnvios.set(false)
-        if(viewModel!!.quantidadeEnviosCarregando <= 0){
+        if(viewModel!!.quantidadeEnviosCarregando() <= 0){
             this.iniciarAdapter(viewModel!!.envios())
         }
     }
@@ -96,7 +96,7 @@ class ListaEnvioFragment : Fragment() {
     private fun renderDataStateItens(result: Any?) {
 
         viewModel!!.loadingEnvios.set(false)
-        if(viewModel!!.quantidadeEnviosCarregando <= 0){
+        if(viewModel!!.quantidadeEnviosCarregando() <= 0){
             this.iniciarAdapter(viewModel!!.envios())
         }
     }

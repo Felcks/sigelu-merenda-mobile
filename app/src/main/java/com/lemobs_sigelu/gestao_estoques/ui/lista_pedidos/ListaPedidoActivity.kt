@@ -270,7 +270,7 @@ class ListaPedidoActivity: AppCompatActivity() {
     private val visualizarPedidoClickListener = object : ListClickListener {
         override fun onClick(id: Int) {
 
-            viewModel!!.armazenaPedidoNoFluxo(applicationContext,id)
+            viewModel!!.armazenaPedidoNoFluxo(applicationContext, id)
             val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             startActivity(intent)
         }

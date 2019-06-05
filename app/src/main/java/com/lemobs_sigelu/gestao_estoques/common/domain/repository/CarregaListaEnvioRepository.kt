@@ -44,4 +44,13 @@ class CarregaListaEnvioRepository {
             }
         }
     }
+
+    fun getListaEnvioBD(): Observable<List<Envio>> {
+
+        return Observable.create { subscriber->
+
+            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+
+        }
+    }
 }

@@ -10,6 +10,7 @@ class FlowSharedPreferences {
 
         private val SESSION = "${BuildConfig.APPLICATION_ID}.session"
         private val KEY_PEDIDO_ID = "${BuildConfig.APPLICATION_ID}.pedido_id"
+        private val KEY_ENVIO_ID = "${BuildConfig.APPLICATION_ID}.envio_id"
 
         //Essa parte é para criação de pedido provavelmente vai para o bd interno
 
@@ -26,6 +27,18 @@ class FlowSharedPreferences {
             editor.apply()
         }
 
+        fun getEnvioId(context: Context): Int {
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getInt(KEY_ENVIO_ID, -1)
+        }
+
+        fun setEnvioId(context: Context, id: Int) {
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putInt(KEY_ENVIO_ID, id)
+            editor.apply()
+        }
 
 
     }

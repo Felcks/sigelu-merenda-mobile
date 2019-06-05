@@ -35,11 +35,13 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     private var pedido: Pedido? = null
     private val envios = mutableListOf<Envio>()
-    var quantidadeEnviosCarregando = 0
+    private var quantidadeEnviosCarregando = 0
 
     override fun onCleared() {
         disposables.clear()
     }
+
+    fun quantidadeRequisicoes() = disposables.size()
 
     fun response(): MutableLiveData<Response> {
         return response
@@ -48,6 +50,8 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     fun envios(): MutableList<Envio> {
         return envios
     }
+
+    fun quantidadeEnviosCarregando() = quantidadeEnviosCarregando
 
     fun carregarPedido(recarregar: Boolean = false) {
 

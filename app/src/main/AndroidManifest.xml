@@ -75,5 +75,10 @@
                   android:label="SIGELU Estoques - Login">
         </activity>
 
+        <!-- SELECIONA ENVIO ACTIVITY -->
+        <activity android:name=".ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity"
+                  android:label="Selecione o envio">
+        </activity>
+
     </application>
 </manifest>
