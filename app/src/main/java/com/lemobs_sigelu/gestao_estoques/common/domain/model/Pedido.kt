@@ -57,4 +57,34 @@ class Pedido(val id: Int,
             listOf(),
             listOf())
     }
+
+    fun getEquivalentDTO(): PedidoDTO {
+
+        return PedidoDTO(
+            id,
+            codigo,
+            origem,
+            destino,
+            dataPedido,
+            dataEntrega,
+            situacao.getEquivalentDTO(),
+            listOf(),
+            listOf()
+        )
+    }
+
+    fun getEquivalentDTOParaORM(): PedidoDTO {
+
+        return PedidoDTO(
+            id,
+            codigo,
+            origem,
+            destino,
+            dataPedido,
+            dataEntrega,
+            situacao.getEquivalentDTOParaORM(),
+            listOf(),
+            listOf()
+        )
+    }
 }

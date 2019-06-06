@@ -28,7 +28,7 @@ class SelecionaEnvioRecebimentoViewModel (val controller: SelecionaEnvioRecebime
 
     fun carregaEnvios(){
 
-        disposables.add(controller.getListaEnvio()
+        disposables.add(controller.getListaEnvioBD()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }

@@ -2,10 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
@@ -16,12 +13,12 @@ class CarregaListaItensDeEnvioRepository {
 
     val api = RestApi()
 
-    fun getItensEnvio(envioID: Int): Observable<List<ItemEnvio>>{
+    fun getItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
 
         return Observable.create { subscriber->
 
             val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
-            val callResponse = api.getItensEnvioDePedido(pedidoEstoqueID, envioID)
+            val callResponse = api.getItensEnvioDePedido(pedidoEstoqueID, envio.id)
             val response = callResponse.execute()
 
             if(response.isSuccessful && response.body() != null){
@@ -46,6 +43,7 @@ class CarregaListaItensDeEnvioRepository {
                         it.categoria.nome ?: "")
 
                     ItemEnvio(it.id,
+                        envio,
                         it.quantidade_unidade ?: 0.0,
                         it.preco_unidade ?: 0.0,
                         itemEstoque,

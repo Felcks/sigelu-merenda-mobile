@@ -2,7 +2,10 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.EnvioDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
@@ -14,12 +17,11 @@ class CarregaListaEnvioRepository {
 
     val api = RestApi()
 
-    fun getListaEnvio(): Observable<List<Envio>> {
+    fun getListaEnvio(pedido: Pedido): Observable<List<Envio>> {
 
         return Observable.create { subscriber ->
 
-            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
-            val callResponse = api.getEnviosDePedido(pedidoEstoqueID)
+            val callResponse = api.getEnviosDePedido(pedido.id)
             val response = callResponse.execute()
 
             if(response.isSuccessful && response.body() != null){
@@ -27,10 +29,10 @@ class CarregaListaEnvioRepository {
                 val envios = response.body()!!.map {
 
                     Envio(it.id,
+                        pedido,
                         it.situacao ?: "",
                         it.codigo ?: "",
-                        it.data_saida?.anoMesDiaToDate() ?: Date(),
-                        it.hora_saida?.horaMinutoSegundoToDate() ?: Date(),
+                        it.data_saida?.plus("/${it.hora_saida}")?.anoMesDiaHoraMinutoSegundoToDate() ?: Date(),
                         it.data_recebimento?.toDateCreatedAt() ?: Date(),
                         it.flag_entregue ?: false,
                         it.responsavel?.nome ?: "")
@@ -50,7 +52,15 @@ class CarregaListaEnvioRepository {
         return Observable.create { subscriber->
 
             val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+            val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
+            val listaEnvios = envioDAO.queryForTodosEnviosDePedido(pedidoEstoqueID)
 
+            if(listaEnvios.isNotEmpty()){
+                subscriber.onNext(listaEnvios.map { it.getEquivalentDomain() })
+            }
+            else{
+                subscriber.onError(Throwable("Sem envios"))
+            }
         }
     }
 }

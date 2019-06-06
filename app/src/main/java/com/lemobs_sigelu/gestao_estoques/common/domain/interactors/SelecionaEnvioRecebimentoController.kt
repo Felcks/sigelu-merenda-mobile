@@ -12,8 +12,8 @@ import javax.inject.Inject
 class SelecionaEnvioRecebimentoController @Inject constructor(private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
                                                               private val selecionaEnvioRecebimentoRepository: SelecionaEnvioRepository) {
 
-    fun getListaEnvio(): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvio()
+    fun getListaEnvioBD(): Observable<List<Envio>> {
+        return carregaListaEnvioRepository.getListaEnvioBD()
     }
 
     fun selecionaEnvio(envioID: Int): Int{

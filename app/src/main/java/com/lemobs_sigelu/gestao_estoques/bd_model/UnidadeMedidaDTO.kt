@@ -16,9 +16,10 @@ class UnidadeMedidaDTO(
 
     @DatabaseField
     val sigla: String? = null
-) : HasEquivalentDomain<UnidadeMedida> {
 
-    override fun getEquivalentDomain(): UnidadeMedida {
+) {
+
+    fun getEquivalentDomain(): UnidadeMedida {
         return UnidadeMedida(id ?: 0,
             nome ?: "",
             sigla ?: "")

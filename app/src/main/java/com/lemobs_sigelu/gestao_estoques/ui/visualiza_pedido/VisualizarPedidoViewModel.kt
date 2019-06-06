@@ -4,11 +4,15 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -64,6 +68,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                 .subscribe(
                     { result ->
                         this.pedido = result
+                        controller.salvaItemPedido(result)
                         response.setValue(Response.success(this.pedido!!))
                     },
                     { throwable ->
@@ -120,24 +125,32 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     fun carregaEnviosDePedido(){
 
-        disposables.add(controller.getListaEnvio()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {  responseEnvios.value = Response.loading() }
-            .subscribe(
-                { result ->
-                    responseEnvios.value = Response.success(result)
-                },
-                {
-                    throwable -> responseEnvios.value = Response.error(throwable)
-                }
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+        val pedido = PedidoDAO(DatabaseHelper.connectionSource).queryForId(pedidoID)?.getEquivalentDomain()
+
+        if(pedido != null) {
+            disposables.add(controller.getListaEnvio(pedido)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { responseEnvios.value = Response.loading() }
+                .subscribe(
+                    { result ->
+                        responseEnvios.value = Response.success(result)
+                    },
+                    { throwable ->
+                        responseEnvios.value = Response.error(throwable)
+                    }
+                )
             )
-        )
+        }
+        else{
+            responseEnvios.value = Response.error(Throwable("Pedido inválido."))
+        }
     }
 
     fun carregarItensDeEnvio(envio: Envio){
 
-        disposables.add(controller.getListaItensEnvio(envio.id)
+        disposables.add(controller.getListaItensEnvio(envio)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {  responseItensEnvios.value = Response.loading() }
@@ -146,6 +159,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                     envio.itens = result
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
+                    controller.salvaItemEnvio(envio)
                     responseItensEnvios.value = Response.success(result)
                 },
                 { throwable ->

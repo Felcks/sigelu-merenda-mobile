@@ -10,7 +10,9 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
                                                     private val carregaListaMaterialPedidoRepository: CarregaListaMaterialDoPedidoRepository,
                                                     private val carregaListaSituacaoRespository: CarregaListaSituacaoDoPedidoRepository,
                                                     private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
-                                                    private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository) {
+                                                    private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
+                                                    private val salvaEnvioRepository: SalvaEnvioRepository,
+                                                    private val salvaPedidoRepository: SalvaPedidoRepository) {
 
     fun getPedido(): Observable<Pedido> {
         return carregaPedidoRepository.getPedido()
@@ -28,12 +30,20 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
         return carregaListaMaterialPedidoRepository.getMateriaisDePedido()
     }
 
-    fun getListaEnvio(): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvio()
+    fun getListaEnvio(pedido: Pedido): Observable<List<Envio>> {
+        return carregaListaEnvioRepository.getListaEnvio(pedido)
     }
 
-    fun getListaItensEnvio(envioID: Int): Observable<List<ItemEnvio>>{
-        return carregaListaItensDeEnvioRepository.getItensEnvio(envioID)
+    fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
+        return carregaListaItensDeEnvioRepository.getItensEnvio(envio)
+    }
+
+    fun salvaItemEnvio(item: Envio) {
+        salvaEnvioRepository.salvaItem(item)
+    }
+
+    fun salvaItemPedido(item: Pedido) {
+        salvaPedidoRepository.salvaItem(item)
     }
 
 }

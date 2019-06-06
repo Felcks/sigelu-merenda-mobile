@@ -21,7 +21,7 @@ class SituacaoHistoricoDTO (
     @DatabaseField
     val data_criacao: Date? = null,
 
-    @DatabaseField(foreign = true, canBeNull = true)
+    @DatabaseField(foreign = true)
     val pedido: PedidoDTO? = null,
 
     @ForeignCollectionField(eager = true)

@@ -35,6 +35,11 @@ fun String.horaMinutoSegundoToDate(): Date {
     return simpleDateFormat.parse(this) as Date
 }
 
+fun String.anoMesDiaHoraMinutoSegundoToDate(): Date {
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd/hh:mm:ss", Locale.getDefault())
+    return simpleDateFormat.parse(this) as Date
+}
+
 fun String.toDate(): Date {
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return simpleDateFormat.parse(this) as Date

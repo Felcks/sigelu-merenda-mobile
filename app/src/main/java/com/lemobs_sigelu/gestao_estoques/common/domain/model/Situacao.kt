@@ -4,9 +4,13 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 
 class Situacao (val id: Int,
-                val nome: String): HasEquivalentDTO<SituacaoDTO> {
+                val nome: String) {
 
-    override fun getEquivalentDTO(): SituacaoDTO {
+    fun getEquivalentDTO(): SituacaoDTO {
+        return SituacaoDTO(id, nome)
+    }
+
+    fun getEquivalentDTOParaORM(): SituacaoDTO {
         return SituacaoDTO(id, nome)
     }
 

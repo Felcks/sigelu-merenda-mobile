@@ -18,7 +18,7 @@ class MaterialDeSituacaoDTO (
     @DatabaseField
     val recebido: Double? = null,
 
-    @DatabaseField(foreign = true, canBeNull = false)
+    @DatabaseField(foreign = true)
     val situacao_historico: SituacaoHistoricoDTO? = null
 ){
 
