@@ -4,6 +4,8 @@ import com.j256.ormlite.dao.ForeignCollection
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.SituacaoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import java.util.*
 
@@ -28,8 +30,8 @@ class PedidoDTO (
     @DatabaseField
     var data_entrega: Date? = null,
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    var situacao: SituacaoDTO? = null,
+    @DatabaseField
+    var situacao_id:  Int? = null,
 
     @ForeignCollectionField(eager = true)
     var historico_situacoes: Collection<SituacaoHistoricoDTO>? = null,
@@ -41,13 +43,15 @@ class PedidoDTO (
 
     fun getEquivalentDomain(): Pedido {
 
+        val situacaoDTO = SituacaoDAO(DatabaseHelper.connectionSource).queryForId(situacao_id ?: 0)
+
         return Pedido(id ?: 0,
             codigo ?: "",
             origem ?: "",
             destino ?: "",
             data_pedido ?: Date(),
             data_entrega ?: Date(),
-            situacao?.getEquivalentDomain() ?: Situacao(1, "a"),
+            situacaoDTO!!.getEquivalentDomain(),
             historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
             listOf())
     }

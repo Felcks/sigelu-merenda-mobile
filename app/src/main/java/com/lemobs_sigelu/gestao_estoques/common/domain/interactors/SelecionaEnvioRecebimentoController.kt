@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaEnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaEnvioRepository
 import io.reactivex.Observable
@@ -12,8 +13,8 @@ import javax.inject.Inject
 class SelecionaEnvioRecebimentoController @Inject constructor(private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
                                                               private val selecionaEnvioRecebimentoRepository: SelecionaEnvioRepository) {
 
-    fun getListaEnvioBD(): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvioBD()
+    fun getListaEnvioBD(pedido: Pedido): Observable<List<Envio>> {
+        return carregaListaEnvioRepository.getListaEnvioBD(pedido)
     }
 
     fun selecionaEnvio(envioID: Int): Int{

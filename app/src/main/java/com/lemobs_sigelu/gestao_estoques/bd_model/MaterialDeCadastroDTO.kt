@@ -14,7 +14,7 @@ class MaterialDeCadastroDTO (
     @DatabaseField(id = true, unique = true)
     val id: Int? = null,
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true)
     val base: MaterialDTO? = null,
 
     @DatabaseField

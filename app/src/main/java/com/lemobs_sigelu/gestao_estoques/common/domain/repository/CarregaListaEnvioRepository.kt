@@ -4,6 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.EnvioDAO
+import com.lemobs_sigelu.gestao_estoques.bd.ItemEnvioDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -47,16 +48,16 @@ class CarregaListaEnvioRepository {
         }
     }
 
-    fun getListaEnvioBD(): Observable<List<Envio>> {
+    fun getListaEnvioBD(pedido: Pedido): Observable<List<Envio>> {
 
         return Observable.create { subscriber->
 
-            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
             val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
-            val listaEnvios = envioDAO.queryForTodosEnviosDePedido(pedidoEstoqueID)
+            val listaEnvios = envioDAO.queryForTodosEnviosDePedido(pedido.id)
 
             if(listaEnvios.isNotEmpty()){
-                subscriber.onNext(listaEnvios.map { it.getEquivalentDomain() })
+                subscriber.onNext(listaEnvios.map {it.getEquivalentDomain()})
+                subscriber.onComplete()
             }
             else{
                 subscriber.onError(Throwable("Sem envios"))

@@ -50,14 +50,6 @@ class Pedido(val id: Int,
 //            materiais.map { it.getEquivalentDTO(fakePedidoDTO) })
 //    }
 
-    fun getEquivalentDTOParaAdicao(): PedidoDTO {
-
-        return PedidoDTO(null, codigo, origem, destino, dataPedido, dataEntrega,
-            situacao.getEquivalentDTO(),
-            listOf(),
-            listOf())
-    }
-
     fun getEquivalentDTO(): PedidoDTO {
 
         return PedidoDTO(
@@ -67,22 +59,7 @@ class Pedido(val id: Int,
             destino,
             dataPedido,
             dataEntrega,
-            situacao.getEquivalentDTO(),
-            listOf(),
-            listOf()
-        )
-    }
-
-    fun getEquivalentDTOParaORM(): PedidoDTO {
-
-        return PedidoDTO(
-            id,
-            codigo,
-            origem,
-            destino,
-            dataPedido,
-            dataEntrega,
-            situacao.getEquivalentDTOParaORM(),
+            situacao.id,
             listOf(),
             listOf()
         )

@@ -16,12 +16,4 @@ class Categoria (val id: Int,
             nome
         )
     }
-
-    fun getEquivalentDTOParaORM(): CategoriaDTO{
-
-        return CategoriaDTO(
-            id,
-            nome
-        )
-    }
 }

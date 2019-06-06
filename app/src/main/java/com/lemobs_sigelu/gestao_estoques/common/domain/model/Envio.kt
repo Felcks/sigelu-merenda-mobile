@@ -34,26 +34,12 @@ class Envio (val id: Int,
     fun getEquivalentDTO(): EnvioDTO {
 
         return EnvioDTO(id,
-            pedido.getEquivalentDTOParaORM(),
+            pedido.id,
             situacao,
             codigo,
             dataSaida,
             dataRecebimento,
             isEntregue,
-            responsavel,
-            itens.map { it.getEquivalentDTOParaORM() })
-    }
-
-    fun getEquivalentDTOParaORM(): EnvioDTO {
-
-        return EnvioDTO(id,
-            pedido.getEquivalentDTOParaORM(),
-            situacao,
-            codigo,
-            dataSaida,
-            dataRecebimento,
-            isEntregue,
-            responsavel,
-            listOf())
+            responsavel)
     }
 }

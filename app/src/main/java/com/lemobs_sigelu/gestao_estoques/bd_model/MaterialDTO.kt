@@ -17,7 +17,7 @@ class MaterialDTO (
     @DatabaseField
     val descricao: String? = null,
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true)
     val unidade_medida: UnidadeMedidaDTO? = null
 ) {
 

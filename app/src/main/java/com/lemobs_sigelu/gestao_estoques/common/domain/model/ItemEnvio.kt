@@ -16,23 +16,11 @@ class ItemEnvio (val id: Int,
 
         return ItemEnvioDTO(
             id,
-            envio.getEquivalentDTO(),
+            envio.id,
             quantidadeUnidade,
             precoUnidade,
-            itemEstoque.getEquivalentDTO(),
-            categoria.getEquivalentDTO()
-        )
-    }
-
-    fun getEquivalentDTOParaORM(): ItemEnvioDTO{
-
-        return ItemEnvioDTO(
-            id,
-            envio.getEquivalentDTOParaORM(),
-            quantidadeUnidade,
-            precoUnidade,
-            itemEstoque.getEquivalentDTOParaORM(),
-            categoria.getEquivalentDTOParaORM()
+            itemEstoque.id,
+            categoria.id
         )
     }
 }

@@ -10,10 +10,6 @@ class Situacao (val id: Int,
         return SituacaoDTO(id, nome)
     }
 
-    fun getEquivalentDTOParaORM(): SituacaoDTO {
-        return SituacaoDTO(id, nome)
-    }
-
     fun getColor(): Int{
         return when(id){
             SITUACAO_EM_ANALISE_ID -> R.color.pedido_em_analise

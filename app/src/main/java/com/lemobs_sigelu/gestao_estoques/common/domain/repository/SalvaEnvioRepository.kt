@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.EnvioDAO
+import com.lemobs_sigelu.gestao_estoques.bd.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 
 /**
@@ -17,10 +16,19 @@ class SalvaEnvioRepository {
         }
     }
 
-    fun salvaItem(item: Envio){
+    fun salvaItem(envio: Envio){
+
+        val itemEstoqueDAO = ItemEstoqueDAO(DatabaseHelper.connectionSource)
+        val categoriaDAO = CategoriaDAO(DatabaseHelper.connectionSource)
+        val itemEnvioDAO = ItemEnvioDAO(DatabaseHelper.connectionSource)
+
+        for (item in envio.itens){
+            itemEstoqueDAO.add(item.itemEstoque.getEquivalentDTO())
+            categoriaDAO.add(item.categoria.getEquivalentDTO())
+            itemEnvioDAO.add(item.getEquivalentDTO())
+        }
 
         val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
-        envioDAO.add(item.getEquivalentDTO())
-
+        envioDAO.add(envio.getEquivalentDTO())
     }
 }

@@ -60,47 +60,47 @@ class EntregaMaterialDoPedidoRepository {
         return true
     }
 
-    private fun gerarEntrega(context: Context, list: List<ItemPedido>, pedido: PedidoDTO){
-
-        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
-        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        val quantidadeSituacoes = pedido.historico_situacoes?.size ?: 2
-
-        if(conferirSeEntregaCompleta(context, list)){
-
-            val situacaoHistoricoDTO  = SituacaoHistoricoDTO(null, "Entregue", Date(), pedido)
-            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
-
-            if(pedido.historico_situacoes != null) {
-                val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
-                listaSituacoes.addAll(pedido.historico_situacoes!!)
-                listaSituacoes.add(situacaoHistoricoDTO )
-                pedidoDAO.add(pedido)
-            }
-
-            pedido.situacao = SituacaoDTO(3, "Entregue")
-            pedidoDAO.add(pedido)
-
-
-            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
-        }
-        else{
-            val situacaoHistoricoDTO = SituacaoHistoricoDTO(null, "Entrega Parcial ${quantidadeSituacoes-1}", Date(), pedido)
-            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
-
-            if(pedido.historico_situacoes != null) {
-                val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
-                listaSituacoes.addAll(pedido.historico_situacoes!!)
-                listaSituacoes.add(situacaoHistoricoDTO )
-                pedidoDAO.add(pedido)
-            }
-
-            pedido.situacao = SituacaoDTO(5, "Parcial")
-            pedidoDAO.add(pedido)
-
-            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
-        }
-    }
+//    private fun gerarEntrega(context: Context, list: List<ItemPedido>, pedido: PedidoDTO){
+//
+//        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
+//        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+//        val quantidadeSituacoes = pedido.historico_situacoes?.size ?: 2
+//
+//        if(conferirSeEntregaCompleta(context, list)){
+//
+//            val situacaoHistoricoDTO  = SituacaoHistoricoDTO(null, "Entregue", Date(), pedido)
+//            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
+//
+//            if(pedido.historico_situacoes != null) {
+//                val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
+//                listaSituacoes.addAll(pedido.historico_situacoes!!)
+//                listaSituacoes.add(situacaoHistoricoDTO )
+//                pedidoDAO.add(pedido)
+//            }
+//
+//            pedido.situacao = SituacaoDTO(3, "Entregue")
+//            pedidoDAO.add(pedido)
+//
+//
+//            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
+//        }
+//        else{
+//            val situacaoHistoricoDTO = SituacaoHistoricoDTO(null, "Entrega Parcial ${quantidadeSituacoes-1}", Date(), pedido)
+//            situacaoHistoricoDAO.add(situacaoHistoricoDTO )
+//
+//            if(pedido.historico_situacoes != null) {
+//                val listaSituacoes = mutableListOf<SituacaoHistoricoDTO>()
+//                listaSituacoes.addAll(pedido.historico_situacoes!!)
+//                listaSituacoes.add(situacaoHistoricoDTO )
+//                pedidoDAO.add(pedido)
+//            }
+//
+//            pedido.situacao = SituacaoDTO(5, "Parcial")
+//            pedidoDAO.add(pedido)
+//
+//            this.associaMateriaisASituacaoHistorico(list, situacaoHistoricoDTO)
+//        }
+//    }
 
     fun associaMateriaisASituacaoHistorico(materiais: List<ItemPedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
 

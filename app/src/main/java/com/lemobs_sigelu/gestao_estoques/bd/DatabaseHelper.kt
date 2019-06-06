@@ -9,7 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.bd_model.*
 import java.util.*
 
-object DatabaseHelper : OrmLiteSqliteOpenHelper(App.instance, "${BuildConfig.APPLICATION_ID}.db", null, 1) {
+object DatabaseHelper : OrmLiteSqliteOpenHelper(App.instance, "${BuildConfig.APPLICATION_ID}.db", null, 2) {
 
     override fun onCreate(database: SQLiteDatabase?, connectionSource: ConnectionSource?) {
 

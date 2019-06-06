@@ -3,6 +3,9 @@ package com.lemobs_sigelu.gestao_estoques.bd_model
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
+import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.ItemEnvioDAO
+import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import java.util.*
 
@@ -15,8 +18,8 @@ class EnvioDTO (
     @DatabaseField(id = true, unique = true)
     var id: Int? = null,
 
-    @DatabaseField(foreign = true)
-    var pedido: PedidoDTO? = null,
+    @DatabaseField
+    var pedido_id: Int? = null,
 
     @DatabaseField
     var situacao: String? = null,
@@ -34,22 +37,22 @@ class EnvioDTO (
     var is_entregue: Boolean? = null,
 
     @DatabaseField
-    var responsavel: String? = null,
-
-    @ForeignCollectionField(eager = true)
-    var itens: Collection<ItemEnvioDTO>? = null
+    var responsavel: String? = null
 ){
 
     fun getEquivalentDomain(): Envio {
 
+        val pedidoDTO = PedidoDAO(DatabaseHelper.connectionSource).queryForId(pedido_id ?: 0)
+        val itensDTO = ItemEnvioDAO(DatabaseHelper.connectionSource).queryForTodosItensDeEnvio(id ?: 0)
+
         return Envio(id ?: 0,
-            pedido!!.getEquivalentDomain(),
+            pedidoDTO!!.getEquivalentDomain(),
             situacao ?: "",
             codigo ?: "",
             data_saida ?: Date(),
             data_recebimento ?: Date(),
             is_entregue ?: false,
             responsavel ?: "",
-            itens!!.map { it.getEquivalentDomain() })
+            itensDTO.map { it.getEquivalentDomain() })
     }
 }
