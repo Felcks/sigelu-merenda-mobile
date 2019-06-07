@@ -165,6 +165,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                     envio.itens = result
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
+                    controller.salvaListaItemEnvio(result)
                     controller.salvaEnvio(envio)
                     responseItensEnvios.value = Response.success(result)
                 },

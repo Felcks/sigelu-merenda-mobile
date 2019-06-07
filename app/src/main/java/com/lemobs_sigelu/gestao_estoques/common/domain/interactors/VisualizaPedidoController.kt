@@ -12,7 +12,8 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
                                                     private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
                                                     private val salvaEnvioRepository: SalvaEnvioRepository,
                                                     private val salvaPedidoRepository: SalvaPedidoRepository,
-                                                    private val salvaItemPedidoRepository: SalvaItemPedidoRepository) {
+                                                    private val salvaItemPedidoRepository: SalvaItemPedidoRepository,
+                                                    private val salvaItemEnvioRepository: SalvaItemEnvioRepository) {
 
     fun getPedido(): Observable<Pedido> {
         return carregaPedidoRepository.getPedido()
@@ -40,6 +41,10 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
 
     fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
         return carregaListaItensDeEnvioRepository.getItensEnvio(envio)
+    }
+
+    fun salvaListaItemEnvio(lista: List<ItemEnvio>){
+        salvaItemEnvioRepository.salvaListaItemEnvio(lista)
     }
 
     fun salvaEnvio(item: Envio) {
