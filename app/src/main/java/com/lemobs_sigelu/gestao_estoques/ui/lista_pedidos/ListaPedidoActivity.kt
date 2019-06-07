@@ -254,17 +254,17 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     fun entregaPedido(pedidoID: Int){
 
-        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-        val pedidoDTO = pedidoDAO.queryForId(pedidoID)
-
-        if(pedidoDTO != null){
-            viewModel!!.armazenaPedidoNoFluxo(applicationContext,pedidoID)
-            val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
-            startActivity(intent)
-        }
-        else{
-            Toast.makeText(applicationContext, "Ocorreu um erro desconhecido", Toast.LENGTH_SHORT).show()
-        }
+//        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
+//        val pedidoDTO = pedidoDAO.queryForId(pedidoID)
+//
+//        if(pedidoDTO != null){
+//            viewModel!!.armazenaPedidoNoFluxo(applicationContext,pedidoID)
+//            val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
+//            startActivity(intent)
+//        }
+//        else{
+//            Toast.makeText(applicationContext, "Ocorreu um erro desconhecido", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private val visualizarPedidoClickListener = object : ListClickListener {

@@ -18,7 +18,7 @@ class CarregaListaItensDeEnvioRepository {
         return Observable.create { subscriber->
 
             val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
-            val callResponse = api.getItensEnvioDePedido(pedidoEstoqueID, envio.id)
+            val callResponse = api.getItensEnvioDePedido(pedidoEstoqueID, envio.envioID)
             val response = callResponse.execute()
 
             if(response.isSuccessful && response.body() != null){

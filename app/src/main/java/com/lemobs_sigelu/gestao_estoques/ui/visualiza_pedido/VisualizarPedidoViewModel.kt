@@ -2,11 +2,9 @@ package com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.PedidoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -126,10 +124,9 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     fun carregaEnviosDePedido(){
 
         val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
-        val pedido = PedidoDAO(DatabaseHelper.connectionSource).queryForId(pedidoID)?.getEquivalentDomain()
 
         if(pedido != null) {
-            disposables.add(controller.getListaEnvio(pedido)
+            disposables.add(controller.getListaEnvio(pedidoID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { responseEnvios.value = Response.loading() }

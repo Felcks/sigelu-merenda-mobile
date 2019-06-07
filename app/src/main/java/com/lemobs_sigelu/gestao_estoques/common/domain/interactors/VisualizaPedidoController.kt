@@ -30,8 +30,8 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
         return carregaListaMaterialPedidoRepository.getMateriaisDePedido()
     }
 
-    fun getListaEnvio(pedido: Pedido): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvio(pedido)
+    fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {
+        return carregaListaEnvioRepository.getListaEnvio(pedidoID)
     }
 
     fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{

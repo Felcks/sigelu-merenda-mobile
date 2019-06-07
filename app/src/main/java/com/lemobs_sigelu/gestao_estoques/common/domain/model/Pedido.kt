@@ -60,28 +60,4 @@ data class Pedido(
     fun getDataEntregaFormatada(): String{
         return dataEntrega?.getDataFormatada() ?: ""
     }
-
-//    override fun getEquivalentDTO(): PedidoDTO {
-//        val fakePedidoDTO = PedidoDTO(id)
-//
-//        return PedidoDTO(id, codigo, origem, destino, dataPedido, dataEntrega,
-//            situacao.getEquivalentDTO(),
-//            listOf(),
-//            materiais.map { it.getEquivalentDTO(fakePedidoDTO) })
-//    }
-
-//    fun getEquivalentDTO(): PedidoDTO {
-//
-//        return PedidoDTO(
-//            id,
-//            codigo,
-//            origem,
-//            destino,
-//            dataPedido,
-//            dataEntrega,
-//            situacao.situacao_id,
-//            listOf(),
-//            listOf()
-//        )
-//    }
 }

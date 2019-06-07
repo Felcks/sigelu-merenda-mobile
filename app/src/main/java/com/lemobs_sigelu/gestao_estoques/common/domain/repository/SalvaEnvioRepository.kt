@@ -10,10 +10,10 @@ class SalvaEnvioRepository {
 
     fun salvaLista(lista: List<Envio>){
 
-        val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
-        for (item in lista){
-            envioDAO.add(item.getEquivalentDTO())
-        }
+//        val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
+//        for (item in lista){
+//            envioDAO.add(item.getEquivalentDTO())
+//        }
     }
 
     fun salvaItem(envio: Envio){
@@ -28,7 +28,7 @@ class SalvaEnvioRepository {
             itemEnvioDAO.add(item.getEquivalentDTO())
         }
 
-        val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
-        envioDAO.add(envio.getEquivalentDTO())
+        //val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
+        //envioDAO.add(envio.getEquivalentDTO())
     }
 }

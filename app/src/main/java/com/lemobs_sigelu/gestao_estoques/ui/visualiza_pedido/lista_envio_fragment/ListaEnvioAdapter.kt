@@ -45,7 +45,7 @@ class ListaEnvioAdapter(val context: Context,
 
         holder.itemView.tv_nome.text = item.responsavel
         holder.itemView.tv_titulo.text = item.codigo
-        holder.itemView.tv_saida.text = "${item.dataSaida.toDiaMesAno()} às ${item.dataSaida.toHoraMinutoSegundo()}"
+        holder.itemView.tv_saida.text = "${item.dataSaida?.toDiaMesAno()} às ${item.dataSaida?.toHoraMinutoSegundo()}"
         holder.itemView.tv_situacao_atual.text = item.situacao
 
         holder.itemView.ll_clickable_layout.setOnClickListener {

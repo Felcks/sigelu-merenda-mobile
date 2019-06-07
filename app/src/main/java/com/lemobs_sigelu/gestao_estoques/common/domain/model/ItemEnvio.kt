@@ -16,7 +16,7 @@ class ItemEnvio (val id: Int,
 
         return ItemEnvioDTO(
             id,
-            envio.id,
+            envio.envioID,
             quantidadeUnidade,
             precoUnidade,
             itemEstoque.id,
