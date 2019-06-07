@@ -36,10 +36,10 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_destino.text = item.destino
         holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada()
         holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada()
-        holder.itemView.tv_situacao.text = item.situacao.nome
-        holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao.getColor())
+        holder.itemView.tv_situacao.text = item.situacao?.nome
+        holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao!!.getColor())
 
-        if(item.situacao.id == SITUACAO_APROVADO_ID || item.situacao.id == SITUACAO_PARCIAL_ID) {
+        if(item.situacao!!.situacao_id == SITUACAO_APROVADO_ID || item.situacao!!.situacao_id == SITUACAO_PARCIAL_ID) {
 
             holder.itemView.iv_entrega.visibility = View.VISIBLE
             holder.itemView.iv_entrega.setOnClickListener {

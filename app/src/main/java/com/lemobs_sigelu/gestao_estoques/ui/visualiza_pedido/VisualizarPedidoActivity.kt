@@ -85,8 +85,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             val collectionPagerAdapter = VisualizarPedidoPageAdapter(supportFragmentManager, viewModel)
             val vp: ViewPager = view_pager
             vp.adapter = collectionPagerAdapter
-            vp.offscreenPageLimit = 4
-            vp.currentItem = currentItem
 
             val tableLayout: TabLayout = tab_layout
             tableLayout.setupWithViewPager(vp)
@@ -96,7 +94,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     private fun ativarBotaoDeCadastrarEntrega(){
 
         val situacaoPedido = viewModel!!.getSituacaoDePedido()
-        if(situacaoPedido.id == SITUACAO_APROVADO_ID || situacaoPedido.id == SITUACAO_PARCIAL_ID){
+        if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
             btn_cadastra_recebimento.visibility = View.VISIBLE
             btn_cadastra_recebimento.setOnClickListener {

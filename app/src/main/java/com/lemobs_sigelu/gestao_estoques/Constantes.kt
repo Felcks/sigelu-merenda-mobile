@@ -1,8 +1,16 @@
 package com.lemobs_sigelu.gestao_estoques
 
+import android.arch.persistence.room.Room
+import com.lemobs_sigelu.testeroom.AppDatabase
+
 /**
  * Created by felcks on Jun, 2019
  */
+
+val db = Room.databaseBuilder(
+    App.instance,
+    AppDatabase::class.java, "${BuildConfig.APPLICATION_ID}.database"
+).allowMainThreadQueries().build()
 
 const val SITUACAO_EM_ANALISE_ID = 2
 const val SITUACAO_APROVADO_ID = 4

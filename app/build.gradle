@@ -168,6 +168,12 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
 
     //kapt 'com.android.databinding:compiler:3.3.1'
+    // Extensions = ViewModel + LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    kapt "android.arch.lifecycle:compiler:1.1.0"
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
 }
 
 android {

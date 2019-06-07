@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.persistence.room.Room
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -15,6 +16,8 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityLoginBinding
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.testeroom.AppDatabase
+import com.lemobs_sigelu.testeroom.User
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject

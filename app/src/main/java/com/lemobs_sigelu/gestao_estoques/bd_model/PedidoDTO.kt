@@ -51,8 +51,6 @@ class PedidoDTO (
             destino ?: "",
             data_pedido ?: Date(),
             data_entrega ?: Date(),
-            situacaoDTO!!.getEquivalentDomain(),
-            historico_situacoes?.map { it.getEquivalentDomain() } ?: listOf<SituacaoHistorico>(),
-            listOf())
+            situacaoDTO!!.getEquivalentDomain())
     }
 }
