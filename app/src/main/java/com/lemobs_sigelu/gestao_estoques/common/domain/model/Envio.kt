@@ -1,30 +1,42 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import com.lemobs_sigelu.gestao_estoques.bd_model.EnvioDTO
 import java.util.*
 
 /**
  * Created by felcks on Jun, 2019
  */
+@Entity(tableName = "envio")
 class Envio (
 
     @ColumnInfo(name = "envio_id")
     @PrimaryKey
     var envioID: Int,
+
     @ColumnInfo(name = "pedidoID")
     var pedidoID: Int,
+
     var situacao: String?,
+
     var codigo: String?,
+
     @ColumnInfo(name = "is_entregue")
-    val isEntregue: Boolean,
-    val responsavel: String){
+    var isEntregue: Boolean,
 
-    var itens = listOf<ItemEnvio>()
-    var dataSaida: Date? = null
+    var responsavel: String,
+
+    @ColumnInfo(name = "data_saida")
+    var dataSaida: Date? = null,
+
+    @ColumnInfo(name = "data_recebimento")
     var dataRecebimento: Date? = null
+){
 
+    @Ignore
+    var itens = listOf<ItemEnvio>()
+
+    @Ignore
     constructor(id: Int,
                 pedidoID: Int,
                 situacao: String,
@@ -33,10 +45,8 @@ class Envio (
                 dataRecebimento: Date,
                 isEntregue: Boolean,
                 responsavel: String,
-                itens: List<ItemEnvio>): this(id, pedidoID, situacao, codigo, isEntregue, responsavel){
+                itens: List<ItemEnvio>): this(id, pedidoID, situacao, codigo, isEntregue, responsavel, dataSaida, dataRecebimento){
 
-        this.dataRecebimento = dataRecebimento
-        this.dataSaida = dataSaida
         this.itens = itens
     }
 }
