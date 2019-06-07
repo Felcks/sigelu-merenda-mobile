@@ -14,8 +14,8 @@ class VisualizarPedidoModule {
     }
 
     @Provides
-    fun provideCarregaListaMaterialRepository(): CarregaListaMaterialDoPedidoRepository {
-        return CarregaListaMaterialDoPedidoRepository()
+    fun provideCarregaListaMaterialRepository(): CarregaListaItemDoPedidoRepository {
+        return CarregaListaItemDoPedidoRepository()
     }
 
     @Provides
@@ -41,6 +41,11 @@ class VisualizarPedidoModule {
     @Provides
     fun provideSalvaPedidoRepository(): SalvaPedidoRepository{
         return SalvaPedidoRepository()
+    }
+
+    @Provides
+    fun provideSalvaItemPedidoRepository(): SalvaItemPedidoRepository{
+        return SalvaItemPedidoRepository()
     }
 
     @Provides

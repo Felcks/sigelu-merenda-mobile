@@ -16,7 +16,7 @@ interface IRestApi {
     @GET("materiais")
     fun getMateriais(): Call<List<MaterialDataResponse>>
 
-    @GET("usuario/permissao")
+    @GET("usuario/token/permissao")
     fun getPermissoes(@Header("Authorization") auth: String): Call<List<String>>
 
     @GET("pedido-estoque")

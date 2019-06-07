@@ -31,7 +31,7 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
         val material = viewModel!!.getMaterial(applicationContext)
         tv_1.text = material.base.nomeAlternativo
         tv_2.text = material.base.descricao
-        tv_3.text = material.base.unidadeMedida.getNomeESiglaPorExtenso()
+        tv_3.text = material.base.unidadeMedida?.getNomeESiglaPorExtenso()
         tv_4.setText(material.quantidade_disponivel.toString())
 
         tv_5.addTextChangedListener(object : TextWatcher {

@@ -66,7 +66,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                 .subscribe(
                     { result ->
                         this.pedido = result
-                        controller.salvaItemPedido(result)
+                        controller.salvaPedido(result)
                         response.setValue(Response.success(this.pedido!!))
                     },
                     { throwable ->
@@ -86,18 +86,27 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
         }
     }
 
-    fun carregarMateriaisDePedido() {
+    fun carregarItensDePedido() {
 
-        disposables.add(controller.getMateriaisDePedido()
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+
+        disposables.add(controller.getListaItemPedido(pedidoID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseMateriais.setValue(Response.loading()) }
             .subscribe(
-                {
-                    result -> responseMateriais.setValue(Response.success(result))
+                { result ->
+                    controller.salvaListaItemPedido(result)
+                    responseMateriais.setValue(Response.success(result))
                 },
-                {
-                    throwable -> responseMateriais.setValue(Response.error(throwable))
+                { throwable ->
+                    val lista = controller.getListaItemPedidoBD(pedidoID)
+                    if(lista.isNotEmpty()){
+                        response.value = Response.success(lista)
+                    }
+                    else {
+                        responseMateriais.setValue(Response.error(throwable))
+                    }
                 }
             )
         )
@@ -156,7 +165,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                     envio.itens = result
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
-                    controller.salvaItemEnvio(envio)
+                    controller.salvaEnvio(envio)
                     responseItensEnvios.value = Response.success(result)
                 },
                 { throwable ->

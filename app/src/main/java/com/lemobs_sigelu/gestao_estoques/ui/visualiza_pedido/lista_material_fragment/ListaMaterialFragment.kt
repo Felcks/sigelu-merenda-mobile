@@ -36,7 +36,7 @@ class ListaMaterialFragment : Fragment() {
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
-            this.viewModel!!.carregarMateriaisDePedido()
+            this.viewModel!!.carregarItensDePedido()
         }
 
         this.iniciarAdapter(listOf())

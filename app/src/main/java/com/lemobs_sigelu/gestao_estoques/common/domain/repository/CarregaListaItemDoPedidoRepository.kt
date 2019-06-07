@@ -6,19 +6,19 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
+import com.lemobs_sigelu.gestao_estoques.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
-class CarregaListaMaterialDoPedidoRepository {
+class CarregaListaItemDoPedidoRepository {
 
     val api = RestApi()
 
-    fun getMateriaisDePedido(): Observable<List<ItemPedido>> {
+    fun getListaItemPedido(pedidoID: Int): Observable<List<ItemPedido>> {
 
         return Observable.create { subscribe ->
 
-            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
-            val callResponse = api.getItensDePedido(pedidoEstoqueID)
+            val callResponse = api.getItensDePedido(pedidoID)
             val response = callResponse.execute()
 
             if(response.isSuccessful && response.body() != null){
@@ -43,6 +43,7 @@ class CarregaListaMaterialDoPedidoRepository {
                         it.categoria.nome ?: "")
 
                     ItemPedido(it.id,
+                        pedidoID,
                         it.quantidade_unidade ?: 0.0,
                         it.preco_unidade ?: 0.0,
                         itemEstoque,
@@ -56,5 +57,11 @@ class CarregaListaMaterialDoPedidoRepository {
                 subscribe.onError(Throwable(response.message()))
             }
         }
+    }
+
+    fun getListaItemPedidoBD(pedidoID: Int): List<ItemPedido> {
+
+        val dao = db.itemPedidoDAO()
+        return dao.getTodosItemPedidoDePedido(pedidoID)
     }
 }

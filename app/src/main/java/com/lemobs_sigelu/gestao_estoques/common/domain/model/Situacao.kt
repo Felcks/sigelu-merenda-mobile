@@ -4,8 +4,8 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 
 data class Situacao (
-    val situacao_id: Int,
-    val nome: String?) {
+    var situacao_id: Int,
+    var nome: String?) {
 
     fun getEquivalentDTO(): SituacaoDTO {
         return SituacaoDTO(situacao_id, nome)
@@ -19,6 +19,18 @@ data class Situacao (
             SITUACAO_REPROVADO_ID -> R.color.pedido_reprovado
             SITUACAO_PARCIAL_ID -> R.color.pedido_parcial
             else -> R.color.pedido_aprovado
+        }
+    }
+
+    fun getPrioridadeOrdenacao(): Int{
+
+        return when(situacao_id){
+            SITUACAO_EM_ANALISE_ID -> 4
+            SITUACAO_APROVADO_ID -> 2
+            SITUACAO_ENTREGUE_ID -> 5
+            SITUACAO_REPROVADO_ID -> 3
+            SITUACAO_PARCIAL_ID -> 1
+            else -> 10
         }
     }
 }

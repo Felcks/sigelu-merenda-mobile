@@ -31,7 +31,7 @@ class ListaMaterialAdapter (val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoque.nomeAlternativo
         holder.itemView.tv_descricao_material.text = item.itemEstoque.descricao
-        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque.unidadeMedida.sigla}"
+        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque.unidadeMedida?.sigla}"
 //        holder.itemView.tv_pedido_total.text = "${item.contratado.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
 //        holder.itemView.tv_material_recebido.text = "${item.recebido.toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"
 //        holder.itemView.tv_material_saldo.text = "${(item.contratado - item.recebido).toString().replace('.', ',')} ${item.base.unidadeMedida.sigla}"

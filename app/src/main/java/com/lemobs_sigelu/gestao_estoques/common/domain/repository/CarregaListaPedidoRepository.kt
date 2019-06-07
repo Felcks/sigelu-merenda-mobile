@@ -1,9 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.db
 import io.reactivex.Observable
 import java.util.*
 
@@ -41,6 +41,6 @@ class CarregaListaPedidoRepository {
 
     fun getPedidosBD(): List<Pedido> {
 
-        return listOf()
+        return db.pedidoDAO().getAll()
     }
 }

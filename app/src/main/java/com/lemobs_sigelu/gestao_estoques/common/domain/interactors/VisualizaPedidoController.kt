@@ -1,18 +1,18 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class VisualizaPedidoController @Inject constructor(private val carregaPedidoRepository: CarregaPedidoRepository,
-                                                    private val carregaListaMaterialPedidoRepository: CarregaListaMaterialDoPedidoRepository,
+                                                    private val carregaListaItemPedidoRepository: CarregaListaItemDoPedidoRepository,
                                                     private val carregaListaSituacaoRespository: CarregaListaSituacaoDoPedidoRepository,
                                                     private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
                                                     private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
                                                     private val salvaEnvioRepository: SalvaEnvioRepository,
-                                                    private val salvaPedidoRepository: SalvaPedidoRepository) {
+                                                    private val salvaPedidoRepository: SalvaPedidoRepository,
+                                                    private val salvaItemPedidoRepository: SalvaItemPedidoRepository) {
 
     fun getPedido(): Observable<Pedido> {
         return carregaPedidoRepository.getPedido()
@@ -26,8 +26,12 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
         return carregaListaSituacaoRespository.getSituacoesDePedido()
     }
 
-    fun getMateriaisDePedido(): Observable<List<ItemPedido>> {
-        return carregaListaMaterialPedidoRepository.getMateriaisDePedido()
+    fun getListaItemPedido(pedidoID: Int): Observable<List<ItemPedido>> {
+        return carregaListaItemPedidoRepository.getListaItemPedido(pedidoID)
+    }
+
+    fun getListaItemPedidoBD(pedidoID: Int): List<ItemPedido>{
+        return carregaListaItemPedidoRepository.getListaItemPedidoBD(pedidoID)
     }
 
     fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {
@@ -38,12 +42,17 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
         return carregaListaItensDeEnvioRepository.getItensEnvio(envio)
     }
 
-    fun salvaItemEnvio(item: Envio) {
+    fun salvaEnvio(item: Envio) {
         salvaEnvioRepository.salvaItem(item)
     }
 
-    fun salvaItemPedido(item: Pedido) {
+    fun salvaPedido(item: Pedido) {
         salvaPedidoRepository.salvaItem(item)
     }
+
+    fun salvaListaItemPedido(lista: List<ItemPedido>){
+        salvaItemPedidoRepository.salvaListaItemPedido(lista)
+    }
+
 
 }

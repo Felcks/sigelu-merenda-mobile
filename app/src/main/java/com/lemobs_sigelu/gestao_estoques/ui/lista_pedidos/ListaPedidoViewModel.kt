@@ -29,8 +29,19 @@ class ListaPedidoViewModel(val listaPedidoController: ListaPedidoController): Vi
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
-                { result -> response.setValue(Response.success(result)) },
-                { throwable -> response.setValue(Response.error(throwable)) }
+                { result ->
+                    listaPedidoController.salvaListaPedido(result)
+                    response.setValue(Response.success(result.sortedBy { it.situacao?.getPrioridadeOrdenacao() }))
+                },
+                { throwable ->
+                    val lista = listaPedidoController.carregaListaPedidoBD()
+                    if(lista.isNotEmpty()){
+                        response.value = Response.success(lista.sortedBy { it.situacao?.getPrioridadeOrdenacao() })
+                    }
+                    else{
+                        response.setValue(Response.error(throwable))
+                    }
+                }
             )
         )
     }

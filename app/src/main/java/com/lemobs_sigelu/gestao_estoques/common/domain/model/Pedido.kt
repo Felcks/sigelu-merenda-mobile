@@ -11,23 +11,9 @@ data class Pedido(
     var codigo: String?,
     var origem: String?,
     var destino: String?,
+    @ColumnInfo(name = "data_pedido") var dataPedido: Date? = null,
+    @ColumnInfo(name = "data_entrega") var dataEntrega: Date? = null,
     @Embedded var situacao: Situacao?){
-
-    @Ignore constructor(id: Int,
-                        codigo: String?,
-                        origem: String?,
-                        destino: String?,
-                        dataPedido: Date?,
-                        dataEntrega: Date?,
-                        situacao: Situacao): this(id, codigo, origem, destino, situacao) {
-
-        this.dataPedido = dataPedido
-        this.dataEntrega = dataEntrega
-    }
-
-
-    @Ignore var dataPedido: Date? = null
-    @Ignore var dataEntrega: Date? = null
 
     @Ignore
     var historicoSituacoes: List<SituacaoHistorico> = listOf()
