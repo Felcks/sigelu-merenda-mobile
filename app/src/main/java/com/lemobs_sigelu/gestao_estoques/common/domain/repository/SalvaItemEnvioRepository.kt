@@ -10,6 +10,12 @@ class SalvaItemEnvioRepository {
 
     fun salvaListaItemEnvio(lista: List<ItemEnvio>){
 
+        val itemEstoqueDAO = db.itemEstoqueDAO()
+        for(item in lista){
+            if(item.itemEstoque != null)
+                itemEstoqueDAO.insertAll(item.itemEstoque!!)
+        }
+
         val dao = db.itemEnvioDAO()
         dao.insertAll(*lista.toTypedArray())
     }

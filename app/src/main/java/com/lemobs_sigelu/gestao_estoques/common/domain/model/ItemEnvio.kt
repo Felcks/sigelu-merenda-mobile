@@ -7,12 +7,18 @@ import android.arch.persistence.room.*
  */
 
 @Entity(tableName = "item_envio" ,
-    foreignKeys = arrayOf(ForeignKey(
-        entity = Envio::class,
-        parentColumns = arrayOf("envio_id"),
-        childColumns = arrayOf("envio_id"))
+    foreignKeys = arrayOf(
+        ForeignKey(
+            entity = Envio::class,
+            parentColumns = arrayOf("envio_id"),
+            childColumns = arrayOf("envio_id")),
+        ForeignKey(
+            entity = ItemEstoque::class,
+            parentColumns = arrayOf("item_estoque_id"),
+            childColumns = arrayOf("item_estoque_id"))
+        )
     )
-)
+
 class ItemEnvio (
 
     @ColumnInfo(name = "item_envio_id")
@@ -33,4 +39,19 @@ class ItemEnvio (
 
     @ColumnInfo(name = "item_estoque_id")
     var itemEstoqueID: Int? = null
-)
+) {
+
+    @Ignore
+    var itemEstoque: ItemEstoque? = null
+
+    constructor(id: Int,
+                envio_id: Int,
+                quantidadeUnidade: Double,
+                precoUnidade: Double,
+                categoria: Categoria?,
+                itemEstoqueID: Int?,
+                itemEstoque: ItemEstoque?): this(id, envio_id, quantidadeUnidade, precoUnidade, categoria, itemEstoqueID){
+
+        this.itemEstoque = itemEstoque
+    }
+}
