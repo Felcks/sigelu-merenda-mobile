@@ -21,6 +21,10 @@ import com.lemobs_sigelu.gestao_estoques.databinding.ActivityLoginBinding
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.geral_fragment.GeralFragment
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.lista_envio_fragment.ListaEnvioFragment
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.lista_material_fragment.ListaMaterialFragment
+import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.lista_situacao_fragment.ListaSituacaoFragment
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import javax.inject.Inject
@@ -130,5 +134,13 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         this.ativarBotaoDeCadastrarEntrega()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GeralFragment.solicitouCarregamento = false
+        ListaMaterialFragment.solicitouCarregamento = false
+        ListaEnvioFragment.solicitouCarregamento = false
+        ListaSituacaoFragment.solicitouCarregamento = false
     }
 }

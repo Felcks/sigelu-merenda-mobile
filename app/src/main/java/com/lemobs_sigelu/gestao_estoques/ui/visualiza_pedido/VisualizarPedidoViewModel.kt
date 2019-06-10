@@ -22,15 +22,15 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     var responseSituacoes = MutableLiveData<Response>()
     var responseEnvios = MutableLiveData<Response>()
     var responseItensEnvios = MutableLiveData<Response>()
-    val loading : ObservableField<Boolean> = ObservableField(true)
+    val loading : ObservableField<Boolean> = ObservableField(false)
 
-    val loadingSituacoes : ObservableField<Boolean> = ObservableField(true)
+    val loadingSituacoes : ObservableField<Boolean> = ObservableField(false)
 
-    val loadingMateriais : ObservableField<Boolean> = ObservableField(true)
+    val loadingMateriais : ObservableField<Boolean> = ObservableField(false)
     val errorMateriaisText : ObservableField<String> = ObservableField("Nenhum material registrado.")
     val errorMateriais : ObservableField<Boolean> = ObservableField(false)
 
-    val loadingEnvios : ObservableField<Boolean> = ObservableField(true)
+    val loadingEnvios : ObservableField<Boolean> = ObservableField(false)
     val errorEnviosText : ObservableField<String> = ObservableField("Nenhum envio registrado.")
     val errorEnvios : ObservableField<Boolean> = ObservableField(false)
 
@@ -119,7 +119,6 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             .doOnSubscribe { responseSituacoes.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    quantidadeEnviosCarregando = result.size
                     responseSituacoes.setValue(Response.success(result))
                 },
                 {
@@ -140,6 +139,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                 .doOnSubscribe { responseEnvios.value = Response.loading() }
                 .subscribe(
                     { result ->
+                        quantidadeEnviosCarregando = result.size
                         responseEnvios.value = Response.success(result)
                     },
                     { throwable ->
@@ -155,6 +155,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     fun carregarItensDeEnvio(envio: Envio){
 
+        this.envios.clear()
         disposables.add(controller.getListaItensEnvio(envio)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

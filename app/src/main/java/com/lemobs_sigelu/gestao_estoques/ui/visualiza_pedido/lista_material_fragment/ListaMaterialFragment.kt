@@ -22,6 +22,10 @@ class ListaMaterialFragment : Fragment() {
     var viewModel: VisualizarPedidoViewModel? = null
     var binding: FragmentPedidoMateriaisBinding? = null
 
+    companion object {
+        var solicitouCarregamento = false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_materiais, container, false)
         return binding!!.root
@@ -36,7 +40,11 @@ class ListaMaterialFragment : Fragment() {
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
-            this.viewModel!!.carregarItensDePedido()
+
+            if(!solicitouCarregamento) {
+                solicitouCarregamento = true
+                this.viewModel!!.carregarItensDePedido()
+            }
         }
 
         this.iniciarAdapter(listOf())

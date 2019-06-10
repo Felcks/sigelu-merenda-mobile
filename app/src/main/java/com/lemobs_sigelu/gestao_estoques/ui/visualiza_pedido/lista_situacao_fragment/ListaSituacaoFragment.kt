@@ -28,6 +28,10 @@ class ListaSituacaoFragment : Fragment() {
     var viewModel: VisualizarPedidoViewModel? = null
     var binding: FragmentPedidoSituacoesBinding? = null
 
+    companion object {
+        var solicitouCarregamento = false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_situacoes, container, false)
         return binding!!.root
@@ -47,7 +51,11 @@ class ListaSituacaoFragment : Fragment() {
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
-            this.viewModel!!.carregarSituacoesDePedido()
+
+            if(!solicitouCarregamento) {
+                solicitouCarregamento = true
+                this.viewModel!!.carregarSituacoesDePedido()
+            }
         }
 
         this.iniciarAdapter(listOf())

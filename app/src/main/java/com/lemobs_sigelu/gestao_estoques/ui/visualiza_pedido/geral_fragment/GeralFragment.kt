@@ -25,6 +25,10 @@ class GeralFragment: Fragment() {
     var viewModel: VisualizarPedidoViewModel? = null
     var binding: FragmentPedidoGeralBinding? = null
 
+    companion object {
+        var solicitouCarregamento = false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_geral, container, false)
         return binding?.root
@@ -39,7 +43,11 @@ class GeralFragment: Fragment() {
 
             binding?.viewModel = this.viewModel
             binding?.executePendingBindings()
-            this.viewModel!!.carregarPedido()
+
+            if(!solicitouCarregamento) {
+                solicitouCarregamento = true
+                this.viewModel!!.carregarPedido()
+            }
         }
     }
 

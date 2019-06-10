@@ -29,6 +29,10 @@ class ListaEnvioFragment : Fragment() {
     var viewModel: VisualizarPedidoViewModel? = null
     var binding: FragmentPedidoEnviosBinding? = null
 
+    companion object {
+        var solicitouCarregamento = false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_envios, container, false)
         return binding!!.root
@@ -44,7 +48,11 @@ class ListaEnvioFragment : Fragment() {
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
-            this.viewModel!!.carregaEnviosDePedido()
+
+            if(!solicitouCarregamento) {
+                solicitouCarregamento = true
+                this.viewModel!!.carregaEnviosDePedido()
+            }
         }
 
         this.iniciarAdapter(listOf())
