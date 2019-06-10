@@ -10,6 +10,13 @@ class SalvaItemPedidoRepository {
 
     fun salvaListaItemPedido(lista: List<ItemPedido>){
 
+        val itemEstoqueDAO = db.itemEstoqueDAO()
+        for(item in lista){
+            if(item.itemEstoque != null){
+                itemEstoqueDAO.insertAll(item.itemEstoque!!)
+            }
+        }
+
         val dao = db.itemPedidoDAO()
         dao.insertAll(*lista.toTypedArray())
     }

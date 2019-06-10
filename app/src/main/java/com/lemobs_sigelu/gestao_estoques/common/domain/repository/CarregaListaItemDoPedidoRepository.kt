@@ -44,8 +44,9 @@ class CarregaListaItemDoPedidoRepository {
                         pedidoID,
                         it.quantidade_unidade ?: 0.0,
                         it.preco_unidade ?: 0.0,
-                        itemEstoque,
-                        categoria)
+                        itemEstoque.id,
+                        categoria,
+                        itemEstoque)
                 }
 
                 subscribe.onNext(itens)
