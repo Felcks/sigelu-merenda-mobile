@@ -1,18 +1,16 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.ItemEnvioDTO
 
 /**
  * Created by felcks on Jun, 2019
  */
 
 @Entity(tableName = "item_envio" ,
-    foreignKeys = arrayOf(
-        ForeignKey(
+    foreignKeys = arrayOf(ForeignKey(
         entity = Envio::class,
-            parentColumns = arrayOf("envio_id"),
-            childColumns = arrayOf("item_envio_id"))
+        parentColumns = arrayOf("envio_id"),
+        childColumns = arrayOf("envio_id"))
     )
 )
 class ItemEnvio (
@@ -21,6 +19,7 @@ class ItemEnvio (
     @PrimaryKey
     var id: Int,
 
+    @ColumnInfo(name = "envio_id")
     var envio_id: Int,
 
     @ColumnInfo(name = "quantidade_unidade")
@@ -29,23 +28,9 @@ class ItemEnvio (
     @ColumnInfo(name = "preco_unidade")
     var precoUnidade: Double,
 
-    @ColumnInfo(name = "item_estoque")
     @Embedded
-    var itemEstoque: ItemEstoque,
+    var categoria: Categoria? = null,
 
-    @Embedded
-    var categoria: Categoria
-){
-
-    fun getEquivalentDTO(): ItemEnvioDTO{
-
-        return ItemEnvioDTO(
-            id,
-            envio_id,
-            quantidadeUnidade,
-            precoUnidade,
-            itemEstoque.id,
-            categoria.id
-        )
-    }
-}
+    @ColumnInfo(name = "item_estoque_id")
+    var itemEstoqueID: Int? = null
+)

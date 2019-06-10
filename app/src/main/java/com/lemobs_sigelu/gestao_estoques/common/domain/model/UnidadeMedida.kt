@@ -5,8 +5,6 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.lemobs_sigelu.gestao_estoques.bd_model.UnidadeMedidaDTO
 
-
-@Entity(tableName = "unidade_medida")
 class UnidadeMedida (
 
     @ColumnInfo(name = "unidade_medida_id")

@@ -9,7 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
     foreignKeys = arrayOf(ForeignKey(
         entity = Pedido::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("item_pedido_id"))
+        childColumns = arrayOf("pedido_id"))
     )
 )
 class ItemPedido (
@@ -28,10 +28,10 @@ class ItemPedido (
     var precoUnidade: Double?,
 
     @Embedded
-    var itemEstoque: ItemEstoque,
+    var itemEstoque: ItemEstoque?,
 
     @Embedded
-    var categoria: Categoria
+    var categoria: Categoria?
 ){
 
     @Ignore

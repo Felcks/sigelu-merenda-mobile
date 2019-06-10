@@ -36,7 +36,7 @@ class ListaPedidoAdapter(val context: Context,
         holder.itemView.tv_destino.text = item.destino
         holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada()
         holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada()
-        holder.itemView.tv_situacao.text = item.situacao?.nome
+        holder.itemView.tv_situacao.text = item.situacao?.situacao_nome
         holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao!!.getColor())
 
         if(item.situacao!!.situacao_id == SITUACAO_APROVADO_ID || item.situacao!!.situacao_id == SITUACAO_PARCIAL_ID) {

@@ -19,26 +19,4 @@ open class ItemEstoque(
     var nomeAlternativo: String,
 
     @Embedded
-    var unidadeMedida: UnidadeMedida? = null){
-
-
-//    constructor(id: Int,
-//                codigo: String,
-//                descricao: String,
-//                nomeAlternativo: String,
-//                unidadeMedida: UnidadeMedida): this(id, codigo, descricao, nomeAlternativo){
-//        this.unidadeMedida = unidadeMedida
-//    }
-
-
-    fun getEquivalentDTO(): ItemEstoqueDTO{
-
-        return ItemEstoqueDTO(
-            id,
-            codigo,
-            descricao,
-            nomeAlternativo,
-            unidadeMedida?.id
-        )
-    }
-}
+    var unidadeMedida: UnidadeMedida? = null)

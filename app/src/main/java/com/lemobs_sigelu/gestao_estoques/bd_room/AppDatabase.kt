@@ -14,13 +14,12 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
  * Created by felcks on Jun, 2019
  */
 @Database(entities = arrayOf(
-    Categoria::class,
     Envio::class,
     ItemPedido::class,
     ItemEnvio::class,
     ItemEstoque::class,
     Pedido::class),
-    version = 1)
+    version = 4)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun envioDAO(): EnvioDAO

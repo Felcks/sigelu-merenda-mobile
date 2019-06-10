@@ -1,13 +1,11 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import com.lemobs_sigelu.gestao_estoques.db
-import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
 class CarregaListaItemDoPedidoRepository {

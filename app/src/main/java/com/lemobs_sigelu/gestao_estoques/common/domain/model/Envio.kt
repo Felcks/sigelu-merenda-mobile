@@ -14,7 +14,7 @@ class Envio (
     @PrimaryKey
     var envioID: Int,
 
-    @ColumnInfo(name = "pedidoID")
+    @ColumnInfo(name = "pedido_id")
     var pedidoID: Int,
 
     var situacao: String?,

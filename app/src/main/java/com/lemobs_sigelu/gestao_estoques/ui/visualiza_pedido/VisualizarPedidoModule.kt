@@ -49,6 +49,11 @@ class VisualizarPedidoModule {
     }
 
     @Provides
+    fun provideSalvaItemEnvioRepository(): SalvaItemEnvioRepository{
+        return SalvaItemEnvioRepository()
+    }
+
+    @Provides
     fun provideListaPedidoViewModelFactory(controller: VisualizaPedidoController): VisualizarPedidoViewModelFactory {
         return VisualizarPedidoViewModelFactory(controller)
     }

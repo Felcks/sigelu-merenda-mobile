@@ -11,7 +11,6 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
-import kotlinx.android.synthetic.main.fragment_pedido_situacoes.*
 import kotlinx.android.synthetic.main.item_situacao_de_pedido.view.*
 
 class ListaSituacaoAdapter (val context: Context,
@@ -32,7 +31,7 @@ class ListaSituacaoAdapter (val context: Context,
         val item = list[position]
 
         holder.itemView.tv_data.text = item.data.getDataFormatada()
-        holder.itemView.tv_titulo.text = item.situacao.nome
+        holder.itemView.tv_titulo.text = item.situacao.situacao_nome
         //this.startAdapterMateriais(holder, item)
 
         if(position == 0){

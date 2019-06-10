@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -165,8 +164,8 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                     envio.itens = result
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
-                    controller.salvaListaItemEnvio(result)
                     controller.salvaEnvio(envio)
+                    controller.salvaListaItemEnvio(result)
                     responseItensEnvios.value = Response.success(result)
                 },
                 { throwable ->

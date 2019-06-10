@@ -31,11 +31,11 @@ class ListaItemEnvioAdapter (val context: Context,
 
         val item = list[position]
 
-        holder.itemView.tv_nome_material.text = item.itemEstoque.nomeAlternativo
-        holder.itemView.tv_codigo.text = item.itemEstoque.codigo
-        holder.itemView.tv_descricao_material.text = item.itemEstoque.descricao
+//        holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
+//        holder.itemView.tv_codigo.text = item.itemEstoque?.codigo
+//        holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
         holder.itemView.tv_preco.text = item.precoUnidade.toString()
-        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque.unidadeMedida?.sigla}"
+        //holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

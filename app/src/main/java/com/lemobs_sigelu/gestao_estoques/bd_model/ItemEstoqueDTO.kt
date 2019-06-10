@@ -28,16 +28,3 @@ class ItemEstoqueDTO(
     @DatabaseField
     var unidade_medida_id: Int? = null
 )
-{
-    fun getEquivalentDomain(): ItemEstoque{
-
-        val unidadeMedidaDTO = UnidadeMedidaDAO(DatabaseHelper.connectionSource).queryForId(unidade_medida_id ?: 0)
-
-        return ItemEstoque(
-            id ?: 0,
-            codigo ?: "",
-            descricao ?: "",
-            nome_alternativo ?: "",
-            unidadeMedidaDTO!!.getEquivalentDomain())
-    }
-}

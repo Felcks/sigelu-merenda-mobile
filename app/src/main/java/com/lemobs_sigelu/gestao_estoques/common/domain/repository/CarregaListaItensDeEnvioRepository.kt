@@ -43,11 +43,11 @@ class CarregaListaItensDeEnvioRepository {
                         it.categoria.nome ?: "")
 
                     ItemEnvio(it.id,
-                        envio,
+                        envio.envioID,
                         it.quantidade_unidade ?: 0.0,
                         it.preco_unidade ?: 0.0,
-                        itemEstoque,
-                        categoria)
+                        categoria,
+                        itemEstoque.id)
                 }
 
                 subscriber.onNext(itens)
