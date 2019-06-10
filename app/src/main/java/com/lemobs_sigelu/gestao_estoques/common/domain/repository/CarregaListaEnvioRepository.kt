@@ -45,20 +45,33 @@ class CarregaListaEnvioRepository {
         }
     }
 
-    fun getListaEnvioBD(pedido: Pedido): Observable<List<Envio>> {
+    fun getListaEnvioDePedidoBD(pedidoID: Int): Observable<List<Envio>> {
 
         return Observable.create { subscriber->
 
-            //val envioDAO = EnvioDAO(DatabaseHelper.connectionSource)
-            //val listaEnvios = envioDAO.queryForTodosEnviosDePedido(pedido.id)
+            val envioDAO = db.envioDAO()
+            val envios = envioDAO.getTodosEnviosDePedido(pedidoID)
 
-            //if(listaEnvios.isNotEmpty()){
-                subscriber.onNext(listOf())
+            if(envios.isNotEmpty()){
+
+                val itemEnvioDAO = db.itemEnvioDAO()
+                for(envio in envios){
+
+                    val listaItemEnvio = itemEnvioDAO.getTodosItemEnvioDeEnvio(envio.envioID)
+                    for(itemEnvio in listaItemEnvio){
+
+                        val itemEstoqueDAO = db.itemEstoqueDAO()
+                        itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
+                    }
+
+                    envio.itens = listaItemEnvio
+                }
+                subscriber.onNext(envios)
                 subscriber.onComplete()
-            //}
-            //else{
-                subscriber.onError(Throwable("Sem envios"))
-            //}
+            }
+            else{
+                subscriber.onError(Throwable("Nenhum envio encontrado"))
+            }
         }
     }
 }

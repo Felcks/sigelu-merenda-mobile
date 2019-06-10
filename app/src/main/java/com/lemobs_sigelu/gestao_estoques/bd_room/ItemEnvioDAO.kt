@@ -12,8 +12,8 @@ interface ItemEnvioDAO {
     @Query("SELECT * FROM item_envio")
     fun getAll(): List<ItemEnvio>
 
-    @Query("SELECT * FROM item_envio WHERE envio_id LIKE :pedidoID")
-    fun getTodosItemEnvioDeEnvio(pedidoID: Int): List<ItemEnvio>
+    @Query("SELECT * FROM item_envio WHERE envio_id LIKE :envioID")
+    fun getTodosItemEnvioDeEnvio(envioID: Int): List<ItemEnvio>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg items: ItemEnvio)

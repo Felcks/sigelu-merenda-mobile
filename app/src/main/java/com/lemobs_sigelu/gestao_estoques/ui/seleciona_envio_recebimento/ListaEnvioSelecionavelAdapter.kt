@@ -2,11 +2,14 @@ package com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
@@ -19,11 +22,16 @@ import kotlinx.android.synthetic.main.item_envio_selecionavel.view.*
 /**
  * Created by felcks on Jun, 2019
  */
-class ListaEnvioAdapter(val context: Context,
-                        val list: List<Envio>): RecyclerView.Adapter<ListaEnvioAdapter.MyViewHolder>() {
+class ListaEnvioSelecionavelAdapter(val context: Context,
+                                    val list: List<Envio>): RecyclerView.Adapter<ListaEnvioSelecionavelAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val colorItemEntregue = ContextCompat.getColor(App.instance, R.color.divider_light)
+    val colorItemEntregue = ContextCompat.getColor(App.instance, R.color.envio_entregue)
+    val colorItemSelecionado = ContextCompat.getColor(App.instance, R.color.envio_selecionado)
+    val colorItemNaoSelecionado = ContextCompat.getColor(App.instance, R.color.envio_nao_selecionado)
+
+    var layoutSelecionado: CardView? = null
+    var posicaoSelecionada: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
@@ -44,8 +52,9 @@ class ListaEnvioAdapter(val context: Context,
         holder.itemView.tv_saida.text = "${item.dataSaida?.toDiaMesAno()} às ${item.dataSaida?.toHoraMinutoSegundo()}"
         holder.itemView.tv_situacao_atual.text = item.situacao
 
-        if(!item.isEntregue){
+        if(item.isEntregue){
             holder.itemView.ll_all.setBackgroundColor(colorItemEntregue)
+            holder.itemView.ll_content.setBackgroundColor(colorItemEntregue)
         }
 
         holder.itemView.ll_clickable_layout.setOnClickListener {
@@ -58,6 +67,19 @@ class ListaEnvioAdapter(val context: Context,
                 holder.itemView.rv_itens_envio.visibility = View.GONE
                 holder.itemView.arrow.background = ContextCompat.getDrawable(App.instance, R.drawable.ic_arrow_down)
                 holder.isExpanded = false
+            }
+        }
+
+        holder.itemView.ll_all.setOnClickListener {
+
+            if(!item.isEntregue) {
+                layoutSelecionado?.setBackgroundColor(colorItemNaoSelecionado)
+                holder.itemView.ll_all.setBackgroundColor(colorItemSelecionado)
+                posicaoSelecionada = position
+                layoutSelecionado = holder.itemView.ll_all
+            }
+            else{
+                Toast.makeText(context, "Envio já entregue", Toast.LENGTH_SHORT).show()
             }
         }
 

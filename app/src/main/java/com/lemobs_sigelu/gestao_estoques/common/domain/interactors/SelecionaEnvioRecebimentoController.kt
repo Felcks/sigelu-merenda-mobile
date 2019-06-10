@@ -13,8 +13,8 @@ import javax.inject.Inject
 class SelecionaEnvioRecebimentoController @Inject constructor(private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
                                                               private val selecionaEnvioRecebimentoRepository: SelecionaEnvioRepository) {
 
-    fun getListaEnvioBD(pedido: Pedido): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvioBD(pedido)
+    fun getListaEnvioDePedido(pedidoID: Int): Observable<List<Envio>> {
+        return carregaListaEnvioRepository.getListaEnvioDePedidoBD(pedidoID)
     }
 
     fun selecionaEnvio(envioID: Int): Int{

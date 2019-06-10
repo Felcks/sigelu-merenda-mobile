@@ -33,5 +33,10 @@
     <color name="obra_pausada">#990000</color>
     <color name="obra_pausada_atraso">#990000</color>
 
+    <!-- CORES SELEÇÃO DE ENVIO PARA RECEBIMENTO -->
+    <color name="envio_selecionado">#43a047</color>
+    <color name="envio_nao_selecionado">#FFFFFF</color>
+    <color name="envio_entregue">#ECECEC</color>
+
     <!-- CORES TELA DE LOGIN -->
 </resources>

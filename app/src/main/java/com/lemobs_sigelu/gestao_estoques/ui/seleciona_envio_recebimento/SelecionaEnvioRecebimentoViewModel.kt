@@ -31,18 +31,16 @@ class SelecionaEnvioRecebimentoViewModel (val controller: SelecionaEnvioRecebime
 
     fun carregaEnvios(){
 
-//        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
-//        val pedidoDTO = PedidoDAO(DatabaseHelper.connectionSource).queryForId(pedidoID)
-//
-//        disposables.add(controller.getListaEnvioBD(pedidoDTO!!.getEquivalentDomain())
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnSubscribe { response.setValue(Response.loading()) }
-//            .subscribe(
-//                { result -> response.setValue(Response.success(result)) },
-//                { throwable -> response.setValue(Response.error(throwable)) }
-//            )
-//        )
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+        disposables.add(controller.getListaEnvioDePedido(pedidoID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result -> response.setValue(Response.success(result)) },
+                { throwable -> response.setValue(Response.error(throwable)) }
+            )
+        )
     }
 
     fun selecionaEnvio(envioID: Int){

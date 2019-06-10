@@ -13,6 +13,9 @@ interface EnvioDAO {
     @Query("SELECT * FROM envio")
     fun getAll(): List<Envio>
 
+    @Query("SELECT * FROM envio WHERE pedido_id LIKE :pedidoID")
+    fun getTodosEnviosDePedido(pedidoID: Int): List<Envio>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg users: Envio)
 
