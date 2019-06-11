@@ -3,38 +3,34 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
+import com.lemobs_sigelu.gestao_estoques.bd.ItemEnvioDAO
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoDeCadastro
 import io.reactivex.Observable
 
 class CarregaListaMaterialParaCadastroRepository {
 
-    fun getMateriais(context: Context): Observable<List<MaterialParaCadastro>> {
+    fun getMateriais(envioID: Int): Observable<List<ItemEnvio>> {
 
         return Observable.create { subscribe ->
-            val pedido = pedidoDeCadastro
 
-            if(pedido != null){
-                when(pedido.destino){
-                    PedidoDeCadastro.Companion.PedidoDestino.NUCLEO -> {
+            val dao = db.itemEnvioDAO()
+            val envios = dao.getTodosItemEnvioDeEnvio(envioID)
 
-                        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-//                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
-//                        list = removeMateriaisJaCadastrados(list)
-//                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_OBRA.toMutableList())
-                        //subscribe.onNext(list)
-                    }
-                    PedidoDeCadastro.Companion.PedidoDestino.OBRA -> {
-//                        val list = removeMateriaisJaCadastrados(MATERIAIS_PARA_CADASTRO_NUCLEO.toMutableList())
-                        val materialDeCadastroDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-//                        var list = materialDeCadastroDAO.queryForAll().map { it.getEquivalentDomain() }.toMutableList()
-//                        list = removeMateriaisJaCadastrados(list)
-//                        subscribe.onNext(list)
-                    }
+            if(envios.isNotEmpty()) {
+                val itemEstoqueDAO = db.itemEstoqueDAO()
+                for (envio in envios) {
+                    envio.itemEstoque = itemEstoqueDAO.getById(envio.itemEstoqueID ?: 0)
                 }
+
+                subscribe.onNext(envios)
+                subscribe.onComplete()
             }
-            subscribe.onComplete()
+            else{
+                subscribe.onError(Throwable("Lista de materiais vazia"))
+            }
         }
     }
 

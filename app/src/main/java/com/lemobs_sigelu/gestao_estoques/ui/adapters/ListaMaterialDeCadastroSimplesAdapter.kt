@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.ISelecionaMaterial
 import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoViewModel
 import kotlinx.android.synthetic.main.item_material_adicao.view.*
 
 class ListaMaterialDeCadastroSimplesAdapter(val context: Context,
-                                            val list: List<*>,
+                                            val list: List<ItemEnvio>,
                                             val selecionaMaterial: ISelecionaMaterial): RecyclerView.Adapter<ListaMaterialDeCadastroSimplesAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -31,13 +32,11 @@ class ListaMaterialDeCadastroSimplesAdapter(val context: Context,
 
         val item = this.list[position]
 
-        if(item is MaterialParaCadastro){
-            //holder.itemView.tv_name.text = item.base.nome
-
+            holder.itemView.tv_name.text = item.itemEstoque?.nomeAlternativo
             holder.itemView.btn_add.setOnClickListener {
-                //selecionaMaterial.selecionaMaterial(item.base.material_id)
+                selecionaMaterial.selecionaMaterial(item.itemEstoque?.id)
             }
-        }
+
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

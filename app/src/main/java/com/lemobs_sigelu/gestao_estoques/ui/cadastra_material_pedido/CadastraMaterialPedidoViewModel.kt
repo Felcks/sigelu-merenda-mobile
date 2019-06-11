@@ -3,7 +3,9 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMaterialPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.disposables.CompositeDisposable
@@ -13,6 +15,8 @@ class CadastraMaterialPedidoViewModel (private val controller: CadastraMaterialP
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
 
+    var quantidadeRecebida: ObservableField<String> = ObservableField("")
+
     override fun onCleared() {
         disposables.clear()
     }
@@ -21,15 +25,17 @@ class CadastraMaterialPedidoViewModel (private val controller: CadastraMaterialP
         return response
     }
 
-    fun getMaterial(context: Context): MaterialParaCadastro {
-        return controller.carregaMaterialSolicitado(context)
+    fun getMaterial(): ItemEnvio? {
+        return controller.carregaMaterialSolicitado()
     }
 
-    fun setQuantidadeMaterial(context: Context, double: Double): Boolean {
-        return controller.cadastraQuantidadeDeMaterial(context, double)
+    fun cadastraQuantidadeMaterial(valor: Double): Boolean {
+        return controller.cadastraQuantidadeDeMaterial(valor)
     }
 
-    fun confirmaCadastroMaterial(context: Context, valor: Double): Boolean {
-        return controller.confirmaCadastroMaterial(context, valor)
+    fun confirmaCadastroMaterial(): Double {
+
+        val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
+        return controller.confirmaCadastroMaterial(valor ?: 0.0)
     }
 }

@@ -4,5 +4,5 @@ import android.content.Context
 
 interface ISelecionaMaterial {
 
-    fun selecionaMaterial(materialId: Int)
+    fun selecionaMaterial(materialId: Int?)
 }

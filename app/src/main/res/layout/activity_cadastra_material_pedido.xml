@@ -1,122 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:padding="@dimen/espacamento_medio">
 
-    <TextView
-            android:id="@+id/layout_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Nome"/>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-            android:id="@+id/tv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="BICA CORRIDA"
-            android:textSize="18sp"
-            android:textColor="@color/primary_text"/>
+    <data>
+        <variable
+                name="viewModel"
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoViewModel"/>
+    </data>
 
-    <TextView
-            android:id="@+id/layout_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/espacamento_grande"
-            android:text="Descrição"/>
-    <TextView
-            android:id="@+id/tv_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Bica corrida usada para alguma coisa"
-            android:textSize="18sp"
-            android:textColor="@color/primary_text"/>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:padding="@dimen/espacamento_medio">
 
-    <TextView
-            android:id="@+id/layout_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/espacamento_grande"
-            android:text="Unidade"/>
-    <TextView
-            android:id="@+id/tv_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Quilograma (kg)"
-            android:textSize="18sp"
-            android:textColor="@color/primary_text"/>
+        <TextView
+                android:id="@+id/layout_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Nome"/>
 
+        <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="BICA CORRIDA"
+                android:textSize="18sp"
+                android:textColor="@color/primary_text"/>
 
-    <TextView
-            android:id="@+id/layout_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/espacamento_grande"
-            android:text="Quantidade Disponível"/>
-    <EditText
-            android:id="@+id/tv_4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="@id/layout_4"
-            android:textSize="18sp"
-            android:editable="false"
-            android:textColor="@color/primary_text"/>
+        <TextView
+                android:id="@+id/layout_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                android:text="Descrição"/>
 
-    <TextView
-            android:id="@+id/layout_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/espacamento_grande"
-            android:text="Quantidade Solicitada"/>
-    <EditText
-            android:id="@+id/tv_5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layout_5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="@id/tv_4"
-            android:textSize="18sp"
-            android:textColor="@color/primary_text"
-            android:paddingRight="@dimen/espacamento_grande"
-            android:maxLength="10"
-            android:maxLines="1"
-            android:layout_weight="3"
-            android:inputType="numberDecimal"
-            android:digits="1234567890,"
-            android:hint="0"
-            android:selectAllOnFocus="true"/>
+        <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Bica corrida usada para alguma coisa"
+                android:textSize="18sp"
+                android:textColor="@color/primary_text"/>
 
-    <Button android:id="@+id/btn_confirma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9"
-            android:background="@drawable/rounded_button_states"
-            android:text="Confirmar"
-            android:visibility="invisible"
-            android:textColor="@android:color/white"
-    />
+        <TextView
+                android:id="@+id/layout_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                android:text="Unidade"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Quilograma (kg)"
+                android:textSize="18sp"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/layout_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                android:text="Quantidade Disponível"/>
+
+        <EditText
+                android:id="@+id/tv_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/layout_4"
+                android:textSize="18sp"
+                android:editable="false"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/layout_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                android:text="Quantidade Recebida"/>
+        <EditText
+                android:id="@+id/tv_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/tv_4"
+                android:textSize="18sp"
+                android:textColor="@color/primary_text"
+                android:paddingRight="@dimen/espacamento_grande"
+                android:text="@={viewModel.quantidadeRecebida}"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:layout_weight="3"
+                android:inputType="numberDecimal"
+                android:digits="1234567890,"
+                android:hint="0"
+                android:selectAllOnFocus="true"/>
+
+        <Button android:id="@+id/btn_confirma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9"
+                android:background="@drawable/rounded_button_states"
+                android:text="Confirmar"
+                android:visibility="invisible"
+                android:textColor="@android:color/white"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

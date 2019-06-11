@@ -53,11 +53,11 @@
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
-                  android:label="Cadastro de Pedido (1/2)" />
+                  android:label="Cadastre a quantidade recebida" />
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
-                  android:label="Cadastro de Pedido (2/2)" />
+                  android:label="Selecione o material recebido" />
 
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity"

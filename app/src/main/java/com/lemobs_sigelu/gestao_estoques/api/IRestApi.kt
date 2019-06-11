@@ -6,10 +6,10 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface IRestApi {
 
@@ -43,4 +43,8 @@ interface IRestApi {
     fun getItensEnvioDePedido(@Header("Authorization") auth: String,
                               @Path("pedido_estoque_id") pedido_estoque_id: Int,
                               @Path("envio_id") envio_id: Int): Call<List<ItemPedidoDataResponse>>
+
+    @POST("recebimento-estoque")
+    fun postRecebimentoEstoque(@Header("Authorization") auth: String,
+                               @Body recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>
 }

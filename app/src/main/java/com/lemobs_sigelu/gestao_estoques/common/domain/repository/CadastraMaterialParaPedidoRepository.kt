@@ -1,39 +1,52 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
 import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
+import com.lemobs_sigelu.gestao_estoques.bd_room.ItemRecebimentoDAO
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
+import com.lemobs_sigelu.gestao_estoques.db
 import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
 import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 
 class CadastraMaterialParaPedidoRepository {
 
-    fun cadastraQuantidadeDeMaterial(context: Context, value: Double): Boolean{
+    fun cadastraQuantidadeDeMaterial(value: Double): Boolean{
 
-        val materialId = CadastraPedidoSharedPreferences.getMaterialSelecionadoId(context)
-        val materialDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-//        val material = materialDAO.queryForId(materialId)!!.getEquivalentDomain()
-//
-//        val success = material.setQuantidadePedida(value)
-//        materialDAO.add(material.getEquivalentDTO())
-        return true //sucess
+        val itemEnvioID = FlowSharedPreferences.getItemEnvioID(App.instance)
+
+        val itemRecebimento = ItemRecebimento(
+            null,
+            itemEnvioID,
+            value
+        )
+
+        val itemRecebimentoDAO = db.itemRecebimentoDAO()
+        itemRecebimentoDAO.insertAll(itemRecebimento)
+
+        return true
     }
 
-    fun confirmaCadastroMaterial(context: Context, valor: Double): Boolean{
+    fun confirmaCadastroMaterial(valor: Double): Double {
 
-        val materialId = CadastraPedidoSharedPreferences.getMaterialSelecionadoId(context)
-        val materialDAO = MaterialDeCadastroDAO(DatabaseHelper.connectionSource)
-//        val material = materialDAO.queryForId(materialId)!!.getEquivalentDomain()
-//
-//        //if(valor == material.getQuantidadePedida() && material.getQuantidadePedida() < material.quantidade_disponivel && material.getQuantidadePedida() > 0.0) {
-//        if(material.getQuantidadePedida() < material.quantidade_disponivel) {
-//
-//            if (!materiaisCadastrados.contains(material)) {
-//                material.setQuantidadePedida(valor)
-//                return materiaisCadastrados.add(material)
-//            }
-//        }
+        val itemEnvioDAO = db.itemEnvioDAO()
+        val itemEnvioID = FlowSharedPreferences.getItemEnvioID(App.instance)
+        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
 
-        return false
+        if(itemEnvio != null){
+            itemEnvio.itemEstoque = db.itemEstoqueDAO().getById(itemEnvioID)
+        }
+
+        if(valor <= 0.0){
+            return -2.0
+        }
+
+        if(valor > itemEnvio?.quantidadeUnidade ?: 999999999.0){
+            return -1.0
+        }
+
+        return 1.0
     }
 }

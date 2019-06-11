@@ -9,12 +9,15 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaMaterialDeCadastroSimplesAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_materiais.*
 import javax.inject.Inject
@@ -32,21 +35,26 @@ class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaMaterialPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarListaMateriais(applicationContext)
+        viewModel!!.carregarListaMateriais()
     }
 
-    override fun selecionaMaterial(materialId: Int) {
-        val successSelecionaMaterial = viewModel!!.selecionaMaterial(applicationContext, materialId)
-        if(successSelecionaMaterial){
-            val intent = Intent(this, CadastraMaterialPedidoActivity::class.java)
-            startActivity(intent)
-        }
-        else{
-            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+    override fun selecionaMaterial(materialId: Int?) {
+
+        if(materialId != null) {
+
+            val successSelecionaMaterial = viewModel!!.selecionaMaterial(materialId)
+            if (successSelecionaMaterial) {
+                FlowSharedPreferences.setItemEnvioID(App.instance, materialId)
+                val intent = Intent(this, CadastraMaterialPedidoActivity::class.java)
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun iniciarAdapter(list: List<*>){
+    private fun iniciarAdapter(list: List<ItemEnvio>){
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -71,7 +79,7 @@ class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result)
+            this.iniciarAdapter(result as List<ItemEnvio>)
         }
     }
 
