@@ -49,6 +49,8 @@ class PedidoDTO (
             codigo ?: "",
             origem ?: "",
             destino ?: "",
+            0,
+            0,
             data_pedido ?: Date(),
             data_entrega ?: Date(),
             situacaoDTO!!.getEquivalentDomain())

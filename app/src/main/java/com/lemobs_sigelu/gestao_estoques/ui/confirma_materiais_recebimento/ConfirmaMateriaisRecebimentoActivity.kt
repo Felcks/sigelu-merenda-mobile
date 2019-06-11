@@ -1,5 +1,7 @@
-package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -9,7 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -22,19 +24,20 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualiza_materiais_cadastrados.*
 import javax.inject.Inject
 
-class ConfirmaMateriaisPedidoActivity: AppCompatActivity(){
+class ConfirmaMateriaisRecebimentoActivity: AppCompatActivity(){
 
     @Inject
-    lateinit var viewModelFactory: ConfirmaMateriaisPedidoViewModelFactory
-    var viewModel: ConfirmaMateriaisPedidoViewModel? = null
+    lateinit var viewModelFactory: ConfirmaMateriaisRecebimentoViewModelFactory
+    var viewModel: ConfirmaMateriaisRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualiza_materiais_cadastrados)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaMateriaisPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaMateriaisRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
         viewModel!!.carregaListaItemRecebimento()
 
         btn_adicionar_materiais.setOnClickListener {
@@ -63,6 +66,55 @@ class ConfirmaMateriaisPedidoActivity: AppCompatActivity(){
 
     private fun renderErrorState(throwable: Throwable?) {}
 
+    fun processEnvioRecebimentoResponse(response: Response?) {
+        when (response?.status) {
+            Status.LOADING -> renderLoadingEnvioRecebimento()
+            Status.SUCCESS -> renderSucessoEnvioRecebimento(response.data)
+            Status.ERROR -> renderErrorEnvioRecebimento(response.error)
+        }
+    }
+
+    var progressDialog: ProgressDialog? = null
+    private fun renderLoadingEnvioRecebimento(){
+
+        progressDialog = DialogUtil.buildDialogCarregamento(this,
+            "Enviando recebimento",
+            "Por favor, espere...")
+    }
+
+    var sucessDialog: AlertDialog? = null
+    private fun renderSucessoEnvioRecebimento(result: Any?){
+
+        progressDialog?.dismiss()
+        val activity = this
+        this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
+            "Sucesso",
+            "Recebimento enviado com sucesso!",
+            {
+                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                startActivity(intent)
+                this.finishAffinity()
+            },
+            false)
+
+        this.sucessDialog?.show()
+    }
+
+    var errorDialog: AlertDialog? = null
+    private fun renderErrorEnvioRecebimento(error: Throwable?){
+
+        progressDialog?.dismiss()
+        this.errorDialog = DialogUtil.buildAlertDialogOk(this,
+            "Erro",
+            "Falha no envio de recebimento",
+            {
+
+            },
+            true)
+
+        this.errorDialog?.show()
+    }
+
     private fun iniciarAdapter(list: List<ItemRecebimento>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -89,7 +141,7 @@ class ConfirmaMateriaisPedidoActivity: AppCompatActivity(){
             "Cancelar recebimento",
             "Deseja cancelar o cadastro de recebimento?",
             {
-                this.viewModel!!.cancelaPedido()
+                this.viewModel!!.cancelaRecebimento()
                 val intent = Intent(this, ListaPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
@@ -112,11 +164,13 @@ class ConfirmaMateriaisPedidoActivity: AppCompatActivity(){
 
         if(item?.itemId == R.id.btn_done){
 
-            viewModel!!.confirmaPedido(applicationContext)
-            Toast.makeText(applicationContext, "Pedido realizado!!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ListaPedidoActivity::class.java)
-            startActivity(intent)
-            this.finishAffinity()
+            viewModel!!.enviaRecebimento()
+
+
+//            Toast.makeText(applicationContext, "Pedido realizado!!", Toast.LENGTH_SHORT).show()
+//            val intent = Intent(this, ListaPedidoActivity::class.java)
+//            startActivity(intent)
+//            this.finishAffinity()
         }
 
         return super.onOptionsItemSelected(item)

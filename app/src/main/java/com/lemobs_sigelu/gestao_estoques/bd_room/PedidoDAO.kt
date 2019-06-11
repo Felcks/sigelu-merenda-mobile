@@ -19,4 +19,7 @@ interface PedidoDAO {
 
     @Delete
     fun delete(user: Pedido)
+
+    @Query("SELECT * FROM pedido WHERE id LIKE :pedidoID")
+    fun getById(pedidoID: Int): Pedido?
 }

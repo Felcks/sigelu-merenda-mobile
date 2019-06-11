@@ -16,7 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
     ItemEstoque::class,
     ItemRecebimento::class,
     Pedido::class),
-    version = 4)
+    version = 1)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun envioDAO(): EnvioDAO

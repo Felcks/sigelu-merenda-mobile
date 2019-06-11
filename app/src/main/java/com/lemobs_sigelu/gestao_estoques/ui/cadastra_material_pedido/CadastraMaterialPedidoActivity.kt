@@ -6,14 +6,12 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
 import javax.inject.Inject
@@ -52,12 +50,11 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     viewModel!!.cadastraQuantidadeMaterial(resultado)
-                    val intent = Intent(this, ConfirmaMateriaisPedidoActivity::class.java)
+                    val intent = Intent(this, ConfirmaMateriaisRecebimentoActivity::class.java)
                     startActivity(intent)
                     this.finish()
                 }
             }
-
         }
 
         return super.onOptionsItemSelected(item)

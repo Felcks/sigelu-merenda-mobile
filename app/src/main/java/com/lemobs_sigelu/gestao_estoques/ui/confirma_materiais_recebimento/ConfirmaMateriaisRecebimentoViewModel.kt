@@ -1,18 +1,19 @@
-package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaMateriaisRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaMateriaisPedidoViewModel (val controller: CadastraMateriaisPedidoController): ViewModel() {
+class ConfirmaMateriaisRecebimentoViewModel (val controller: ConfirmaMateriaisRecebimentoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var envioRecebimentoResponse = MutableLiveData<Response>()
 
     override fun onCleared() {
         disposables.clear()
@@ -35,11 +36,21 @@ class ConfirmaMateriaisPedidoViewModel (val controller: CadastraMateriaisPedidoC
         )
     }
 
-    fun confirmaPedido(context: Context): Boolean{
-        return controller.confirmaPedido(context)
+    fun enviaRecebimento(){
+
+        disposables.add(controller.enviaRecebimento()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { envioRecebimentoResponse.setValue(Response.loading()) }
+            .subscribe(
+                { result -> envioRecebimentoResponse.setValue(Response.success(result)) },
+                { throwable -> envioRecebimentoResponse.setValue(Response.error(throwable)) }
+            )
+        )
     }
 
-    fun cancelaPedido(){
-        controller.cancelaPedido()
+    fun cancelaRecebimento(){
+
+        controller.cancelaRecebimento()
     }
 }

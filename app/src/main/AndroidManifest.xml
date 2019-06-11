@@ -60,7 +60,7 @@
                   android:label="Adicione material recebido" />
 
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity"
+        <activity android:name=".ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoActivity"
                   android:label="Materiais Solicitados"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
@@ -68,7 +68,7 @@
 
         <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
-                  android:label="Confirmar Pedido de Material"/>
+                  android:label="Preencha a quantidade recebida"/>
 
         <!-- LOGIN ACTIVITY -->
         <activity android:name=".ui.login.LoginActivity"

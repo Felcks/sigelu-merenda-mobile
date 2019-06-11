@@ -6,8 +6,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaMater
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class SelecionaMaterialPedidoController @Inject constructor(private val carregaListaItemEnvioPedidoRepository: CarregaListaItemEnvioParaRecebimentoRepository,
-                                                            private val selecionaMaterialParaCadastroRepository: SelecionaMaterialParaPedidoRepository) {
+class SelecionaMaterialRecebimentoController @Inject constructor(private val carregaListaItemEnvioPedidoRepository: CarregaListaItemEnvioParaRecebimentoRepository,
+                                                                 private val selecionaMaterialParaCadastroRepository: SelecionaMaterialParaPedidoRepository) {
 
     fun carregaMateriais(envioID: Int): Observable<List<ItemEnvio>> {
         return carregaListaItemEnvioPedidoRepository.getMateriais(envioID)

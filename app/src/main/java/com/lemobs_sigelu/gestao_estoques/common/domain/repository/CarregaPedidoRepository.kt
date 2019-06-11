@@ -22,12 +22,29 @@ class CarregaPedidoRepository {
 
             if(response.isSuccessful){
 
+
+
                 val pedido = with(response.body()!!) {
+
+                    val origemID = when(this.tipo_origem){
+                        "Fornecedor" -> this.origem_fornecedor_id
+                        "Núcleo" -> this.origem_nucleo_id
+                        else -> null
+                    }
+
+                    val destinoID = when(this.tipo_destino){
+                        "Núcleo" -> this.destino_nucleo_id
+                        "Obra" -> this.destino_obra_direta_id
+                        else -> null
+                    }
+
                     Pedido(
                         this.id,
                         this.codigo ?: "",
                         this.tipo_origem ?: "",
                         this.tipo_destino ?: "",
+                        origemID,
+                        destinoID,
                         this.data_aprovacao?.toDateCreatedAt(),
                         null,
                         Situacao(this.situacao.id,

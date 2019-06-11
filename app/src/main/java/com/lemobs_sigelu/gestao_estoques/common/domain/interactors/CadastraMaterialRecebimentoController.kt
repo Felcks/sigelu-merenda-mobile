@@ -7,8 +7,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraMateri
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaMaterialSolicitadoRepository
 import javax.inject.Inject
 
-class CadastraMaterialPedidoController @Inject constructor(private val cadastraMaterialParaPedidoRepository: CadastraMaterialParaPedidoRepository,
-                                                           private val carregaMaterialSolicitadoRepository: CarregaMaterialSolicitadoRepository) {
+class CadastraMaterialRecebimentoController @Inject constructor(private val cadastraMaterialParaPedidoRepository: CadastraMaterialParaPedidoRepository,
+                                                                private val carregaMaterialSolicitadoRepository: CarregaMaterialSolicitadoRepository) {
 
     fun cadastraQuantidadeDeMaterial(value: Double): Boolean{
         return cadastraMaterialParaPedidoRepository.cadastraQuantidadeDeMaterial(value)

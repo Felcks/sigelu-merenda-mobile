@@ -9,11 +9,25 @@ import java.util.*
 data class Pedido(
     @PrimaryKey var id: Int,
     var codigo: String?,
+
     var origem: String?,
+
     var destino: String?,
-    @ColumnInfo(name = "data_pedido") var dataPedido: Date? = null,
-    @ColumnInfo(name = "data_entrega") var dataEntrega: Date? = null,
-    @Embedded var situacao: Situacao?){
+
+    @ColumnInfo(name = "origem_id")
+    var origemID: Int?,
+
+    @ColumnInfo(name = "destino_id")
+    var destinoID: Int?,
+
+    @ColumnInfo(name = "data_pedido")
+    var dataPedido: Date? = null,
+
+    @ColumnInfo(name = "data_entrega")
+    var dataEntrega: Date? = null,
+
+    @Embedded
+    var situacao: Situacao?){
 
     @Ignore
     var historicoSituacoes: List<SituacaoHistorico> = listOf()

@@ -7,7 +7,11 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.TextView
+import android.app.ProgressDialog
+import android.content.Context
+import android.widget.ProgressBar
 import com.lemobs_sigelu.gestao_estoques.R
+
 
 class DialogUtil {
 
@@ -146,6 +150,20 @@ class DialogUtil {
 
             val snackbar = Snackbar.make(view, messageId, Snackbar.LENGTH_LONG)
             snackbar.show()
+        }
+
+        fun buildDialogCarregamento(context: Context,
+                                    titulo: String,
+                                    mensagem: String): ProgressDialog{
+
+            val dialog = ProgressDialog.show(
+                context,
+                titulo,
+                mensagem,
+                true
+            )
+
+            return dialog
         }
     }
 }
