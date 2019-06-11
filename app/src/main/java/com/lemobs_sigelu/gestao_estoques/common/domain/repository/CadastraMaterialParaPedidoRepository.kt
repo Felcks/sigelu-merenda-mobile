@@ -1,14 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.MaterialDeCadastroDAO
-import com.lemobs_sigelu.gestao_estoques.bd_room.ItemRecebimentoDAO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.db
-import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
-import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 
 class CadastraMaterialParaPedidoRepository {
@@ -47,6 +41,6 @@ class CadastraMaterialParaPedidoRepository {
             return -1.0
         }
 
-        return 1.0
+        return valor
     }
 }

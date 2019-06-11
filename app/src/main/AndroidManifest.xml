@@ -57,7 +57,7 @@
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
-                  android:label="Selecione o material recebido" />
+                  android:label="Adicione material recebido" />
 
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.confirma_materiais_pedido.ConfirmaMateriaisPedidoActivity"

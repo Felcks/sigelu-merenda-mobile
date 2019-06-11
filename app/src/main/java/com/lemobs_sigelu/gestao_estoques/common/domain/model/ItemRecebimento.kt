@@ -1,9 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
 /**
  * Created by felcks on Jun, 2019
@@ -29,4 +26,16 @@ class ItemRecebimento (
 
     @ColumnInfo(name = "quantidade_recebida")
     var quantidadeRecebida: Double? = null
-)
+) {
+
+    @Ignore
+    var itemEnvio: ItemEnvio? = null
+
+    @Ignore constructor(itemRecebimentoID: Int?,
+                        itemEnvioID: Int?,
+                        quantidadeRecebida: Double?,
+                        itemEnvio: ItemEnvio?): this(itemRecebimentoID, itemEnvioID, quantidadeRecebida){
+
+        this.itemEnvio = itemEnvio
+    }
+}

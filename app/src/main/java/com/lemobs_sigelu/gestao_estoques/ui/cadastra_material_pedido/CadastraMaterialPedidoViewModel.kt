@@ -35,7 +35,12 @@ class CadastraMaterialPedidoViewModel (private val controller: CadastraMaterialP
 
     fun confirmaCadastroMaterial(): Double {
 
-        val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
-        return controller.confirmaCadastroMaterial(valor ?: 0.0)
+        if(quantidadeRecebida.get()?.isNotEmpty() ?: "".isNotEmpty()) {
+            val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
+            return controller.confirmaCadastroMaterial(valor ?: 0.0)
+        }
+        else{
+            return -2.0
+        }
     }
 }

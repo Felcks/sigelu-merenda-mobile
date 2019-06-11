@@ -181,4 +181,8 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     fun getSituacaoDePedido(): Situacao{
         return pedido?.situacao ?: Situacao(1, "Em andamento")
     }
+
+    fun apagaListaItemRecebimentoAnteriores(){
+        controller.apagaListaItemRecebimentoAnteriores()
+    }
 }

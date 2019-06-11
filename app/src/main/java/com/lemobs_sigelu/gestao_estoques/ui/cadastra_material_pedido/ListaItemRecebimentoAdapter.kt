@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.adapters
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
-class ListaMaterialCadastradoAdapter(val context: Context,
-                                     val list: List<*>): RecyclerView.Adapter<ListaMaterialCadastradoAdapter.MyViewHolder>() {
+class ListaItemRecebimentoAdapter(val context: Context,
+                                  val list: List<ItemRecebimento>): RecyclerView.Adapter<ListaItemRecebimentoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -28,13 +29,12 @@ class ListaMaterialCadastradoAdapter(val context: Context,
 
         val item = this.list[position]
 
-        if(item is MaterialParaCadastro){
-            holder.itemView.tv_1.text = item.base.nomeAlternativo
-            holder.itemView.tv_2.text = item.base.descricao
-            holder.itemView.tv_3.text = item.base.unidadeMedida?.getNomeESiglaPorExtenso()
-            holder.itemView.tv_4.setText(item.quantidade_disponivel.toString())
-            holder.itemView.tv_5.setText(item.getQuantidadePedida().toString())
-        }
+        holder.itemView.tv_1.text = item.itemEnvio?.itemEstoque?.nomeAlternativo
+        holder.itemView.tv_2.text = item.itemEnvio?.itemEstoque?.descricao
+        holder.itemView.tv_3.text = item.itemEnvio?.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
+        holder.itemView.tv_4.setText(item.itemEnvio?.quantidadeUnidade.toString())
+        holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
+
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

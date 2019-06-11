@@ -17,4 +17,7 @@ interface ItemRecebimentoDAO {
 
     @Delete
     fun delete(user: ItemRecebimento)
+
+    @Query("DELETE FROM item_recebimento")
+    fun deleteAll()
 }

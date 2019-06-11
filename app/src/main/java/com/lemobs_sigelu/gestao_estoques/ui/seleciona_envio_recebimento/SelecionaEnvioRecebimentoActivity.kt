@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
@@ -78,12 +79,24 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
         if(item?.itemId == R.id.btn_done){
 
             if(this.listaEnvio.isNotEmpty()) {
-                val envio = this.listaEnvio[this.listaEnvioAdapter?.posicaoSelecionada ?: 0]
-                if(!envio.isEntregue){
-                    FlowSharedPreferences.setEnvioId(App.instance, envio.envioID)
-                    val intent = Intent(App.instance, SelecionaMaterialPedidoActivity::class.java)
-                    startActivity(intent)
+
+                if(this.listaEnvioAdapter?.posicaoSelecionada == -1) {
+                    Toast.makeText(applicationContext, "Selecione um envio.", Toast.LENGTH_SHORT).show()
+                    return true
                 }
+
+                val envio = this.listaEnvio[this.listaEnvioAdapter?.posicaoSelecionada ?: 0]
+                if(envio.isEntregue){
+                    Toast.makeText(applicationContext, "Esse envio já foi entregue.", Toast.LENGTH_SHORT).show()
+                    return true
+                }
+
+                FlowSharedPreferences.setEnvioId(App.instance, envio.envioID)
+                val intent = Intent(App.instance, SelecionaMaterialPedidoActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(applicationContext, "Nenhum envio registrado.", Toast.LENGTH_SHORT).show()
             }
         }
 

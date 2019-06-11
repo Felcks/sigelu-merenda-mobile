@@ -8,18 +8,17 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaMaterialDeCadastroSimplesAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_lista_materiais.*
+import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import javax.inject.Inject
 
 class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
@@ -60,7 +59,12 @@ class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaMaterialDeCadastroSimplesAdapter(applicationContext, list, this)
+        val adapter =
+            ListaItemEnvioSelecionavelSimplesAdapter(
+                applicationContext,
+                list,
+                this
+            )
         rv_lista.adapter = adapter
     }
 
@@ -74,10 +78,13 @@ class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
 
     private fun renderLoadingState() {}
 
-    private fun renderErrorState(throwable: Throwable?) {}
+    private fun renderErrorState(throwable: Throwable?) {
+        tv_error.visibility = View.VISIBLE
+    }
 
     private fun renderDataState(result: Any?) {
 
+        tv_error.visibility = View.GONE
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemEnvio>)
         }

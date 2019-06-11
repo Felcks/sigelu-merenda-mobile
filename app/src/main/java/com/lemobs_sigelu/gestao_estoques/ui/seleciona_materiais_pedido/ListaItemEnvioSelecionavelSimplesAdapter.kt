@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.adapters
+package com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.ISelecionaMaterial
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoViewModel
 import kotlinx.android.synthetic.main.item_material_adicao.view.*
 
-class ListaMaterialDeCadastroSimplesAdapter(val context: Context,
-                                            val list: List<ItemEnvio>,
-                                            val selecionaMaterial: ISelecionaMaterial): RecyclerView.Adapter<ListaMaterialDeCadastroSimplesAdapter.MyViewHolder>() {
+class ListaItemEnvioSelecionavelSimplesAdapter(val context: Context,
+                                               val list: List<ItemEnvio>,
+                                               val selecionaMaterial: ISelecionaMaterial): RecyclerView.Adapter<ListaItemEnvioSelecionavelSimplesAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -34,7 +31,7 @@ class ListaMaterialDeCadastroSimplesAdapter(val context: Context,
 
             holder.itemView.tv_name.text = item.itemEstoque?.nomeAlternativo
             holder.itemView.btn_add.setOnClickListener {
-                selecionaMaterial.selecionaMaterial(item.itemEstoque?.id)
+                selecionaMaterial.selecionaMaterial(item.id)
             }
 
     }

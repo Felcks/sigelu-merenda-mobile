@@ -40,21 +40,6 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
             tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
             tv_4.setText(itemEnvio.quantidadeUnidade.toString())
         }
-
-//        tv_5.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//
-//                if(tv_5.text.isNotEmpty()) {
-//                    val valor = tv_5.text.toString().replace(',', '.').toDouble()
-//                    viewModel!!.setQuantidadeMaterial(applicationContext, valor)
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {}
-//        })
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -63,7 +48,7 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
 
             val resultado = viewModel!!.confirmaCadastroMaterial()
             when (resultado) {
-                -1.0 -> Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+                -1.0 -> Toast.makeText(applicationContext, "Digite um valor menor que a quantidade disponível.", Toast.LENGTH_SHORT).show()
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     viewModel!!.cadastraQuantidadeMaterial(resultado)

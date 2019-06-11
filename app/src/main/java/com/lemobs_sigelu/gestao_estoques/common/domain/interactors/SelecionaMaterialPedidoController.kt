@@ -1,18 +1,16 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialParaCadastroRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemEnvioParaRecebimentoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaMaterialParaPedidoRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class SelecionaMaterialPedidoController @Inject constructor(private val carregaListaMaterialPedidoRepository: CarregaListaMaterialParaCadastroRepository,
+class SelecionaMaterialPedidoController @Inject constructor(private val carregaListaItemEnvioPedidoRepository: CarregaListaItemEnvioParaRecebimentoRepository,
                                                             private val selecionaMaterialParaCadastroRepository: SelecionaMaterialParaPedidoRepository) {
 
     fun carregaMateriais(envioID: Int): Observable<List<ItemEnvio>> {
-        return carregaListaMaterialPedidoRepository.getMateriais(envioID)
+        return carregaListaItemEnvioPedidoRepository.getMateriais(envioID)
     }
 
     fun selecionaMaterial(materialId: Int): Boolean{

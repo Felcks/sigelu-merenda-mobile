@@ -70,10 +70,8 @@ class CadastraPedidoRepository {
 //        return true
     }
 
-    fun cancelaPedido(context: Context){
+    fun cancelaPedido(){
 
-        pedidoDeCadastro = null
-        materiaisCadastrados.removeAll { true }
     }
 
 }

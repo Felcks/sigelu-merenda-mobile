@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaMaterialPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialParaCadastroRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemEnvioParaRecebimentoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaMaterialParaPedidoRepository
 import dagger.Module
 import dagger.Provides
@@ -10,8 +10,8 @@ import dagger.Provides
 class SelecionaMaterialPedidoModule {
 
     @Provides
-    fun provideListaMaterial(): CarregaListaMaterialParaCadastroRepository {
-        return CarregaListaMaterialParaCadastroRepository()
+    fun provideListaMaterial(): CarregaListaItemEnvioParaRecebimentoRepository {
+        return CarregaListaItemEnvioParaRecebimentoRepository()
     }
 
     @Provides

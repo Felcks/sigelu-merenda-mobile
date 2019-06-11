@@ -1,8 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMateriaisPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaMaterialCadastradoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemRecebimentoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciaRecebimentoRepository
 import dagger.Module
 import dagger.Provides
 
@@ -15,8 +16,13 @@ class ConfirmaMateriaisPedidoModule {
     }
 
     @Provides
-    fun provideCarregaMateriaisRepository(): CarregaListaMaterialCadastradoRepository{
-        return CarregaListaMaterialCadastradoRepository()
+    fun provideCarregaMateriaisRepository(): CarregaListaItemRecebimentoRepository{
+        return CarregaListaItemRecebimentoRepository()
+    }
+
+    @Provides
+    fun provideGerenciaRecebimentoRepository(): GerenciaRecebimentoRepository{
+        return GerenciaRecebimentoRepository()
     }
 
     @Provides

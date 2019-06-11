@@ -22,9 +22,9 @@ class ConfirmaMateriaisPedidoViewModel (val controller: CadastraMateriaisPedidoC
         return response
     }
 
-    fun carregarListaMateriais(context: Context) {
+    fun carregaListaItemRecebimento() {
 
-        disposables.add(controller.carregaMateriais(context)
+        disposables.add(controller.carregaListaItemRecebimento()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
@@ -39,7 +39,7 @@ class ConfirmaMateriaisPedidoViewModel (val controller: CadastraMateriaisPedidoC
         return controller.confirmaPedido(context)
     }
 
-    fun cancelaPedido(context: Context){
-        controller.cancelaPedido(context)
+    fun cancelaPedido(){
+        controller.cancelaPedido()
     }
 }

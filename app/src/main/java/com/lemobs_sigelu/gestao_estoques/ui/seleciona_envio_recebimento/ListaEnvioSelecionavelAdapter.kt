@@ -31,7 +31,7 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
     val colorItemNaoSelecionado = ContextCompat.getColor(App.instance, R.color.envio_nao_selecionado)
 
     var layoutSelecionado: CardView? = null
-    var posicaoSelecionada: Int? = null
+    var posicaoSelecionada: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 

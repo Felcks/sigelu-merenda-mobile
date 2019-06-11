@@ -110,6 +110,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     Toast.makeText(App.instance, "Não há envios.", Toast.LENGTH_SHORT).show()
                 }
                 else{
+                    viewModel!!.apagaListaItemRecebimentoAnteriores()
                     val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
                     startActivity(intent)
                 }

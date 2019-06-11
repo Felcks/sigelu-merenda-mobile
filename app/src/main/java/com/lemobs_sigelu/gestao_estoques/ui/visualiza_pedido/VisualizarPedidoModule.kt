@@ -54,6 +54,11 @@ class VisualizarPedidoModule {
     }
 
     @Provides
+    fun provideGerenciaRecebimentoRepository(): GerenciaRecebimentoRepository{
+        return GerenciaRecebimentoRepository()
+    }
+
+    @Provides
     fun provideListaPedidoViewModelFactory(controller: VisualizaPedidoController): VisualizarPedidoViewModelFactory {
         return VisualizarPedidoViewModelFactory(controller)
     }
