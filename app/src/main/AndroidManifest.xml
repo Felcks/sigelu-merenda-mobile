@@ -56,18 +56,18 @@
                   android:label="Cadastre a quantidade recebida" />
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity"
+        <activity android:name=".ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity"
                   android:label="Adicione material recebido" />
 
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoActivity"
+        <activity android:name=".ui.confirma_recebimento.ConfirmaRecebimentoActivity"
                   android:label="Materiais Solicitados"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar" />
 
         <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.cadastra_material_pedido.CadastraMaterialPedidoActivity"
+        <activity android:name=".ui.cadastra_item_recebimento.CadastraItemRecebimentoActivity"
                   android:label="Preencha a quantidade recebida"/>
 
         <!-- LOGIN ACTIVITY -->

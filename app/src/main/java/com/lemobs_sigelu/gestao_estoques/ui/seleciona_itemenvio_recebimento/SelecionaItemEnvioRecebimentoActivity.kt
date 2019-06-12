@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -15,24 +15,24 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento.CadastraItemRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import javax.inject.Inject
 
-class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
+class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), ISelecionaMaterial {
 
     @Inject
-    lateinit var viewModelFactory: SelecionaMaterialPedidoViewModelFactory
-    var viewModel: SelecionaMaterialPedidoViewModel? = null
+    lateinit var viewModelFactory: SelecionaItemEnvioRecebimentoViewModelFactory
+    var viewModel: SelecionaItemEnvioRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_material_pedido)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaMaterialPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaItemEnvioRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregarListaMateriais()
     }
@@ -44,7 +44,7 @@ class SelecionaMaterialPedidoActivity: AppCompatActivity(), ISelecionaMaterial {
             val successSelecionaMaterial = viewModel!!.selecionaMaterial(materialId)
             if (successSelecionaMaterial) {
                 FlowSharedPreferences.setItemEnvioID(App.instance, materialId)
-                val intent = Intent(this, CadastraMaterialPedidoActivity::class.java)
+                val intent = Intent(this, CadastraItemRecebimentoActivity::class.java)
                 startActivity(intent)
             }
             else {

@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SelecionaMaterialPedidoViewModel(val selecionaMateriaisRecebimentoController: SelecionaMaterialRecebimentoController): ViewModel() {
+class SelecionaItemEnvioRecebimentoViewModel(val selecionaMateriaisRecebimentoController: SelecionaMaterialRecebimentoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()

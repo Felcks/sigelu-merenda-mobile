@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaMaterialRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemEnvioParaRecebimentoRepository
@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class SelecionaMaterialPedidoModule {
+class SelecionaItemEnvioRecebimentoModule {
 
     @Provides
     fun provideListaMaterial(): CarregaListaItemEnvioParaRecebimentoRepository {
@@ -20,8 +20,8 @@ class SelecionaMaterialPedidoModule {
     }
 
     @Provides
-    fun provideViewModelFactory(selecionaMaterialRecebimentoController: SelecionaMaterialRecebimentoController): SelecionaMaterialPedidoViewModelFactory {
-        return SelecionaMaterialPedidoViewModelFactory(selecionaMaterialRecebimentoController)
+    fun provideViewModelFactory(selecionaMaterialRecebimentoController: SelecionaMaterialRecebimentoController): SelecionaItemEnvioRecebimentoViewModelFactory {
+        return SelecionaItemEnvioRecebimentoViewModelFactory(selecionaMaterialRecebimentoController)
     }
 
 }

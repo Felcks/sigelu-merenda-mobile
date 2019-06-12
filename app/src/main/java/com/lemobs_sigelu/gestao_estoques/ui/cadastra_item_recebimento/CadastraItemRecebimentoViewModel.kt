@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.disposables.CompositeDisposable
 
-class CadastraMaterialPedidoViewModel (private val controller: CadastraMaterialRecebimentoController): ViewModel() {
+class CadastraItemRecebimentoViewModel (private val controller: CadastraMaterialRecebimentoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()

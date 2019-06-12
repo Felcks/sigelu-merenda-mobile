@@ -1,15 +1,14 @@
-package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaMateriaisRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaMateriaisRecebimentoViewModel (val controller: ConfirmaMateriaisRecebimentoController): ViewModel() {
+class ConfirmaRecebimentoViewModel (val controller: ConfirmaMateriaisRecebimentoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()

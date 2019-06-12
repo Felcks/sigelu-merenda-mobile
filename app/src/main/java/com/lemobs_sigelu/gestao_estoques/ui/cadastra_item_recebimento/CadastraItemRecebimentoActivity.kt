@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -11,22 +11,22 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento.ConfirmaRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
 import javax.inject.Inject
 
-class CadastraMaterialPedidoActivity: AppCompatActivity() {
+class CadastraItemRecebimentoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: CadastraMaterialPedidoViewModelFactory
-    var viewModel: CadastraMaterialPedidoViewModel? = null
+    lateinit var viewModelFactory: CadastraItemRecebimentoViewModelFactory
+    var viewModel: CadastraItemRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraMaterialPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraItemRecebimentoViewModel::class.java)
         val mainBinding: ActivityCadastraMaterialPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_material_pedido)
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
@@ -50,7 +50,7 @@ class CadastraMaterialPedidoActivity: AppCompatActivity() {
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     viewModel!!.cadastraQuantidadeMaterial(resultado)
-                    val intent = Intent(this, ConfirmaMateriaisRecebimentoActivity::class.java)
+                    val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
                     startActivity(intent)
                     this.finish()
                 }

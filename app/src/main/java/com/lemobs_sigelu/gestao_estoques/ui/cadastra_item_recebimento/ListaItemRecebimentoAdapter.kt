@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.MaterialParaCadastro
 import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
 class ListaItemRecebimentoAdapter(val context: Context,

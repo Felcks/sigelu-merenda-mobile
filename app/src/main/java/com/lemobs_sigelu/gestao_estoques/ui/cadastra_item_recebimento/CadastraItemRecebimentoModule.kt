@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraMaterialRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraMaterialParaPedidoRepository
@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class CadastraMaterialPedidoModule {
+class CadastraItemRecebimentoModule {
 
     @Provides
     fun provideCadastraMaterialPedidoRepo(): CadastraMaterialParaPedidoRepository {
@@ -20,7 +20,7 @@ class CadastraMaterialPedidoModule {
     }
 
     @Provides
-    fun provideViewModelFactory(controller: CadastraMaterialRecebimentoController): CadastraMaterialPedidoViewModelFactory {
-        return CadastraMaterialPedidoViewModelFactory(controller)
+    fun provideViewModelFactory(controller: CadastraMaterialRecebimentoController): CadastraItemRecebimentoViewModelFactory {
+        return CadastraItemRecebimentoViewModelFactory(controller)
     }
 }

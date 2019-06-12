@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaMateriaisRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemRecebimentoRepository
@@ -8,11 +8,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ConfirmaMateriaisRecebimentoModule {
+class ConfirmaRecebimentoModule {
 
     @Provides
-    fun provideViewModelFactory(controller: ConfirmaMateriaisRecebimentoController): ConfirmaMateriaisRecebimentoViewModelFactory{
-        return ConfirmaMateriaisRecebimentoViewModelFactory(controller)
+    fun provideViewModelFactory(controller: ConfirmaMateriaisRecebimentoController): ConfirmaRecebimentoViewModelFactory{
+        return ConfirmaRecebimentoViewModelFactory(controller)
     }
 
     @Provides

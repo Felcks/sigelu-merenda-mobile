@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento
+package com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
@@ -11,37 +11,36 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.ListaItemRecebimentoAdapter
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento.ListaItemRecebimentoAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualiza_materiais_cadastrados.*
 import javax.inject.Inject
 
-class ConfirmaMateriaisRecebimentoActivity: AppCompatActivity(){
+class ConfirmaRecebimentoActivity: AppCompatActivity(){
 
     @Inject
-    lateinit var viewModelFactory: ConfirmaMateriaisRecebimentoViewModelFactory
-    var viewModel: ConfirmaMateriaisRecebimentoViewModel? = null
+    lateinit var viewModelFactory: ConfirmaRecebimentoViewModelFactory
+    var viewModel: ConfirmaRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualiza_materiais_cadastrados)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaMateriaisRecebimentoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
         viewModel!!.carregaListaItemRecebimento()
 
         btn_adicionar_materiais.setOnClickListener {
-            val intent = Intent(this, SelecionaMaterialPedidoActivity::class.java)
+            val intent = Intent(this, SelecionaItemEnvioRecebimentoActivity::class.java)
             startActivity(intent)
         }
         this.iniciarToolbar()

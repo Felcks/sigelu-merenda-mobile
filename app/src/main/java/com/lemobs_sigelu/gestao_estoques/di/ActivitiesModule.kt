@@ -1,9 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_material_pedido.CadastraMaterialPedidoModule
-import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.confirma_materiais_recebimento.ConfirmaMateriaisRecebimentoModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento.CadastraItemRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_item_recebimento.CadastraItemRecebimentoModule
+import com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento.ConfirmaRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.confirma_recebimento.ConfirmaRecebimentoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
@@ -16,8 +16,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginModule
 import com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoModule
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoModule
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.visualiza_pedido.VisualizarPedidoModule
 import dagger.Module
@@ -41,14 +41,14 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoDestinoModule::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(SelecionaMaterialPedidoModule::class))
-    abstract fun bindSelecionaMaterialPedidoActivity(): SelecionaMaterialPedidoActivity
+    @ContributesAndroidInjector(modules = arrayOf(SelecionaItemEnvioRecebimentoModule::class))
+    abstract fun bindSelecionaMaterialPedidoActivity(): SelecionaItemEnvioRecebimentoActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(ConfirmaMateriaisRecebimentoModule::class))
-    abstract fun bindVisualizaMateriaisPedidoActivity(): ConfirmaMateriaisRecebimentoActivity
+    @ContributesAndroidInjector(modules = arrayOf(ConfirmaRecebimentoModule::class))
+    abstract fun bindVisualizaMateriaisPedidoActivity(): ConfirmaRecebimentoActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(CadastraMaterialPedidoModule::class))
-    abstract fun bindCadastraMaterialPedidoActivity(): CadastraMaterialPedidoActivity
+    @ContributesAndroidInjector(modules = arrayOf(CadastraItemRecebimentoModule::class))
+    abstract fun bindCadastraMaterialPedidoActivity(): CadastraItemRecebimentoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(LoginModule::class))
     abstract fun bindLoginActivity(): LoginActivity

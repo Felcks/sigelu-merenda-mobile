@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.ui.seleciona_envio_recebimento
 
-import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -16,7 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
@@ -92,7 +91,7 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
                 }
 
                 FlowSharedPreferences.setEnvioId(App.instance, envio.envioID)
-                val intent = Intent(App.instance, SelecionaMaterialPedidoActivity::class.java)
+                val intent = Intent(App.instance, SelecionaItemEnvioRecebimentoActivity::class.java)
                 startActivity(intent)
             }
             else{

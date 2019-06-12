@@ -16,8 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.seleciona_materiais_pedido.SelecionaMaterialPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_destino.*
 import javax.inject.Inject
@@ -93,7 +92,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
         if(result is Boolean) {
             if(result) {
-                val intent = Intent(this, SelecionaMaterialPedidoActivity::class.java)
+                val intent = Intent(this, SelecionaItemEnvioRecebimentoActivity::class.java)
                 startActivity(intent)
             }
             else{
