@@ -53,7 +53,7 @@
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
-                  android:label="Cadastre a quantidade recebida" />
+                  android:label="Cadastrar Pedido" />
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name=".ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity"

@@ -1,6 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.SituacaoDataResponse
@@ -73,5 +75,13 @@ class RestApi {
 
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)
+    }
+
+    fun getEmpresas(): Call<List<EmpresaDataResponse>>{
+        return api.getEmpresas(auth)
+    }
+
+    fun getNucleos(): Call<List<NucleoDataResponse>>{
+        return api.getNucleos(auth)
     }
 }

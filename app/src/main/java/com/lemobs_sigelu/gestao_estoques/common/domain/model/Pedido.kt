@@ -8,6 +8,7 @@ import java.util.*
 @Entity(tableName = "pedido")
 data class Pedido(
     @PrimaryKey var id: Int,
+
     var codigo: String?,
 
     var origem: String?,

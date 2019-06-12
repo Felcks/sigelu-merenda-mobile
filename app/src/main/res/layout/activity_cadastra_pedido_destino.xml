@@ -1,52 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <Button
-            android:id="@+id/btn_nucleo"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Núcleo"
-            android:textColor="@android:color/white"
-            android:background="@drawable/square_button_normal"
-            app:layout_constraintVertical_bias="0.01"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            android:layout_marginLeft="@dimen/espacamento_curto"
-    />
+    <data>
+        <variable
+                name="viewModel"
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido_destino.CadastraPedidoDestinoViewModel"/>
+    </data>
 
-    <Button
-            android:id="@+id/btn_obra"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Obra"
-            android:textColor="@android:color/white"
-            android:background="@drawable/square_button_normal"
-            app:layout_constraintVertical_bias="0.01"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias=".75"
-            android:layout_marginRight="@dimen/espacamento_curto"
-    />
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_lista"
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/btn_obra"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/espacamento_medio"
-    >
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ll_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Informações do Pedido"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/espacamento_grande"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+                android:id="@+id/tv_origem_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ll_titulo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Origem*"
+                android:layout_marginBottom="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"
+                app:isVisible="@{!viewModel.loadingNucleos}"/>
+
+        <LinearLayout
+                android:id="@+id/ll_botoes_origem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_origem_layout"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/custom_border_grey">
+
+            <Spinner
+                    android:id="@+id/spinner_origem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tv_destino_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintLeft_toLeftOf="@id/ll_botoes_destino"
+                android:layout_marginTop="@dimen/espacamento_maximo_2"
+                android:text="Destino*"
+                android:textColor="@color/primary_text"/>
+
+        <LinearLayout
+                android:id="@+id/ll_botoes_destino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_destino_layout"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/custom_border_grey">
+
+            <Spinner
+                    android:id="@+id/spinner_destiner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
+        <include layout="@layout/progressbar_carregamento"
+                 android:id="@+id/ll_loading"
+                 isVisible="@{viewModel.loadingNucleos}"
+        />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
