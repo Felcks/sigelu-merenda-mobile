@@ -78,7 +78,7 @@ class RestApi {
     }
 
     fun getEmpresas(): Call<List<EmpresaDataResponse>>{
-        return api.getEmpresas(auth)
+        return api.getEmpresas(auth, 2)
     }
 
     fun getNucleos(): Call<List<NucleoDataResponse>>{

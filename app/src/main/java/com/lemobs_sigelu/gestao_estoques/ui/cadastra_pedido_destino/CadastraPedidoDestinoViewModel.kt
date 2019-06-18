@@ -4,7 +4,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.ObservableField
+import android.view.View
+import android.widget.AdapterView
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,18 +18,20 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
     private val disposables = CompositeDisposable()
     var responseFluxo = MutableLiveData<Response>()
 
-    var loadingNucleos = ObservableField<Boolean>()
-    var loadingEmpresas = ObservableField<Boolean>()
+    var loading = ObservableField<Boolean>()
 
     val responseNucleos = MutableLiveData<Response>()
     val responseEmpresas = MutableLiveData<Response>()
+    val responseObras = MutableLiveData<Response>()
+
+    private var origem = Origem(-1, "")
+    private var destino = Origem(-1, "")
+
+    val listaOrigem = mutableListOf<Origem>()
+    val listaDestino = mutableListOf<Origem>()
 
     override fun onCleared() {
         disposables.clear()
-    }
-
-    fun loadingEmpresasENucleos(): ObservableField<Boolean> {
-        return ObservableField<Boolean>(loadingNucleos.get() ?: false && loadingEmpresas.get() ?: false)
     }
 
     fun responseFluxo(): MutableLiveData<Response> = responseFluxo
@@ -39,7 +44,6 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
             .doOnSubscribe { responseEmpresas.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    loadingEmpresas.set(false)
                     responseEmpresas.value = Response.success(result)
                 },
                 { throwable ->
@@ -57,7 +61,6 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
             .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    loadingNucleos.set(false)
                     responseNucleos.value = Response.success(result)
                 },
                 { throwable ->
@@ -67,19 +70,35 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
         )
     }
 
-    fun confirmaPedido(context: Context, obraSelecionadaId: Int) {
+    fun carregaListaObra() {
 
-        responseFluxo.value = Response.loading()
+        disposables.add(controller.carregaListaObra()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { responseObras.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    responseObras.value = Response.success(result)
+                },
+                { throwable ->
+                    responseObras.value = Response.error(throwable)
+                }
+            )
+        )
+    }
+
+    fun confirmaPedido(): Int {
+
         try {
-            if(controller.confirmaDestinoDePedido(context, obraSelecionadaId)){
-                responseFluxo.value = Response.success(true)
-            } else{
-                responseFluxo.value = Response.success(false)
+            if(controller.confirmaDestinoDePedido(origem, destino)){
             }
         }
         catch (t: Throwable){
-            responseFluxo.value = Response.error(t)
+            return -1
         }
+
+        return 1
     }
 
     fun setDestinoPedidoNucleo(){
@@ -90,5 +109,23 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
         controller.setDestinoPedidoObra()
     }
 
+
+    val selecionadorDestino = object: AdapterView.OnItemSelectedListener {
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            destino = listaDestino.get(position)
+        }
+    }
+
+    val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            origem = listaOrigem.get(position)
+        }
+    }
 
 }

@@ -12,11 +12,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Empresa
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -37,19 +39,17 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     private var colorAccentDark: Int = 0
     private var adapter: ListaObraAdapter? = null
 
-    private val listaOrigem = mutableListOf<Origem>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_pedido_destino)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraPedidoDestinoViewModel::class.java)
-        viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponseNucleo(response) })
-        viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponseEmpresa(response) })
+        viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseObras.observe(this, Observer<Response> { response -> processResponse(response) })
 
         viewModel!!.carregaListaNucleo()
-        viewModel!!.carregaListaEmpresa()
 
         this.colorAccent = ContextCompat.getColor(applicationContext, R.color.colorAccent)
         this.colorAccentDark = ContextCompat.getColor(applicationContext, R.color.colorAccentDark)
@@ -77,22 +77,46 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
 
     /* Process Response Nucleo */
-    fun processResponseNucleo(response: Response?) {
+    fun processResponse(response: Response?) {
         when (response?.status) {
-            Status.LOADING -> renderLoadingNucleo()
-            Status.SUCCESS -> renderDataNucleo(response.data)
-            Status.ERROR -> renderErrorNucleo(response.error)
+            Status.LOADING -> renderLoading()
+            Status.SUCCESS -> {
+
+                if(response.data is List<*>){
+
+                    if(response.data[0] is Nucleo)
+                        renderDataNucleo(response.data)
+
+                    if(response.data[0] is Empresa)
+                        renderDataEmpresa(response.data)
+
+                    if(response.data[0] is Obra)
+                        renderDataObra(response.data)
+                }
+
+            }
+            Status.ERROR -> {
+                renderError(response.error)
+            }
         }
     }
 
-    private fun renderLoadingNucleo() {
-        viewModel!!.loadingNucleos.set(true)
+    private fun renderLoading() {
+        viewModel!!.loading.set(true)
     }
-    private fun renderErrorNucleo(throwable: Throwable?) {}
+    private fun renderError(throwable: Throwable?) {}
+
     private fun renderDataNucleo(result: Any?) {
 
         if(result is List<*>){
-            this.listaOrigem.addAll((result as List<Nucleo>).map {
+            viewModel!!.listaOrigem.addAll((result as List<Nucleo>).map {
+                Origem(
+                    it.id,
+                    it.nome
+                )
+            })
+
+            viewModel!!.listaDestino.addAll((result as List<Nucleo>).map {
                 Origem(
                     it.id,
                     it.nome
@@ -100,51 +124,57 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
             })
         }
 
-        viewModel!!.loadingNucleos.set(false)
-
-        if(viewModel!!.loadingEmpresas.get() == false){
-            iniciarSpinnerOrigem()
-        }
+        viewModel!!.carregaListaEmpresa()
+        viewModel!!.carregaListaObra()
     }
 
-    /* Process Response Empresa */
-    fun processResponseEmpresa(response: Response?) {
-        when (response?.status) {
-            Status.LOADING -> renderLoadingNucleo()
-            Status.SUCCESS -> renderDataEmpresa(response.data)
-            Status.ERROR -> renderErrorEmpresa(response.error)
-        }
-    }
-
-    private fun renderLoadingEmpresa() {
-        viewModel!!.loadingEmpresas.set(true)
-    }
-    private fun renderErrorEmpresa(throwable: Throwable?) {}
     private fun renderDataEmpresa(result: Any?) {
 
-
         if(result is List<*>){
-            this.listaOrigem.addAll((result as List<Empresa>).map {
+            viewModel!!.listaOrigem.addAll((result as List<Empresa>).map {
                 Origem(
                     it.id,
                     it.nome
                 )
             })
         }
-        viewModel!!.loadingEmpresas.set(false)
+        iniciarSpinnerOrigem()
+    }
 
-        if(viewModel!!.loadingNucleos.get() == false){
-            iniciarSpinnerOrigem()
+    private fun renderDataObra(result: Any?) {
+
+        if(result is List<*>){
+            viewModel!!.listaDestino.addAll((result as List<Obra>).map {
+                Origem(
+                    it.id,
+                    it.codigo
+                )
+            })
         }
+        iniciarSpinnerDestino()
     }
 
     fun iniciarSpinnerOrigem(){
 
-        val listaTextoOrigem = this.listaOrigem.map { it.nome }
+        val listaTextoOrigem = viewModel!!.listaOrigem.map { it.nome }
         var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listaTextoOrigem)
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_origem.adapter = adapter
+
+        spinner_origem.onItemSelectedListener = viewModel!!.selecionadorOrigem
+    }
+
+
+    fun iniciarSpinnerDestino(){
+
+        val textoDestino = viewModel!!.listaDestino.map { it.nome }
+        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, textoDestino)
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner_destiner.adapter = adapter
+
+        spinner_destiner.onItemSelectedListener = viewModel!!.selecionadorDestino
     }
 
 
@@ -172,23 +202,11 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
     }
 
-
-
-
-    private fun iniciarAdapter(list: List<*>){
-
-//        val layoutManager = LinearLayoutManager(applicationContext)
-//        layoutManager.orientation = LinearLayoutManager.VERTICAL
-//        rv_lista.layoutManager = layoutManager
-//
-//        this.adapter = ListaObraAdapter(applicationContext, list)
-//        rv_lista.adapter = adapter
-    }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId ==  R.id.btn_done){
-            viewModel!!.confirmaPedido(applicationContext, adapter?.getObraSelecionadaId() ?: 0)
+
+            val pedidoOk = viewModel!!.confirmaPedido()
         }
 
         return super.onOptionsItemSelected(item)

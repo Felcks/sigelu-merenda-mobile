@@ -51,7 +51,8 @@ interface IRestApi {
                                @Body recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>
 
     @GET("empresa")
-    fun getEmpresas(@Header("Authorization") auth: String): Call<List<EmpresaDataResponse>>
+    fun getEmpresas(@Header("Authorization") auth: String,
+                    @Query("tipo_id") tipo_id: Int): Call<List<EmpresaDataResponse>>
 
     @GET("nucleo")
     fun getNucleos(@Header("Authorization") auth: String): Call<List<NucleoDataResponse>>

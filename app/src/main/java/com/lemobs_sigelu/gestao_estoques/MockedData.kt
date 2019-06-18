@@ -67,7 +67,7 @@ val LISTA_OBRAS_MOCKADAS = listOf<Obra>(obra_0, obra_1, obra_2)
 
 
 /* Parte de pedido mockando um banco de dados */
-var pedidoDeCadastro: PedidoDeCadastro? = null
+var pedidoCadastro: PedidoCadastro? = null
 var materiaisDePedido: MutableList<ItemPedido> = mutableListOf()
 var materiaisCadastrados = mutableListOf<MaterialParaCadastro>()
 

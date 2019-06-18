@@ -28,6 +28,11 @@ class CadastraPedidoDestinoModule {
     }
 
     @Provides
+    fun carregaListaObraRepository(): CarregaListaObraRepository {
+        return CarregaListaObraRepository()
+    }
+
+    @Provides
     fun provideListaPedidoViewModelFactory(cadastraPedidoDestinoController: CadastraPedidoDestinoController): CadastraPedidoDestinoViewModelFactory {
         return CadastraPedidoDestinoViewModelFactory(cadastraPedidoDestinoController)
     }

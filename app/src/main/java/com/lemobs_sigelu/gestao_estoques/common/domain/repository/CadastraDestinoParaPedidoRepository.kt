@@ -1,37 +1,53 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.LISTA_OBRAS_MOCKADAS
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoDeCadastro
-import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
-import com.lemobs_sigelu.gestao_estoques.utils.CadastraPedidoSharedPreferences
-import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.pedidoCadastro
+import java.util.*
 
 class CadastraDestinoParaPedidoRepository {
 
-    fun confirmaPedidoDestino(context: Context, obraSelecionadaId: Int): Boolean {
+    fun confirmaPedidoDestino(origem: Origem, destino: Origem): Boolean {
 
-        if(pedidoDeCadastro == null){
+        //TODO Entra as regras para aceitar ou não pedido
+        if(origem.nome == destino.nome){
             return false
         }
 
-        if(pedidoDeCadastro?.destino == PedidoDeCadastro.Companion.PedidoDestino.OBRA){
-            //TODO Buscar no banco por Index não por posição
-            val obra = LISTA_OBRAS_MOCKADAS[obraSelecionadaId]
-            pedidoDeCadastro?.obra = obra
-            CadastraPedidoSharedPreferences.setObraDestinoPedidoId(context, obraSelecionadaId)
-        }
 
-        //TODO Salvar o pedido no banco
+        val pedido = PedidoCadastro(
+            null,
+            "Código gerado",
+            origem.nome,
+            destino.nome,
+            origem.id,
+            destino.id,
+            Date(),
+            Date(),
+            Situacao(1, "")
+        )
+
+//        if(pedidoCadastro == null){
+//            return false
+//        }
+//
+//        if(pedidoCadastro?.destino == PedidoCadastro.Companion.PedidoDestino.OBRA){
+//            //TODO Buscar no banco por Index não por posição
+//            val obra = LISTA_OBRAS_MOCKADAS[obraSelecionadaId]
+//            pedidoCadastro?.obra = obra
+//            CadastraPedidoSharedPreferences.setObraDestinoPedidoId(App.instance, obraSelecionadaId)
+//        }
+//
+//        //TODO Salvar o pedido no banco
         return true
     }
 
     fun setDestinoPedidoNucleo(){
-        pedidoDeCadastro = PedidoDeCadastro(PedidoDeCadastro.Companion.PedidoDestino.NUCLEO)
+        //pedidoCadastro = PedidoCadastro(PedidoCadastro.Companion.PedidoDestino.NUCLEO)
     }
 
     fun setDestinoPedidoObra(){
-        pedidoDeCadastro = PedidoDeCadastro(PedidoDeCadastro.Companion.PedidoDestino.OBRA)
+        //pedidoCadastro = PedidoCadastro(PedidoCadastro.Companion.PedidoDestino.OBRA)
     }
 }

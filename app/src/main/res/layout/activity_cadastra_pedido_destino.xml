@@ -12,6 +12,7 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <android.support.v7.widget.AppCompatTextView
@@ -23,8 +24,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="Informações do Pedido"
                 android:textColor="@color/primary_text"
-                android:textSize="18sp"
-                android:layout_marginTop="@dimen/espacamento_grande"/>
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/espacamento_maximo"/>
 
         <TextView
                 android:id="@+id/tv_origem_layout"
@@ -35,10 +36,10 @@
                 app:layout_constraintVertical_bias="0.15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="Origem*"
+                android:text="Origem"
                 android:layout_marginBottom="@dimen/espacamento_curto"
                 android:textColor="@color/primary_text"
-                app:isVisible="@{!viewModel.loadingNucleos}"/>
+                isVisible="@{!viewModel.loading}"/>
 
         <LinearLayout
                 android:id="@+id/ll_botoes_origem"
@@ -51,6 +52,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_origem_layout"
                 android:layout_marginTop="@dimen/espacamento_medio"
+                isVisible="@{!viewModel.loading}"
                 android:background="@drawable/custom_border_grey">
 
             <Spinner
@@ -72,10 +74,12 @@
                 app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintLeft_toLeftOf="@id/ll_botoes_destino"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="@dimen/espacamento_maximo_2"
-                android:text="Destino*"
-                android:textColor="@color/primary_text"/>
+                android:text="Destino"
+                android:textColor="@color/primary_text"
+                isVisible="@{!viewModel.loading}"/>
 
         <LinearLayout
                 android:id="@+id/ll_botoes_destino"
@@ -88,7 +92,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_destino_layout"
                 android:layout_marginTop="@dimen/espacamento_medio"
-                android:background="@drawable/custom_border_grey">
+                android:background="@drawable/custom_border_grey"
+                isVisible="@{!viewModel.loading}">
 
             <Spinner
                     android:id="@+id/spinner_destiner"
@@ -104,8 +109,7 @@
 
         <include layout="@layout/progressbar_carregamento"
                  android:id="@+id/ll_loading"
-                 isVisible="@{viewModel.loadingNucleos}"
-        />
+                 isVisible="@{viewModel.loading}"/>
 
 
 

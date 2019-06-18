@@ -1,19 +1,12 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
-import com.lemobs_sigelu.gestao_estoques.bd.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.db
-import com.lemobs_sigelu.gestao_estoques.materiaisCadastrados
-import com.lemobs_sigelu.gestao_estoques.pedidoDeCadastro
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
-import retrofit2.Call
 
 class CadastraRecebimentoRepository {
 
@@ -86,14 +79,14 @@ class CadastraRecebimentoRepository {
             }
         }
 
-//        if(pedidoDeCadastro == null)
+//        if(pedidoCadastro == null)
 //            return false
 //
-//        val destino = if (pedidoDeCadastro!!.destino == PedidoDeCadastro.Companion.PedidoDestino.NUCLEO){
-//            pedidoDeCadastro!!.destino.nome
+//        val destino = if (pedidoCadastro!!.destino == PedidoCadastro.Companion.PedidoDestino.NUCLEO){
+//            pedidoCadastro!!.destino.nome
 //        }
 //        else{
-//            "Obra ${pedidoDeCadastro!!.obra?.codigo}"
+//            "Obra ${pedidoCadastro!!.obra?.codigo}"
 //        }
 //
 //        val pedido = Pedido(100,
