@@ -57,7 +57,7 @@
 
             <Spinner
                     android:id="@+id/spinner_origem"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:gravity="center|center_vertical"
                     android:padding="8dp"
@@ -97,7 +97,7 @@
 
             <Spinner
                     android:id="@+id/spinner_destiner"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:gravity="center|center_vertical"
                     android:padding="8dp"
@@ -106,6 +106,17 @@
                     android:textColor="@color/primary_text"
                     android:textSize="12sp" />
         </LinearLayout>
+
+        <TextView
+                android:id="@+id/layout_contratos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONTRATOS"
+                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
+                android:layout_marginTop="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"/>
 
         <include layout="@layout/progressbar_carregamento"
                  android:id="@+id/ll_loading"

@@ -10,18 +10,20 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Empresa
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraPedidoDestinoBinding
 import com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_destino.*
 import javax.inject.Inject
@@ -45,6 +47,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseObras.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.origem.observe(this, Observer<Local> { response -> processResponseOrigem(response) })
 
         viewModel!!.carregaListaNucleo()
 
@@ -91,15 +94,17 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
         if(result is List<*>){
             viewModel!!.listaOrigem.addAll((result as List<Nucleo>).map {
-                Origem(
+                Local(
                     it.id,
+                    "Núcleo",
                     it.nome
                 )
             })
 
             viewModel!!.listaDestino.addAll((result as List<Nucleo>).map {
-                Origem(
+                Local(
                     it.id,
+                    "Núcleo",
                     it.nome
                 )
             })
@@ -113,8 +118,9 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
         if(result is List<*>){
             viewModel!!.listaOrigem.addAll((result as List<Empresa>).map {
-                Origem(
+                Local(
                     it.id,
+                    "Fornecedor",
                     it.nome
                 )
             })
@@ -126,8 +132,9 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
         if(result is List<*>){
             viewModel!!.listaDestino.addAll((result as List<Obra>).map {
-                Origem(
+                Local(
                     it.id,
+                    "Obra",
                     it.codigo
                 )
             })
@@ -135,12 +142,23 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         iniciarSpinnerDestino()
     }
 
+    fun processResponseOrigem(response: Local?) {
+
+        if(response?.tipo == "Núcleo"){
+            layout_contratos.visibility = View.GONE
+            spinner_destiner.isEnabled = true
+        }
+        else{
+            layout_contratos.visibility = View.VISIBLE
+            spinner_destiner.isEnabled = false
+        }
+    }
+
+
     fun iniciarSpinnerOrigem(){
 
-        val listaTextoOrigem = viewModel!!.listaOrigem.map { it.nome }
-        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listaTextoOrigem)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val listaTextoOrigem = viewModel!!.listaOrigem.map { CustomAdapterTuple.RowItem(it.tipo, it.nome) }
+        var adapter = CustomAdapterTuple(this, listaTextoOrigem)
         spinner_origem.adapter = adapter
 
         spinner_origem.onItemSelectedListener = viewModel!!.selecionadorOrigem
@@ -149,10 +167,8 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
     fun iniciarSpinnerDestino(){
 
-        val textoDestino = viewModel!!.listaDestino.map { it.nome }
-        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, textoDestino)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val textoDestino = viewModel!!.listaDestino.map { CustomAdapterTuple.RowItem(it.tipo, it.nome) }
+        var adapter = CustomAdapterTuple(this, textoDestino)
         spinner_destiner.adapter = adapter
 
         spinner_destiner.onItemSelectedListener = viewModel!!.selecionadorDestino

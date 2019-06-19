@@ -1,10 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import android.content.Context
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Empresa
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraDestinoParaPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaEmpresaRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaNucleoRepository
@@ -25,7 +24,7 @@ class CadastraPedidoDestinoController @Inject constructor(val fluxoCadastraPedid
         fluxoCadastraPedidoDestinoRepository.setDestinoPedidoObra()
     }
 
-    fun confirmaDestinoDePedido(origem: Origem, destino: Origem): Boolean {
+    fun confirmaDestinoDePedido(origem: Local, destino: Local): Boolean {
         return fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(origem, destino)
     }
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+            android:id="@+id/tv_tipo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintRight_toRightOf="@id/invisivel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textAlignment="center"
+            android:text="Núcleo"
+            android:singleLine="true"
+            android:textColor="@color/primary_text"
+    />
+
+    <TextView
+            android:id="@+id/invisivel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text=""
+            android:textColor="@color/primary_text"
+    />
+
+    <TextView
+            android:id="@+id/tv_nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/invisivel"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:text="X"
+            android:textColor="@color/primary_text"
+    />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

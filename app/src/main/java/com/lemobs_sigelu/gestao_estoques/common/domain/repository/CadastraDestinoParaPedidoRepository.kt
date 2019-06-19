@@ -1,14 +1,13 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Origem
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
-import com.lemobs_sigelu.gestao_estoques.pedidoCadastro
 import java.util.*
 
 class CadastraDestinoParaPedidoRepository {
 
-    fun confirmaPedidoDestino(origem: Origem, destino: Origem): Boolean {
+    fun confirmaPedidoDestino(origem: Local, destino: Local): Boolean {
 
         //TODO Entra as regras para aceitar ou não pedido
         if(origem.nome == destino.nome){
