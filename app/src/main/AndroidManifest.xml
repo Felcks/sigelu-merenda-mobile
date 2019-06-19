@@ -80,5 +80,9 @@
                   android:label="Selecione o envio">
         </activity>
 
+        <!-- SELECIONA ITEM ACTIVITY -->
+        <activity android:name=".ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity"
+                  android:label="Selecione os itens"/>
+
     </application>
 </manifest>
