@@ -38,6 +38,8 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     private val envios = mutableListOf<Envio>()
     private var quantidadeEnviosCarregando = 0
 
+    var isTipoOrigemNucleo = ObservableField<Boolean>(true)
+
     override fun onCleared() {
         disposables.clear()
     }
@@ -184,5 +186,15 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     fun apagaListaItemRecebimentoAnteriores(){
         controller.apagaListaItemRecebimentoAnteriores()
+    }
+
+    fun setTipoOrigem(tipoOrigem: String){
+
+        if(tipoOrigem == "Núcleo"){
+            this.isTipoOrigemNucleo.set(true)
+        }
+        else {
+            this.isTipoOrigemNucleo.set(false)
+        }
     }
 }

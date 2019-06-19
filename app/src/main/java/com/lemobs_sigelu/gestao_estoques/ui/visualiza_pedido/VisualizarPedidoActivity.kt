@@ -76,6 +76,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(result is Pedido) {
 
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
+            viewModel!!.setTipoOrigem(result.origem ?: "")
             this.createTableLayout()
             this.ativarBotaoDeCadastrarEntrega()
         }
@@ -101,7 +102,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         val situacaoPedido = viewModel!!.getSituacaoDePedido()
         if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
-            btn_cadastra_recebimento.visibility = View.VISIBLE
+            //btn_cadastra_recebimento.visibility = View.VISIBLE
             btn_cadastra_recebimento.setOnClickListener {
 
                 if(viewModel!!.loadingEnvios.get() == true){
@@ -115,6 +116,10 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
                     startActivity(intent)
                 }
+            }
+            btn_cadastra_envio.setOnClickListener {
+
+                Toast.makeText(App.instance, "Funcionalidade não implementada", Toast.LENGTH_SHORT).show()
             }
         }
         else{
