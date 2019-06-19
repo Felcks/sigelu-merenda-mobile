@@ -21,6 +21,12 @@ data class Pedido(
     @ColumnInfo(name = "destino_id")
     var destinoID: Int?,
 
+    @ColumnInfo(name = "origem_nome")
+    var origemNome: String?,
+
+    @ColumnInfo(name = "destino_nome")
+    var destinoNome: String?,
+
     @ColumnInfo(name = "data_pedido")
     var dataPedido: Date? = null,
 
@@ -60,5 +66,17 @@ data class Pedido(
 
     fun getDataEntregaFormatada(): String{
         return dataEntrega?.getDataFormatada() ?: ""
+    }
+
+    fun getOrigemFormatado() = when(origem){
+        "Núcleo" -> "$origem $origemNome"
+        "Fornecedor" -> "$origem $origemNome"
+        else -> "-"
+    }
+
+    fun getDestinoFormatado() = when(destino){
+        "Núcleo" -> "$destino $destinoNome"
+        "Obra" -> "OS - $destinoNome"
+        else -> "-"
     }
 }

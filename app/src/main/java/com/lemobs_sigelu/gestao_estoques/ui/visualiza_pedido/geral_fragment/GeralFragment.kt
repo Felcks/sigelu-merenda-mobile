@@ -71,10 +71,10 @@ class GeralFragment: Fragment() {
     private fun renderDataState(result: Any?) {
 
         if(result is Pedido){
-            tv_origem.text = result.origem
-            tv_destino.text = result.destino
-            tv_data_pedido.text = result.dataPedido?.getDataFormatada()?.tracoSeVazio()
-            tv_data_entrega.text = result.dataEntrega?.getDataFormatada()?.tracoSeVazio()
+            tv_origem.text = result.getOrigemFormatado()
+            tv_destino.text = result.getDestinoFormatado()
+            tv_data_pedido.text = result.dataPedido?.getDataFormatada()?.tracoSeVazio() ?: "-"
+            tv_data_entrega.text = result.dataEntrega?.getDataFormatada()?.tracoSeVazio() ?: "-"
         }
 
         viewModel!!.loading.set(false)

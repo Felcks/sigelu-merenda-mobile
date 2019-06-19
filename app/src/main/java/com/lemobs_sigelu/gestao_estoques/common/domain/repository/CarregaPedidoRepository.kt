@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.toDateCreatedAt
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.util.*
 
 class CarregaPedidoRepository {
 
@@ -26,16 +27,18 @@ class CarregaPedidoRepository {
 
                 val pedido = with(response.body()!!) {
 
-                    val origemID = when(this.tipo_origem){
-                        "Fornecedor" -> this.origem_fornecedor_id
-                        "Núcleo" -> this.origem_nucleo_id
-                        else -> null
+                    data class Tupla(val id: Int?, val nome: String?)
+
+                    val (origemID, origemNome) = when(tipo_origem){
+                        "Fornecedor" -> Tupla(origem_fornecedor_id, "X")
+                        "Núcleo" -> Tupla(origem_nucleo_id, "Y")
+                        else -> Tupla(null, null)
                     }
 
-                    val destinoID = when(this.tipo_destino){
-                        "Núcleo" -> this.destino_nucleo_id
-                        "Obra" -> this.destino_obra_direta_id
-                        else -> null
+                    val (destinoID, destinoNome) = when(tipo_destino){
+                        "Núcleo" -> Tupla(destino_nucleo_id, destino_nucleo?.nome)
+                        "Obra" -> Tupla(destino_obra_direta_id, destino_obra_direta?.ordem_servico?.codigo)
+                        else -> Tupla(null, null)
                     }
 
                     Pedido(
@@ -45,6 +48,8 @@ class CarregaPedidoRepository {
                         this.tipo_destino ?: "",
                         origemID,
                         destinoID,
+                        origemNome,
+                        destinoNome,
                         this.data_aprovacao?.toDateCreatedAt(),
                         null,
                         Situacao(this.situacao.id,

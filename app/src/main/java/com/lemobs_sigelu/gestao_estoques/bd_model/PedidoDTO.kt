@@ -40,19 +40,4 @@ class PedidoDTO (
     var materiais: Collection<MaterialDePedidoDTO>? = null
 
 ) {
-
-    fun getEquivalentDomain(): Pedido {
-
-        val situacaoDTO = SituacaoDAO(DatabaseHelper.connectionSource).queryForId(situacao_id ?: 0)
-
-        return Pedido(id ?: 0,
-            codigo ?: "",
-            origem ?: "",
-            destino ?: "",
-            0,
-            0,
-            data_pedido ?: Date(),
-            data_entrega ?: Date(),
-            situacaoDTO!!.getEquivalentDomain())
-    }
 }

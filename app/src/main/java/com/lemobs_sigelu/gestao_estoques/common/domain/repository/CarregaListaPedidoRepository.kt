@@ -23,16 +23,18 @@ class CarregaListaPedidoRepository {
 
                 val list = response.body()?.map {
 
-                    val origemID = when(it.tipo_origem){
-                        "Fornecedor" -> it.origem_fornecedor_id
-                        "Núcleo" -> it.origem_nucleo_id
-                        else -> null
+                    data class Tupla(val id: Int?, val nome: String?)
+
+                    val (origemID, origemNome) = when(it.tipo_origem){
+                        "Fornecedor" -> Tupla(it.origem_fornecedor_id, "X")
+                        "Núcleo" -> Tupla(it.origem_nucleo_id, "Y")
+                        else -> Tupla(null, null)
                     }
 
-                    val destinoID = when(it.tipo_destino){
-                        "Núcleo" -> it.destino_nucleo_id
-                        "Obra" -> it.destino_obra_direta_id
-                        else -> null
+                    val (destinoID, destinoNome) = when(it.tipo_destino){
+                        "Núcleo" -> Tupla(it.destino_nucleo_id, it.destino_nucleo?.nome)
+                        "Obra" -> Tupla(it.destino_obra_direta_id, it.destino_obra_direta?.ordem_servico?.codigo)
+                        else -> Tupla(null, null)
                     }
 
                     Pedido(it.id,
@@ -41,8 +43,10 @@ class CarregaListaPedidoRepository {
                         it.tipo_destino ?: "",
                         origemID,
                         destinoID,
-                        Date(),
-                        Date(),
+                        origemNome,
+                        destinoNome,
+                        null,
+                        null,
                         Situacao(it.situacao.id, it.situacao.nome))
                 }
                 subscriber.onNext(list ?: listOf())
