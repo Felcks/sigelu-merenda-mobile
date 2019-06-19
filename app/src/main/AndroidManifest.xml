@@ -48,26 +48,26 @@
                 android:label="Cadastrar Recebimento"/>
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->
-        <activity android:name=".ui.visualiza_pedido.VisualizarPedidoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_destino.CadastraPedidoDestinoActivity"
                   android:label="Cadastrar Pedido" />
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity"
                   android:label="Adicione material recebido" />
 
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.confirma_recebimento.ConfirmaRecebimentoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.recebimento.confirma_recebimento.ConfirmaRecebimentoActivity"
                   android:label="Materiais Solicitados"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar" />
 
         <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name=".ui.cadastra_item_recebimento.CadastraItemRecebimentoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.recebimento.cadastra_item_recebimento.CadastraItemRecebimentoActivity"
                   android:label="Preencha a quantidade recebida"/>
 
         <!-- LOGIN ACTIVITY -->
@@ -76,7 +76,7 @@
         </activity>
 
         <!-- SELECIONA ENVIO ACTIVITY -->
-        <activity android:name=".ui.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity"
                   android:label="Selecione o envio">
         </activity>
 
