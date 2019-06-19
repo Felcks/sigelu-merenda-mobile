@@ -32,10 +32,10 @@ class ListaPedidoAdapter(val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_titulo.text = item.getCodigoFormatado()
-        holder.itemView.tv_origem.text = item.getOrigemFormatado()
-        holder.itemView.tv_destino.text = item.getDestinoFormatado()
-        holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada()
-        holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada()
+        holder.itemView.tv_origem.text = item.getOrigemFormatado().tracoSeVazio()
+        holder.itemView.tv_destino.text = item.getDestinoFormatado().tracoSeVazio()
+        holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada().tracoSeVazio()
+        holder.itemView.tv_data_entrega.text = item.getDataEntregaFormatada().tracoSeVazio()
         holder.itemView.tv_situacao.text = item.situacao?.situacao_nome
         holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao!!.getColor())
 
