@@ -70,7 +70,7 @@
                 app:fab_colorNormal="@color/colorAccentDark"
                 app:fab_colorPressed="@color/colorAccent"
                 app:fab_colorRipple="@android:color/white"
-                app:fab_label="Cadastrar Novo Pedido"
+                app:fab_label="Cadastrar pedido"
         />
 
         <com.github.clans.fab.FloatingActionButton
@@ -81,7 +81,7 @@
                 app:fab_colorNormal="@color/colorAccentDark"
                 app:fab_colorPressed="@color/colorAccent"
                 app:fab_colorRipple="@android:color/white"
-                app:fab_label="Cadastrar Entrega Sem Pedido"
+                app:fab_label="Cadastrar recebimento sem pedido"
         />
 
     </com.github.clans.fab.FloatingActionMenu>

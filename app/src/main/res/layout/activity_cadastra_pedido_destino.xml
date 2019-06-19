@@ -108,15 +108,45 @@
         </LinearLayout>
 
         <TextView
-                android:id="@+id/layout_contratos"
+                android:id="@+id/tv_contrato_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CONTRATOS"
-                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
-                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Contratos"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/primary_text"
                 android:visibility="gone"/>
+
+        <LinearLayout
+                android:id="@+id/ll_botoes_contratos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_contrato_layout"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/custom_border_grey"
+                android:visibility="gone">
+
+            <Spinner
+                    android:id="@+id/spinner_contrato"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp" />
+        </LinearLayout>
 
         <include layout="@layout/progressbar_carregamento"
                  android:id="@+id/ll_loading"

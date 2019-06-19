@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_destino
 
+import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -13,11 +14,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Empresa
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -47,9 +46,11 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseObras.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseContratos.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.origem.observe(this, Observer<Local> { response -> processResponseOrigem(response) })
 
         viewModel!!.carregaListaNucleo()
+        viewModel!!.carregaListaContrato()
 
         this.colorAccent = ContextCompat.getColor(applicationContext, R.color.colorAccent)
         this.colorAccentDark = ContextCompat.getColor(applicationContext, R.color.colorAccentDark)
@@ -76,6 +77,9 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
                     if(response.data[0] is Obra)
                         renderDataObra(response.data)
+
+                    if(response.data[0] is ContratoEstoque)
+                        renderDataContrato(response.data)
                 }
 
             }
@@ -142,18 +146,27 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         iniciarSpinnerDestino()
     }
 
+    private fun renderDataContrato(result: Any?) {
+
+        if(result is List<*>){
+            viewModel!!.listaContrato.addAll((result as List<ContratoEstoque>))
+        }
+        iniciarSpinnerContratos()
+    }
+
     fun processResponseOrigem(response: Local?) {
 
         if(response?.tipo == "Núcleo"){
-            layout_contratos.visibility = View.GONE
+            tv_contrato_layout.visibility = View.GONE
+            ll_botoes_contratos.visibility = View.GONE
             spinner_destiner.isEnabled = true
         }
         else{
-            layout_contratos.visibility = View.VISIBLE
+            tv_contrato_layout.visibility = View.VISIBLE
+            ll_botoes_contratos.visibility = View.VISIBLE
             spinner_destiner.isEnabled = false
         }
     }
-
 
     fun iniciarSpinnerOrigem(){
 
@@ -172,6 +185,15 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         spinner_destiner.adapter = adapter
 
         spinner_destiner.onItemSelectedListener = viewModel!!.selecionadorDestino
+    }
+
+    fun iniciarSpinnerContratos(){
+
+        val textoDestino = viewModel!!.listaContrato.map { CustomAdapterTuple.RowItem(it.numeroContrato, it.situacao) }
+        var adapter = CustomAdapterTuple(this, textoDestino)
+        spinner_contrato.adapter = adapter
+
+        spinner_contrato.onItemSelectedListener = viewModel!!.selecionadorContrato
     }
 
 
@@ -204,6 +226,14 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         if(item?.itemId ==  R.id.btn_done){
 
             val pedidoOk = viewModel!!.confirmaPedido()
+            if(pedidoOk == 1){
+
+                //Trocar de tela para escolher materiais
+
+            }
+            else{
+                Toast.makeText(App.instance, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return super.onOptionsItemSelected(item)

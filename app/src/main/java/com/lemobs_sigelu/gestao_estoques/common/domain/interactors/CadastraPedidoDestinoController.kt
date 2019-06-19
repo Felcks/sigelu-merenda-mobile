@@ -1,20 +1,15 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Empresa
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraDestinoParaPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaEmpresaRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaNucleoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaObraRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class CadastraPedidoDestinoController @Inject constructor(val fluxoCadastraPedidoDestinoRepository: CadastraDestinoParaPedidoRepository,
                                                           val carregaListaNucleoRepository: CarregaListaNucleoRepository,
                                                           val carregaListaEmpresaRepository: CarregaListaEmpresaRepository,
-                                                          val carregaListaObraRepository: CarregaListaObraRepository)
+                                                          val carregaListaObraRepository: CarregaListaObraRepository,
+                                                          val carregaListaContratoRepository: CarregaListaContratoRepository)
 {
     fun setDestinoPedidoNucleo(){
         fluxoCadastraPedidoDestinoRepository.setDestinoPedidoNucleo()
@@ -24,8 +19,8 @@ class CadastraPedidoDestinoController @Inject constructor(val fluxoCadastraPedid
         fluxoCadastraPedidoDestinoRepository.setDestinoPedidoObra()
     }
 
-    fun confirmaDestinoDePedido(origem: Local, destino: Local): Boolean {
-        return fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(origem, destino)
+    fun confirmaDestinoDePedido(origem: Local, destino: Local, contrato: ContratoEstoque?): Boolean {
+        return fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(origem, destino, contrato)
     }
 
     fun carregaListaNucleo(): Observable<List<Nucleo>> {
@@ -38,5 +33,9 @@ class CadastraPedidoDestinoController @Inject constructor(val fluxoCadastraPedid
 
     fun carregaListaObra(): Observable<List<Obra>> {
         return carregaListaObraRepository.carregaListaObra()
+    }
+
+    fun carregaListaContrato(): Observable<List<ContratoEstoque>> {
+        return carregaListaContratoRepository.carregaListaContratosVigentes()
     }
 }

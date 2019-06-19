@@ -1,10 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_destino
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraDestinoParaPedidoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaEmpresaRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaNucleoRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaObraRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import dagger.Module
 import dagger.Provides
 
@@ -30,6 +27,11 @@ class CadastraPedidoDestinoModule {
     @Provides
     fun carregaListaObraRepository(): CarregaListaObraRepository {
         return CarregaListaObraRepository()
+    }
+
+    @Provides
+    fun carregaListaContratoRepository(): CarregaListaContratoRepository {
+        return CarregaListaContratoRepository()
     }
 
     @Provides

@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.SituacaoDataResponse
@@ -83,5 +84,9 @@ class RestApi {
 
     fun getNucleos(): Call<List<NucleoDataResponse>>{
         return api.getNucleos(auth)
+    }
+
+    fun getContratos(): Call<List<ContratoEstoqueDataResponse>>{
+        return api.getContratos(auth)
     }
 }

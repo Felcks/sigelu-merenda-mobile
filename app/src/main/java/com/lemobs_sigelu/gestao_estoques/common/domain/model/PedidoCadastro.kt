@@ -18,6 +18,12 @@ data class PedidoCadastro(
 
     var destino: String?,
 
+    @ColumnInfo(name = "origem_tipo")
+    var origemTipo: String?,
+
+    @ColumnInfo(name = "destino_tipo")
+    var destinoTipo: String?,
+
     @ColumnInfo(name = "origem_id")
     var origemID: Int?,
 

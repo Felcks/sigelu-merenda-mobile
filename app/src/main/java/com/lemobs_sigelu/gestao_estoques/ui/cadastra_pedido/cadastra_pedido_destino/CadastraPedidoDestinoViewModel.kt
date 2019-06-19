@@ -6,6 +6,7 @@ import android.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,12 +23,15 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
     val responseNucleos = MutableLiveData<Response>()
     val responseEmpresas = MutableLiveData<Response>()
     val responseObras = MutableLiveData<Response>()
+    val responseContratos = MutableLiveData<Response>()
 
     var origem : MutableLiveData<Local> = MutableLiveData<Local>()
     private var destino : MutableLiveData<Local> = MutableLiveData<Local>()
+    private var contrato : MutableLiveData<ContratoEstoque> = MutableLiveData<ContratoEstoque>()
 
     val listaOrigem = mutableListOf<Local>()
     val listaDestino = mutableListOf<Local>()
+    val listaContrato = mutableListOf<ContratoEstoque>()
 
     init {
         origem.value = Local(-1, "Núcleo", "")
@@ -92,10 +96,29 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
         )
     }
 
+    fun carregaListaContrato() {
+
+        disposables.add(controller.carregaListaContrato()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { responseContratos.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    responseContratos.value = Response.success(result)
+                },
+                { throwable ->
+                    responseContratos.value = Response.error(throwable)
+                }
+            )
+        )
+    }
+
     fun confirmaPedido(): Int {
 
         try {
-            if(controller.confirmaDestinoDePedido(origem.value!!, destino.value!!)){
+            if(controller.confirmaDestinoDePedido(origem.value!!, destino.value!!, contrato.value)){
+                return 1
             }
         }
         catch (t: Throwable){
@@ -128,6 +151,15 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             destino.value = listaDestino[position]
+        }
+    }
+
+    val selecionadorContrato = object: AdapterView.OnItemSelectedListener {
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            contrato.value = listaContrato[position]
         }
     }
 }

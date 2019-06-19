@@ -1,16 +1,26 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.db
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import java.util.*
 
 class CadastraDestinoParaPedidoRepository {
 
-    fun confirmaPedidoDestino(origem: Local, destino: Local): Boolean {
+    companion object {
+        var pedidoCadastro: PedidoCadastro? = null
+    }
 
-        //TODO Entra as regras para aceitar ou não pedido
+    fun confirmaPedidoDestino(origem: Local, destino: Local, contrato: ContratoEstoque?): Boolean {
+
         if(origem.nome == destino.nome){
+            return false
+        }
+
+        if(origem.tipo == "Fornecedor" && contrato == null){
             return false
         }
 
@@ -20,6 +30,8 @@ class CadastraDestinoParaPedidoRepository {
             "Código gerado",
             origem.nome,
             destino.nome,
+            origem.tipo,
+            destino.tipo,
             origem.id,
             destino.id,
             Date(),
@@ -27,18 +39,7 @@ class CadastraDestinoParaPedidoRepository {
             Situacao(1, "")
         )
 
-//        if(pedidoCadastro == null){
-//            return false
-//        }
-//
-//        if(pedidoCadastro?.destino == PedidoCadastro.Companion.PedidoDestino.OBRA){
-//            //TODO Buscar no banco por Index não por posição
-//            val obra = LISTA_OBRAS_MOCKADAS[obraSelecionadaId]
-//            pedidoCadastro?.obra = obra
-//            CadastraPedidoSharedPreferences.setObraDestinoPedidoId(App.instance, obraSelecionadaId)
-//        }
-//
-//        //TODO Salvar o pedido no banco
+        pedidoCadastro = pedido
         return true
     }
 

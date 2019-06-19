@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
@@ -56,4 +57,7 @@ interface IRestApi {
 
     @GET("nucleo")
     fun getNucleos(@Header("Authorization") auth: String): Call<List<NucleoDataResponse>>
+
+    @GET("contrato-estoque")
+    fun getContratos(@Header("Authorization") auth: String): Call<List<ContratoEstoqueDataResponse>>
 }
