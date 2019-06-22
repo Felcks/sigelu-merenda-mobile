@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pedido.ConfirmaCadastroPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
 import javax.inject.Inject
@@ -52,10 +53,9 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     viewModel!!.cadastraQuantidadeMaterial(resultado)
-                    Toast.makeText(App.instance, "Deu tudo certo", Toast.LENGTH_SHORT).show()
-                    //val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
-                    //startActivity(intent)
-                    //this.finish()
+                    this.finish()
+                    val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }

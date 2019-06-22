@@ -88,5 +88,12 @@
         <activity android:name=".ui.cadastra_pedido.cadastra_item_pedido.CadastraItemPedidoActivity"
                   android:label="Preencha a quantidade solicitada"/>
 
+        <!-- CONFIRMA CADASTRO PEDIDO -->
+        <activity android:name= ".ui.cadastra_pedido.confirma_cadastro_pedido.ConfirmaCadastroPedidoActivity"
+                  android:label="Preencha a quantidade solicitada"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"
+                  android:theme="@style/AppThemeNoActionBar"/>
+
     </application>
 </manifest>
