@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.api_model.pedido_item
+package com.lemobs_sigelu.gestao_estoques.api_model.commons
 
 import com.lemobs_sigelu.gestao_estoques.api_model.commons.UnidadeMedidaDataResponse
 

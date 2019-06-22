@@ -37,4 +37,7 @@ data class PedidoCadastro(
     var dataEntrega: Date? = null,
 
     @Embedded
-    var situacao: Situacao?)
+    var situacao: Situacao?){
+
+    var contratoEstoque: ContratoEstoque? = null
+}

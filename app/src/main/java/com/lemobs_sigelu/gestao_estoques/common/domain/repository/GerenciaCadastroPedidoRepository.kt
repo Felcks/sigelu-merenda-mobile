@@ -8,7 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import java.util.*
 
-class CadastraDestinoParaPedidoRepository {
+class GerenciaCadastroPedidoRepository {
 
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
@@ -39,15 +39,11 @@ class CadastraDestinoParaPedidoRepository {
             Situacao(1, "")
         )
 
+        if(origem.tipo == "Fornecedor"){
+            pedido.contratoEstoque = contrato
+        }
+
         pedidoCadastro = pedido
         return true
-    }
-
-    fun setDestinoPedidoNucleo(){
-        //pedidoCadastro = PedidoCadastro(PedidoCadastro.Companion.PedidoDestino.NUCLEO)
-    }
-
-    fun setDestinoPedidoObra(){
-        //pedidoCadastro = PedidoCadastro(PedidoCadastro.Companion.PedidoDestino.OBRA)
     }
 }

@@ -82,7 +82,7 @@
 
         <!-- SELECIONA ITEM ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity"
-                  android:label="Selecione os itens"/>
+                  android:label="Selecione um item"/>
 
     </application>
 </manifest>

@@ -10,8 +10,8 @@ import dagger.Provides
 class CadastraPedidoDestinoModule {
 
     @Provides
-    fun fluxoCadastraPedidoDestinoRepository(): CadastraDestinoParaPedidoRepository {
-        return CadastraDestinoParaPedidoRepository()
+    fun fluxoCadastraPedidoDestinoRepository(): GerenciaCadastroPedidoRepository {
+        return GerenciaCadastroPedidoRepository()
     }
 
     @Provides

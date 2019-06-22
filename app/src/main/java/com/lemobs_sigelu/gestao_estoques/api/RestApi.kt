@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
@@ -88,5 +89,9 @@ class RestApi {
 
     fun getContratos(): Call<List<ContratoEstoqueDataResponse>>{
         return api.getContratos(auth)
+    }
+
+    fun getItensContrato(contratoID: Int): Call<OrcamentoDataResponse>{
+        return api.getItensContrato(auth, contratoID)
     }
 }

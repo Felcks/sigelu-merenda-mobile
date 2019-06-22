@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
@@ -9,7 +10,6 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import retrofit2.Call
 import retrofit2.http.*
@@ -60,4 +60,8 @@ interface IRestApi {
 
     @GET("contrato-estoque")
     fun getContratos(@Header("Authorization") auth: String): Call<List<ContratoEstoqueDataResponse>>
+
+    @GET("contrato-estoque/{contrato_estoque_id}/orcamento/vigente")
+    fun getItensContrato(@Header("Authorization") auth: String,
+                         @Path("contrato_estoque_id") contratoEstoqueID: Int): Call<OrcamentoDataResponse>
 }

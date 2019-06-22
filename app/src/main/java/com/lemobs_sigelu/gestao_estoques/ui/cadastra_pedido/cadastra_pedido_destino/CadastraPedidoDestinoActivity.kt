@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraPedidoDestinoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
 import dagger.android.AndroidInjection
@@ -159,12 +160,10 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         if(response?.tipo == "Núcleo"){
             tv_contrato_layout.visibility = View.GONE
             ll_botoes_contratos.visibility = View.GONE
-            spinner_destiner.isEnabled = true
         }
         else{
             tv_contrato_layout.visibility = View.VISIBLE
             ll_botoes_contratos.visibility = View.VISIBLE
-            spinner_destiner.isEnabled = false
         }
     }
 
@@ -228,8 +227,8 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
             val pedidoOk = viewModel!!.confirmaPedido()
             if(pedidoOk == 1){
 
-                //Trocar de tela para escolher materiais
-
+                val intent = Intent(this, SelecionaItemPedidoActivity::class.java)
+                startActivity(intent)
             }
             else{
                 Toast.makeText(App.instance, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()

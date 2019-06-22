@@ -5,22 +5,14 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CadastraPedidoDestinoController @Inject constructor(val fluxoCadastraPedidoDestinoRepository: CadastraDestinoParaPedidoRepository,
+class CadastraPedidoDestinoController @Inject constructor(val gerenciaCadastroPedidoRepository: GerenciaCadastroPedidoRepository,
                                                           val carregaListaNucleoRepository: CarregaListaNucleoRepository,
                                                           val carregaListaEmpresaRepository: CarregaListaEmpresaRepository,
                                                           val carregaListaObraRepository: CarregaListaObraRepository,
                                                           val carregaListaContratoRepository: CarregaListaContratoRepository)
 {
-    fun setDestinoPedidoNucleo(){
-        fluxoCadastraPedidoDestinoRepository.setDestinoPedidoNucleo()
-    }
-
-    fun setDestinoPedidoObra(){
-        fluxoCadastraPedidoDestinoRepository.setDestinoPedidoObra()
-    }
-
     fun confirmaDestinoDePedido(origem: Local, destino: Local, contrato: ContratoEstoque?): Boolean {
-        return fluxoCadastraPedidoDestinoRepository.confirmaPedidoDestino(origem, destino, contrato)
+        return gerenciaCadastroPedidoRepository.confirmaPedidoDestino(origem, destino, contrato)
     }
 
     fun carregaListaNucleo(): Observable<List<Nucleo>> {

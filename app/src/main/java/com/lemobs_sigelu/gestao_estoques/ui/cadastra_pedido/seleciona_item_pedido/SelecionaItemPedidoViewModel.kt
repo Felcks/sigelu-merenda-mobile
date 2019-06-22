@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaItemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by felcks on Jun, 2019
@@ -14,6 +16,7 @@ class SelecionaItemPedidoViewModel (private val controller: SelecionaItemPedidoC
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var loading = ObservableField<Boolean>()
 
     override fun onCleared() {
         disposables.clear()
@@ -21,5 +24,32 @@ class SelecionaItemPedidoViewModel (private val controller: SelecionaItemPedidoC
 
     fun response(): MutableLiveData<Response> {
         return response
+    }
+
+    fun carregaListaItens(){
+
+        val pedido = controller.getPedido()
+        if(pedido?.origemTipo == "Fornecedor"){
+            carregaListaItensContrato(pedido?.contratoEstoque?.id ?: 0)
+        }
+
+    }
+
+    private fun carregaListaItensContrato(contratoID: Int){
+
+        disposables.add(controller.carregaListaItemContrato(contratoID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    response.value = Response.success(result)
+                },
+                { throwable ->
+                    response.value = Response.error(throwable)
+                }
+            )
+        )
     }
 }

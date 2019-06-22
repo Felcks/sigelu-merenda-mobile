@@ -1,5 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api_model.pedido_item
 
+import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataResponse
+
 /**
  * Created by felcks on Jun, 2019
  */

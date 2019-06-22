@@ -128,14 +128,6 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
         return 1
     }
 
-    fun setDestinoPedidoNucleo(){
-        controller.setDestinoPedidoNucleo()
-    }
-
-    fun setDestinoPedidoObra(){
-        controller.setDestinoPedidoObra()
-    }
-
     val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {
 
         override fun onNothingSelected(parent: AdapterView<*>?) {}
