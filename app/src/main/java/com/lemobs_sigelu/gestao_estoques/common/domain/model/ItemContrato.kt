@@ -40,6 +40,9 @@ class ItemContrato (
     @Ignore
     var itemEstoque: ItemEstoque? = null
 
+    @Ignore
+    var quantidadeRecebida: Double? = null
+
     constructor(id: Int,
                 orcamentoID: Int,
                 numeracao: String,

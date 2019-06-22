@@ -24,7 +24,7 @@ class SelecionaItemPedidoController @Inject constructor(
     }
 
     fun selecionaItem(itemContrato: ItemContrato){
-        pedidoCadastro?.itemContrato = itemContrato
+        GerenciaCadastroPedidoRepository.pedidoCadastro?.itemContrato = itemContrato
     }
 
 }

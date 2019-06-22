@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_item_pedido.CadastraItemPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import javax.inject.Inject
@@ -81,9 +82,9 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), ISelecionaItemContrato {
             val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
             if (successSelecionaMaterial) {
 
-                Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
-                //val intent = Intent(this, CadastraItemRecebimentoActivity::class.java)
-                //startActivity(intent)
+                //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+                startActivity(intent)
             }
             else {
                 Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()

@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.recebimento.cadastra_item_recebimento
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_item_pedido
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -9,25 +9,27 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.ui.recebimento.confirma_recebimento.ConfirmaRecebimentoActivity
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento.*
+import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
 import javax.inject.Inject
 
-class CadastraItemRecebimentoActivity: AppCompatActivity() {
+class CadastraItemPedidoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: CadastraItemRecebimentoViewModelFactory
-    var viewModel: CadastraItemRecebimentoViewModel? = null
+    lateinit var viewModelFactory: CadastraItemPedidoViewModelFactory
+    var viewModel: CadastraItemPedidoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cadastra_material_pedido)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraItemRecebimentoViewModel::class.java)
-        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialRecebimentoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_material_recebimento)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraItemPedidoViewModel::class.java)
+
+        val mainBinding: ActivityCadastraMaterialPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_material_pedido)
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
@@ -50,9 +52,10 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     viewModel!!.cadastraQuantidadeMaterial(resultado)
-                    val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
-                    startActivity(intent)
-                    this.finish()
+                    Toast.makeText(App.instance, "Deu tudo certo", Toast.LENGTH_SHORT).show()
+                    //val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
+                    //startActivity(intent)
+                    //this.finish()
                 }
             }
         }

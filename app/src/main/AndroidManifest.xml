@@ -84,5 +84,9 @@
         <activity android:name=".ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity"
                   android:label="Selecione um item"/>
 
+        <!-- CADASTRA ITEM PEDIDO ACTIVITY -->
+        <activity android:name=".ui.cadastra_pedido.cadastra_item_pedido.CadastraItemPedidoActivity"
+                  android:label="Preencha a quantidade solicitada"/>
+
     </application>
 </manifest>
