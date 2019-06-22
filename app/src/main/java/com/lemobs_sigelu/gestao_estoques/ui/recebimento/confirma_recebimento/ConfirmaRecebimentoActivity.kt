@@ -15,7 +15,6 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.recebimento.cadastra_item_recebimento.ListaItemRecebimentoAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -119,7 +118,10 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemRecebimentoAdapter(applicationContext, list)
+        val adapter = ListaItemRecebimentoAdapter(
+            applicationContext,
+            list
+        )
         rv_lista.adapter = adapter
     }
 

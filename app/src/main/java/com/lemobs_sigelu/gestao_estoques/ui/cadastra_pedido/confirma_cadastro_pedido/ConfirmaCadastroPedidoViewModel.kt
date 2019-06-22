@@ -5,12 +5,15 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaCadastroPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class ConfirmaCadastroPedidoViewModel(private val controller: ConfirmaCadastroPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var envioPedidoResponse = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
 
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
@@ -21,5 +24,26 @@ class ConfirmaCadastroPedidoViewModel(private val controller: ConfirmaCadastroPe
 
     fun response(): MutableLiveData<Response> {
         return response
+    }
+
+    fun carregaListaItem(){
+        response.value = Response.success(controller.carregaListaItemContrato())
+    }
+
+    fun cancelarPedido(){
+        controller.cancelarPedido()
+    }
+
+    fun enviaPedido(){
+
+        disposables.add(controller.enviaPedido()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { envioPedidoResponse.setValue(Response.loading()) }
+            .subscribe(
+                { result -> envioPedidoResponse.setValue(Response.success(result)) },
+                { throwable -> envioPedidoResponse.setValue(Response.error(throwable)) }
+            )
+        )
     }
 }

@@ -10,6 +10,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import retrofit2.Call
 import retrofit2.http.*
@@ -64,4 +65,8 @@ interface IRestApi {
     @GET("contrato-estoque/{contrato_estoque_id}/orcamento/vigente")
     fun getItensContrato(@Header("Authorization") auth: String,
                          @Path("contrato_estoque_id") contratoEstoqueID: Int): Call<OrcamentoDataResponse>
+
+    @POST("pedido-estoque")
+    fun postPedido(@Header("Authorization") auth: String,
+                   @Body pedidoDataRequest: PedidoDataRequest): Call<Unit>
 }
