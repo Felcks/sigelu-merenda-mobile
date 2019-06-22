@@ -2,9 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedi
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -72,5 +76,30 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), ISelecionaItemContrato {
 
     override fun selecionaItem(itemID: Int?) {
 
+        if(itemID != null) {
+
+            val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
+            if (successSelecionaMaterial) {
+
+                Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
+                //val intent = Intent(this, CadastraItemRecebimentoActivity::class.java)
+                //startActivity(intent)
+            }
+            else {
+                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

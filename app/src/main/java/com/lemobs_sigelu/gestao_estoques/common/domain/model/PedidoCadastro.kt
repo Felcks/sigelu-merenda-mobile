@@ -40,4 +40,6 @@ data class PedidoCadastro(
     var situacao: Situacao?){
 
     var contratoEstoque: ContratoEstoque? = null
+
+    var itemContrato: ItemContrato? = null
 }

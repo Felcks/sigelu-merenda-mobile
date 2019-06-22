@@ -91,7 +91,6 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), ISelecionaMate
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
