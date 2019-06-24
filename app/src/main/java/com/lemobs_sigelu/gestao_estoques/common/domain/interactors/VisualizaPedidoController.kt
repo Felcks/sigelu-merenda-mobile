@@ -8,7 +8,7 @@ import javax.inject.Inject
 class VisualizaPedidoController @Inject constructor(private val carregaPedidoRepository: CarregaPedidoRepository,
                                                     private val carregaListaItemPedidoRepository: CarregaListaItemDoPedidoRepository,
                                                     private val carregaListaSituacaoRespository: CarregaListaSituacaoDoPedidoRepository,
-                                                    private val carregaListaEnvioRepository: CarregaListaEnvioRepository,
+                                                    private val envioRepository: EnvioRepository,
                                                     private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
                                                     private val salvaEnvioRepository: SalvaEnvioRepository,
                                                     private val salvaPedidoRepository: SalvaPedidoRepository,
@@ -37,7 +37,7 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
     }
 
     fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {
-        return carregaListaEnvioRepository.getListaEnvio(pedidoID)
+        return envioRepository.getListaEnvio(pedidoID)
     }
 
     fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{

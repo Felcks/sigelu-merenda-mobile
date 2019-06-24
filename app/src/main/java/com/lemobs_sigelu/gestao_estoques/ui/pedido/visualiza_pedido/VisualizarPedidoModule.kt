@@ -24,8 +24,8 @@ class VisualizarPedidoModule {
     }
 
     @Provides
-    fun provideCarregaListaEnvioRepository(): CarregaListaEnvioRepository {
-        return CarregaListaEnvioRepository()
+    fun provideCarregaListaEnvioRepository(): EnvioRepository {
+        return EnvioRepository()
     }
 
     @Provides

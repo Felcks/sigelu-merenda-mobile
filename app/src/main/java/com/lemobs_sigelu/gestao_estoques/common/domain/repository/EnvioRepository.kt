@@ -10,7 +10,7 @@ import java.util.*
 /**
  * Created by felcks on Jun, 2019
  */
-class CarregaListaEnvioRepository {
+class EnvioRepository {
 
     val api = RestApi()
 
@@ -73,5 +73,12 @@ class CarregaListaEnvioRepository {
                 subscriber.onError(Throwable("Nenhum envio encontrado"))
             }
         }
+    }
+
+
+    val EnvioParaCadastro
+    fun cadastraInformacoesIniciais(motorista: String,
+                                    dataSaida: Date){
+
     }
 }

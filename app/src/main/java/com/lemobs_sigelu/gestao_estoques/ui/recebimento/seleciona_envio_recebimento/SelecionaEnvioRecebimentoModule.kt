@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_envio_recebimento
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaEnvioRecebimentoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaEnvioRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.SelecionaEnvioRepository
 import dagger.Module
 import dagger.Provides
@@ -19,8 +19,8 @@ class SelecionaEnvioRecebimentoModule {
     }
 
     @Provides
-    fun carregaListaEnvioRepo(): CarregaListaEnvioRepository {
-        return CarregaListaEnvioRepository()
+    fun carregaListaEnvioRepo(): EnvioRepository {
+        return EnvioRepository()
     }
 
 

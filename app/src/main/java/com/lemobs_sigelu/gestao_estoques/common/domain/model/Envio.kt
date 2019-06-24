@@ -30,7 +30,9 @@ class Envio (
     var dataSaida: Date? = null,
 
     @ColumnInfo(name = "data_recebimento")
-    var dataRecebimento: Date? = null
+    var dataRecebimento: Date? = null,
+
+    var motorista: String? = null
 ){
 
     @Ignore
