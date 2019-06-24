@@ -10,7 +10,9 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import retrofit2.Call
 import retrofit2.http.*
@@ -67,6 +69,14 @@ interface IRestApi {
                          @Path("contrato_estoque_id") contratoEstoqueID: Int): Call<OrcamentoDataResponse>
 
     @POST("pedido-estoque")
-    fun postPedido(@Header("Authorization") auth: String,
-                   @Body pedidoDataRequest: PedidoDataRequest): Call<Unit>
+    fun postPedidoFornecedorNucleo(@Header("Authorization") auth: String,
+                                   @Body pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>
+
+    @POST("pedido-estoque")
+    fun postPedidoNucleoNucleo(@Header("Authorization") auth: String,
+                               @Body pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>
+
+    @POST("pedido-estoque")
+    fun postPedidoNucleoObra(@Header("Authorization") auth: String,
+                             @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>
 }

@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CadastraPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciaCadastroPedidoRepository
 import io.reactivex.Observable
@@ -22,5 +23,9 @@ class ConfirmaCadastroPedidoController @Inject constructor(
 
     fun enviaPedido(): Observable<Unit> {
         return cadastraPedidoRepository.cadastraPedido(GerenciaCadastroPedidoRepository.pedidoCadastro!!)
+    }
+
+    fun getPedido(): PedidoCadastro?{
+        return GerenciaCadastroPedidoRepository.pedidoCadastro
     }
 }

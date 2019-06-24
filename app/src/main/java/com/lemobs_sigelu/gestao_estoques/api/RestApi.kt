@@ -7,10 +7,12 @@ import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.pedido.SituacaoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import okhttp3.OkHttpClient
@@ -93,6 +95,18 @@ class RestApi {
 
     fun getItensContrato(contratoID: Int): Call<OrcamentoDataResponse>{
         return api.getItensContrato(auth, contratoID)
+    }
+
+    fun postPedidoFornecedorNucleo(pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>{
+        return api.postPedidoFornecedorNucleo(auth, pedidoRequest)
+    }
+
+    fun postPedidoNucleoNucleo(pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>{
+        return api.postPedidoNucleoNucleo(auth, pedidoRequest)
+    }
+
+    fun postPedidoNucleoObra(pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>{
+        return api.postPedidoNucleoObra(auth, pedidoRequest)
     }
 
 

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:theme="@style/AppTheme"
+            app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:elevation="0dp"
+                app:popupTheme="@style/AppTheme"
+                app:title="Confirmar Recebimento"
+                app:titleTextColor="@android:color/white"
+                app:titleTextAppearance="@style/Toolbar.TitleText">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/espacamento_grande"
+            android:layout_marginTop="@dimen/espacamento_medio"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <TextView android:id="@+id/tv_origem_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Origem: "
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_origem"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text=""
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintTop_toTopOf="@id/tv_origem_layout"
+                  app:layout_constraintRight_toRightOf="parent"/>
+
+        <View   android:id="@+id/view_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/espacamento_curto"
+                app:layout_constraintTop_toBottomOf="@id/tv_origem_layout"/>
+
+        <TextView android:id="@+id/tv_destino_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Destino: "
+                  android:textColor="@color/primary_text"
+                  android:layout_marginTop="@dimen/espacamento_medio"
+                  app:layout_constraintTop_toBottomOf="@id/view_1"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_destino"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text=""
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_destino_layout"
+                  app:layout_constraintRight_toRightOf="parent"/>
+
+        <View   android:id="@+id/view_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/espacamento_curto"
+                app:layout_constraintTop_toBottomOf="@id/tv_destino_layout"/>
+
+        <TextView android:id="@+id/tv_contrato_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Contrato: "
+                  android:visibility="gone"
+                  android:textColor="@color/primary_text"
+                  android:layout_marginTop="@dimen/espacamento_medio"
+                  app:layout_constraintTop_toBottomOf="@id/view_2"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_contrato"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text=""
+                  android:visibility="gone"
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_contrato_layout"
+                  app:layout_constraintRight_toRightOf="parent"/>
+
+        <View   android:id="@+id/view_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/espacamento_curto"
+                app:layout_constraintTop_toBottomOf="@id/tv_contrato"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_lista"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/espacamento_medio"
+            app:layout_constraintTop_toBottomOf="@id/ll_info"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_adicionar_materiais"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/fab_add"
+            android:layout_margin="@dimen/espacamento_medio"/>
+
+</android.support.constraint.ConstraintLayout>

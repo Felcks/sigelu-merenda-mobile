@@ -23,8 +23,6 @@ class CarregaPedidoRepository {
 
             if(response.isSuccessful){
 
-
-
                 val pedido = with(response.body()!!) {
 
                     data class Tupla(val id: Int?, val nome: String?)
