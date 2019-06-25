@@ -36,7 +36,7 @@ class Envio (
 ){
 
     @Ignore
-    var itens = listOf<ItemEnvio>()
+    var itens = mutableListOf<ItemEnvio>()
 
     @Ignore
     constructor(id: Int,
@@ -49,6 +49,6 @@ class Envio (
                 responsavel: String,
                 itens: List<ItemEnvio>): this(id, pedidoID, situacao, codigo, isEntregue, responsavel, dataSaida, dataRecebimento){
 
-        this.itens = itens
+        this.itens = itens.toMutableList()
     }
 }

@@ -66,7 +66,7 @@ class EnvioRepository {
                         itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
                     }
 
-                    envio.itens = listaItemEnvio
+                    envio.itens = listaItemEnvio.toMutableList()
                 }
                 subscriber.onNext(envios)
                 subscriber.onComplete()

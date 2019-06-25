@@ -17,6 +17,7 @@ import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.*
+import com.lemobs_sigelu.gestao_estoques.ui.envio.seleciona_item_envio.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.utils.Mask
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_envio.*
@@ -39,9 +40,10 @@ class CadastraEnvioActivity: AppCompatActivity() {
         setContentView(R.layout.activity_cadastra_envio)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraEnvioViewModel::class.java)
-        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraEnvioBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_envio)
-        mainBinding.viewModel = viewModel!!
-        mainBinding.executePendingBindings()
+
+//        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraEnvioBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_envio)
+//        mainBinding.viewModel = viewModel!!
+//        mainBinding.executePendingBindings()
 
         //this.adicionarListenersHoraSaida()
         this.adicionarListenerEdtMotorista()
@@ -185,6 +187,8 @@ class CadastraEnvioActivity: AppCompatActivity() {
 
         if (item?.itemId == R.id.btn_done) {
             viewModel!!.cadastraInformacoesIniciais()
+            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
+            startActivity(intent)
         }
 
         return true

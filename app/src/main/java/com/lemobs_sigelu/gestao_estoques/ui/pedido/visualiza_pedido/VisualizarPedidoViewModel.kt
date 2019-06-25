@@ -164,7 +164,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             .doOnSubscribe {  responseItensEnvios.value = Response.loading() }
             .subscribe(
                 { result ->
-                    envio.itens = result
+                    envio.itens = result.toMutableList()
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
                     controller.salvaEnvio(envio)

@@ -55,7 +55,6 @@ class LoginActivity: AppCompatActivity(){
 
     private fun renderLoadingState() {
         viewModel!!.loading.set(true)
-        Log.i("script2", "está em loading state")
     }
 
     private fun renderDataState(result: Any?) {
