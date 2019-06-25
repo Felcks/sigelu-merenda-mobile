@@ -95,5 +95,9 @@
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar"/>
 
+        <!-- CADASTRA ENVIO ACTIVITY -->
+        <activity android:name=".ui.envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity"
+                  android:label="Cadastrar Envio"/>
+
     </application>
 </manifest>

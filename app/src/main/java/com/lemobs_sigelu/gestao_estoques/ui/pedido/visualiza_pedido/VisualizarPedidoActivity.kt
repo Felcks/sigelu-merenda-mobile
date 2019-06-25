@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment.ListaEnvioFragment
@@ -99,7 +100,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         val situacaoPedido = viewModel!!.getSituacaoDePedido()
         if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
-            //btn_cadastra_recebimento.visibility = View.VISIBLE
             btn_cadastra_recebimento.setOnClickListener {
 
                 if(viewModel!!.loadingEnvios.get() == true){
@@ -116,7 +116,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             }
             btn_cadastra_envio.setOnClickListener {
 
-                Toast.makeText(App.instance, "Funcionalidade não implementada", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CadastraEnvioActivity::class.java)
+                startActivity(intent)
             }
         }
         else{

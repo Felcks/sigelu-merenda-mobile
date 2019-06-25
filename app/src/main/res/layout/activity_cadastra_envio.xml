@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_envio_informacoes_basicas.CadastraEnvioViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ll_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Informações do Envio"
+                android:textColor="@color/primary_text"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/espacamento_maximo"/>
+
+        <TextView
+                android:id="@+id/tv_motorista_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ll_titulo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Motorista"
+                android:layout_marginBottom="@dimen/espacamento_curto"
+                android:textColor="@color/primary_text"/>
+
+        <EditText
+                android:id="@+id/edt_motorista"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_motorista_layout"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/custom_border_grey"/>
+
+        <TextView
+                android:id="@+id/tv_data_saida_layo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edt_motorista"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="@dimen/espacamento_maximo_2"
+                android:text="Data de Saída"
+                android:textColor="@color/primary_text"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:focusable="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_data_saida_layo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:focusableInTouchMode="true">
+
+            <ImageView
+                    android:id="@+id/iv_calendar_saida"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/ic_calendar"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+
+                <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                        android:id="@+id/edt_data_saida"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:digits="1234567890"
+                        android:maxLength="10"
+                        android:text="01/06/2019"
+                        android:textSize="20sp"
+                        android:textColor="@color/primary_text"
+                        android:background="@drawable/rounded_edit_text_states"
+                        android:nextFocusUp="@id/edt_data_saida"
+                        android:nextFocusLeft="@id/edt_data_saida"
+                        android:selectAllOnFocus="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tv_hora_saida_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edt_motorista"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="@dimen/espacamento_maximo_2"
+                android:text="Hora de Saída"
+                android:textColor="@color/primary_text"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:focusable="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_hora_saida_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:focusableInTouchMode="true">
+
+            <ImageView
+                    android:id="@+id/iv_relogio_saida"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/ic_relogio"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                        android:id="@+id/edt_hora_inicio"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:digits="1234567890"
+                        android:maxLength="5"
+                        android:text="00:00"
+                        android:textSize="20sp"
+                        android:textColor="@color/primary_text"
+                        android:background="@drawable/rounded_edit_text_states"
+                        android:nextFocusUp="@id/edt_hora_inicio"
+                        android:nextFocusLeft="@id/edt_hora_inicio"
+                        android:selectAllOnFocus="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tv_contrato_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Contratos"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintTop_toBottomOf="@id/edt_motorista"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/primary_text"
+                android:visibility="gone"/>
+
+        <LinearLayout
+                android:id="@+id/ll_botoes_contratos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_contrato_layout"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="@drawable/custom_border_grey"
+                android:visibility="gone">
+
+            <Spinner
+                    android:id="@+id/spinner_contrato"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:padding="8dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -4,6 +4,8 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
 
@@ -57,7 +59,7 @@ class EnvioRepository {
                 val itemEnvioDAO = db.itemEnvioDAO()
                 for(envio in envios){
 
-                    val listaItemEnvio = itemEnvioDAO.getTodosItemEnvioDeEnvio(envio.envioID)
+                    val listaItemEnvio = itemEnvioDAO.getTodosItemEnvioDeEnvio(envio.envioID ?: 0)
                     for(itemEnvio in listaItemEnvio){
 
                         val itemEstoqueDAO = db.itemEstoqueDAO()
@@ -76,9 +78,21 @@ class EnvioRepository {
     }
 
 
-    val EnvioParaCadastro
+    companion object {
+        var envioParaCadastro: Envio? = null
+    }
+
     fun cadastraInformacoesIniciais(motorista: String,
                                     dataSaida: Date){
 
+        envioParaCadastro = Envio(
+            0,
+            FlowSharedPreferences.getPedidoId(App.instance),
+            null,
+            null,
+            isEntregue = false,
+            responsavel = AppSharedPreferences.getUserName(App.instance),
+            motorista = motorista,
+            dataSaida = dataSaida)
     }
 }
