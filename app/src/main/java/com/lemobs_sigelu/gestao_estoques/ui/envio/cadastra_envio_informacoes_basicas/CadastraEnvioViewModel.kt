@@ -5,6 +5,9 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.toDiaMesAno
+import com.lemobs_sigelu.gestao_estoques.toHoraMinuto
+import com.lemobs_sigelu.gestao_estoques.toHoraMinutoSegundo
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
@@ -17,6 +20,8 @@ class CadastraEnvioViewModel (private val controller: CadastraEnvioController): 
     var response = MutableLiveData<Response>()
 
     var nomeMotorista: ObservableField<String> = ObservableField("")
+    var dataSaida: ObservableField<String> = ObservableField(Date().toDiaMesAno())
+    var horaSaida: ObservableField<String> = ObservableField(Date().toHoraMinuto())
 
 
     override fun onCleared() {
