@@ -47,6 +47,7 @@ class CadastraPedidoRepository {
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
                     situacaoID,
+                    1,
                     listOf(
                         ItemPedidoCadastroDataRequest(
                             pedidoCadastro.itemContrato?.categoria?.categoria_id ?: 0,
@@ -66,6 +67,7 @@ class CadastraPedidoRepository {
                     origemNucleoID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
+                    1,
                     situacaoID,
                     listOf(
                         ItemPedidoCadastroDataRequest(
@@ -87,6 +89,7 @@ class CadastraPedidoRepository {
                     pedidoCadastro.destinoTipo ?: "",
                     destinoObraID,
                     situacaoID,
+                    1,
                     listOf(
                         ItemPedidoCadastroDataRequest(
                             pedidoCadastro.itemContrato?.categoria?.categoria_id ?: 0,

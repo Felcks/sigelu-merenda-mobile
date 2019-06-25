@@ -18,6 +18,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMate
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_envio_informacoes_basicas.CadastraEnvioModule
+import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_item_envio.CadastraItemEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_item_envio.CadastraItemEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.envio.seleciona_item_envio.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.envio.seleciona_item_envio.SelecionaItemEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
@@ -80,4 +82,7 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(SelecionaItemEnvioModule::class))
     abstract fun bindSelecionaItemEnvioActivity(): SelecionaItemEnvioActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraItemEnvioModule::class))
+    abstract fun bindCadastraItemEnvioActivity(): CadastraItemEnvioActivity
 }

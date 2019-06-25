@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ISelecionaItemContrato
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ListaItemContratoSelecionavelSimplesAdapter
+import com.lemobs_sigelu.gestao_estoques.ui.envio.cadastra_item_envio.CadastraItemEnvioActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
 import javax.inject.Inject
@@ -92,8 +93,8 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
             if (successSelecionaMaterial) {
 
                 //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
-                //val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-                //startActivity(intent)
+                val intent = Intent(this, CadastraItemEnvioActivity::class.java)
+                startActivity(intent)
 
             }
             else {

@@ -103,5 +103,9 @@
         <activity android:name=".ui.envio.seleciona_item_envio.SelecionaItemEnvioActivity"
                   android:label="Selecione um item"/>
 
+        <!-- SELECIONA ITEM ENVIO ACTIVITY -->
+        <activity android:name=".ui.envio.cadastra_item_envio.CadastraItemEnvioActivity"
+                  android:label="Selecione um item"/>
+
     </application>
 </manifest>
