@@ -1,11 +1,13 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class VisualizaPedidoController @Inject constructor(private val carregaPedidoRepository: CarregaPedidoRepository,
+class VisualizaPedidoController @Inject constructor(private val pedidoRepository: PedidoRepository,
                                                     private val carregaListaItemPedidoRepository: CarregaListaItemDoPedidoRepository,
                                                     private val carregaListaSituacaoRespository: CarregaListaSituacaoDoPedidoRepository,
                                                     private val envioRepository: EnvioRepository,
@@ -17,11 +19,13 @@ class VisualizaPedidoController @Inject constructor(private val carregaPedidoRep
                                                     private val gerenciaRecebimentoRepository: GerenciaRecebimentoRepository) {
 
     fun getPedido(): Observable<Pedido> {
-        return carregaPedidoRepository.getPedido()
+        return pedidoRepository.getPedido()
     }
 
     fun getPedidoBD(): Pedido? {
-        return carregaPedidoRepository.getPedidoBD()
+
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+        return pedidoRepository.getPedidoNoBancoPeloID(pedidoID)
     }
 
     fun getSituacoesDoPedido(): Observable<List<SituacaoPedido>> {
