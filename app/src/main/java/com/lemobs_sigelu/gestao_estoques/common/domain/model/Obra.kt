@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.toDate
+import com.lemobs_sigelu.gestao_estoques.utils.toDate
 import java.util.*
 
 class Obra(val id: Int,

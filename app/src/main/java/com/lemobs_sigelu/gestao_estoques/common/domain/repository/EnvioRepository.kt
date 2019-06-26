@@ -8,6 +8,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.anoMesDiaHoraMinutoSegundoToDate
+import com.lemobs_sigelu.gestao_estoques.utils.createdAtToDate
 import io.reactivex.Observable
 import java.util.*
 
@@ -34,7 +36,7 @@ class EnvioRepository {
                         it.situacao ?: "",
                         it.codigo ?: "",
                         it.data_saida?.plus("/${it.hora_saida}")?.anoMesDiaHoraMinutoSegundoToDate() ?: Date(),
-                        it.data_recebimento?.toDateCreatedAt() ?: Date(),
+                        it.data_recebimento?.createdAtToDate() ?: Date(),
                         it.flag_entregue ?: false,
                         it.responsavel?.nome ?: "",
                         listOf())

@@ -13,7 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.esconderTeclado
+import com.lemobs_sigelu.gestao_estoques.utils.esconderTeclado
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_entrega_materiais_pedido.*
 import javax.inject.Inject

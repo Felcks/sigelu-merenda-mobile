@@ -19,6 +19,7 @@ import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.utils.Mask
+import com.lemobs_sigelu.gestao_estoques.utils.esconderTeclado
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_envio.*
 import java.util.*

@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
-import com.lemobs_sigelu.gestao_estoques.toDate
+import com.lemobs_sigelu.gestao_estoques.utils.toDate
 import io.reactivex.Observable
 import java.util.*
 

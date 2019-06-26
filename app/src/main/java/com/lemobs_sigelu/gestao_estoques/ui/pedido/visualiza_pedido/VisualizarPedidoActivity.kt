@@ -24,12 +24,11 @@ import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragme
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment.ListaEnvioFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment.ListaMaterialFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.lemobs_sigelu.gestao_estoques.utils.tracoSeVazio
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import javax.inject.Inject
 import io.reactivex.plugins.RxJavaPlugins
-
-
 
 class VisualizarPedidoActivity: AppCompatActivity() {
 

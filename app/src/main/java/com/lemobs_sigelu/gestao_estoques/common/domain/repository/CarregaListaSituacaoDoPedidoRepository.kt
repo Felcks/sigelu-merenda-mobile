@@ -5,8 +5,8 @@ import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
-import com.lemobs_sigelu.gestao_estoques.toDateCreatedAt
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.createdAtToDate
 import io.reactivex.Observable
 
 class CarregaListaSituacaoDoPedidoRepository {
@@ -26,7 +26,7 @@ class CarregaListaSituacaoDoPedidoRepository {
                 val situacoes = response.body()!!.map {
                     SituacaoPedido(0,
                         Situacao(it.situacao_id, it.situacao.nome),
-                            it.data.toDateCreatedAt(),
+                            it.data.createdAtToDate(),
                             it.justificativa_situacao ?: "")
                 }
 

@@ -14,49 +14,10 @@ fun Date.getDataFormatada(): String{
     return simpleDateFormat.format(this)
 }
 
-fun String.tracoSeVazio(): String{
-    if(this.isEmpty()){
-        return "-"
-    }
-    return this
-}
-
-fun View.esconderTeclado(){
-    val manager = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-    manager?.hideSoftInputFromWindow(this.windowToken, 0)
-}
-
-fun String.anoMesDiaToDate(): Date {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return simpleDateFormat.parse(this) as Date
-}
-
-fun String.horaMinutoSegundoToDate(): Date {
-    val simpleDateFormat = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
-    return simpleDateFormat.parse(this) as Date
-}
-
-fun String.anoMesDiaHoraMinutoSegundoToDate(): Date {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd/hh:mm:ss", Locale.getDefault())
-    return simpleDateFormat.parse(this) as Date
-}
-
-fun String.toDate(): Date {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return simpleDateFormat.parse(this) as Date
-}
-
 fun Date.getDataCreatedAt(): String{
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
     return simpleDateFormat.format(this)
-}
-
-fun String.toDateCreatedAt(): Date {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.parse(this) as Date
 }
 
 fun Date.toDiaMesAno(): String {
@@ -140,10 +101,4 @@ private fun String.getData(): IntArray {
     date[2] = Integer.parseInt(this.substring(6, 10))
 
     return date
-}
-
-private fun hideKeyboard(view: View) {
-    val manager = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-    manager?.hideSoftInputFromWindow(view.windowToken, 0)
 }

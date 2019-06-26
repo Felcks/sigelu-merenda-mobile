@@ -16,8 +16,8 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoGeralBinding
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
-import com.lemobs_sigelu.gestao_estoques.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.utils.tracoSeVazio
 import kotlinx.android.synthetic.main.fragment_pedido_geral.*
 
 class GeralFragment: Fragment() {

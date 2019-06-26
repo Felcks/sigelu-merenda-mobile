@@ -4,8 +4,8 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
-import com.lemobs_sigelu.gestao_estoques.toDateCreatedAt
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.createdAtToDate
 import io.reactivex.Observable
 import java.util.*
 
@@ -48,7 +48,7 @@ class CarregaPedidoRepository {
                         destinoID,
                         origemNome,
                         destinoNome,
-                        this.data_aprovacao?.toDateCreatedAt(),
+                        this.data_aprovacao?.createdAtToDate(),
                         null,
                         Situacao(this.situacao.id,
                             this.situacao.nome))
