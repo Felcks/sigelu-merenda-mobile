@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.disposables.CompositeDisposable
@@ -27,9 +28,21 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
         return response
     }
 
-    fun carregaListaItens(){
-
-        response.value = Response.success(EnvioRepository.envioParaCadastro?.itens?.toList() ?: listOf())
+    fun getItemSolicitado(): ItemEnvio? {
+        return controller.getItemEnvioSolicitado()
     }
+
+    fun confirmaCadastroMaterial(): Double {
+
+        if(quantidadeRecebida.get()?.isNotEmpty() ?: "".isNotEmpty()) {
+            val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
+            return controller.confirmaCadastroMaterial(valor ?: 0.0)
+        }
+        else{
+            return -2.0
+        }
+    }
+
+
 
 }
