@@ -1,25 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
-import android.databinding.BindingAdapter
-import android.view.View
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.utils.HourRangeFormat
-import java.text.SimpleDateFormat
-import java.util.*
-
-
-
-
-
-
-
-
-@set:BindingAdapter("isVisible")
-inline var View.isVisible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
 
 fun EditText.checarHoraValida(): Boolean {
 
