@@ -52,7 +52,7 @@ class CarregaListaPedidoRepository {
                 subscriber.onComplete()
             }
             else{
-                subscriber.onError(Throwable(response.message()))
+                subscriber.onError(Throwable(response.errorBody().toString()))
             }
 
         }

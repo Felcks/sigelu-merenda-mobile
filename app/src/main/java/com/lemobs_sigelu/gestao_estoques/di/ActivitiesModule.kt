@@ -85,5 +85,4 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(ConfirmaCadastroEnvioModule::class))
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
-
 }

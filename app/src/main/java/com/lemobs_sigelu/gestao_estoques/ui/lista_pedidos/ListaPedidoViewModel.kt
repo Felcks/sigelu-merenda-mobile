@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,6 +14,7 @@ class ListaPedidoViewModel(val listaPedidoController: ListaPedidoController): Vi
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var loading = ObservableField<Boolean>(false)
 
     override fun onCleared() {
         disposables.clear()

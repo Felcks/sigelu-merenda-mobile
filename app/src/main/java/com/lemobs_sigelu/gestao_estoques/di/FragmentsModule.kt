@@ -18,5 +18,4 @@ abstract class FragmentsModule {
 
     @ContributesAndroidInjector(modules = arrayOf(VisualizarPedidoModule::class))
     abstract fun bindVisualizarPedidoSituacaoFragment(): ListaSituacaoFragment
-
 }
