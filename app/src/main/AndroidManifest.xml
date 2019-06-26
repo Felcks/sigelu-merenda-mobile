@@ -36,12 +36,6 @@
                   android:configChanges="orientation"
                   android:screenOrientation="portrait"/>
 
-        <!-- LISTA MATERIAL ACTIVITY -->
-        <activity
-                android:name="com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"/>
-
         <!-- ENTREGA MATERIAIS PEDIDO ACTIVITY -->
         <activity
                 android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"

@@ -12,8 +12,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pe
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pedido.ConfirmaCadastroPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoModule
-import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialActivity
-import com.lemobs_sigelu.gestao_estoques.ui.lista_materiais.ListaMaterialModule
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
@@ -39,9 +37,6 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivitiesModule {
-
-    @ContributesAndroidInjector(modules = arrayOf(ListaMaterialModule::class))
-    abstract fun bindMaterialActivity(): ListaMaterialActivity
 
     @ContributesAndroidInjector(modules = arrayOf(ListaPedidoModule::class))
     abstract fun bindPedidoActivity(): ListaPedidoActivity
