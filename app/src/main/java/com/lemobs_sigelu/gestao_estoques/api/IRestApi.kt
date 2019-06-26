@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
@@ -79,4 +80,9 @@ interface IRestApi {
     @POST("pedido-estoque")
     fun postPedidoNucleoObra(@Header("Authorization") auth: String,
                              @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>
+
+    @POST("pedido-estoque/{pedido_estoque_id}/envio")
+    fun postEnvio(@Header("Authorization") auth: String,
+                  @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                  @Body envioRequest: EnvioDataRequest): Call<Unit>
 }

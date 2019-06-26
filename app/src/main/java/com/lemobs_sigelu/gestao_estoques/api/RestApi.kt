@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
@@ -107,6 +108,10 @@ class RestApi {
 
     fun postPedidoNucleoObra(pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>{
         return api.postPedidoNucleoObra(auth, pedidoRequest)
+    }
+
+    fun postEnvio(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest): Call<Unit>{
+        return api.postEnvio(auth, pedidoEstoqueID, envioDataRequest)
     }
 
 

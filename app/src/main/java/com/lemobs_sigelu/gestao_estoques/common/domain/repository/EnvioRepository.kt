@@ -2,6 +2,8 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.ItemEnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
@@ -97,5 +99,38 @@ class EnvioRepository {
             dataSaida = dataSaida)
 
         envioParaCadastro?.pedido = pedido
+    }
+
+    fun postEnvio(envio: Envio): Observable<Unit>{
+
+        return Observable.create { subscriber ->
+
+            val envioDataRequest = EnvioDataRequest(
+                envio.motorista ?: "",
+                envio.dataSaida?.toHoraMinuto() ?: "",
+                envio.dataSaida?.toDiaMesAnoInvertidaComTracos() ?: "",
+                envio.itens.map {
+                    ItemEnvioDataRequest(
+                        it.categoria?.categoria_id ?: 0,
+                        it.itemEstoqueID ?: 0,
+                        it.precoUnidade ?: 0.0,
+                        it.quantidadeRecebida ?: 0.0
+                    )
+                }
+            )
+
+            val callResponse = api.postEnvio(envio.pedidoID, envioDataRequest)
+            val response = callResponse.execute()
+
+            if(response.isSuccessful){
+                subscriber.onNext(response.body()!!)
+                subscriber.onComplete()
+            }
+            else{
+
+                val erroRecorrente = response.errorBody()?.string() ?: ""
+                subscriber.onError(Throwable(response.errorBody().toString()))
+            }
+        }
     }
 }

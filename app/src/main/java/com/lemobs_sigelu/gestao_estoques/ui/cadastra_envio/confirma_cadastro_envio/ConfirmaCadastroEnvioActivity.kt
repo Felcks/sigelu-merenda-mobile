@@ -1,11 +1,16 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -30,6 +35,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaCadastroEnvioViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseCadastraEnvio.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
         viewModel!!.carregaListaItem()
 
         val envio = viewModel!!.getEnvio()
@@ -44,15 +50,13 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
     fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> {}
-            Status.SUCCESS -> renderDataState(response.data)
-            Status.ERROR -> ""
-        }
-    }
+            Status.SUCCESS -> {
 
-    private fun renderDataState(result: Any?) {
-
-        if(result is List<*>){
-            this.iniciarAdapter(result as List<ItemEnvio>)
+                if(response.data is List<*>){
+                    this.iniciarAdapter(response.data as List<ItemEnvio>)
+                }
+            }
+            Status.ERROR -> {}
         }
     }
 
@@ -80,15 +84,89 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
     private fun mostrarDialogCancelamento(){
 
         DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar pedido",
-            "Deseja cancelar o cadastro do pedido?",
+            "Cancelar envio",
+            "Deseja cancelar o cadastro do envio?",
             {
-                //this.viewModel!!.cancelarPedido()
+                this.viewModel!!.cancelaEnvio()
                 val intent = Intent(this, ListaPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },
             {}).show()
+    }
 
+    fun processResponseEnvioPedido(response: Response?){
+        when(response?.status){
+            Status.LOADING -> renderLoadingStateEnvio()
+            Status.SUCCESS -> renderSucessoEnvio(response.data)
+            Status.ERROR ->renderErrorEnvio(response.error)
+        }
+    }
+
+    var progressDialog: ProgressDialog? = null
+    private fun renderLoadingStateEnvio() {
+
+        progressDialog = DialogUtil.buildDialogCarregamento(this,
+            "Cadastrando envio",
+            "Por favor, aguarde...")
+    }
+
+    var sucessDialog: AlertDialog? = null
+    private fun renderSucessoEnvio(result: Any?){
+
+        progressDialog?.dismiss()
+
+        val activity = this
+        this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
+            "Sucesso",
+            "Envio cadastrado com sucesso!",
+            {
+                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                startActivity(intent)
+                this.finishAffinity()
+            },
+            false)
+
+        this.sucessDialog?.show()
+    }
+
+    var errorDialog: AlertDialog? = null
+    private fun renderErrorEnvio(error: Throwable?){
+
+        progressDialog?.dismiss()
+
+        this.errorDialog = DialogUtil.buildAlertDialogOk(this,
+            "Erro",
+            "Falha no cadastro de envio",
+            {
+
+            },
+            true)
+
+        this.errorDialog?.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuInflater.inflate(R.menu.menu_done, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId == R.id.btn_done){
+
+            viewModel!!.cadastraEnvio()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        this.mostrarDialogCancelamento()
     }
 }

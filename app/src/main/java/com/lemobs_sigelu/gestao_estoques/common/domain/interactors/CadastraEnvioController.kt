@@ -6,6 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
@@ -16,7 +17,8 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
                                                   val pedidoRepository: PedidoRepository){
 
     fun cadastraInformacoesIniciaisPedido(motorista: String,
-                                          dataSaida: Date){
+                                          dataSaida: Date
+    ){
 
         val pedido = pedidoRepository.getPedidoNoBancoPeloID(FlowSharedPreferences.getPedidoId(App.instance))
         envioRepository.cadastraInformacoesIniciais(motorista, dataSaida, pedido)
@@ -48,12 +50,11 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
         EnvioRepository.envioParaCadastro = null
     }
 
-//    fun cadastraEnvio(): Observable<Unit>{
-//
-//
-//    }
-
     fun getEnvio(): Envio? {
         return EnvioRepository.envioParaCadastro
+    }
+
+    fun cadastraEnvio(): Observable<Unit> {
+        return envioRepository.postEnvio(EnvioRepository.envioParaCadastro!!)
     }
 }

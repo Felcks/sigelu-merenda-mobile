@@ -65,6 +65,12 @@ fun Date.toDiaMesAno(): String {
     return simpleDateFormat.format(this)
 }
 
+fun Date.toDiaMesAnoInvertidaComTracos(): String {
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
+    return simpleDateFormat.format(this)
+}
+
 fun Date.toHoraMinutoSegundo(): String {
     val simpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
     simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
