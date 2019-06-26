@@ -4,7 +4,6 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api_model.obra.ObraDiretaDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
-import com.lemobs_sigelu.testeroom.AppDatabase
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit

@@ -9,13 +9,4 @@ import com.lemobs_sigelu.gestao_estoques.bd_model.CategoriaDTO
 class Categoria (
     var categoria_id: Int,
     var categoria_nome: String
-){
-
-    fun getEquivalentDTO(): CategoriaDTO{
-
-        return CategoriaDTO(
-            categoria_id,
-            categoria_nome
-        )
-    }
-}
+)

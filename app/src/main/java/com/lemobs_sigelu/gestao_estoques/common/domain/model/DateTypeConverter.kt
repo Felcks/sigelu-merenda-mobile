@@ -3,11 +3,10 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 import android.arch.persistence.room.TypeConverter
 import java.util.*
 
-
-
 /**
  * Created by felcks on Jun, 2019
  */
+
 class DateTypeConverter {
 
     companion object {
