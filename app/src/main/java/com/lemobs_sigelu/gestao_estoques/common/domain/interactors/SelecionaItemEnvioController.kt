@@ -22,7 +22,7 @@ class SelecionaItemEnvioController @Inject constructor(
     fun adicionarItemEmEnvio(itemContrato: ItemContrato){
 
         EnvioRepository.envioParaCadastro?.itens?.add(with(itemContrato){
-            ItemEnvio(id, 0, quantidadeUnidade, precoUnidade, categoria, itemEstoqueID)
+            ItemEnvio(id, 0, quantidadeUnidade, precoUnidade, categoria, itemEstoqueID, itemEstoque)
         })
     }
 

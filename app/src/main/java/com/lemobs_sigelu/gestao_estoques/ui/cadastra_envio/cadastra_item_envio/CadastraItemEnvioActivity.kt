@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -14,6 +15,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemEnvioBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_item_envio.*
 import javax.inject.Inject
@@ -93,9 +96,8 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
                 -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
                 else -> {
                     this.finish()
-                    Toast.makeText(applicationContext, "Cadastrou com sucesso", Toast.LENGTH_SHORT).show()
-                    //val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-                    //startActivity(intent)
+                    val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }

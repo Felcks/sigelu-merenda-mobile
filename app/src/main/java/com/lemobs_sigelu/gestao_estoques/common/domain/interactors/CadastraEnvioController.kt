@@ -35,7 +35,7 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
             return -1.0
         }
 
-        EnvioRepository.envioParaCadastro?.itens?.last()?.quantidadeUnidade = valor
+        EnvioRepository.envioParaCadastro?.itens?.last()?.quantidadeRecebida = valor
         return valor
     }
 

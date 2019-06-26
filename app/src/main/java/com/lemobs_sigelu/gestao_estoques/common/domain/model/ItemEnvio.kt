@@ -44,6 +44,9 @@ class ItemEnvio (
     @Ignore
     var itemEstoque: ItemEstoque? = null
 
+    @Ignore
+    var quantidadeRecebida: Double? = null
+
     constructor(id: Int,
                 envio_id: Int,
                 quantidadeUnidade: Double,
