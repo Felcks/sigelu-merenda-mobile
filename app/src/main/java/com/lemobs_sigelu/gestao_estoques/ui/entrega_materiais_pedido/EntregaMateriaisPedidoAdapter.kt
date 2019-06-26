@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
-import com.lemobs_sigelu.gestao_estoques.utils.esconderTeclado
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import kotlinx.android.synthetic.main.item_material_entrega.view.*
 
 class EntregaMateriaisPedidoAdapter(val context: Context,

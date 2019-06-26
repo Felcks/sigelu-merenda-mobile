@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 
 class SelecionaMaterialParaPedidoRepository {
 

@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
-import com.lemobs_sigelu.gestao_estoques.getDataFormatada
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
 import java.util.*
 
 @Entity(tableName = "pedido")

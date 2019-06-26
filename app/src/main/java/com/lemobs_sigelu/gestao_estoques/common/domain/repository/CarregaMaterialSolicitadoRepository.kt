@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.db
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 
 class CarregaMaterialSolicitadoRepository {

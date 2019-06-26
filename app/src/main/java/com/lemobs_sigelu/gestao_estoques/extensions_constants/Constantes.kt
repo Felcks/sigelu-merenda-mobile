@@ -1,6 +1,8 @@
-package com.lemobs_sigelu.gestao_estoques
+package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
 import android.arch.persistence.room.Room
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.bd_room.AppDatabase
 
 /**
@@ -8,7 +10,7 @@ import com.lemobs_sigelu.gestao_estoques.bd_room.AppDatabase
  */
 
 val db = Room.databaseBuilder(
-        App.instance,
+    App.instance,
         AppDatabase::class.java, "${BuildConfig.APPLICATION_ID}.database"
     )
     .fallbackToDestructiveMigration() //Destrói toda a database se o schema do banco não estiver compatível -> drop table all

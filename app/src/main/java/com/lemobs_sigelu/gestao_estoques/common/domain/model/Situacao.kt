@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import com.lemobs_sigelu.gestao_estoques.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 
 data class Situacao (
     var situacao_id: Int,

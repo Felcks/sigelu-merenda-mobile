@@ -6,7 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
-import com.lemobs_sigelu.gestao_estoques.utils.createdAtToDate
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.createdAtToDate
 import io.reactivex.Observable
 
 class CarregaListaSituacaoDoPedidoRepository {

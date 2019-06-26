@@ -10,7 +10,7 @@ import com.github.vipulasri.timelineview.TimelineView
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoHistorico
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
-import com.lemobs_sigelu.gestao_estoques.getDataFormatada
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
 import kotlinx.android.synthetic.main.item_situacao_de_pedido.view.*
 
 class ListaSituacaoAdapter (val context: Context,

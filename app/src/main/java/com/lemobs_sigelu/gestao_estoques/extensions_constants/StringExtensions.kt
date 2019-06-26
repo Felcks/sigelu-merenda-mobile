@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.utils
+package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
 import java.text.SimpleDateFormat
 import java.util.*

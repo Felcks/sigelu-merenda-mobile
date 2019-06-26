@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
-import com.lemobs_sigelu.gestao_estoques.utils.tracoSeVazio
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import kotlinx.android.synthetic.main.item_obra.view.*
 
 class ListaObraAdapter(val context: Context,

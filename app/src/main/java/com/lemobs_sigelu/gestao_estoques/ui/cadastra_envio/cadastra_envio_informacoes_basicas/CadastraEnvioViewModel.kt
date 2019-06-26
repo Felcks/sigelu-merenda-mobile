@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.toDiaMesAno
-import com.lemobs_sigelu.gestao_estoques.toHoraMinuto
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDiaMesAno
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.toHoraMinuto
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 

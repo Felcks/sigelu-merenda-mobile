@@ -6,10 +6,9 @@ import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataReque
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.ItemEnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
-import com.lemobs_sigelu.gestao_estoques.utils.anoMesDiaHoraMinutoSegundoToDate
-import com.lemobs_sigelu.gestao_estoques.utils.createdAtToDate
 import io.reactivex.Observable
 import java.util.*
 
@@ -110,7 +109,7 @@ class EnvioRepository {
             val envioDataRequest = EnvioDataRequest(
                 envio.motorista ?: "",
                 envio.dataSaida?.toHoraMinuto() ?: "",
-                envio.dataSaida?.toDiaMesAnoInvertidaComTracos() ?: "",
+                envio.dataSaida?.toAnoMesDiaComTracos() ?: "",
                 envio.itens.map {
                     ItemEnvioDataRequest(
                         it.categoria?.categoria_id ?: 0,

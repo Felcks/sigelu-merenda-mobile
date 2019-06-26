@@ -5,7 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
-import com.lemobs_sigelu.gestao_estoques.db
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 
 class CarregaListaItemDoPedidoRepository {

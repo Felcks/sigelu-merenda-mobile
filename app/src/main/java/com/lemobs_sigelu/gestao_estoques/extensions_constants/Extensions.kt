@@ -1,48 +1,18 @@
-package com.lemobs_sigelu.gestao_estoques
+package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
-import android.content.Context
 import android.databinding.BindingAdapter
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.utils.HourRangeFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.getDataFormatada(): String{
-    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    return simpleDateFormat.format(this)
-}
 
-fun Date.getDataCreatedAt(): String{
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.format(this)
-}
 
-fun Date.toDiaMesAno(): String {
-    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.format(this)
-}
 
-fun Date.toDiaMesAnoInvertidaComTracos(): String {
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.format(this)
-}
 
-fun Date.toHoraMinutoSegundo(): String {
-    val simpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.format(this)
-}
 
-fun Date.toHoraMinuto(): String {
-    val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-    return simpleDateFormat.format(this)
-}
+
 
 @set:BindingAdapter("isVisible")
 inline var View.isVisible: Boolean

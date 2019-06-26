@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.utils
+package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
 import android.content.Context
 import android.view.View

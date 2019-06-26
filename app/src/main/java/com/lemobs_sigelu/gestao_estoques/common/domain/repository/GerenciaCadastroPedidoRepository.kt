@@ -4,8 +4,6 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
-import com.lemobs_sigelu.gestao_estoques.db
-import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import java.util.*
 
 class GerenciaCadastroPedidoRepository {

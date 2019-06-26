@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.SITUACAO_APROVADO_ID
-import com.lemobs_sigelu.gestao_estoques.SITUACAO_EM_ANALISE_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.ItemPedidoCadastroDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
