@@ -1,20 +1,25 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import java.util.*
 import javax.inject.Inject
 
 /**
  * Created by felcks on Jun, 2019
  */
-class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepository){
+class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepository,
+                                                  val pedidoRepository: PedidoRepository){
 
     fun cadastraInformacoesIniciaisPedido(motorista: String,
                                           dataSaida: Date){
 
-        envioRepository.cadastraInformacoesIniciais(motorista, dataSaida)
+        val pedido = pedidoRepository.getPedidoNoBancoPeloID(FlowSharedPreferences.getPedidoId(App.instance))
+        envioRepository.cadastraInformacoesIniciais(motorista, dataSaida, pedido)
     }
 
     fun getItemEnvioSolicitado(): ItemEnvio?{

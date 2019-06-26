@@ -39,6 +39,9 @@ class Envio (
     var itens = mutableListOf<ItemEnvio>()
 
     @Ignore
+    var pedido: Pedido? = null
+
+    @Ignore
     constructor(id: Int,
                 pedidoID: Int,
                 situacao: String,

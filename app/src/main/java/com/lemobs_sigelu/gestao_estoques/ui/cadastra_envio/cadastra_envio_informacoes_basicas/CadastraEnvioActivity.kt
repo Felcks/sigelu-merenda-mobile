@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -40,9 +41,9 @@ class CadastraEnvioActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraEnvioViewModel::class.java)
 
-//        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraEnvioBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_envio)
-//        mainBinding.viewModel = viewModel!!
-//        mainBinding.executePendingBindings()
+        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraEnvioBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_envio)
+        mainBinding.viewModel = viewModel!!
+        mainBinding.executePendingBindings()
 
         //this.adicionarListenersHoraSaida()
         this.adicionarListenerEdtMotorista()

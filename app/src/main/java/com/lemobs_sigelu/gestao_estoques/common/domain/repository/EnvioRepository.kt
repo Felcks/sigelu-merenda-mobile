@@ -83,7 +83,8 @@ class EnvioRepository {
     }
 
     fun cadastraInformacoesIniciais(motorista: String,
-                                    dataSaida: Date){
+                                    dataSaida: Date,
+                                    pedido: Pedido?){
 
         envioParaCadastro = Envio(
             0,
@@ -94,5 +95,7 @@ class EnvioRepository {
             responsavel = AppSharedPreferences.getUserName(App.instance),
             motorista = motorista,
             dataSaida = dataSaida)
+
+        envioParaCadastro?.pedido = pedido
     }
 }

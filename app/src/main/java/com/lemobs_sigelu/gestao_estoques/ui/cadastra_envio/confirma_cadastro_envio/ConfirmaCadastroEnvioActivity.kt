@@ -34,7 +34,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         val envio = viewModel!!.getEnvio()
         if(envio != null){
-            tv_pedido.text = envio.pedidoID.toString()
+            tv_pedido.text = envio.pedido?.getCodigoFormatado()
             tv_motorista.text = envio.motorista
         }
 
