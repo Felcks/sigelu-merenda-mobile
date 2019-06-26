@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_destino
 
-import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
@@ -22,7 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraPedidoDestinoBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_destino.*

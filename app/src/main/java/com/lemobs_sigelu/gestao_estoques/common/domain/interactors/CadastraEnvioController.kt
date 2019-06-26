@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import java.util.*
@@ -20,6 +21,10 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
         return EnvioRepository.envioParaCadastro?.itens?.last()
     }
 
+    fun getItensEnvio(): List<ItemEnvio>?{
+        return EnvioRepository.envioParaCadastro?.itens
+    }
+
     fun confirmaCadastroMaterial(valor: Double): Double{
 
         if(valor <= 0.0){
@@ -32,5 +37,18 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
 
         EnvioRepository.envioParaCadastro?.itens?.last()?.quantidadeUnidade = valor
         return valor
+    }
+
+    fun cancelaEnvio(){
+        EnvioRepository.envioParaCadastro = null
+    }
+
+//    fun cadastraEnvio(): Observable<Unit>{
+//
+//
+//    }
+
+    fun getEnvio(): Envio? {
+        return EnvioRepository.envioParaCadastro
     }
 }
