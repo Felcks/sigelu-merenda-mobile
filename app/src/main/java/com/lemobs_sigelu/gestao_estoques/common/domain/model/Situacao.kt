@@ -1,15 +1,10 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import com.lemobs_sigelu.gestao_estoques.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 
 data class Situacao (
     var situacao_id: Int,
     var situacao_nome: String?) {
-
-    fun getEquivalentDTO(): SituacaoDTO {
-        return SituacaoDTO(situacao_id, situacao_nome)
-    }
 
     fun getColor(): Int{
         return when(situacao_id){

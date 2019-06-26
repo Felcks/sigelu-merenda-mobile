@@ -1,15 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.bd.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDeSituacaoDTO
-import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
-import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoDTO
 import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
-import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
-import java.util.*
 
 class EntregaMaterialDoPedidoRepository {
 

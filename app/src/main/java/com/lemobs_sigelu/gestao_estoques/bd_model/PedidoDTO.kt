@@ -1,12 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.bd_model
 
-import com.j256.ormlite.dao.ForeignCollection
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
-import com.lemobs_sigelu.gestao_estoques.bd.DatabaseHelper
-import com.lemobs_sigelu.gestao_estoques.bd.SituacaoDAO
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import java.util.*
 
 @DatabaseTable(tableName = "pedido")
