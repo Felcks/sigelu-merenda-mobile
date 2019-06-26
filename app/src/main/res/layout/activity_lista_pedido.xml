@@ -26,7 +26,8 @@
                 android:id="@+id/rv_lista"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isVisible="@{!viewModel.loading}"/>
+                app:isVisible="@{!viewModel.loading}"
+        />
 
         <com.github.clans.fab.FloatingActionMenu
                 app:layout_constraintBottom_toBottomOf="parent"
