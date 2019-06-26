@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
-import com.lemobs_sigelu.gestao_estoques.bd.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.db
 

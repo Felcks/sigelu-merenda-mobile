@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import android.content.Context
-import com.lemobs_sigelu.gestao_estoques.bd_model.SituacaoHistoricoDTO
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import io.reactivex.Observable
 
@@ -96,7 +95,7 @@ class EntregaMaterialDoPedidoRepository {
 //        }
 //    }
 
-    fun associaMateriaisASituacaoHistorico(materiais: List<ItemPedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
+//    fun associaMateriaisASituacaoHistorico(materiais: List<ItemPedido>, situacaoHistoricoDTO: SituacaoHistoricoDTO){
 
 //        val materialDeSituacaoDAO = MaterialDeSituacaoDAO(DatabaseHelper.connectionSource)
 //        val materiaisDeSituacaoDTO = materiais.map { MaterialDeSituacaoDTO(null, it.base.getEquivalentDTO(), it.recebido, situacaoHistoricoDTO) }
@@ -107,7 +106,7 @@ class EntregaMaterialDoPedidoRepository {
 //        situacaoHistoricoDTO.materiais = materiaisDeSituacaoDTO.toCollection(ArrayList())
 //        val situacaoHistoricoDAO = SituacaoHistoricoDAO(DatabaseHelper.connectionSource)
 //        situacaoHistoricoDAO.add(situacaoHistoricoDTO)
-    }
+//    }
 
     fun enviarEntregaDeMateriais(context: Context, list: List<ItemPedido>): Observable<Boolean> {
 

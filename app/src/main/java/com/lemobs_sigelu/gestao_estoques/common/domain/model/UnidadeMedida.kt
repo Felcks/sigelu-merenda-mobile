@@ -1,9 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.lemobs_sigelu.gestao_estoques.bd_model.UnidadeMedidaDTO
 
 class UnidadeMedida (
 
@@ -19,13 +17,5 @@ class UnidadeMedida (
 
     fun getNomeESiglaPorExtenso(): String{
         return "${this.nome} (${this.sigla})"
-    }
-
-    fun getEquivalentDTO(): UnidadeMedidaDTO {
-        return UnidadeMedidaDTO(id, nome, sigla)
-    }
-
-    fun getEquivalentDTOParaORM(): UnidadeMedidaDTO {
-        return UnidadeMedidaDTO(id, nome, sigla)
     }
 }

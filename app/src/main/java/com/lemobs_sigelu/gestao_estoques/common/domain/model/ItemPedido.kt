@@ -1,8 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.MaterialDePedidoDTO
-import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
 
 @Entity(
     tableName = "item_pedido",

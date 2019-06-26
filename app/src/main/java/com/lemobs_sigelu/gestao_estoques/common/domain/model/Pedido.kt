@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
-import com.lemobs_sigelu.gestao_estoques.bd_model.PedidoDTO
 import com.lemobs_sigelu.gestao_estoques.getDataFormatada
 import java.util.*
 
