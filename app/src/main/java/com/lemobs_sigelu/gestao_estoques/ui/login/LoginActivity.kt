@@ -47,19 +47,15 @@ class LoginActivity: AppCompatActivity(){
         }
     }
 
-    private fun renderLoadingState() {
-        viewModel!!.loading.set(true)
-    }
+    private fun renderLoadingState() {}
 
     private fun renderDataState(result: Any?) {
-        viewModel!!.loading.set(false)
         val intent = Intent(this, ListaPedidoActivity::class.java)
         startActivity(intent)
         finishAffinity()
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        viewModel!!.loading.set(false)
         Toast.makeText(applicationContext, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 

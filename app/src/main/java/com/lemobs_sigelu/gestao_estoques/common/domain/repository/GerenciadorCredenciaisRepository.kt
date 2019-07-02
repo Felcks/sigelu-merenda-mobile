@@ -15,10 +15,10 @@ class GerenciadorCredenciaisRepository {
 
         val context = App.instance
 
-        val tokenNoBarrier = loginResponse.token_usuario.substring(7)
-        AppSharedPreferences.setUserToken(context, tokenNoBarrier)
-        AppSharedPreferences.setUserName(context, loginResponse.nome)
-        RestApi.auth = tokenNoBarrier
+        val tokenNoBarrier = loginResponse.token_usuario?.substring(7)
+        AppSharedPreferences.setUserToken(context, tokenNoBarrier ?: "")
+        AppSharedPreferences.setUserName(context, loginResponse.nome ?: "")
+        RestApi.auth = tokenNoBarrier ?: ""
 
         if(loginResponse.permissoes != null){
             if(loginResponse.permissoes.isNotEmpty()){

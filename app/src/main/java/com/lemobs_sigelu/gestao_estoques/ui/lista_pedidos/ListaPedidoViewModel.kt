@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ListaPedidoViewModel(val listaPedidoController: ListaPedidoController): ViewModel(){
+class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     private var response = MutableLiveData<Response>()
