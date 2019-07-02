@@ -13,19 +13,23 @@ import android.view.Menu
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ISelecionaItemContrato
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ListaItemContratoSelecionavelSimplesAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
  * Created by felcks on Jun, 2019
  */
-class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
+class SelecionaItemEnvioActivity: AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: SelecionaItemEnvioViewModelFactory
@@ -53,8 +57,8 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
 
                 if(response.data is List<*>){
 
-                    if(response.data.first() is ItemContrato)
-                        iniciarAdapter(response.data as List<ItemContrato>)
+                    if(response.data.first() is ItemPedido)
+                        iniciarAdapter(response.data as List<ItemPedido>)
                 }
             }
             Status.ERROR -> renderErrorState(response.error)
@@ -64,16 +68,16 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
     private fun renderLoadingState() {
     }
 
-    private fun iniciarAdapter(list: List<ItemContrato>) {
+    private fun iniciarAdapter(list: List<ItemPedido>) {
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemContratoSelecionavelSimplesAdapter(
+        val adapter = ListaItemPedidoSelecionavelSimplesAdapter(
             applicationContext,
             list,
-            this
+            selecionaItemPedidoClickListener
         )
 
         rv_lista.adapter = adapter
@@ -83,19 +87,34 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
         Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun selecionaItem(itemID: Int?) {
+//    override fun selecionaItem(itemID: Int?) {
+//
+//        if(itemID != null) {
+//
+//            val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
+//            if (successSelecionaMaterial) {
+//
+//                //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, CadastraItemEnvioActivity::class.java)
+//                startActivity(intent)
+//
+//            }
+//            else {
+//                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 
-        if(itemID != null) {
+    private val selecionaItemPedidoClickListener = object: OneIntParameterClickListener{
 
-            val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
-            if (successSelecionaMaterial) {
+        override fun onClick(id: Int) {
 
-                //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, CadastraItemEnvioActivity::class.java)
+            try {
+                viewModel!!.selecionaItem(id)
+                val intent = Intent(applicationContext, CadastraItemEnvioActivity::class.java)
                 startActivity(intent)
-
             }
-            else {
+            catch (e: Exception){
                 Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
             }
         }

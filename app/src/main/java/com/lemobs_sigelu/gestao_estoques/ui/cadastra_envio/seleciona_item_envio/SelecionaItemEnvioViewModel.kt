@@ -6,6 +6,7 @@ import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaItemEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,6 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
-    var itensContrato = mutableListOf<ItemContrato>()
 
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
 
@@ -44,6 +44,7 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
                 { result ->
                     loading.set(false)
                     if(result.isNotEmpty()){
+                        controller.armazenaListaItemPedido(result)
                         response.value = Response.success(result)
                     }
                     else{
@@ -60,10 +61,9 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
     }
 
 
-    fun selecionaItem(itemID: Int): Boolean{
+    fun selecionaItem(itemID: Int){
 
-        //controller.adicionarItemEmEnvio(itensContrato.filter { it.id == itemID }.first())
-        return true
+        return controller.selecionaItemPedidoParaEnvio(itemID)
     }
 
 //    fun getMaterial(): ItemEnvio? {

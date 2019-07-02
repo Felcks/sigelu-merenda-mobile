@@ -20,6 +20,8 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
                                                   private val pedidoRepository: PedidoRepository,
                                                   private val itemPedidoRepository: ItemPedidoRepository){
 
+    private var listaItemPedido: List<ItemPedido>? = null
+
     fun cadastraInformacoesIniciaisPedido(motorista: String,
                                           dataSaida: Date){
 
@@ -71,5 +73,32 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         else{
             return Observable.create { subscriber -> subscriber.onNext(itemPedidoRepository.getListaItemPedidoBD(pedidoEstoqueID)) }
         }
+    }
+
+    fun selecionaItemPedidoParaEnvio(itemPedidoID: Int){
+
+        val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
+        if(itemPedido != null){
+            EnvioRepository.envioParaCadastro?.itens?.add(
+                with(itemPedido){
+                    ItemEnvio(
+                        id,
+                        0,
+                        quantidadeUnidade ?: 0.0,
+                        precoUnidade ?: 0.0,
+                        categoria,
+                        itemEstoqueID,
+                        itemEstoque
+                    )
+                }
+            )
+        }
+        else{
+            throw Exception("Erro!")
+        }
+    }
+
+    fun armazenaListaItemPedido(lista: List<ItemPedido>){
+        this.listaItemPedido = lista
     }
 }
