@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -22,10 +22,10 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_PARCIAL_ID
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragment.GeralFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment.ListaEnvioFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment.ListaMaterialFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*

@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

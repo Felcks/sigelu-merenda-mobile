@@ -43,7 +43,7 @@
                 android:label="Cadastrar Recebimento"/>
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoActivity"
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->

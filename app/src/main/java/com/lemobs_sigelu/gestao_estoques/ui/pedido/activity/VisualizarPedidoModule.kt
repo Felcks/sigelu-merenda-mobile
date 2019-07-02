@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*

@@ -1,7 +1,8 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,26 +10,33 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoMateriaisBinding
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoViewModel
-import kotlinx.android.synthetic.main.fragment_pedido_materiais.*
+import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoSituacoesBinding
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoViewModel
+import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_pedido_situacoes.*
 
-class ListaMaterialFragment : Fragment() {
+class ListaSituacaoFragment : Fragment() {
 
     var viewModel: VisualizarPedidoViewModel? = null
-    var binding: FragmentPedidoMateriaisBinding? = null
+    var binding: FragmentPedidoSituacoesBinding? = null
 
     companion object {
         var solicitouCarregamento = false
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_materiais, container, false)
+        this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pedido_situacoes, container, false)
         return binding!!.root
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,14 +44,14 @@ class ListaMaterialFragment : Fragment() {
 
         activity?.let {
             this.viewModel = ViewModelProviders.of(it).get(VisualizarPedidoViewModel::class.java)
-            this.viewModel!!.responseMateriais.observe(this, Observer<Response> { response -> processResponse(response) })
+            this.viewModel!!.responseSituacoes.observe(this, Observer<Response> { response -> processResponse(response) })
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
 
             if(!solicitouCarregamento) {
                 solicitouCarregamento = true
-                this.viewModel!!.carregarItensDePedido()
+                this.viewModel!!.carregarSituacoesDePedido()
             }
         }
 
@@ -59,34 +67,27 @@ class ListaMaterialFragment : Fragment() {
     }
 
     private fun renderLoadingState() {
-        viewModel!!.loadingMateriais.set(true)
+        viewModel!!.loadingSituacoes.set(true)
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        viewModel!!.errorMateriais.set(true)
-        viewModel!!.loadingMateriais.set(false)
+        viewModel!!.loadingSituacoes.set(false)
     }
 
     private fun renderDataState(result: Any?) {
-        viewModel!!.errorMateriais.set(false)
-        viewModel!!.loadingMateriais.set(false)
-
+        viewModel!!.loadingSituacoes.set(false)
         if(result is List<*>){
-            this.iniciarAdapter(result as List<ItemPedido>)
+            this.iniciarAdapter(result as List<SituacaoPedido>)
         }
     }
 
-    private fun iniciarAdapter(list: List<ItemPedido>){
+    private fun iniciarAdapter(list: List<SituacaoPedido>){
 
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaMaterialAdapter(context!!, list)
+        val adapter = ListaSituacaoAdapter(App.instance, list)
         rv_lista.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

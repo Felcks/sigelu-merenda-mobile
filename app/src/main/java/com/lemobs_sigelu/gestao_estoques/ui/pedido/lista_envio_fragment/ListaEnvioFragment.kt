@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -15,7 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoEnviosBinding
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoViewModel
 import kotlinx.android.synthetic.main.fragment_pedido_envios.*
 
 /**

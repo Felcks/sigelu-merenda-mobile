@@ -1,9 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoModule
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragment.GeralFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment.ListaMaterialFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

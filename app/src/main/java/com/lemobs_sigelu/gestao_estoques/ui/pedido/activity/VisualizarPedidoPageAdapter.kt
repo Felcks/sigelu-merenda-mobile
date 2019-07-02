@@ -1,12 +1,12 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragment.GeralFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment.ListaEnvioFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_material_fragment.ListaMaterialFragment
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
 
 class VisualizarPedidoPageAdapter constructor(fm: FragmentManager, visualizarPedidoViewModel: VisualizarPedidoViewModel?) : FragmentStatePagerAdapter(fm) {
 

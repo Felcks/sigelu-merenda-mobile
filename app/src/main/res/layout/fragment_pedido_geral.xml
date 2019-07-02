@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoViewModel"/>
     </data>
 
 <android.support.constraint.ConstraintLayout

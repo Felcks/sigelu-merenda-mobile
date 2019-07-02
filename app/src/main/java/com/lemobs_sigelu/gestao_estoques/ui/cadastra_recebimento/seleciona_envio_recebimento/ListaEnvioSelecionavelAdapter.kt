@@ -15,7 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDiaMesAno
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toHoraMinutoSegundo
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.lista_envio_fragment.ListaItemEnvioAdapter
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaItemEnvioAdapter
 import kotlinx.android.synthetic.main.item_envio_selecionavel.view.*
 
 /**

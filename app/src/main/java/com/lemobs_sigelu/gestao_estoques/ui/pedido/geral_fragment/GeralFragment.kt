@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.geral_fragment
+package com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -16,7 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoGeralBinding
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import kotlinx.android.synthetic.main.fragment_pedido_geral.*
 
