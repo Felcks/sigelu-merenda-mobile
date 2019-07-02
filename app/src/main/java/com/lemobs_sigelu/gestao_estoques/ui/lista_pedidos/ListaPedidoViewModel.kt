@@ -34,46 +34,32 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
     fun carregaListaPedido(){
 
         this.loading.set(true)
-        if(isConnected(App.instance)) {
 
-            disposables.add(listaPedidoController.carregaListaPedido()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { response.setValue(Response.loading()) }
-                .subscribe(
-                    { result ->
+        disposables.add(listaPedidoController.carregaListaPedido()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    if(result.isNotEmpty()) {
                         listaPedidoController.salvaListaPedido(result)
                         response.setValue(Response.success(result.sortedBy { it.situacao?.getPrioridadeOrdenacao() }))
-                    },
-                    { throwable ->
-                        val lista = listaPedidoController.carregaListaPedidoBD()
-                        if (lista.isNotEmpty()) {
-                            response.value = Response.success(lista.sortedBy { it.situacao?.getPrioridadeOrdenacao() })
-                        } else {
-                            response.setValue(Response.error(throwable))
-                        }
-                    },
-                    {
-                        this.loading.set(false)
                     }
-                )
+                    else{
+                        response.setValue(Response.error(ListaVaziaException()))
+                    }
+                },
+                { throwable ->
+                    loading.set(false)
+                    response.value = Response.error(throwable)
+                }
             )
-        }
-        else{
-
-            val lista = listaPedidoController.carregaListaPedidoBD()
-            if (lista.isNotEmpty()) {
-                response.value = Response.success(lista.sortedBy { it.situacao?.getPrioridadeOrdenacao() })
-            }
-            else {
-                response.setValue(Response.error(ListaVaziaException()))
-            }
-            this.loading.set(false)
-        }
+        )
     }
 
-    fun armazenaPedidoNoFluxo(context: Context, id: Int){
-        listaPedidoController.armazenaPedidoNoFluxo(context, id)
+    fun armazenaPedidoNoFluxo(id: Int){
+        listaPedidoController.armazenaPedidoNoFluxo(id)
     }
 
 }

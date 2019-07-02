@@ -65,7 +65,7 @@ class PedidoRepository {
                     )
                 }
 
-                this.salvaPedidoNoBanco(pedido)
+                this.salvaPedidoBD(pedido)
                 subscribe.onNext(pedido)
                 subscribe.onComplete()
             }
@@ -77,10 +77,14 @@ class PedidoRepository {
         }
     }
 
-    private fun salvaPedidoNoBanco(pedido: Pedido) {
+    private fun salvaPedidoBD(pedido: Pedido) {
 
         val dao  = db.pedidoDAO()
         dao.insertAll(pedido)
+    }
+
+    fun salvaListaPedidoBD(lista: List<Pedido>){
+        db.pedidoDAO().insertAll(*lista.toTypedArray())
     }
 
     fun getPedidos(): Observable<List<Pedido>> {

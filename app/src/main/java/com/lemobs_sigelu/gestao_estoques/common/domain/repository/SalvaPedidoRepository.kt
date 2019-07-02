@@ -12,7 +12,5 @@ class SalvaPedidoRepository {
         db.pedidoDAO().insertAll(pedido)
     }
 
-    fun salvaLista(lista: List<Pedido>){
-        db.pedidoDAO().insertAll(*lista.toTypedArray())
-    }
+
 }

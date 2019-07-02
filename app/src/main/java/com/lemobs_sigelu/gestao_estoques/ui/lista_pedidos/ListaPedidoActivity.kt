@@ -99,7 +99,7 @@ class ListaPedidoActivity: AppCompatActivity() {
     private val visualizarPedidoClickListener = object : OneIntParameterClickListener {
         override fun onClick(id: Int) {
 
-            viewModel!!.armazenaPedidoNoFluxo(applicationContext, id)
+            viewModel!!.armazenaPedidoNoFluxo(id)
             val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             startActivity(intent)
         }
@@ -109,7 +109,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         override fun onClick(id: Int) {
 
             val pedido = adapter?.getPedidoById(id)
-            viewModel!!.armazenaPedidoNoFluxo(applicationContext, id)
+            viewModel!!.armazenaPedidoNoFluxo(id)
 
             val intent = when(pedido?.getTipoPedido()){
                 TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> Intent(applicationContext, CadastraEnvioActivity::class.java)
