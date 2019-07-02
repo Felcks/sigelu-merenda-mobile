@@ -4,8 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.ItemEnvioDataRequest
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -18,6 +17,9 @@ import java.util.*
 class EnvioRepository {
 
     val api = RestApi()
+    companion object {
+        var envioParaCadastro: Envio? = null
+    }
 
     fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {
 
@@ -81,13 +83,8 @@ class EnvioRepository {
     }
 
 
-    companion object {
-        var envioParaCadastro: Envio? = null
-    }
 
-    fun cadastraInformacoesIniciais(motorista: String,
-                                    dataSaida: Date,
-                                    pedido: Pedido?){
+    fun cadastraInformacoesIniciais(motorista: String, dataSaida: Date, pedido: Pedido?){
 
         envioParaCadastro = Envio(
             0,
@@ -133,5 +130,11 @@ class EnvioRepository {
                 subscriber.onError(Throwable(response.errorBody().toString()))
             }
         }
+    }
+
+    fun salvaEnvio(envio: Envio){
+
+        val dao = db.envioDAO()
+        dao.insertAll(envio)
     }
 }

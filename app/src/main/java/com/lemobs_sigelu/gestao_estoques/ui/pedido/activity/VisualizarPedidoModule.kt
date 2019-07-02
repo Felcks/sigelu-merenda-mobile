@@ -9,6 +9,11 @@ import dagger.Provides
 class VisualizarPedidoModule {
 
     @Provides
+    fun provideListaPedidoViewModelFactory(controller: VisualizaPedidoController): VisualizarPedidoViewModelFactory {
+        return VisualizarPedidoViewModelFactory(controller)
+    }
+
+    @Provides
     fun providePedidoRepository(): PedidoRepository {
         return PedidoRepository()
     }
@@ -19,42 +24,17 @@ class VisualizarPedidoModule {
     }
 
     @Provides
-    fun provideCarregaListaEnvioRepository(): EnvioRepository {
+    fun provideEnvioRepository(): EnvioRepository {
         return EnvioRepository()
     }
 
     @Provides
-    fun provideCarregaListaItensEnvioRepository(): CarregaListaItensDeEnvioRepository {
-        return CarregaListaItensDeEnvioRepository()
+    fun provideItemEnvioRepository(): ItemEnvioRepository {
+        return ItemEnvioRepository()
     }
 
     @Provides
-    fun provideSalvaEnvioRepository(): SalvaEnvioRepository{
-        return SalvaEnvioRepository()
-    }
-
-    @Provides
-    fun provideSalvaPedidoRepository(): SalvaPedidoRepository{
-        return SalvaPedidoRepository()
-    }
-
-    @Provides
-    fun provideSalvaItemPedidoRepository(): SalvaItemPedidoRepository{
-        return SalvaItemPedidoRepository()
-    }
-
-    @Provides
-    fun provideSalvaItemEnvioRepository(): SalvaItemEnvioRepository{
-        return SalvaItemEnvioRepository()
-    }
-
-    @Provides
-    fun provideGerenciaRecebimentoRepository(): GerenciaRecebimentoRepository{
-        return GerenciaRecebimentoRepository()
-    }
-
-    @Provides
-    fun provideListaPedidoViewModelFactory(controller: VisualizaPedidoController): VisualizarPedidoViewModelFactory {
-        return VisualizarPedidoViewModelFactory(controller)
+    fun provideItemRecebimentoRepository(): ItemRecebimentoRepository{
+        return ItemRecebimentoRepository()
     }
 }

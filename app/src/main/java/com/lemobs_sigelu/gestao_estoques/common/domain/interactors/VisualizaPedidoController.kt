@@ -11,12 +11,8 @@ import javax.inject.Inject
 class VisualizaPedidoController @Inject constructor(private val pedidoRepository: PedidoRepository,
                                                     private val itemPedidoRepository: ItemPedidoRepository,
                                                     private val envioRepository: EnvioRepository,
-                                                    private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
-                                                    private val salvaEnvioRepository: SalvaEnvioRepository,
-                                                    private val salvaPedidoRepository: SalvaPedidoRepository,
-                                                    private val salvaItemPedidoRepository: SalvaItemPedidoRepository,
-                                                    private val salvaItemEnvioRepository: SalvaItemEnvioRepository,
-                                                    private val gerenciaRecebimentoRepository: GerenciaRecebimentoRepository) {
+                                                    private val itemEnvioRepository: ItemEnvioRepository,
+                                                    private val itemRecebimentoRepository: ItemRecebimentoRepository) {
 
     fun getPedido(): Observable<Pedido> {
 
@@ -55,26 +51,26 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
     }
 
     fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
-        return carregaListaItensDeEnvioRepository.getItensEnvio(envio)
+        return itemEnvioRepository.getListaItemEnvio(envio)
     }
 
     fun salvaListaItemEnvio(lista: List<ItemEnvio>){
-        salvaItemEnvioRepository.salvaListaItemEnvio(lista)
+        itemEnvioRepository.salvaListaItemEnvio(lista)
     }
 
     fun salvaEnvio(item: Envio) {
-        salvaEnvioRepository.salvaItem(item)
+        envioRepository.salvaEnvio(item)
     }
 
     fun salvaPedido(item: Pedido) {
-        salvaPedidoRepository.salvaItem(item)
+        pedidoRepository.salvaPedido(item)
     }
 
     fun salvaListaItemPedido(lista: List<ItemPedido>){
-        salvaItemPedidoRepository.salvaListaItemPedido(lista)
+        itemPedidoRepository.salvaListaItemPedido(lista)
     }
 
     fun apagaListaItemRecebimentoAnteriores(){
-        gerenciaRecebimentoRepository.apagarListaItemRecebimentoAnteriores()
+        itemRecebimentoRepository.apagaTodosItemRecebimento()
     }
 }

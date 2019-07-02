@@ -168,5 +168,7 @@ class PedidoRepository {
         }
     }
 
-
+    fun salvaPedido(pedido: Pedido){
+        db.pedidoDAO().insertAll(pedido)
+    }
 }

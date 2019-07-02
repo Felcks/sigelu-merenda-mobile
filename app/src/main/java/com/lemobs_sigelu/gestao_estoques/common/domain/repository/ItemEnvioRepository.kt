@@ -2,18 +2,21 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 
 /**
- * Created by felcks on Jun, 2019
+ * Created by felcks on Jul, 2019
  */
-class CarregaListaItensDeEnvioRepository {
+class ItemEnvioRepository {
 
     val api = RestApi()
 
-    fun getItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
+    fun getListaItemEnvio(envio: Envio): Observable<List<ItemEnvio>> {
 
         return Observable.create { subscriber->
 
@@ -26,17 +29,21 @@ class CarregaListaItensDeEnvioRepository {
                 val itens = response.body()!!.map{
 
                     val unidadeMedida = with(it.item_estoque.unidade_medida){
-                        UnidadeMedida(this.id,
+                        com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida(
+                            this.id,
                             this.nome ?: "",
-                            this.sigla ?: "")
+                            this.sigla ?: ""
+                        )
                     }
 
                     val itemEstoque = with(it.item_estoque){
-                        ItemEstoque(this.id,
+                        com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque(
+                            this.id,
                             this.codigo ?: "",
                             this.descricao ?: "",
                             this.nome_alternativo ?: "",
-                            unidadeMedida)
+                            unidadeMedida
+                        )
                     }
 
                     val categoria = Categoria(it.categoria.id,
@@ -59,4 +66,23 @@ class CarregaListaItensDeEnvioRepository {
             }
         }
     }
+
+    fun salvaListaItemEnvio(lista: List<ItemEnvio>){
+
+        val itemEstoqueDAO = db.itemEstoqueDAO()
+        for(item in lista){
+            if(item.itemEstoque != null)
+                itemEstoqueDAO.insertAll(item.itemEstoque!!)
+        }
+
+        val dao = db.itemEnvioDAO()
+        dao.insertAll(*lista.toTypedArray())
+    }
+
+    fun salvaItemEnvio(itemEnvio: ItemEnvio){
+
+        val dao = db.itemEnvioDAO()
+        dao.insertAll(itemEnvio)
+    }
+
 }
