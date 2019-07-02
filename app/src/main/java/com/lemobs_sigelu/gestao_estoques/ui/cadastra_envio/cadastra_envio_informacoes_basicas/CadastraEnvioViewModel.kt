@@ -8,6 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDiaMesAno
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toHoraMinuto
 import io.reactivex.disposables.CompositeDisposable
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -32,6 +33,12 @@ class CadastraEnvioViewModel (private val controller: CadastraEnvioController): 
     }
 
     fun cadastraInformacoesIniciais(){
-        controller.cadastraInformacoesIniciaisPedido(nomeMotorista.get() ?: "", Date())
+
+        val nomeMotorista = nomeMotorista.get() ?: ""
+        if(nomeMotorista.isBlank()){
+            throw Exception("Preencha o nome do motorista.")
+        }
+
+        controller.cadastraInformacoesIniciaisPedido(nomeMotorista, Date())
     }
 }

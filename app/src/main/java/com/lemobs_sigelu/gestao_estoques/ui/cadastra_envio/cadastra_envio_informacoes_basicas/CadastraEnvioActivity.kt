@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
@@ -22,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.
 import com.lemobs_sigelu.gestao_estoques.utils.Mask
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_envio.*
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -67,7 +69,6 @@ class CadastraEnvioActivity: AppCompatActivity() {
             false
         })
     }
-
 
     private fun adicionarListenersHoraSaida(){
 
@@ -182,22 +183,26 @@ class CadastraEnvioActivity: AppCompatActivity() {
         alertDialogBuilder.create().show()
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if (item?.itemId == R.id.btn_done) {
-            viewModel!!.cadastraInformacoesIniciais()
-            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
-            startActivity(intent)
+            try {
+                viewModel!!.cadastraInformacoesIniciais()
+                val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
+                startActivity(intent)
+            }
+            catch (e: Exception){
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
         menuInflater.inflate(R.menu.menu_done, menu)
         return true
     }

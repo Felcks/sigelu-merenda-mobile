@@ -83,7 +83,7 @@ data class Pedido(
 
         //TODO Não consigo saber ainda se é o meu núcleo ou outro núcleo para encaixar outro_nucleo_para_meu_nucleo
 
-        if(this.origem == "Núcleo" && this.destino == "Fornecedor"){
+        if(this.origem == "Núcleo" && this.destino == "Núcleo"){
             return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
         }
 

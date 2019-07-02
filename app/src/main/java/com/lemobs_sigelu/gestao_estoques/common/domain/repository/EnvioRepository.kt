@@ -82,8 +82,6 @@ class EnvioRepository {
         }
     }
 
-
-
     fun cadastraInformacoesIniciais(motorista: String, dataSaida: Date, pedido: Pedido?){
 
         envioParaCadastro = Envio(
