@@ -78,4 +78,23 @@ data class Pedido(
         "Obra" -> "OS - $destinoNome"
         else -> ""
     }
+
+    fun getTipoPedido(): TipoPedido{
+
+        //TODO Não consigo saber ainda se é o meu núcleo ou outro núcleo para encaixar outro_nucleo_para_meu_nucleo
+
+        if(this.origem == "Núcleo" && this.destino == "Fornecedor"){
+            return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
+        }
+
+        if(this.origem == "Núcleo" && this.destino == "Obra"){
+            return TipoPedido.MEU_NUCLEO_PARA_OBRA
+        }
+
+        if(this.origem == "Fornecedor"){
+            return TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
+        }
+
+        return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
+    }
 }

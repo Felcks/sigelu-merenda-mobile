@@ -1,5 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.utils.HourRangeFormat
 
@@ -53,4 +55,24 @@ private fun String.getData(): IntArray {
     date[2] = Integer.parseInt(this.substring(6, 10))
 
     return date
+}
+
+fun isConnected(context: Context): Boolean{
+    val conmag = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    if (conmag != null ) {
+        conmag.activeNetworkInfo;
+
+        //Verifica internet pela WIFI
+        if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) {
+            return true
+        }
+
+        //Verifica se tem internet móvel
+        if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) {
+            return true
+        }
+    }
+
+    return false
 }

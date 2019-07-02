@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
-import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -14,12 +13,15 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_destino.CadastraPedidoDestinoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_envio_recebimento.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.visualiza_pedido.VisualizarPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
@@ -47,6 +49,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         this.iniciarAdapter(listOf())
 
+        /* Float button Cadastra pedido */
         menu_item_cadastrar_pedido.setOnClickListener {
             val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
             startActivity(intent)
@@ -61,19 +64,15 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderLoadingState() {
-        viewModel!!.loading.set(true)
-    }
+    private fun renderLoadingState() {}
 
     private fun renderDataState(result: Any?) {
-        viewModel!!.loading.set(false)
         if(result is List<*>){
             this.iniciarAdapter(result as List<Pedido>)
         }
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        viewModel!!.loading.set(false)
         Toast.makeText(applicationContext, throwable?.message, Toast.LENGTH_SHORT).show()
     }
 
@@ -87,7 +86,7 @@ class ListaPedidoActivity: AppCompatActivity() {
             this.adapter = ListaPedidoAdapter(
                 applicationContext,
                 list,
-                this,
+                envioOuRecebimentoClickListener,
                 visualizarPedidoClickListener
             )
             rv_lista.adapter = adapter
@@ -97,28 +96,29 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-
-
-    fun entregaPedido(pedidoID: Int){
-
-//        val pedidoDAO = PedidoDAO(DatabaseHelper.connectionSource)
-//        val pedidoDTO = pedidoDAO.queryForId(pedidoID)
-//
-//        if(pedidoDTO != null){
-//            viewModel!!.armazenaPedidoNoFluxo(applicationContext,pedidoID)
-//            val intent = Intent(applicationContext, EntregaMateriaisPedidoActivity::class.java)
-//            startActivity(intent)
-//        }
-//        else{
-//            Toast.makeText(applicationContext, "Ocorreu um erro desconhecido", Toast.LENGTH_SHORT).show()
-//        }
-    }
-
-    private val visualizarPedidoClickListener = object : ListClickListener {
+    private val visualizarPedidoClickListener = object : OneIntParameterClickListener {
         override fun onClick(id: Int) {
 
             viewModel!!.armazenaPedidoNoFluxo(applicationContext, id)
             val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private val envioOuRecebimentoClickListener = object : OneIntParameterClickListener {
+        override fun onClick(id: Int) {
+
+            val pedido = adapter?.getPedidoById(id)
+            viewModel!!.armazenaPedidoNoFluxo(applicationContext, id)
+
+            val intent = when(pedido?.getTipoPedido()){
+                TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> Intent(applicationContext, CadastraEnvioActivity::class.java)
+                TipoPedido.MEU_NUCLEO_PARA_OBRA -> Intent(applicationContext, CadastraEnvioActivity::class.java)
+                TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> Intent(applicationContext, SelecionaEnvioRecebimentoActivity::class.java)
+                TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> Intent(applicationContext, SelecionaEnvioRecebimentoActivity::class.java)
+                else -> Intent(applicationContext, SelecionaItemEnvioActivity::class.java)
+            }
+
             startActivity(intent)
         }
     }
@@ -140,10 +140,5 @@ class ListaPedidoActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel!!.carregaListaPedido()
     }
 }

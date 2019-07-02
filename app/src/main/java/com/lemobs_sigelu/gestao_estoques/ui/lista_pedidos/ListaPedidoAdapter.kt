@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(val context: Context,
                          var list: List<Pedido>,
-                         val entregaClickListener: ListaPedidoActivity,
-                         val visualizarPedidoClickListener: ListClickListener
+                         private val envioOuRecebimentoClickListener: OneIntParameterClickListener,
+                         private val visualizarPedidoClickListener: OneIntParameterClickListener
 ): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -46,7 +46,7 @@ class ListaPedidoAdapter(val context: Context,
 
             holder.itemView.iv_entrega.visibility = View.VISIBLE
             holder.itemView.iv_entrega.setOnClickListener {
-                entregaClickListener.entregaPedido(item.id)
+                envioOuRecebimentoClickListener.onClick(item.id)
             }
         }
         else{
@@ -59,6 +59,10 @@ class ListaPedidoAdapter(val context: Context,
     fun updateAllItens(list: List<Pedido>){
         this.list = list
         notifyDataSetChanged()
+    }
+
+    fun getPedidoById(id: Int): Pedido?{
+        return this.list.first { it.id == id }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
