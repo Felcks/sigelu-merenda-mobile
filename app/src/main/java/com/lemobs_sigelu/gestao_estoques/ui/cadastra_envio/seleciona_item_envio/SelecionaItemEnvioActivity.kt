@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -61,11 +62,9 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
     }
 
     private fun renderLoadingState() {
-        viewModel!!.loading.set(true)
     }
 
     private fun iniciarAdapter(list: List<ItemContrato>) {
-        viewModel!!.loading.set(false)
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -81,7 +80,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity(), ISelecionaItemContrato {
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        viewModel!!.loading.set(false)
+        Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
     }
 
     override fun selecionaItem(itemID: Int?) {

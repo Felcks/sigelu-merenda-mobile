@@ -15,13 +15,10 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedid
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
@@ -77,12 +74,12 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindCadastroEnvioActivity(): CadastraEnvioActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(SelecionaItemEnvioModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindSelecionaItemEnvioActivity(): SelecionaItemEnvioActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(CadastraItemEnvioModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindCadastraItemEnvioActivity(): CadastraItemEnvioActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(ConfirmaCadastroEnvioModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
 }

@@ -3,8 +3,11 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
@@ -13,8 +16,9 @@ import javax.inject.Inject
 /**
  * Created by felcks on Jun, 2019
  */
-class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepository,
-                                                  val pedidoRepository: PedidoRepository){
+class CadastraEnvioController @Inject constructor(private val envioRepository: EnvioRepository,
+                                                  private val pedidoRepository: PedidoRepository,
+                                                  private val itemPedidoRepository: ItemPedidoRepository){
 
     fun cadastraInformacoesIniciaisPedido(motorista: String,
                                           dataSaida: Date){
@@ -55,5 +59,17 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
 
     fun cadastraEnvio(): Observable<Unit> {
         return envioRepository.postEnvio(EnvioRepository.envioParaCadastro!!)
+    }
+
+    fun carregaListaItemPedido(): Observable<List<ItemPedido>>{
+
+        val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+
+        if(isConnected(App.instance)) {
+            return itemPedidoRepository.getListaItemPedido(pedidoEstoqueID)
+        }
+        else{
+            return Observable.create { subscriber -> subscriber.onNext(itemPedidoRepository.getListaItemPedidoBD(pedidoEstoqueID)) }
+        }
     }
 }

@@ -3,9 +3,11 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaItemEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by felcks on Jun, 2019
  */
-class SelecionaItemEnvioViewModel (private val controller: SelecionaItemEnvioController): ViewModel() {
+class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -32,35 +34,35 @@ class SelecionaItemEnvioViewModel (private val controller: SelecionaItemEnvioCon
 
     fun carregaListaItens(){
 
-        //val pedido = controller.getPedido()
-        //if(pedido?.origemTipo == "Fornecedor"){
-        carregaListaItensContrato(1)
-        //}
-    }
+        loading.set(true)
 
-    private fun carregaListaItensContrato(contratoID: Int){
-
-        disposables.add(controller.carregaListaItemContrato(contratoID)
+        disposables.add(controller.carregaListaItemPedido()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
                     loading.set(false)
-                    itensContrato.clear()
-                    itensContrato.addAll(result as List<ItemContrato>)
-                    response.value = Response.success(result)
+                    if(result.isNotEmpty()){
+                        response.value = Response.success(result)
+                    }
+                    else{
+                        response.value = Response.error(ListaVaziaException())
+                    }
                 },
                 { throwable ->
+                    loading.set(false)
                     response.value = Response.error(throwable)
                 }
             )
         )
+
     }
+
 
     fun selecionaItem(itemID: Int): Boolean{
 
-        controller.adicionarItemEmEnvio(itensContrato.filter { it.id == itemID }.first())
+        //controller.adicionarItemEmEnvio(itensContrato.filter { it.id == itemID }.first())
         return true
     }
 
