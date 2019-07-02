@@ -11,8 +11,10 @@ class PedidoListagemDataResponse(val id: Int,
                                  val data_aprovacao: String?,
                                  val situacao: SituacaoDataResponse,
                                  val origem_nucleo_id: Int?,
+                                 val origem_nucleo: OrigemNucleoDataResponse,
                                  val origem_fornecedor_id: Int?,
+                                 val origem_fornecedor: OrigemFornecedorDataResponse?,
                                  val destino_nucleo_id: Int?,
+                                 val destino_nucleo: DestinoNucleoDataResponse?,
                                  val destino_obra_direta_id: Int?,
-                                 val destino_obra_direta: DestinoObraDiretaDataResponse?,
-                                 val destino_nucleo: DestinoNucleoDataResponse?)
+                                 val destino_obra_direta: DestinoObraDiretaDataResponse?)

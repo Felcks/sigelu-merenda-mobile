@@ -36,8 +36,8 @@ class PedidoRepository {
                     data class Tupla(val id: Int?, val nome: String?)
 
                     val (origemID, origemNome) = when(tipo_origem){
-                        "Fornecedor" -> Tupla(origem_fornecedor_id, "X")
-                        "Núcleo" -> Tupla(origem_nucleo_id, "Y")
+                        "Fornecedor" -> Tupla(origem_fornecedor_id, origem_fornecedor?.nome)
+                        "Núcleo" -> Tupla(origem_nucleo_id, origem_nucleo?.nome)
                         else -> Tupla(null, null)
                     }
 
@@ -47,7 +47,7 @@ class PedidoRepository {
                         else -> Tupla(null, null)
                     }
 
-                    com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido(
+                    Pedido(
                         this.id,
                         this.codigo ?: "",
                         this.tipo_origem ?: "",
@@ -58,7 +58,7 @@ class PedidoRepository {
                         destinoNome,
                         this.data_aprovacao?.createdAtToDate(),
                         null,
-                        com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao(
+                        Situacao(
                             this.situacao.id,
                             this.situacao.nome
                         )
@@ -102,8 +102,8 @@ class PedidoRepository {
                     data class Tupla(val id: Int?, val nome: String?)
 
                     val (origemID, origemNome) = when(it.tipo_origem){
-                        "Fornecedor" -> Tupla(it.origem_fornecedor_id, "X")
-                        "Núcleo" -> Tupla(it.origem_nucleo_id, "Y")
+                        "Fornecedor" -> Tupla(it.origem_fornecedor_id, it.origem_fornecedor?.nome)
+                        "Núcleo" -> Tupla(it.origem_nucleo_id, it.origem_nucleo.nome)
                         else -> Tupla(null, null)
                     }
 
