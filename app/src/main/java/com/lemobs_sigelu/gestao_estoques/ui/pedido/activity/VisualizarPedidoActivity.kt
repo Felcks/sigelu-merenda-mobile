@@ -42,7 +42,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizar_pedido)
-        RxJavaPlugins.setErrorHandler { throwable -> Log.i("script2", throwable.message)}
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })

@@ -20,7 +20,7 @@ class CadastraEnvioController @Inject constructor(val envioRepository: EnvioRepo
                                           dataSaida: Date
     ){
 
-        val pedido = pedidoRepository.getPedidoNoBancoPeloID(FlowSharedPreferences.getPedidoId(App.instance))
+        val pedido = pedidoRepository.getPedidoBD(FlowSharedPreferences.getPedidoId(App.instance))
         envioRepository.cadastraInformacoesIniciais(motorista, dataSaida, pedido)
     }
 

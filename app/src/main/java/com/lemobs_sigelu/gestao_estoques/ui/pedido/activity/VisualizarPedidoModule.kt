@@ -9,18 +9,13 @@ import dagger.Provides
 class VisualizarPedidoModule {
 
     @Provides
-    fun provideRepository(): PedidoRepository {
+    fun providePedidoRepository(): PedidoRepository {
         return PedidoRepository()
     }
 
     @Provides
-    fun provideCarregaListaMaterialRepository(): CarregaListaItemDoPedidoRepository {
-        return CarregaListaItemDoPedidoRepository()
-    }
-
-    @Provides
-    fun provideCarregaListaSituacaoRepository(): CarregaListaSituacaoDoPedidoRepository {
-        return CarregaListaSituacaoDoPedidoRepository()
+    fun provideItemPedidoRepository(): ItemPedidoRepository {
+        return ItemPedidoRepository()
     }
 
     @Provides

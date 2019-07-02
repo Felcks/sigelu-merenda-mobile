@@ -44,8 +44,6 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
         disposables.clear()
     }
 
-    fun quantidadeRequisicoes() = disposables.size()
-
     fun response(): MutableLiveData<Response> {
         return response
     }

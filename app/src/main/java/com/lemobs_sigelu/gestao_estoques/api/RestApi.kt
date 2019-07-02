@@ -54,8 +54,8 @@ class RestApi {
         return api.getPermissoes(authorization)
     }
 
-    fun getPedidos(): Call<List<PedidoListagemDataResponse>>{
-        return api.getPedidos(auth)
+    fun getListaPedido(): Call<List<PedidoListagemDataResponse>>{
+        return api.getListaPedido(auth)
     }
 
     fun getPedido(pedidoEstoqueID: Int): Call<PedidoDataResponse>{

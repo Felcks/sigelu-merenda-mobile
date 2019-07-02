@@ -3,13 +3,13 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class VisualizaPedidoController @Inject constructor(private val pedidoRepository: PedidoRepository,
-                                                    private val carregaListaItemPedidoRepository: CarregaListaItemDoPedidoRepository,
-                                                    private val carregaListaSituacaoRespository: CarregaListaSituacaoDoPedidoRepository,
+                                                    private val itemPedidoRepository: ItemPedidoRepository,
                                                     private val envioRepository: EnvioRepository,
                                                     private val carregaListaItensDeEnvioRepository: CarregaListaItensDeEnvioRepository,
                                                     private val salvaEnvioRepository: SalvaEnvioRepository,
@@ -19,25 +19,35 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
                                                     private val gerenciaRecebimentoRepository: GerenciaRecebimentoRepository) {
 
     fun getPedido(): Observable<Pedido> {
-        return pedidoRepository.getPedido()
+
+        val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+
+        if(isConnected(App.instance)){
+            return pedidoRepository.getPedido(pedidoEstoqueID)
+        }
+        else{
+            return Observable.create {
+                pedidoRepository.getPedidoBD(pedidoEstoqueID)
+            }
+        }
     }
 
     fun getPedidoBD(): Pedido? {
 
         val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
-        return pedidoRepository.getPedidoNoBancoPeloID(pedidoID)
+        return pedidoRepository.getPedidoBD(pedidoID)
     }
 
     fun getSituacoesDoPedido(): Observable<List<SituacaoPedido>> {
-        return carregaListaSituacaoRespository.getSituacoesDePedido()
+        return pedidoRepository.getSituacoesDePedido()
     }
 
     fun getListaItemPedido(pedidoID: Int): Observable<List<ItemPedido>> {
-        return carregaListaItemPedidoRepository.getListaItemPedido(pedidoID)
+        return itemPedidoRepository.getListaItemPedido(pedidoID)
     }
 
     fun getListaItemPedidoBD(pedidoID: Int): List<ItemPedido>{
-        return carregaListaItemPedidoRepository.getListaItemPedidoBD(pedidoID)
+        return itemPedidoRepository.getListaItemPedidoBD(pedidoID)
     }
 
     fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {

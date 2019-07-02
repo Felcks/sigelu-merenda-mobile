@@ -27,7 +27,7 @@ interface IRestApi {
     fun getPermissoes(@Header("Authorization") auth: String): Call<List<String>>
 
     @GET("pedido-estoque")
-    fun getPedidos(@Header("Authorization") auth: String): Call<List<PedidoListagemDataResponse>>
+    fun getListaPedido(@Header("Authorization") auth: String): Call<List<PedidoListagemDataResponse>>
 
     @GET("pedido-estoque/{pedido_estoque_id}")
     fun getPedido(@Header("Authorization") auth: String,

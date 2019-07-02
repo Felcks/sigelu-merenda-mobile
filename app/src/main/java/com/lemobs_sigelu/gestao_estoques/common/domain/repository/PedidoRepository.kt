@@ -4,6 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.createdAtToDate
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -13,7 +14,7 @@ class PedidoRepository {
 
     val api = RestApi()
 
-    fun getPedidoNoBancoPeloID(pedidoID: Int): Pedido?{
+    fun getPedidoBD(pedidoID: Int): Pedido?{
 
         val dao = db.pedidoDAO()
         val pedido = dao.getById(pedidoID)
@@ -21,11 +22,10 @@ class PedidoRepository {
         return pedido
     }
 
-    fun getPedido(): Observable<Pedido> {
+    fun getPedido(pedidoEstoqueID: Int): Observable<Pedido> {
 
         return Observable.create { subscribe ->
 
-            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
             val callResponse = api.getPedido(pedidoEstoqueID)
             val response = callResponse.execute()
 
@@ -87,11 +87,11 @@ class PedidoRepository {
         db.pedidoDAO().insertAll(*lista.toTypedArray())
     }
 
-    fun getPedidos(): Observable<List<Pedido>> {
+    fun getListaPedido(): Observable<List<Pedido>> {
 
         return Observable.create { subscriber ->
 
-            val callResponse = api.getPedidos()
+            val callResponse = api.getListaPedido()
             val response = callResponse.execute()
 
             if(response.isSuccessful){
@@ -136,9 +136,36 @@ class PedidoRepository {
         }
     }
 
-    fun getPedidosBD(): List<Pedido> {
+    fun getListaPedidoBD(): List<Pedido> {
 
         return db.pedidoDAO().getAll()
+    }
+
+    fun getSituacoesDePedido(): Observable<List<SituacaoPedido>> {
+
+        return Observable.create { subscribe ->
+
+            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+            val callResponse = api.getSituacoesDePedido(pedidoEstoqueID)
+            val response = callResponse.execute()
+
+            if(response.isSuccessful && response.body() != null){
+
+                val situacoes = response.body()!!.map {
+                    SituacaoPedido(0,
+                        Situacao(it.situacao_id, it.situacao.nome),
+                        it.data.createdAtToDate(),
+                        it.justificativa_situacao ?: "")
+                }
+
+                subscribe.onNext(situacoes)
+                subscribe.onComplete()
+            }
+            else{
+
+                subscribe.onError(Throwable(""))
+            }
+        }
     }
 
 
