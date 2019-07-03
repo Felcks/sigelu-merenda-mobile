@@ -4,9 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaItemEnvioController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -57,31 +54,9 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
                 }
             )
         )
-
     }
-
 
     fun selecionaItem(itemID: Int){
-
         return controller.selecionaItemPedidoParaEnvio(itemID)
     }
-
-//    fun getMaterial(): ItemEnvio? {
-//        return controller.carregaMaterialSolicitado()
-//    }
-//
-//    fun cadastraQuantidadeMaterial(valor: Double): Boolean {
-//        return controller.cadastraQuantidadeDeMaterial(valor)
-//    }
-//
-//    fun confirmaCadastroMaterial(): Double {
-//
-//        if(quantidadeRecebida.get()?.isNotEmpty() ?: "".isNotEmpty()) {
-//            val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
-//            return controller.confirmaCadastroMaterial(valor ?: 0.0)
-//        }
-//        else{
-//            return -2.0
-//        }
-//    }
 }

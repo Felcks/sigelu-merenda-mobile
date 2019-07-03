@@ -6,6 +6,7 @@ import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -33,15 +34,18 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
 
     fun confirmaCadastroMaterial(): Double {
 
-        if(quantidadeRecebida.get()?.isNotEmpty() ?: "".isNotEmpty()) {
-            val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
-            return controller.confirmaCadastroMaterial(valor ?: 0.0)
+        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
+        if(quantidadeRecebida.isNotEmpty()) {
+            val valor = quantidadeRecebida.replace(',', '.').toDouble()
+            return controller.confirmaCadastroMaterial(valor)
         }
         else{
-            return -2.0
+            throw CampoNaoPreenchidoException()
         }
     }
 
-
+    fun removeUltimoItemSelecionado(){
+        return controller.removeUltimoItemSelecionado()
+    }
 
 }

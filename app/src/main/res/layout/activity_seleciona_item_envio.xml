@@ -9,29 +9,31 @@
                 type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ll_all"
+            android:orientation="vertical"
             android:background="@android:color/white">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_lista"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        <include layout="@layout/progressbar_carregamento"
+                 android:id="@+id/ll_loading"
+                 app:isVisible="@{viewModel.loading}"
+                 android:visibility="visible"/>
 
         <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Todos os materiais já foram cadastrados."
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:textSize="16sp"
                 android:layout_marginTop="@dimen/espacamento_maximo"
                 android:visibility="gone"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_lista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
 </layout>

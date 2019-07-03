@@ -87,24 +87,6 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
     }
 
-//    override fun selecionaItem(itemID: Int?) {
-//
-//        if(itemID != null) {
-//
-//            val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
-//            if (successSelecionaMaterial) {
-//
-//                //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, CadastraItemEnvioActivity::class.java)
-//                startActivity(intent)
-//
-//            }
-//            else {
-//                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-
     private val selecionaItemPedidoClickListener = object: OneIntParameterClickListener{
 
         override fun onClick(id: Int) {

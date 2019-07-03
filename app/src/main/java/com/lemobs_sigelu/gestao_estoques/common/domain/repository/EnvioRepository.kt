@@ -17,9 +17,6 @@ import java.util.*
 class EnvioRepository {
 
     val api = RestApi()
-    companion object {
-        var envioParaCadastro: Envio? = null
-    }
 
     fun getListaEnvio(pedidoID: Int): Observable<List<Envio>> {
 
@@ -84,17 +81,7 @@ class EnvioRepository {
 
     fun cadastraInformacoesIniciais(motorista: String, dataSaida: Date, pedido: Pedido?){
 
-        envioParaCadastro = Envio(
-            0,
-            FlowSharedPreferences.getPedidoId(App.instance),
-            null,
-            null,
-            isEntregue = false,
-            responsavel = AppSharedPreferences.getUserName(App.instance),
-            motorista = motorista,
-            dataSaida = dataSaida)
 
-        envioParaCadastro?.pedido = pedido
     }
 
     fun postEnvio(envio: Envio): Observable<Unit>{

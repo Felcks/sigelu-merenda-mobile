@@ -7,7 +7,10 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
@@ -20,47 +23,60 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
                                                   private val pedidoRepository: PedidoRepository,
                                                   private val itemPedidoRepository: ItemPedidoRepository){
 
+    /* Lista que carrega ao carregar os itens que estão no pedido */
     private var listaItemPedido: List<ItemPedido>? = null
 
-    fun cadastraInformacoesIniciaisPedido(motorista: String,
-                                          dataSaida: Date){
+    companion object {
+        var envioParaCadastro: Envio? = null
+    }
+
+    fun cadastraInformacoesIniciaisPedido(motorista: String, dataSaida: Date){
 
         val pedido = pedidoRepository.getPedidoBD(FlowSharedPreferences.getPedidoId(App.instance))
-        envioRepository.cadastraInformacoesIniciais(motorista, dataSaida, pedido)
+
+        envioParaCadastro = Envio(
+            0,
+            FlowSharedPreferences.getPedidoId(App.instance),
+            null,
+            null,
+            isEntregue = false,
+            responsavel = AppSharedPreferences.getUserName(App.instance),
+            motorista = motorista,
+            dataSaida = dataSaida)
+        envioParaCadastro?.pedido = pedido
     }
 
     fun getItemEnvioSolicitado(): ItemEnvio?{
-        return EnvioRepository.envioParaCadastro?.itens?.last()
+        return envioParaCadastro?.itens?.last()
     }
 
     fun getItensEnvio(): List<ItemEnvio>?{
-        return EnvioRepository.envioParaCadastro?.itens
+        return envioParaCadastro?.itens
     }
 
     fun confirmaCadastroMaterial(valor: Double): Double{
 
         if(valor <= 0.0){
-            return -2.0
+            throw ValorMenorQueZeroException()
+        }
+        if(valor > envioParaCadastro?.itens?.last()?.quantidadeUnidade ?: 999999999.0){
+            throw ValorMaiorQuePermitidoException()
         }
 
-        if(valor > EnvioRepository.envioParaCadastro?.itens?.last()?.quantidadeUnidade ?: 999999999.0){
-            return -1.0
-        }
-
-        EnvioRepository.envioParaCadastro?.itens?.last()?.quantidadeRecebida = valor
+        envioParaCadastro?.itens?.last()?.quantidadeRecebida = valor
         return valor
     }
 
     fun cancelaEnvio(){
-        EnvioRepository.envioParaCadastro = null
+        envioParaCadastro = null
     }
 
     fun getEnvio(): Envio? {
-        return EnvioRepository.envioParaCadastro
+        return envioParaCadastro
     }
 
     fun cadastraEnvio(): Observable<Unit> {
-        return envioRepository.postEnvio(EnvioRepository.envioParaCadastro!!)
+        return envioRepository.postEnvio(envioParaCadastro!!)
     }
 
     fun carregaListaItemPedido(): Observable<List<ItemPedido>>{
@@ -79,7 +95,7 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
 
         val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
         if(itemPedido != null){
-            EnvioRepository.envioParaCadastro?.itens?.add(
+            envioParaCadastro?.itens?.add(
                 with(itemPedido){
                     ItemEnvio(
                         id,
@@ -96,6 +112,11 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         else{
             throw Exception("Erro!")
         }
+    }
+
+    fun removeUltimoItemSelecionado(){
+
+        envioParaCadastro?.itens?.removeAt(envioParaCadastro?.itens?.lastIndex ?: 0)
     }
 
     fun armazenaListaItemPedido(lista: List<ItemPedido>){
