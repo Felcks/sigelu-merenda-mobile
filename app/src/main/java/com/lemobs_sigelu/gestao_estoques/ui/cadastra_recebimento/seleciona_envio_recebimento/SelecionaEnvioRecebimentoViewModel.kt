@@ -3,7 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_envi
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.SelecionaEnvioRecebimentoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
  * Created by felcks on Jun, 2019
  */
 
-class SelecionaEnvioRecebimentoViewModel (val controller: SelecionaEnvioRecebimentoController): ViewModel(){
+class SelecionaEnvioRecebimentoViewModel (val controller: CadastraRecebimentoController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
