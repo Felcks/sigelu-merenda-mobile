@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
@@ -17,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ISelecionaItemContrato
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ListaItemContratoSelecionavelSimplesAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioActivity
@@ -84,7 +87,14 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
+
+        if(throwable is ListaVaziaException){
+            (ll_erro as TextView).text = "Todos os materiais foram cadastrados."
+            ll_erro.visibility = View.VISIBLE
+        }
+        else{
+            Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private val selecionaItemPedidoClickListener = object: OneIntParameterClickListener{

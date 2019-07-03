@@ -40,8 +40,11 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
             .subscribe(
                 { result ->
                     loading.set(false)
-                    if(result.isNotEmpty()){
-                        controller.armazenaListaItemPedido(result)
+                    controller.armazenaListaItemPedido(result)
+                    val listaFiltradaComItensNaoCadastrados = controller.filtrarParaItensNaoCadastrados(result)
+
+                    if(listaFiltradaComItensNaoCadastrados.isNotEmpty()){
+                        controller.armazenaListaItemPedido(listaFiltradaComItensNaoCadastrados)
                         response.value = Response.success(result)
                     }
                     else{

@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 /**
  * Created by felcks on Jun, 2019
@@ -89,6 +90,23 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         else{
             return Observable.create { subscriber -> subscriber.onNext(itemPedidoRepository.getListaItemPedidoBD(pedidoEstoqueID)) }
         }
+    }
+
+    fun filtrarParaItensNaoCadastrados(list: List<ItemPedido>): List<ItemPedido>{
+
+        if(envioParaCadastro == null)
+            return list
+
+        val listaFiltrada = mutableListOf<ItemPedido>()
+        val listaDeIdsDeItensJaAdicionados = envioParaCadastro!!.itens.map { it.id }
+
+        for(item in list){
+            if(!listaDeIdsDeItensJaAdicionados.contains(item.id)){
+                listaFiltrada.add(item)
+            }
+        }
+
+        return listaFiltrada
     }
 
     fun selecionaItemPedidoParaEnvio(itemPedidoID: Int){

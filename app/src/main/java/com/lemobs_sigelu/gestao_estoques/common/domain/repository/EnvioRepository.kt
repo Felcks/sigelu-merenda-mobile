@@ -79,11 +79,6 @@ class EnvioRepository {
         }
     }
 
-    fun cadastraInformacoesIniciais(motorista: String, dataSaida: Date, pedido: Pedido?){
-
-
-    }
-
     fun postEnvio(envio: Envio): Observable<Unit>{
 
         return Observable.create { subscriber ->
@@ -110,9 +105,7 @@ class EnvioRepository {
                 subscriber.onComplete()
             }
             else{
-
-                val erroRecorrente = response.errorBody()?.string() ?: ""
-                subscriber.onError(Throwable(response.errorBody().toString()))
+                subscriber.onError(Throwable(response.errorBody()?.string()))
             }
         }
     }

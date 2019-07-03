@@ -47,7 +47,6 @@ class ConfirmaCadastroEnvioViewModel(val controller: CadastraEnvioController): V
     }
 
     fun getEnvio(): Envio?{
-
         return controller.getEnvio()
     }
 }
