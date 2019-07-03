@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -15,10 +16,14 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.exceptions.ItemNaoSelecionavelException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -77,25 +82,17 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
         if(item?.itemId == R.id.btn_done){
 
-            if(this.listaEnvio.isNotEmpty()) {
+            try{
+                viewModel!!.selecionaEnvio(this.listaEnvioAdapter?.posicaoSelecionada)
 
-                if(this.listaEnvioAdapter?.posicaoSelecionada == -1) {
-                    Toast.makeText(applicationContext, "Selecione um envio.", Toast.LENGTH_SHORT).show()
-                    return true
-                }
-
-                val envio = this.listaEnvio[this.listaEnvioAdapter?.posicaoSelecionada ?: 0]
-                if(envio.isEntregue){
-                    Toast.makeText(applicationContext, "Esse envio já foi entregue.", Toast.LENGTH_SHORT).show()
-                    return true
-                }
-
-                FlowSharedPreferences.setEnvioId(App.instance, envio.envioID)
                 val intent = Intent(App.instance, SelecionaItemEnvioRecebimentoActivity::class.java)
                 startActivity(intent)
             }
-            else{
-                Toast.makeText(applicationContext, "Nenhum envio registrado.", Toast.LENGTH_SHORT).show()
+            catch (e: NenhumItemSelecionadoException){
+                Snackbar.make(ll_all, "Selecione um envio", Snackbar.LENGTH_SHORT).show()
+            }
+            catch(e: ItemNaoSelecionavelException){
+                Snackbar.make(ll_all, "Esse envio já foi entregue.", Snackbar.LENGTH_SHORT).show()
             }
         }
 

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,20 +36,17 @@ class SelecionaEnvioRecebimentoViewModel (val controller: CadastraRecebimentoCon
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
-                { result -> response.setValue(Response.success(result)) },
+                { result ->
+                    controller.armazenaListaEnvio(result)
+                    response.setValue(Response.success(result))
+                },
                 { throwable -> response.setValue(Response.error(throwable)) }
             )
         )
     }
 
-    fun selecionaEnvio(envioID: Int){
+    fun selecionaEnvio(envioID: Int?){
 
-        val envioSelecionadoID = controller.selecionaEnvio(envioID)
-        if(envioSelecionadoID == -1){
-            responseSelecionaEnvio.value = Response.error(Throwable("Envio já entregue"))
-        }
-        else{
-            responseSelecionaEnvio.value = Response.success("")
-        }
+        return controller.selecionaEnvio(envioID)
     }
 }
