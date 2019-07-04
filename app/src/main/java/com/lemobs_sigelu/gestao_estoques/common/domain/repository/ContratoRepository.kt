@@ -9,7 +9,7 @@ import java.util.*
 /**
  * Created by felcks on Jun, 2019
  */
-class CarregaListaContratoRepository{
+class ContratoRepository{
 
     val api = RestApi()
 

@@ -15,23 +15,23 @@ class CadastraPedidoDestinoModule {
     }
 
     @Provides
-    fun carregaListaNucleoRepository(): CarregaListaNucleoRepository {
-        return CarregaListaNucleoRepository()
+    fun carregaListaNucleoRepository(): NucleoRepository {
+        return NucleoRepository()
     }
 
     @Provides
-    fun carregaListaEmpresaRepository(): CarregaListaEmpresaRepository {
-        return CarregaListaEmpresaRepository()
+    fun carregaListaEmpresaRepository(): EmpresaRepository {
+        return EmpresaRepository()
     }
 
     @Provides
-    fun carregaListaObraRepository(): CarregaListaObraRepository {
-        return CarregaListaObraRepository()
+    fun carregaListaObraRepository(): ObraRepository {
+        return ObraRepository()
     }
 
     @Provides
-    fun carregaListaContratoRepository(): CarregaListaContratoRepository {
-        return CarregaListaContratoRepository()
+    fun carregaListaContratoRepository(): ContratoRepository {
+        return ContratoRepository()
     }
 
     @Provides

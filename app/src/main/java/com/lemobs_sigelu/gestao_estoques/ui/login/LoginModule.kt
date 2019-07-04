@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.login
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaPermissoesSistemasRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PermissaoSistemaRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciadorCredenciaisRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.LoginRepository
 import dagger.Module
@@ -20,8 +20,8 @@ class LoginModule {
     }
 
     @Provides
-    fun provideCarregaPermissoesSistema(): CarregaPermissoesSistemasRepository {
-        return CarregaPermissoesSistemasRepository()
+    fun provideCarregaPermissoesSistema(): PermissaoSistemaRepository {
+        return PermissaoSistemaRepository()
     }
 
     @Provides

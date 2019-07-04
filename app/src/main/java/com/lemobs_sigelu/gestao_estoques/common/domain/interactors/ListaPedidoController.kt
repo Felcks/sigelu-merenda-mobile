@@ -8,7 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ListaPedidoController @Inject constructor(val pedidoRepository: PedidoRepository) {
+class ListaPedidoController @Inject constructor(private val pedidoRepository: PedidoRepository) {
 
     fun carregaListaPedido(): Observable<List<Pedido>> {
 

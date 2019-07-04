@@ -7,7 +7,7 @@ import io.reactivex.Observable
 /**
  * Created by felcks on Jun, 2019
  */
-class CarregaListaNucleoRepository {
+class NucleoRepository {
 
     val api = RestApi()
 

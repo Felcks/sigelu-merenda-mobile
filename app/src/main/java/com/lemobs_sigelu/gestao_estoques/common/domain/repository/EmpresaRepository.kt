@@ -8,7 +8,7 @@ import io.reactivex.Observable
 /**
  * Created by felcks on Jun, 2019
  */
-class CarregaListaEmpresaRepository {
+class EmpresaRepository {
 
     val restApi = RestApi()
 

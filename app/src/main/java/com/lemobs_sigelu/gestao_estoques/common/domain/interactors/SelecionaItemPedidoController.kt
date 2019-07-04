@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.CarregaListaItemContratoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciaCadastroPedidoRepository
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -12,10 +12,10 @@ import javax.inject.Inject
  */
 class SelecionaItemPedidoController @Inject constructor(
     val gerenciaCadastroPedidoRepository: GerenciaCadastroPedidoRepository,
-    val carregaListaItemContratoRepository: CarregaListaItemContratoRepository){
+    val itemContratoRepository: ItemContratoRepository){
 
     fun carregaListaItemContrato(contratoID: Int): Observable<List<ItemContrato>>{
-        return carregaListaItemContratoRepository.carregaListaItemContrato(contratoID)
+        return itemContratoRepository.carregaListaItemContrato(contratoID)
     }
 
     fun getPedido(): PedidoCadastro?{

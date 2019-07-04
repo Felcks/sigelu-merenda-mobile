@@ -7,7 +7,7 @@ import io.reactivex.Observable
 /**
  * Created by felcks on May, 2019
  */
-class CarregaPermissoesSistemasRepository {
+class PermissaoSistemaRepository {
 
     val api = RestApi()
 

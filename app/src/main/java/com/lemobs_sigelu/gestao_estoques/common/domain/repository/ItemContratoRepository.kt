@@ -7,7 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import io.reactivex.Observable
 
-class CarregaListaItemContratoRepository {
+class ItemContratoRepository {
 
     val api = RestApi()
 
