@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
@@ -7,7 +7,7 @@ import dagger.Provides
 
 
 @Module
-class CadastraPedidoDestinoModule {
+class CadastraPedidoViewModel {
 
     @Provides
     fun fluxoCadastraPedidoDestinoRepository(): GerenciaCadastroPedidoRepository {
@@ -35,7 +35,9 @@ class CadastraPedidoDestinoModule {
     }
 
     @Provides
-    fun provideListaPedidoViewModelFactory(cadastraPedidoDestinoController: CadastraPedidoDestinoController): CadastraPedidoDestinoViewModelFactory {
-        return CadastraPedidoDestinoViewModelFactory(cadastraPedidoDestinoController)
+    fun provideListaPedidoViewModelFactory(cadastraPedidoDestinoController: CadastraPedidoDestinoController): CadastraPedidoViewModelFactory {
+        return CadastraPedidoViewModelFactory(
+            cadastraPedidoDestinoController
+        )
     }
 }

@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraPedidoDestinoBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: CadastraPedidoDestinoViewModelFactory
+    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: CadastraPedidoDestinoViewModel? = null
 
     private var colorAccent: Int = 0
@@ -58,7 +59,6 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
     }
-
 
     /* Process Response Nucleo */
     fun processResponse(response: Response?) {
@@ -91,26 +91,14 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     private fun renderLoading() {
         viewModel!!.loading.set(true)
     }
+
     private fun renderError(throwable: Throwable?) {}
 
     private fun renderDataNucleo(result: Any?) {
 
         if(result is List<*>){
-            viewModel!!.listaOrigem.addAll((result as List<Nucleo>).map {
-                Local(
-                    it.id,
-                    "Núcleo",
-                    it.nome
-                )
-            })
-
-            viewModel!!.listaDestino.addAll((result as List<Nucleo>).map {
-                Local(
-                    it.id,
-                    "Núcleo",
-                    it.nome
-                )
-            })
+            viewModel!!.listaOrigem.addAll((result as List<Nucleo>).map { Local(it.id, "Núcleo", it.nome) })
+            viewModel!!.listaDestino.addAll((result).map { Local(it.id,"Núcleo",it.nome) })
         }
 
         viewModel!!.carregaListaEmpresa()
@@ -120,13 +108,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     private fun renderDataEmpresa(result: Any?) {
 
         if(result is List<*>){
-            viewModel!!.listaOrigem.addAll((result as List<Empresa>).map {
-                Local(
-                    it.id,
-                    "Fornecedor",
-                    it.nome
-                )
-            })
+            viewModel!!.listaOrigem.addAll((result as List<Empresa>).map { Local(it.id,"Fornecedor", it.nome) })
         }
         iniciarSpinnerOrigem()
     }
@@ -134,13 +116,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     private fun renderDataObra(result: Any?) {
 
         if(result is List<*>){
-            viewModel!!.listaDestino.addAll((result as List<Obra>).map {
-                Local(
-                    it.id,
-                    "Obra",
-                    it.codigo
-                )
-            })
+            viewModel!!.listaDestino.addAll((result as List<Obra>).map { Local(it.id,"Obra",it.codigo) })
         }
         iniciarSpinnerDestino()
     }
@@ -174,7 +150,6 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         spinner_origem.onItemSelectedListener = viewModel!!.selecionadorOrigem
     }
 
-
     fun iniciarSpinnerDestino(){
 
         val textoDestino = viewModel!!.listaDestino.map { CustomAdapterTuple.RowItem(it.tipo, it.nome) }
@@ -193,7 +168,6 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         spinner_contrato.onItemSelectedListener = viewModel!!.selecionadorContrato
     }
 
-
     fun processResponseFluxo(response: Response?){
         when(response?.status) {
             Status.SUCCESS -> renderResponseFluxo(response.data)
@@ -201,6 +175,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
             else -> {}
         }
     }
+
     fun renderResponseFluxo(result: Any?){
 
         if(result is Boolean) {

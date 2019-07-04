@@ -5,7 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_ca
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
@@ -56,7 +56,7 @@ abstract class ActivitiesModule {
 
 
     /* Cadastra Pedido */
-    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoDestinoModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoViewModel::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(SelecionaItemPedidoModule::class))

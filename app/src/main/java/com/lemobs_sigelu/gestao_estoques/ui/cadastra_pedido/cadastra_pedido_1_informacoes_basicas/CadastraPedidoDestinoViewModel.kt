@@ -46,15 +46,18 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
 
     fun carregaListaEmpresa(){
 
+        loading.set(true)
         disposables.add(controller.carregaListaEmpresa()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseEmpresas.setValue(Response.loading()) }
             .subscribe(
                 { result ->
+                    loading.set(false)
                     responseEmpresas.value = Response.success(result)
                 },
                 { throwable ->
+                    loading.set(false)
                     responseEmpresas.value = Response.error(throwable)
                 }
             )
