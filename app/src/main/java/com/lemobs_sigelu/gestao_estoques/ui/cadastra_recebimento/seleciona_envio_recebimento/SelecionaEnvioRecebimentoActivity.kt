@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.ItemNaoSelecionavelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
@@ -32,7 +33,7 @@ import javax.inject.Inject
 class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: SelecionaEnvioRecebimentoViewModelFactory
+    lateinit var viewModelFactory: CadastraRecebimentoViewModelFactory
     var viewModel: SelecionaEnvioRecebimentoViewModel? = null
 
     private var listaEnvioAdapter: ListaEnvioSelecionavelAdapter? = null

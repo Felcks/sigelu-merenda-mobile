@@ -2,7 +2,6 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_envio_recebimento.SelecionaEnvioRecebimentoViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -14,8 +13,8 @@ import dagger.Provides
 class CadastraRecibimentoModule {
 
     @Provides
-    fun provideListaPedidoViewModelFactory(controller: CadastraRecebimentoController): SelecionaEnvioRecebimentoViewModelFactory {
-        return SelecionaEnvioRecebimentoViewModelFactory(controller)
+    fun provideListaPedidoViewModelFactory(controller: CadastraRecebimentoController): CadastraRecebimentoViewModelFactory {
+        return CadastraRecebimentoViewModelFactory(controller)
     }
 
     @Provides
