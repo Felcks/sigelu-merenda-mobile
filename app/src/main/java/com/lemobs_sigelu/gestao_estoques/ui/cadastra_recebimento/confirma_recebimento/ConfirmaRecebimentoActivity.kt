@@ -15,6 +15,8 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecibimentoModule
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.seleciona_itemenvio_recebimento.SelecionaItemEnvioRecebimentoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -25,7 +27,7 @@ import javax.inject.Inject
 class ConfirmaRecebimentoActivity: AppCompatActivity(){
 
     @Inject
-    lateinit var viewModelFactory: ConfirmaRecebimentoViewModelFactory
+    lateinit var viewModelFactory: CadastraRecebimentoViewModelFactory
     var viewModel: ConfirmaRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,14 +166,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId == R.id.btn_done){
-
             viewModel!!.enviaRecebimento()
-
-
-//            Toast.makeText(applicationContext, "Pedido realizado!!", Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this, ListaPedidoActivity::class.java)
-//            startActivity(intent)
-//            this.finishAffinity()
         }
 
         return super.onOptionsItemSelected(item)

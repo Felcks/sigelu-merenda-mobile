@@ -1,6 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
@@ -22,6 +25,7 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
                                                         private val itemRecebimentoRepository: ItemRecebimentoRepository) {
 
     private var listaEnvio = listOf<Envio>()
+    private val api = RestApi()
 
     fun getListaEnvioDePedido(pedidoID: Int): Observable<List<Envio>> {
 
@@ -148,5 +152,79 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         /* Inserindo ItemRecebimento */
         val itemRecebimentoDAO = db.itemRecebimentoDAO()
         itemRecebimentoDAO.insertAll(itemRecebimento)
+    }
+
+    fun getListaItemRecebimento(): Observable<List<ItemRecebimento>> {
+
+        return Observable.create { subscriber ->
+            subscriber.onNext(itemRecebimentoRepository.getListaItemRecebimento())
+        }
+    }
+
+    fun enviaRecebimento(): Observable<Boolean> {
+
+        return Observable.create { subscriber ->
+
+            val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+            val envioID = FlowSharedPreferences.getEnvioId(App.instance)
+
+            val pedidoDAO = db.pedidoDAO()
+            val pedido = pedidoDAO.getById(pedidoID)
+
+            if (pedido == null) {
+                subscriber.onError(Throwable("Pedido não existe, cadastre o recebimento de novo."))
+            }
+
+            val origemID = pedido?.origemID
+            val destinoID = pedido?.destinoID
+
+            if (origemID == null) {
+                subscriber.onError(Throwable("Pedido sem origem"))
+            }
+            if (destinoID == null) {
+                subscriber.onError(Throwable("Pedido sem destino"))
+            }
+
+
+            val itemRecebimentoDAO = db.itemRecebimentoDAO()
+            val itemEnvioDAO = db.itemEnvioDAO()
+            val itemEstoqueDAO = db.itemEstoqueDAO()
+
+            val listaItemRecebimento = itemRecebimentoDAO.getAll()
+
+            for (itemRecebimento in listaItemRecebimento) {
+                val itemEnvio = itemEnvioDAO.getById(itemRecebimento.itemEnvioID ?: 0)
+                if (itemEnvio != null) {
+                    itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
+                }
+
+                itemRecebimento.itemEnvio = itemEnvio
+            }
+
+            val recebimentoDataRequest = RecebimentoDataRequest(
+                envioID,
+                origemID!!,
+                destinoID!!,
+                listaItemRecebimento?.map {
+                    ItemRecebimentoDataRequest(
+                        it.itemEnvio?.categoria?.categoria_id ?: 0,
+                        it.itemEnvio?.itemEstoqueID ?: 0,
+                        it.itemEnvio?.precoUnidade ?: 0.0,
+                        it.quantidadeRecebida ?: 0.0
+                    )
+                }
+            )
+
+
+            val callResponse = api.postRecebimentoEstoque(recebimentoDataRequest)
+            val response = callResponse.execute()
+
+            if (response.isSuccessful) {
+                subscriber.onNext(true)
+                subscriber.onComplete()
+            } else {
+                subscriber.onError(Throwable(response.message()))
+            }
+        }
     }
 }

@@ -10,10 +10,10 @@ import dagger.Provides
 @Module
 class ConfirmaRecebimentoModule {
 
-    @Provides
-    fun provideViewModelFactory(controller: ConfirmaMateriaisRecebimentoController): ConfirmaRecebimentoViewModelFactory{
-        return ConfirmaRecebimentoViewModelFactory(controller)
-    }
+//    @Provides
+//    fun provideViewModelFactory(controller: ConfirmaMateriaisRecebimentoController): ConfirmaRecebimentoViewModelFactory{
+//        return ConfirmaRecebimentoViewModelFactory(controller)
+//    }
 
     @Provides
     fun provideCarregaMateriaisRepository(): CarregaListaItemRecebimentoRepository{
