@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pedido.ListaItemEnvioAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
@@ -26,7 +27,7 @@ import javax.inject.Inject
 class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ConfirmaCadastroEnvioViewModelFactory
+    lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: ConfirmaCadastroEnvioViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

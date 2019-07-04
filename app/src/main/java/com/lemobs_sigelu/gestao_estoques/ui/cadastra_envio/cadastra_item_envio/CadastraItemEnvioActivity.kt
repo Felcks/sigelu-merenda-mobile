@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.confirma_cadastro_envio.ConfirmaCadastroEnvioViewModel
 import dagger.android.AndroidInjection
@@ -34,7 +35,7 @@ import javax.inject.Inject
 class CadastraItemEnvioActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: CadastraItemEnvioViewModelFactory
+    lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: CadastraItemEnvioViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -14,14 +14,11 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ISelecionaItemContrato
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.ListaItemContratoSelecionavelSimplesAdapter
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
@@ -35,7 +32,7 @@ import javax.inject.Inject
 class SelecionaItemEnvioActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: SelecionaItemEnvioViewModelFactory
+    lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: SelecionaItemEnvioViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
