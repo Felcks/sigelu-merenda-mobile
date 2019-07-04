@@ -10,8 +10,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pe
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.confirma_cadastro_pedido.ConfirmaCadastroPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.seleciona_item_pedido.SelecionaItemPedidoModule
-import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.entrega_materiais_pedido.EntregaMateriaisPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_item_envio.CadastraItemEnvioActivity
@@ -34,9 +32,6 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(ListaPedidoModule::class))
     abstract fun bindPedidoActivity(): ListaPedidoActivity
-
-    @ContributesAndroidInjector(modules = arrayOf(EntregaMateriaisPedidoModule::class))
-    abstract fun bindMateriaisPedidoActivity(): EntregaMateriaisPedidoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(VisualizarPedidoModule::class))
     abstract fun bindVisualizarPedidoActivity(): VisualizarPedidoActivity

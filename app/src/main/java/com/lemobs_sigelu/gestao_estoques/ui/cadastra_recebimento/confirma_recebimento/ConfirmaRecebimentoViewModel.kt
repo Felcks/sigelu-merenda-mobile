@@ -3,7 +3,6 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.confirma_receb
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaMateriaisRecebimentoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
