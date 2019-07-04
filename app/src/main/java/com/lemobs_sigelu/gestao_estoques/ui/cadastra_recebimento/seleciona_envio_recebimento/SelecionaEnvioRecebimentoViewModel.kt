@@ -46,7 +46,10 @@ class SelecionaEnvioRecebimentoViewModel (val controller: CadastraRecebimentoCon
     }
 
     fun selecionaEnvio(envioID: Int?){
-
         return controller.selecionaEnvio(envioID)
+    }
+
+    fun apagarTodaListaRecebimentoAnterior(){
+        controller.apagaTodaListaItemRecebimentoAnterior()
     }
 }

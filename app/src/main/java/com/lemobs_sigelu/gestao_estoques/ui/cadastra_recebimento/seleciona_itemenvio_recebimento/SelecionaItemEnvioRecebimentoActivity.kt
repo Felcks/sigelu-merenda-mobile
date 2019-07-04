@@ -28,9 +28,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickLi
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.ll_all
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.rv_lista
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -97,7 +94,7 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), OneIntParamete
 
     private fun renderErrorState(throwable: Throwable?) {
 
-        if(throwable is ListaVaziaException){
+        if(throwable is ListaVaziaException || throwable is NenhumItemDisponivelException){
             (ll_erro as TextView).text = "Todos os materiais foram cadastrados."
             ll_erro.visibility = View.VISIBLE
         }

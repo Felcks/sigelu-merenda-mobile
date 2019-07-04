@@ -47,6 +47,7 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaEnvioRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaEnvios()
+        viewModel!!.apagarTodaListaRecebimentoAnterior()
     }
 
     private fun processResponse(response: Response?) {

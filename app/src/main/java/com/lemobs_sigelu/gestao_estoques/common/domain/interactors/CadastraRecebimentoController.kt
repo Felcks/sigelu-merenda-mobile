@@ -38,6 +38,10 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         this.listaEnvio = list
     }
 
+    fun apagaTodaListaItemRecebimentoAnterior(){
+        itemRecebimentoRepository.apagaTodosItemRecebimento()
+    }
+
     fun selecionaEnvio(envioID: Int?){
 
         if(envioID == null){

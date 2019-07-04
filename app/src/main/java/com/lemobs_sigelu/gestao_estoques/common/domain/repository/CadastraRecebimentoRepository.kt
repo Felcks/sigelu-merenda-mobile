@@ -17,7 +17,7 @@ class CadastraRecebimentoRepository {
         return Observable.create { subscriber->
 
             val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
-            val envioID = FlowSharedPreferences.getPedidoId(App.instance)
+            val envioID = FlowSharedPreferences.getEnvioId(App.instance)
 
             val pedidoDAO = db.pedidoDAO()
             val pedido = pedidoDAO.getById(pedidoID)
