@@ -10,6 +10,11 @@ import dagger.Provides
 class SelecionaItemEnvioRecebimentoModule {
 
     @Provides
+    fun provideViewModelFactory(selecionaMaterialRecebimentoController: SelecionaMaterialRecebimentoController): SelecionaItemEnvioRecebimentoViewModelFactory {
+        return SelecionaItemEnvioRecebimentoViewModelFactory(selecionaMaterialRecebimentoController)
+    }
+
+    @Provides
     fun provideListaMaterial(): CarregaListaItemEnvioParaRecebimentoRepository {
         return CarregaListaItemEnvioParaRecebimentoRepository()
     }
@@ -18,10 +23,4 @@ class SelecionaItemEnvioRecebimentoModule {
     fun provideSelecionaMaterial(): SelecionaMaterialParaPedidoRepository {
         return SelecionaMaterialParaPedidoRepository()
     }
-
-    @Provides
-    fun provideViewModelFactory(selecionaMaterialRecebimentoController: SelecionaMaterialRecebimentoController): SelecionaItemEnvioRecebimentoViewModelFactory {
-        return SelecionaItemEnvioRecebimentoViewModelFactory(selecionaMaterialRecebimentoController)
-    }
-
 }
