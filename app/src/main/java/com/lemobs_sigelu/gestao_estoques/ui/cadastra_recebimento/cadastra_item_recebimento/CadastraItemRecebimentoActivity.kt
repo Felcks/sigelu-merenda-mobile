@@ -4,12 +4,17 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.confirma_recebimento.ConfirmaRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento.*
@@ -43,17 +48,33 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
 
         if(item?.itemId == R.id.btn_done){
 
-            val resultado = viewModel!!.confirmaCadastroMaterial()
-            when (resultado) {
-                -1.0 -> Toast.makeText(applicationContext, "Digite um valor menor que a quantidade disponível.", Toast.LENGTH_SHORT).show()
-                -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
-                else -> {
-                    viewModel!!.cadastraQuantidadeMaterial(resultado)
-                    val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
-                    startActivity(intent)
-                    this.finish()
-                }
+            try {
+                tv_5.esconderTeclado()
+                viewModel!!.confirmaCadastroMaterial()
+                val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
+                startActivity(intent)
             }
+            catch (e: CampoNaoPreenchidoException){
+                Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
+            }
+            catch(e: ValorMenorQueZeroException){
+                Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+            }
+            catch (e: ValorMaiorQuePermitidoException){
+                Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
+            }
+
+//            val resultado = viewModel!!.confirmaCadastroMaterial()
+//            when (resultado) {
+//                -1.0 -> Toast.makeText(applicationContext, "Digite um valor menor que a quantidade disponível.", Toast.LENGTH_SHORT).show()
+//                -2.0 -> Toast.makeText(applicationContext, "Digite um valor maior que zero.", Toast.LENGTH_SHORT).show()
+//                else -> {
+//                    viewModel!!.cadastraQuantidadeMaterial(resultado)
+//                    val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
+//                    startActivity(intent)
+//                    this.finish()
+//                }
+//            }
         }
 
         return super.onOptionsItemSelected(item)
