@@ -3,13 +3,11 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemRecebimentoRepository
-import com.lemobs_sigelu.gestao_estoques.exceptions.ItemNaoSelecionavelException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ItemSemQuantidadeDisponivelException
-import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
-import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -102,5 +100,49 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
             throw ItemSemQuantidadeDisponivelException()
 
         FlowSharedPreferences.setItemEnvioID(App.instance, itemEnvioID)
+    }
+
+    fun getItemSolicitado(): ItemEnvio?{
+
+        val itemEnvioID = FlowSharedPreferences.getItemEnvioID(App.instance)
+        val itemEnvioDAO = db.itemEnvioDAO()
+        val itemEstoqueDAO = db.itemEstoqueDAO()
+
+        val item = itemEnvioDAO.getById(itemEnvioID)
+        item?.itemEstoque = itemEstoqueDAO.getById(item?.itemEstoqueID ?: 0)
+
+        return item
+    }
+
+    fun confirmaCadastroItem(valor: Double){
+
+        if(valor <= 0.0){
+            throw ValorMenorQueZeroException()
+        }
+
+        /* Gerando o Item Recebimento */
+        val itemEnvioID = FlowSharedPreferences.getItemEnvioID(App.instance)
+
+        val itemRecebimento = ItemRecebimento(
+            null,
+            itemEnvioID,
+            valor
+        )
+
+        /* Resgatando o Item Envio Equivalente */
+        val itemEnvioDAO = db.itemEnvioDAO()
+        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
+        if(itemEnvio != null){
+            itemEnvio.itemEstoque = db.itemEstoqueDAO().getById(itemEnvioID)
+        }
+
+        /* Conferindo se temos as quantidade no itemEnvio para inserção */
+        if(valor > itemEnvio?.quantidadeUnidade ?: 999999999.0){
+            throw ValorMaiorQuePermitidoException()
+        }
+
+        /* Inserindo ItemRecebimento */
+        val itemRecebimentoDAO = db.itemRecebimentoDAO()
+        itemRecebimentoDAO.insertAll(itemRecebimento)
     }
 }

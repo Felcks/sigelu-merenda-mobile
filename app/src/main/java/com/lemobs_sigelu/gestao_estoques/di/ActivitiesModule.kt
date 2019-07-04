@@ -48,17 +48,19 @@ abstract class ActivitiesModule {
 
 
     /* Cadastra Recebimento */
-    @ContributesAndroidInjector(modules = arrayOf(CadastraRecibimentoModule::class))
-    abstract fun bindSelecionaMaterialPedidoActivity(): SelecionaItemEnvioRecebimentoActivity
-
-    @ContributesAndroidInjector(modules = arrayOf(ConfirmaRecebimentoModule::class))
-    abstract fun bindVisualizaMateriaisPedidoActivity(): ConfirmaRecebimentoActivity
-
-    @ContributesAndroidInjector(modules = arrayOf(CadastraItemRecebimentoModule::class))
-    abstract fun bindCadastraMaterialPedidoActivity(): CadastraItemRecebimentoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecibimentoModule::class))
     abstract fun bindSelecionaEnvioActivity(): SelecionaEnvioRecebimentoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraRecibimentoModule::class))
+    abstract fun bindSelecionaItemEnvioRecebimentoActivity(): SelecionaItemEnvioRecebimentoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraRecibimentoModule::class))
+    abstract fun bindCadastraItemRecebimentoActivity(): CadastraItemRecebimentoActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(ConfirmaRecebimentoModule::class))
+    abstract fun bindConfirmaRecebimentoActivity(): ConfirmaRecebimentoActivity
+
 
 
     /* Cadastra Pedido */

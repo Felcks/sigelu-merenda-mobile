@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.confirma_recebimento.ConfirmaRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento.*
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class CadastraItemRecebimentoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: CadastraItemRecebimentoViewModelFactory
+    lateinit var viewModelFactory: CadastraRecebimentoViewModelFactory
     var viewModel: CadastraItemRecebimentoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,7 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        val itemEnvio = viewModel!!.getMaterial()
+        val itemEnvio = viewModel!!.getItemSolicitado()
         if(itemEnvio != null) {
             tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
             tv_2.text = itemEnvio.itemEstoque?.descricao
@@ -50,7 +51,7 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
 
             try {
                 tv_5.esconderTeclado()
-                viewModel!!.confirmaCadastroMaterial()
+                viewModel!!.confirmaCadastroItem()
                 val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
                 startActivity(intent)
             }
