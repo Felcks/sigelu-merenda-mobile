@@ -13,10 +13,6 @@ import dagger.Provides
 @Module
 class SelecionaItemPedidoModule {
 
-    @Provides
-    fun provideViewModelFactory(controller: SelecionaItemPedidoController): SelecionaItemPedidoViewModelFactory {
-        return SelecionaItemPedidoViewModelFactory(controller)
-    }
 
     @Provides
     fun fluxoCadastraPedidoDestinoRepository(): GerenciaCadastroPedidoRepository {

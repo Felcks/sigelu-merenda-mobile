@@ -42,4 +42,21 @@ data class PedidoCadastro(
     var contratoEstoque: ContratoEstoque? = null
 
     var itemContrato: ItemContrato? = null
+
+    fun getTipoPedido(): TipoPedido{
+
+        if(this.origemTipo == "Núcleo" && this.destinoTipo == "Núcleo"){
+            return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
+        }
+
+        if(this.origemTipo == "Núcleo" && this.destinoTipo == "Obra"){
+            return TipoPedido.MEU_NUCLEO_PARA_OBRA
+        }
+
+        if(this.origemTipo == "Fornecedor"){
+            return TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
+        }
+
+        return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
+    }
 }

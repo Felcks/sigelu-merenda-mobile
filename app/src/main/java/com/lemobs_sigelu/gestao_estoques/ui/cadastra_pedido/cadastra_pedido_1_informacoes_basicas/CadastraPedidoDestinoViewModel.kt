@@ -119,7 +119,7 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
 
     fun confirmaPedido() {
 
-        controller.confirmaDestinoDePedido(origem.value, destino.value, contrato.value)
+        return controller.confirmaDestinoDePedido(origem.value, destino.value, contrato.value)
     }
 
     val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {

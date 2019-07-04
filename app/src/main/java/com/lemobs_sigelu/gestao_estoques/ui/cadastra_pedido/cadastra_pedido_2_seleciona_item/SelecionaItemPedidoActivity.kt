@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class SelecionaItemPedidoActivity: AppCompatActivity(), ISelecionaItemContrato {
 
     @Inject
-    lateinit var viewModelFactory: SelecionaItemPedidoViewModelFactory
+    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: SelecionaItemPedidoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -100,5 +100,6 @@ data class Pedido(
     }
 
     class SemContratoException: Exception("Pedido sem contrato.")
-    class OrigemEDestinoIguaisException: Exception("Origem e pedidos não podem ser iguais")
+    class OrigemEDestinoIguaisException: Exception("Origem e pedidos não podem ser iguais.")
+    class OrigemFornecedorDestinoObraException: Exception("Não é possível realizar pedido direto do fornecedor para uma obra.")
 }

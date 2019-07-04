@@ -10,7 +10,8 @@ import javax.inject.Inject
 class CadastraPedidoController @Inject constructor(private val nucleoRepository: NucleoRepository,
                                                    private val empresaRepository: EmpresaRepository,
                                                    private val obraRepository: ObraRepository,
-                                                   private val contratoRepository: ContratoRepository) {
+                                                   private val contratoRepository: ContratoRepository,
+                                                   private val itemContratoRepository: ItemContratoRepository) {
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
     }
@@ -26,6 +27,10 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
 
         if(origem.tipo == "Fornecedor" && contrato == null){
             throw Pedido.SemContratoException()
+        }
+
+        if(origem.tipo == "Fornecedor" && destino.tipo == "Obra"){
+            throw Pedido.OrigemFornecedorDestinoObraException()
         }
 
         val pedido = PedidoCadastro(
@@ -64,4 +69,16 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     fun carregaListaContrato(): Observable<List<ContratoEstoque>> {
         return contratoRepository.carregaListaContratosVigentes()
     }
+
+    fun carregaListaItensContrato(): Observable<List<ItemContrato>>{
+
+        val contratoID = pedidoCadastro?.contratoEstoque?.id ?: throw Pedido.SemContratoException()
+
+        return itemContratoRepository.carregaListaItemContrato(contratoID)
+    }
+
+    fun getTipoPedido(): TipoPedido?{
+        return pedidoCadastro?.getTipoPedido()
+    }
+
 }

@@ -7,7 +7,7 @@ import dagger.Provides
 
 
 @Module
-class CadastraPedidoViewModel {
+class CadastraPedidoModule {
 
     @Provides
     fun fluxoCadastraPedidoDestinoRepository(): GerenciaCadastroPedidoRepository {
@@ -32,6 +32,11 @@ class CadastraPedidoViewModel {
     @Provides
     fun carregaListaContratoRepository(): ContratoRepository {
         return ContratoRepository()
+    }
+
+    @Provides
+    fun provideItemContratoRepository(): ItemContratoRepository {
+        return ItemContratoRepository()
     }
 
     @Provides

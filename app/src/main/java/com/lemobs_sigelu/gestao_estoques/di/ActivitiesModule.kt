@@ -5,11 +5,10 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_ca
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity
@@ -56,10 +55,10 @@ abstract class ActivitiesModule {
 
 
     /* Cadastra Pedido */
-    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoViewModel::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(SelecionaItemPedidoModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindSelecionaItemPedidoActivity(): SelecionaItemPedidoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraItemPedidoModule::class))
