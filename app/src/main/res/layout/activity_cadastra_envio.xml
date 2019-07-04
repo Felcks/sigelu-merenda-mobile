@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_informacoes_basicas.CadastraEnvioViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

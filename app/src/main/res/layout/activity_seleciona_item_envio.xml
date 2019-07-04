@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.seleciona_item_envio.SelecionaItemEnvioViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioViewModel"/>
     </data>
 
     <LinearLayout

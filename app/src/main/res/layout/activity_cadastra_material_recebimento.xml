@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_item_recebimento.CadastraItemRecebimentoViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
