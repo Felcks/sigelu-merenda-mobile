@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastro_pedido.*
@@ -26,7 +27,7 @@ import javax.inject.Inject
 class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ConfirmaCadastroPedidoViewModelFactory
+    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: ConfirmaCadastroPedidoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +114,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
 
         this.errorDialog = DialogUtil.buildAlertDialogOk(this,
             "Erro",
-            "Falha no envio de recebimento",
+            "Falha no envio do pedido",
             {
 
             },

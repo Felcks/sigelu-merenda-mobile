@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_c
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ConfirmaCadastroPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -10,7 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaCadastroPedidoViewModel(private val controller: ConfirmaCadastroPedidoController): ViewModel() {
+class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -28,7 +29,7 @@ class ConfirmaCadastroPedidoViewModel(private val controller: ConfirmaCadastroPe
     }
 
     fun carregaListaItem(){
-        response.value = Response.success(controller.carregaListaItemContrato())
+        response.value = Response.success(controller.getListaItensAdicionados())
     }
 
     fun cancelarPedido(){
@@ -49,7 +50,6 @@ class ConfirmaCadastroPedidoViewModel(private val controller: ConfirmaCadastroPe
     }
 
     fun getPedido(): PedidoCadastro?{
-
         return controller.getPedido()
     }
 }

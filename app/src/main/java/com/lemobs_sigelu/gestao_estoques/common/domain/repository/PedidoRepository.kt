@@ -2,9 +2,16 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.ItemPedidoCadastroDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.createdAtToDate
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -170,5 +177,109 @@ class PedidoRepository {
 
     fun salvaPedido(pedido: Pedido){
         db.pedidoDAO().insertAll(pedido)
+    }
+
+    fun cadastraPedido(pedidoCadastro: PedidoCadastro): Observable<Unit> {
+
+        return Observable.create { subscriber->
+
+            data class Tupla(val id: Int?, val id2: Int?)
+
+            val (origemNucleoID, origemFornecedorID) = when(pedidoCadastro.origemTipo ?: ""){
+                "Fornecedor" -> Tupla(null, pedidoCadastro.origemID ?: 0)
+                "Núcleo" -> Tupla(pedidoCadastro.origemID, null)
+                else -> Tupla(null, null)
+            }
+
+            val (destinoNucleoID, destinoObraID) = when(pedidoCadastro.destinoTipo ?: ""){
+                "Núcleo" -> Tupla(pedidoCadastro.destinoID, null)
+                "Obra" -> Tupla(null, pedidoCadastro.destinoID)
+                else -> Tupla(null, null)
+            }
+
+            val situacaoID = when(pedidoCadastro.origemTipo){
+                "Núcleo" -> SITUACAO_APROVADO_ID
+                "Fornecedor" -> SITUACAO_EM_ANALISE_ID
+                else -> 2
+            }
+
+
+            val callResponse = if(pedidoCadastro.origemTipo == "Fornecedor") {
+
+                val pedidoDataRequest = PedidoDataRequestFornecedorNucleo(
+                    pedidoCadastro.origemTipo ?: "",
+                    origemFornecedorID,
+                    pedidoCadastro.destinoTipo ?: "",
+                    destinoNucleoID,
+                    situacaoID,
+                    1,
+                    pedidoCadastro.listaItemContrato.map {
+                        ItemPedidoCadastroDataRequest(
+                            it.categoria?.categoria_id ?: 0,
+                            it.itemEstoqueID ?: 0,
+                            it.precoUnidade ?: 0.0,
+                            it.quantidadeRecebida ?: 0.0
+                        )
+                    }
+                )
+
+                api.postPedidoFornecedorNucleo(pedidoDataRequest)
+            }
+            else if(pedidoCadastro.destinoTipo == "Núcleo") {
+
+                val pedidoDataRequest = PedidoDataRequestNucleoNucleo(
+                    pedidoCadastro.origemTipo ?: "",
+                    origemNucleoID,
+                    pedidoCadastro.destinoTipo ?: "",
+                    destinoNucleoID,
+                    1,
+                    situacaoID,
+                    pedidoCadastro.listaItemContrato.map {
+                        ItemPedidoCadastroDataRequest(
+                            it.categoria?.categoria_id ?: 0,
+                            it.itemEstoqueID ?: 0,
+                            it.precoUnidade ?: 0.0,
+                            it.quantidadeRecebida ?: 0.0
+                        )
+                    }
+                )
+
+                api.postPedidoNucleoNucleo(pedidoDataRequest)
+            }
+            else{
+
+                val pedidoDataRequest = PedidoDataRequestNucleoObra(
+                    pedidoCadastro.origemTipo ?: "",
+                    origemNucleoID,
+                    pedidoCadastro.destinoTipo ?: "",
+                    destinoObraID,
+                    situacaoID,
+                    1,
+                    pedidoCadastro.listaItemContrato.map {
+                        ItemPedidoCadastroDataRequest(
+                            it.categoria?.categoria_id ?: 0,
+                            it.itemEstoqueID ?: 0,
+                            it.precoUnidade ?: 0.0,
+                            it.quantidadeRecebida ?: 0.0
+                        )
+                    }
+                )
+
+                api.postPedidoNucleoObra(pedidoDataRequest)
+            }
+
+            val response = callResponse.execute()
+
+            if(response.isSuccessful){
+
+                subscriber.onNext(response.body()!!)
+                subscriber.onComplete()
+            }
+            else{
+
+                subscriber.onError(Throwable(response.message()))
+            }
+
+        }
     }
 }

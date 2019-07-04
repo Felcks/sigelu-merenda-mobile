@@ -13,7 +13,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
                                                    private val empresaRepository: EmpresaRepository,
                                                    private val obraRepository: ObraRepository,
                                                    private val contratoRepository: ContratoRepository,
-                                                   private val itemContratoRepository: ItemContratoRepository) {
+                                                   private val itemContratoRepository: ItemContratoRepository,
+                                                   private val pedidoRepository: PedidoRepository) {
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
     }
@@ -112,4 +113,22 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     fun getItemSolicitado(): ItemContrato?{
         return pedidoCadastro?.listaItemContrato?.last()
     }
+
+    fun getListaItensAdicionados(): List<ItemContrato>{
+        return pedidoCadastro?.listaItemContrato!!.toList()
+    }
+
+    fun cancelarPedido() {
+        pedidoCadastro = null
+    }
+
+    fun enviaPedido(): Observable<Unit>{
+
+        return pedidoRepository.cadastraPedido(pedidoCadastro!!)
+    }
+
+    fun getPedido(): PedidoCadastro?{
+        return pedidoCadastro
+    }
+
 }
