@@ -5,6 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
@@ -17,18 +18,21 @@ class ItemEnvioRepository {
     val api = RestApi()
 
     fun getListaItemEnvio(envio: Envio): Observable<List<ItemEnvio>> {
+        return getListaItemEnvio(envio.envioID, envio.pedidoID)
+    }
 
-        return Observable.create { subscriber->
+    fun getListaItemEnvio(envioID: Int, pedidoID: Int): Observable<List<ItemEnvio>> {
 
-            val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
-            val callResponse = api.getItensEnvioDePedido(pedidoEstoqueID, envio.envioID)
+        return Observable.create { subscriber ->
+
+            val callResponse = api.getItensEnvioDePedido(pedidoID, envioID)
             val response = callResponse.execute()
 
-            if(response.isSuccessful && response.body() != null){
+            if (response.isSuccessful && response.body() != null) {
 
-                val itens = response.body()!!.map{
+                val itens = response.body()!!.map {
 
-                    val unidadeMedida = with(it.item_estoque.unidade_medida){
+                    val unidadeMedida = with(it.item_estoque.unidade_medida) {
                         com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida(
                             this.id,
                             this.nome ?: "",
@@ -36,7 +40,7 @@ class ItemEnvioRepository {
                         )
                     }
 
-                    val itemEstoque = with(it.item_estoque){
+                    val itemEstoque = with(it.item_estoque) {
                         com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque(
                             this.id,
                             this.codigo ?: "",
@@ -46,24 +50,61 @@ class ItemEnvioRepository {
                         )
                     }
 
-                    val categoria = Categoria(it.categoria.id,
-                        it.categoria.nome ?: "")
+                    val categoria = Categoria(
+                        it.categoria.id,
+                        it.categoria.nome ?: ""
+                    )
 
-                    ItemEnvio(it.id,
-                        envio.envioID,
+                    ItemEnvio(
+                        it.id,
+                        envioID,
                         it.quantidade_unidade ?: 0.0,
                         it.preco_unidade ?: 0.0,
                         categoria,
                         itemEstoque.id,
-                        itemEstoque)
+                        itemEstoque
+                    )
                 }
 
                 subscriber.onNext(itens)
                 subscriber.onComplete()
-            }
-            else{
+            } else {
                 subscriber.onError(Throwable(response.message()))
             }
+        }
+    }
+
+    fun getListaItemEnvioBD(envioID: Int): Observable<List<ItemEnvio>> {
+
+        return Observable.create { subscribe ->
+
+            val dao = db.itemEnvioDAO()
+            var listaItemEnvio = dao.getTodosItemEnvioDeEnvio(envioID)
+
+            if(listaItemEnvio.isNotEmpty()){
+                subscribe.onNext(listaItemEnvio)
+                subscribe.onComplete()
+            }
+            else{
+                subscribe.onError(ListaVaziaException())
+            }
+//            val listaItemRecebimentoJaCadastrado = getListaItemRecebimento()
+//            val listaIdsItemReceimentoJaCadastrado = listaItemRecebimentoJaCadastrado.map { it.itemEnvioID }
+//
+//            listaItemEnvio = listaItemEnvio.filter { x -> !listaIdsItemReceimentoJaCadastrado.contains(x.id) }
+//            if(listaItemEnvio.isNotEmpty()) {
+//
+//                val itemEstoqueDAO = db.itemEstoqueDAO()
+//                for (itemEnvio in listaItemEnvio) {
+//                    itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
+//                }
+//
+//                subscribe.onNext(listaItemEnvio)
+//                subscribe.onComplete()
+//            }
+//            else{
+//                subscribe.onError(Throwable("Lista de materiais vazia"))
+//            }
         }
     }
 
