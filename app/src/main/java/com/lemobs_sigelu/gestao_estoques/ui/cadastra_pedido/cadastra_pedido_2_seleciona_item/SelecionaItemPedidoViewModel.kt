@@ -20,7 +20,6 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
-    var itensContrato = mutableListOf<ItemContrato>()
 
     override fun onCleared() {
         disposables.clear()
@@ -48,8 +47,7 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
             .subscribe(
                 { result ->
                     loading.set(false)
-                    itensContrato.clear()
-                    itensContrato.addAll(result as List<ItemContrato>)
+                    controller.armazenarListaItemContrato(result)
                     response.value = Response.success(result)
                 },
                 { throwable ->
@@ -59,16 +57,7 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
         )
     }
 
-    fun selecionaItem(itemID: Int): Boolean{
-
-//        val itemContrato = itensContrato.first { it.id == itemID }
-//        return if(itemContrato != null){
-//            controller.selecionaItem(itemContrato)
-//            true
-//        } else{
-//            false
-//        }
-
-        return false
+    fun selecionaItem(itemID: Int){
+        return controller.selecionaItem(itemID)
     }
 }

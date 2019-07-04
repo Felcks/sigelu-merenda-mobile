@@ -15,6 +15,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
     }
+    var itensContrato = mutableListOf<ItemContrato>()
 
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?) {
 
@@ -81,4 +82,13 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoCadastro?.getTipoPedido()
     }
 
+    fun armazenarListaItemContrato(list: List<ItemContrato>){
+        this.itensContrato = list.toMutableList()
+    }
+
+    fun selecionaItem(itemContratoID: Int){
+
+        val itemContrato = itensContrato.first { it.id == itemContratoID }
+        pedidoCadastro?.listaItemContrato?.add(itemContrato)
+    }
 }

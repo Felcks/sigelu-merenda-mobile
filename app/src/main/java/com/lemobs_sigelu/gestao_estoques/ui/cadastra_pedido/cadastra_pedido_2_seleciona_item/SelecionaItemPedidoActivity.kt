@@ -15,14 +15,16 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
  * Created by felcks on Jun, 2019
  */
-class SelecionaItemPedidoActivity: AppCompatActivity(), ISelecionaItemContrato {
+class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickListener {
 
     @Inject
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
@@ -67,29 +69,19 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), ISelecionaItemContrato {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter =
-            ListaItemContratoSelecionavelSimplesAdapter(
-                applicationContext,
-                list,
-                this
-            )
+        val adapter = ListaItemContratoSelecionavelSimplesAdapter(applicationContext, list, this)
         rv_lista.adapter = adapter
     }
 
-    override fun selecionaItem(itemID: Int?) {
+    override fun onClick(id: Int) {
 
-        if(itemID != null) {
-
-            val successSelecionaMaterial = viewModel!!.selecionaItem(itemID)
-            if (successSelecionaMaterial) {
-
-                //Toast.makeText(applicationContext, "Escolheu o item certo", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-                startActivity(intent)
-            }
-            else {
-                Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
-            }
+        try{
+            viewModel!!.selecionaItem(id)
+            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+            startActivity(intent)
+        }
+        catch (e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
         }
     }
 

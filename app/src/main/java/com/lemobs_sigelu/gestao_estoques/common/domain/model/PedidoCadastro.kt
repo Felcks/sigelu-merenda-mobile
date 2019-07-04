@@ -41,7 +41,10 @@ data class PedidoCadastro(
 
     var contratoEstoque: ContratoEstoque? = null
 
+    //EXCLUIR ISSO AQUI O MAIS RAPIDO POSSIVEL
     var itemContrato: ItemContrato? = null
+
+    val listaItemContrato: MutableList<ItemContrato> = mutableListOf()
 
     fun getTipoPedido(): TipoPedido{
 

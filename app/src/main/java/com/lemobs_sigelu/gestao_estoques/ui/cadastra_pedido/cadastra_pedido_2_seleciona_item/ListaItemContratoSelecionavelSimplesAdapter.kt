@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import kotlinx.android.synthetic.main.item_material_adicao.view.*
 
-class ListaItemContratoSelecionavelSimplesAdapter(val context: Context,
-                                                  val list: List<ItemContrato>,
-                                                  val selecionaItemContrato: ISelecionaItemContrato): RecyclerView.Adapter<ListaItemContratoSelecionavelSimplesAdapter.MyViewHolder>() {
+class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
+                                                  private val list: List<ItemContrato>,
+                                                  private val itemClickListener: OneIntParameterClickListener): RecyclerView.Adapter<ListaItemContratoSelecionavelSimplesAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -30,9 +31,7 @@ class ListaItemContratoSelecionavelSimplesAdapter(val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_name.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.btn_add.setOnClickListener {
-            selecionaItemContrato.selecionaItem(item.id)
-        }
+        holder.itemView.btn_add.setOnClickListener { itemClickListener.onClick(item.id) }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
