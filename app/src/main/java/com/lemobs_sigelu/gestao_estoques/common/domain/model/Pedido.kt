@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
+import java.lang.Exception
 import java.util.*
 
 @Entity(tableName = "pedido")
@@ -97,4 +98,7 @@ data class Pedido(
 
         return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
     }
+
+    class SemContratoException: Exception("Pedido sem contrato.")
+    class OrigemEDestinoIguaisException: Exception("Origem e pedidos não podem ser iguais")
 }

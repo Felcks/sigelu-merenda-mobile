@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -25,6 +26,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebi
 import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_destino.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class CadastraPedidoDestinoActivity: AppCompatActivity() {
@@ -168,43 +170,17 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         spinner_contrato.onItemSelectedListener = viewModel!!.selecionadorContrato
     }
 
-    fun processResponseFluxo(response: Response?){
-        when(response?.status) {
-            Status.SUCCESS -> renderResponseFluxo(response.data)
-            Status.ERROR -> renderErroFluxo(response.error)
-            else -> {}
-        }
-    }
-
-    fun renderResponseFluxo(result: Any?){
-
-        if(result is Boolean) {
-            if(result) {
-                val intent = Intent(this, SelecionaItemEnvioRecebimentoActivity::class.java)
-                startActivity(intent)
-            }
-            else{
-                Toast.makeText(applicationContext, "Selecione um destino para o pedido", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    fun renderErroFluxo(throwable: Throwable?){
-
-    }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId ==  R.id.btn_done){
 
-            val pedidoOk = viewModel!!.confirmaPedido()
-            if(pedidoOk == 1){
-
+            try{
+                viewModel!!.confirmaPedido()
                 val intent = Intent(this, SelecionaItemPedidoActivity::class.java)
                 startActivity(intent)
             }
-            else{
-                Toast.makeText(App.instance, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+            catch (e: Exception){
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
             }
         }
 

@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoDestinoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoController): ViewModel() {
+class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var responseFluxo = MutableLiveData<Response>()
@@ -117,18 +117,9 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoDestinoContro
         )
     }
 
-    fun confirmaPedido(): Int {
+    fun confirmaPedido() {
 
-        try {
-            if(controller.confirmaDestinoDePedido(origem.value!!, destino.value!!, contrato.value)){
-                return 1
-            }
-        }
-        catch (t: Throwable){
-            return -1
-        }
-
-        return 1
+        controller.confirmaDestinoDePedido(origem.value, destino.value, contrato.value)
     }
 
     val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {
