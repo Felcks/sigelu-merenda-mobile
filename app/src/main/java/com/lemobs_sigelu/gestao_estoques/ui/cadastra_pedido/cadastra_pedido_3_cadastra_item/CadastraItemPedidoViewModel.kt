@@ -4,11 +4,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraItemPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import io.reactivex.disposables.CompositeDisposable
 
-class CadastraItemPedidoViewModel (private val controller: CadastraItemPedidoController): ViewModel() {
+class CadastraItemPedidoViewModel (private val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -24,22 +26,19 @@ class CadastraItemPedidoViewModel (private val controller: CadastraItemPedidoCon
         return response
     }
 
-    fun getMaterial(): ItemContrato? {
+    fun getItemContrato(): ItemContrato? {
         return controller.getItemSolicitado()
     }
 
-    fun cadastraQuantidadeMaterial(valor: Double): Boolean {
-        return controller.cadastraQuantidadeDeMaterial(valor)
-    }
+    fun confirmaCadastroMaterial() {
 
-    fun confirmaCadastroMaterial(): Double {
+        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
 
-        if(quantidadeRecebida.get()?.isNotEmpty() ?: "".isNotEmpty()) {
-            val valor = quantidadeRecebida.get()?.replace(',', '.')?.toDouble()
-            return controller.confirmaCadastroMaterial(valor ?: 0.0)
-        }
-        else{
-            return -2.0
-        }
+        if(quantidadeRecebida.isEmpty())
+            throw CampoNaoPreenchidoException()
+
+
+        val valor = quantidadeRecebida.replace(',', '.').toDouble()
+        return controller.confirmaCadastroMaterial(valor)
     }
 }

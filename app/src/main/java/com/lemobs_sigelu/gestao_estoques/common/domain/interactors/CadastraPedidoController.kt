@@ -3,6 +3,8 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
@@ -90,5 +92,24 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
 
         val itemContrato = itensContrato.first { it.id == itemContratoID }
         pedidoCadastro?.listaItemContrato?.add(itemContrato)
+    }
+
+    fun confirmaCadastroMaterial(valor: Double){
+
+        if(valor <= 0.0){
+            throw ValorMenorQueZeroException()
+        }
+
+        val itemContrato = pedidoCadastro?.listaItemContrato?.last()
+
+        if(valor > itemContrato?.quantidadeUnidade ?: 999999999.0){
+            throw ValorMaiorQuePermitidoException()
+        }
+
+        itemContrato?.quantidadeRecebida = valor
+    }
+
+    fun getItemSolicitado(): ItemContrato?{
+        return pedidoCadastro?.listaItemContrato?.last()
     }
 }

@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity
@@ -61,7 +60,7 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindSelecionaItemPedidoActivity(): SelecionaItemPedidoActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(CadastraItemPedidoModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindCadastraItemPedidoActivity(): CadastraItemPedidoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(ConfirmaCadastroPedidoModule::class))
