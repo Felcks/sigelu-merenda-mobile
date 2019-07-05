@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
@@ -59,6 +60,9 @@ interface IRestApi {
     @GET("empresa")
     fun getEmpresas(@Header("Authorization") auth: String,
                     @Query("tipo_id") tipo_id: Int): Call<List<EmpresaDataResponse>>
+
+    @GET("fornecedora-material")
+    fun getFornecedoras(@Header("Authorization") auth: String): Call<List<FornecedorDataResponse>>
 
     @GET("nucleo")
     fun getNucleos(@Header("Authorization") auth: String): Call<List<NucleoDataResponse>>

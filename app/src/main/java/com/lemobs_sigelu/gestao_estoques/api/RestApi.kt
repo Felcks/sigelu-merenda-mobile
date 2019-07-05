@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
@@ -84,6 +85,10 @@ class RestApi {
 
     fun getEmpresas(): Call<List<EmpresaDataResponse>>{
         return api.getEmpresas(auth, 2)
+    }
+
+    fun getFornecedores(): Call<List<FornecedorDataResponse>>{
+        return api.getFornecedoras(auth)
     }
 
     fun getNucleos(): Call<List<NucleoDataResponse>>{
