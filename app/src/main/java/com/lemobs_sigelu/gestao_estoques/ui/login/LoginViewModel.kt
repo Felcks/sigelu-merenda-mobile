@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.login.LoginDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Permissao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
 import com.squareup.moshi.JsonDataException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -94,8 +95,7 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
                     if(!permissaoConcedida)
                         response.value = Response.error(Throwable("Permissão negada ao módulo"))
                     else {
-                        loginController.salvarCredenciaisUsuario(loginResponse)
-                        response.value = Response.success(Object())
+                        carregaNucleoUsuario(loginResponse, authorization)
                     }
                 },
                 { e ->
@@ -111,8 +111,33 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
         )
     }
 
-    private fun salvarPermissoes(loginResponse: LoginDataResponse){
+    private fun carregaNucleoUsuario(loginResponse: LoginDataResponse, authorization: String){
 
+        disposables.add(loginController.carregaNucleoUsuario(authorization, loginResponse.usuario_id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { serviceResponse ->
 
+                    this.loading.set(false)
+                    loginController.salvarCredenciaisUsuario(loginResponse, serviceResponse)
+                    response.value = Response.success(Object())
+                },
+                { e ->
+
+                    this.loading.set(false)
+                    when (e) {
+                        is JsonDataException -> response.value = Response.error(Throwable("Ocorreu um erro inesperado"))
+                        is UnknownHostException -> response.value = Response.error(Throwable("Sem conexão"))
+                        is UsuarioSemNucleoException -> response.value = Response.error(e)
+                        else -> response.value = Response.error(Throwable("Ocorreu um erro inesperado"))
+                    }
+                }
+            )
+        )
     }
+
+
+    //TODO
+    private fun salvarPermissoes(loginResponse: LoginDataResponse){}
 }

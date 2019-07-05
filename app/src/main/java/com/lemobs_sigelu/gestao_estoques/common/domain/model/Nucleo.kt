@@ -5,4 +5,4 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
  */
 class Nucleo (val id: Int,
               val nome: String,
-              val endereco: String)
+              val sigla: String)

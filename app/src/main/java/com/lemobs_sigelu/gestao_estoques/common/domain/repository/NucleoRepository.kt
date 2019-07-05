@@ -23,7 +23,7 @@ class NucleoRepository {
                 val nucleos = response.body()!!.map {
                     Nucleo(it.id,
                         it.nome ?: "",
-                        it.endereco ?: "")
+                        it.sigla ?: "")
                 }
 
                 subscriber.onNext(nucleos)

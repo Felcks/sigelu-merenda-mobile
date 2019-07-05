@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
-import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
@@ -15,16 +14,18 @@ import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface IRestApi {
 
-    @GET("materiais")
-    fun getMateriais(): Call<List<MaterialDataResponse>>
-
     @GET("usuario/token/permissao")
     fun getPermissoes(@Header("Authorization") auth: String): Call<List<String>>
+
+    @GET("usuario/{usuario_id}")
+    fun getUsuario(@Header("Authorization") auth: String,
+                   @Path ("usuario_id") usuario_id: Int): Call<UsuarioDataResponse>
 
     @GET("pedido-estoque")
     fun getListaPedido(@Header("Authorization") auth: String): Call<List<PedidoListagemDataResponse>>

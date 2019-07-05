@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
-import com.lemobs_sigelu.gestao_estoques.api_model.MaterialDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
@@ -15,6 +14,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -46,12 +46,12 @@ class RestApi {
         api = retrofit.create(IRestApi::class.java)
     }
 
-    fun getMateriais(): Call<List<MaterialDataResponse>>{
-        return api.getMateriais()
-    }
-
     fun getPermissoes(authorization: String): Call<List<String>>{
         return api.getPermissoes(authorization)
+    }
+
+    fun getUsuario(authorization: String, usuarioID: Int): Call<UsuarioDataResponse>{
+        return api.getUsuario(authorization, usuarioID)
     }
 
     fun getListaPedido(): Call<List<PedidoListagemDataResponse>>{

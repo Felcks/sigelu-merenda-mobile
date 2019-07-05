@@ -15,6 +15,8 @@ class AppSharedPreferences {
         private val KEY_USER_PERFIL = "${BuildConfig.APPLICATION_ID}.user_perfil"
         private val KEY_FONT_SIZE = "${BuildConfig.APPLICATION_ID}.font_size"
         private val KEY_PRIMEIRA_VEZ = "${BuildConfig.APPLICATION_ID}.primeira_vez"
+        private val KEY_NUCLEO_ID = "${BuildConfig.APPLICATION_ID}.nucleo_id"
+        private val KEY_NUCLEO_NOME = "${BuildConfig.APPLICATION_ID}.nucleo_nome"
 
         fun getPrimeiraVez(context: Context): Boolean {
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
@@ -29,6 +31,10 @@ class AppSharedPreferences {
             editor.apply()
         }
 
+        fun getUserId(context: Context) : Int{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getInt(KEY_USER_ID, -1)
+        }
         fun setUserId(context: Context, id: Int){
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
@@ -37,11 +43,11 @@ class AppSharedPreferences {
             editor.apply()
         }
 
-        fun getUserId(context: Context) : Int{
-            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
-            return prefs.getInt(KEY_USER_ID, -1)
-        }
 
+        fun getUserToken(context: Context) : String{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getString(KEY_USER_TOKEN, "")
+        }
         fun setUserToken(context: Context, token: String){
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
@@ -50,11 +56,11 @@ class AppSharedPreferences {
             editor.apply()
         }
 
-        fun getUserToken(context: Context) : String{
-            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
-            return prefs.getString(KEY_USER_TOKEN, "")
-        }
 
+        fun getUserFontSize(context: Context) : Float{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getFloat(KEY_FONT_SIZE, 1f)
+        }
         fun setUserFontSize(context: Context, fontSize: Float){
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
@@ -63,11 +69,11 @@ class AppSharedPreferences {
             editor.apply()
         }
 
-        fun getUserFontSize(context: Context) : Float{
-            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
-            return prefs.getFloat(KEY_FONT_SIZE, 1f)
-        }
 
+        fun getUserName(context: Context) : String{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getString(KEY_USER_NAME, "")
+        }
         fun setUserName(context: Context, token: String){
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
@@ -76,11 +82,11 @@ class AppSharedPreferences {
             editor.apply()
         }
 
-        fun getUserName(context: Context) : String{
-            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
-            return prefs.getString(KEY_USER_NAME, "")
-        }
 
+        fun getUserPerfil(context: Context) : String{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getString(KEY_USER_PERFIL, "")
+        }
         fun setUserPerfil(context: Context, perfil: String){
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
 
@@ -89,9 +95,28 @@ class AppSharedPreferences {
             editor.apply()
         }
 
-        fun getUserPerfil(context: Context) : String{
+        fun getNucleoID(context: Context) : Int{
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
-            return prefs.getString(KEY_USER_PERFIL, "")
+            return prefs.getInt(KEY_NUCLEO_ID, -1)
+        }
+        fun setNucleoID(context: Context, id: Int){
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putInt(KEY_NUCLEO_ID, id)
+            editor.apply()
+        }
+
+        fun getNucleoNome(context: Context) : String{
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            return prefs.getString(KEY_NUCLEO_NOME, "")
+        }
+        fun setNucleoNome(context: Context, token: String){
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString(KEY_NUCLEO_NOME, token)
+            editor.apply()
         }
     }
 
