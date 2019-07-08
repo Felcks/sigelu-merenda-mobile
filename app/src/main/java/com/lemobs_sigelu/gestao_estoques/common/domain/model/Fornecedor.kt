@@ -5,4 +5,16 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
  */
 class Fornecedor  (val id: Int,
                    val nome: String?,
-                   val tipoFornecedor: TipoFornecedor)
+                   val tipoFornecedor: TipoFornecedor){
+
+    var listaContratoEstoque: List<ContratoEstoque>? = null
+
+    constructor(id: Int,
+                nome: String,
+                tipoFornecedor: TipoFornecedor,
+                listaContratoEstoque: List<ContratoEstoque>?):this(id, nome, tipoFornecedor){
+
+        this.listaContratoEstoque = listaContratoEstoque
+    }
+
+}

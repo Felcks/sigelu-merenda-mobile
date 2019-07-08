@@ -1,7 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import io.reactivex.Observable
 
 /**
@@ -33,5 +35,13 @@ class NucleoRepository {
                 subscriber.onError(Throwable(response.message()))
             }
         }
+    }
+
+    fun getMeuNucleo(): Nucleo{
+
+        val nucleoID = AppSharedPreferences.getNucleoID(App.instance)
+        val nucleoNome = AppSharedPreferences.getNucleoNome(App.instance)
+
+        return Nucleo(nucleoID, nucleoNome, nucleoNome)
     }
 }

@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_info
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item.SelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
@@ -54,6 +55,12 @@ class ListaPedidoActivity: AppCompatActivity() {
             val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
             startActivity(intent)
         }
+
+        menu_item_cadastrar_recebimento_sem_pedido.setOnClickListener {
+            val intent = Intent(this, SelecionaItemActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun processResponse(response: Response?) {

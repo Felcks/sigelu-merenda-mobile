@@ -1,9 +1,12 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Fornecedor
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoFornecedor
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.anoMesDiaToDate
 import io.reactivex.Observable
+import java.util.*
 
 /**
  * Created by felcks on Jul, 2019
@@ -16,7 +19,7 @@ class FornecedorRepository {
 
         return Observable.create { subscriber ->
 
-            val callResponse = api.getEmpresas()
+            val callResponse = api.getFornecedores()
             val response = callResponse.execute()
 
             if(response.isSuccessful){
@@ -29,7 +32,17 @@ class FornecedorRepository {
                         TipoFornecedor(
                             it.id,
                             it.nome ?: ""
-                        )
+                        ),
+                        it.contratoEstoque?.map { ce ->
+                            ContratoEstoque(ce.id,
+                                ce.situacao ?: "",
+                                ce.objeto_contrato ?: "",
+                                ce.numero_contrato ?: "",
+                                ce.valor_contratual ?: 0.0,
+                                ce.data_inicio?.anoMesDiaToDate() ?: Date(),
+                                ce.data_conclusao?.anoMesDiaToDate() ?: Date()
+                            )
+                        }
                     )
                 }
 

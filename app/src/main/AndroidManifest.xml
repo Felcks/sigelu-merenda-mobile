@@ -122,8 +122,7 @@
         <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item.SelecionaItemActivity"
                   android:label="Selecione um item"
                   android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateHidden"
-                  android:theme="@style/AppThemeNoActionBar"/>
+                  android:windowSoftInputMode="stateHidden"/>
 
     </application>
 </manifest>

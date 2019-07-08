@@ -91,7 +91,7 @@
                     app:fab_label="Cadastrar pedido"/>
 
             <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/menu_item_cadastrar_entrega"
+                    android:id="@+id/menu_item_cadastrar_recebimento_sem_pedido"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_shopping_cart"

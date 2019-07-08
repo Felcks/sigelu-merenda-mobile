@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cad
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -17,6 +18,7 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
+    var loading = ObservableField<Boolean>()
 
     override fun onCleared() {
         disposables.clear()
@@ -26,14 +28,32 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
         return response
     }
 
-//    fun carregaListaItens(){
-//
-//        val tipoPedido = controller.getTipoPedido()
-//
-//        if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO) {
-//            this.carregaListaItensContrato()
-//        }
-//    }
+    fun carregaListaItens(){
+
+    }
+
+    fun carregaListaFornecedores(){
+
+//        loading.set(true)
+//        disposables.add(controller.getListaFornecedor()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { response.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    loading.set(false)
+//                    controller.armazenarListaItemContrato(result)
+//                    response.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    loading.set(false)
+//                    response.value = Response.error(throwable)
+//                }
+//            )
+//        )
+    }
+
+
 //
 //    private fun carregaListaItensContrato(){
 //
