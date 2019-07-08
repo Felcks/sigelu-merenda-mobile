@@ -19,6 +19,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.login.LoginModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecibimentoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item.SelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoModule
 import dagger.Module
@@ -78,4 +80,9 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
+
+    /* Cadastra Recebimento sem Pedido */
+    @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
+    abstract fun bindSelecionaItemActivity(): SelecionaItemActivity
+
 }

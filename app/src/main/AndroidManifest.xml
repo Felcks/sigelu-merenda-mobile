@@ -32,19 +32,22 @@
             </intent-filter>
         </activity>
 
+        <!-- LOGIN ACTIVITY -->
+        <activity android:name=".ui.login.LoginActivity"
+                  android:label="SIGELU Estoques - Login"/>
+
         <!-- LISTA PEDIDO ACTIVITY -->
         <activity android:name=".ui.lista_pedidos.ListaPedidoActivity"
                   android:configChanges="orientation"
                   android:screenOrientation="portrait"/>
 
-        <!-- ENTREGA MATERIAIS PEDIDO ACTIVITY -->
-        <activity
-                android:name=".ui.entrega_materiais_pedido.EntregaMateriaisPedidoActivity"
-                android:label="Cadastrar Recebimento"/>
-
         <!-- VISUALIZA PEDIDO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity"
                   android:label="Visualizando Pedido" />
+
+
+
+        <!-- CADASTRA PEDIDO -->
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
@@ -54,6 +57,10 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
                   android:label="Adicione material recebido" />
 
+        <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
+                  android:label="Preencha a quantidade recebida"/>
+
         <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity"
                   android:label="Materiais Solicitados"
@@ -61,19 +68,13 @@
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar" />
 
-        <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
-                  android:label="Preencha a quantidade recebida"/>
 
-        <!-- LOGIN ACTIVITY -->
-        <activity android:name=".ui.login.LoginActivity"
-                  android:label="SIGELU Estoques - Login">
-        </activity>
+
+        <!-- CADASTRA RECEBIMENTO -->
 
         <!-- SELECIONA ENVIO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity"
-                  android:label="Selecione o envio">
-        </activity>
+                  android:label="Selecione o envio"/>
 
         <!-- SELECIONA ITEM ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity"
@@ -89,6 +90,10 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar"/>
+
+
+
+        <!-- CADASTRA ENVIO -->
 
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
@@ -110,7 +115,8 @@
                   android:theme="@style/AppThemeNoActionBar"/>
 
 
-        <!-- RECEBIMENTO SEM PEDIDO-->
+
+        <!-- CADASTRA RECEBIMENTO SEM PEDIDO-->
 
         <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM PEDIDO  -->
         <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item.SelecionaItemActivity"

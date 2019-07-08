@@ -1,7 +1,60 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item
 
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
 /**
  * Created by felcks on Jul, 2019
  */
-class SelecionaItemViewModel {
+class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoController): ViewModel(){
+
+    private val disposables = CompositeDisposable()
+    var response = MutableLiveData<Response>()
+
+    override fun onCleared() {
+        disposables.clear()
+    }
+
+    fun response(): MutableLiveData<Response> {
+        return response
+    }
+
+//    fun carregaListaItens(){
+//
+//        val tipoPedido = controller.getTipoPedido()
+//
+//        if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO) {
+//            this.carregaListaItensContrato()
+//        }
+//    }
+//
+//    private fun carregaListaItensContrato(){
+//
+//        disposables.add(controller.carregaListaItensContrato()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { response.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    loading.set(false)
+//                    controller.armazenarListaItemContrato(result)
+//                    response.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    response.value = Response.error(throwable)
+//                }
+//            )
+//        )
+//    }
+//
+//    fun selecionaItem(itemID: Int){
+//        return controller.selecionaItem(itemID)
+//    }
 }
