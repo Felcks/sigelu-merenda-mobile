@@ -119,7 +119,12 @@
         <!-- CADASTRA RECEBIMENTO SEM PEDIDO-->
 
         <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM PEDIDO  -->
-        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_seleciona_item.SelecionaItemActivity"
+        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity"
+                  android:label="Cadastrar recebimento"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity"
                   android:label="Selecione um item"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>

@@ -6,6 +6,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
+import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -42,8 +44,8 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
             }
         }
 
-//        if(listaFiltrata.isEmpty())
-//            throw NenhumItemDisponivelException()
+        if(listaFiltrata.isEmpty())
+            throw NenhumItemDisponivelException()
 
         return listaFiltrata
     }
@@ -55,7 +57,11 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
     fun getNucleoDestino(): Nucleo{
 
-        return nucleoRepository.getMeuNucleo()
+        val meuNucleo =  nucleoRepository.getMeuNucleo()
+        if(meuNucleo.id == -1)
+            throw UsuarioSemNucleoException()
+
+        return meuNucleo
     }
 
     fun getListaItem(contratoID: Int): Observable<List<ItemContrato>> {
