@@ -96,14 +96,14 @@
                 android:background="@drawable/custom_border_grey"
                 isVisible="@{!viewModel.loading}">
 
-            <Spinner
-                    android:id="@+id/spinner_destiner"
+            <TextView
+                    android:id="@+id/tv_destino"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:gravity="center|center_vertical"
                     android:padding="8dp"
-                    android:spinnerMode="dropdown"
                     android:textAlignment="center"
+                    android:text="@{viewModel.nomeNucleo}"
                     android:textColor="@color/primary_text"
                     android:textSize="12sp" />
         </LinearLayout>

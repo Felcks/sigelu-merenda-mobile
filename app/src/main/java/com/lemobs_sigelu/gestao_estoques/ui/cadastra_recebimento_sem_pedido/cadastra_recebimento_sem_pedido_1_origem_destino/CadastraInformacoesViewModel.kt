@@ -3,6 +3,8 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cad
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import android.view.View
+import android.widget.AdapterView
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Fornecedor
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
@@ -19,6 +21,7 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
+    var nomeNucleo = ObservableField<String>("")
 
     override fun onCleared() {
         disposables.clear()
@@ -37,10 +40,10 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
+                    loading.set(false)
                     val listaFiltrada = controller.filtraListaFornecedorParaFornecedorComPeloMenosUmContratoVigente(result)
                     controller.salvaLista(listaFiltrada)
                     response.value = Response.success(listaFiltrada)
-                    loading.set(false)
                 },
                 { throwable ->
                     loading.set(false)
@@ -50,10 +53,22 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
         )
     }
 
-    fun carregaMeuNucleo(): Nucleo {
+    fun carregaMeuNucleo() {
 
         loading.set(true)
-        return controller.getNucleoDestino()
+        val nucleo = controller.getNucleoDestino()
+        nomeNucleo.set("Núcleo - ${nucleo.nome}")
+    }
+
+
+    private var fornecedorSelecionadoPos = 0
+    val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            fornecedorSelecionadoPos = position
+        }
     }
 
 }
