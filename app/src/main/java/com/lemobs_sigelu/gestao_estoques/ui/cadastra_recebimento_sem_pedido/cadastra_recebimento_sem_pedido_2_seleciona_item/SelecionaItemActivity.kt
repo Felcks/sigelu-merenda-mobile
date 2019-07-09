@@ -4,8 +4,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -69,6 +72,25 @@ class SelecionaItemActivity: AppCompatActivity(), OneIntParameterClickListener {
     }
 
     override fun onClick(id: Int) {
-        
+
+        try{
+            viewModel!!.selecionaItem(id)
+//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+//            startActivity(intent)
+        }
+        catch (e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

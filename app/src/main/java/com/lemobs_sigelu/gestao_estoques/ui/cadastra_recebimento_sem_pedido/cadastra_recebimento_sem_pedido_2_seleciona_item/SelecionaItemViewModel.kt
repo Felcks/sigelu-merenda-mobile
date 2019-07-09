@@ -57,8 +57,8 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
             )
         }
     }
-//
-//    fun selecionaItem(itemID: Int){
-//        return controller.selecionaItem(itemID)
-//    }
+
+    fun selecionaItem(itemID: Int){
+        return controller.selecionaItem(itemID)
+    }
 }

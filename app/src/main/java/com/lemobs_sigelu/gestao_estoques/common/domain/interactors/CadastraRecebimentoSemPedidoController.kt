@@ -54,7 +54,7 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
 
     fun salvaLista(listaFornecedor: List<Fornecedor>){
-        CadastraRecebimentoSemPedidoController.listaFornecedorComContratoVigente = listaFornecedor
+        listaFornecedorComContratoVigente = listaFornecedor
     }
 
     fun getNucleoDestino(): Nucleo{
@@ -89,6 +89,13 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
     fun salvaListaItemContrato(lista: List<ItemContrato>){
 
         listaItemContrato?.addAll(lista)
+    }
+
+    fun selecionaItem(itemID: Int){
+
+
+        val itemContrato = listaItemContrato?.first { it.id == itemID } ?: throw Exception("Item Contrato é nulo")
+        recebimentoSemPedido?.listaItemContrato?.add(itemContrato)
     }
 
 }

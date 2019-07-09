@@ -14,7 +14,10 @@ class RecebimentoSemPedido(
     var fornecedorOrigem: Fornecedor,
 
     @Ignore
-    var nucleoDestino: Nucleo
+    var nucleoDestino: Nucleo,
+
+    @Ignore
+    var listaItemContrato: MutableList<ItemContrato> = mutableListOf()
 ){
 
 
