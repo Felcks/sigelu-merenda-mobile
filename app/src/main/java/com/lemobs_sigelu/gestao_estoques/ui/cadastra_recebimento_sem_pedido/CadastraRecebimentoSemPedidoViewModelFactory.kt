@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemViewModel
 
 /**
  * Created by felcks on Jul, 2019
@@ -19,11 +20,11 @@ class CadastraRecebimentoSemPedidoViewModelFactory (val controller: CadastraRece
         if (modelClass.isAssignableFrom(CadastraInformacoesViewModel::class.java!!)) {
             return CadastraInformacoesViewModel(controller) as T
         }
-//
-//        if (modelClass.isAssignableFrom(SelecionaItemEnvioRecebimentoViewModel::class.java!!)) {
-//            return SelecionaItemEnvioRecebimentoViewModel(controller) as T
-//        }
-//
+
+        if (modelClass.isAssignableFrom(CadastraItemViewModel::class.java!!)) {
+            return CadastraItemViewModel(controller) as T
+        }
+
 //        if (modelClass.isAssignableFrom(CadastraItemRecebimentoViewModel::class.java!!)) {
 //            return CadastraItemRecebimentoViewModel(controller) as T
 //        }

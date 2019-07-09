@@ -105,7 +105,7 @@
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity"
-                  android:label="Selecione um item"/>
+                  android:label="Cadastre o item"/>
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
         <activity android:name= ".ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity"
@@ -126,6 +126,11 @@
 
         <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity"
                   android:label="Selecione um item"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemActivity"
+                  android:label="Cadastre o item"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 

@@ -22,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebi
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoModule
 import dagger.Module
@@ -83,10 +84,14 @@ abstract class ActivitiesModule {
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
 
     /* Cadastra RecebimentoSemPedido sem Pedido */
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
+    abstract fun bindCadastraInfoActivity(): CadastraInformacoesActivity
+
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
     abstract fun bindSelecionaItemActivity(): SelecionaItemActivity
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
-    abstract fun bindCadastraInfoActivity(): CadastraInformacoesActivity
+    abstract fun bindCadastraItem(): CadastraItemActivity
 
 }

@@ -4,9 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
-import com.lemobs_sigelu.gestao_estoques.exceptions.FornecedorSemContratoVigenteException
-import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
-import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import io.reactivex.Observable
 import java.lang.Exception
 import javax.inject.Inject
@@ -22,6 +20,7 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         private var recebimentoSemPedido: RecebimentoSemPedido? = null
 
         private var listaItemContrato : MutableList<ItemContrato>? = mutableListOf()
+        private var itemRecebimento: ItemRecebimento? = null
 
         private var listaFornecedorComContratoVigente: List<Fornecedor>? = null
         fun ListaFornecedorComContratoVigente() = listaFornecedorComContratoVigente
@@ -93,9 +92,33 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
     fun selecionaItem(itemID: Int){
 
-
         val itemContrato = listaItemContrato?.first { it.id == itemID } ?: throw Exception("Item Contrato é nulo")
         recebimentoSemPedido?.listaItemContrato?.add(itemContrato)
+    }
+
+    fun getItemContrato(): ItemContrato{
+        return recebimentoSemPedido?.listaItemContrato?.first() ?: throw Exception("Sem nenhum item contrato")
+    }
+
+    fun confirmaCadastroItem(valor: Double){
+
+        if(valor <= 0.0){
+            throw ValorMenorQueZeroException()
+        }
+
+        val item =  recebimentoSemPedido?.listaItemContrato?.first()
+
+        val itemRecebimento = ItemRecebimento(
+            null,
+            item?.id,
+            valor
+        )
+
+        if(valor > item?.quantidadeUnidade ?: 999999999.0){
+            throw ValorMaiorQuePermitidoException()
+        }
+
+        CadastraRecebimentoSemPedidoController.itemRecebimento = itemRecebimento
     }
 
 }

@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cad
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -15,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivitySelecionaItemRecebimentoSemPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_recebimento_sem_pedido.*
@@ -75,8 +77,8 @@ class SelecionaItemActivity: AppCompatActivity(), OneIntParameterClickListener {
 
         try{
             viewModel!!.selecionaItem(id)
-//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CadastraItemActivity::class.java)
+            startActivity(intent)
         }
         catch (e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
