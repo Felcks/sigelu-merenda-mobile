@@ -60,6 +60,10 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
         nomeNucleo.set("Núcleo - ${nucleo.nome}")
     }
 
+    fun confirmarInformacoesBasicasRecebimento(){
+        return controller.confirmarInformacoesBasicasRecebimento(fornecedorSelecionadoPos)
+    }
+
 
     private var fornecedorSelecionadoPos = 0
     val selecionadorOrigem = object: AdapterView.OnItemSelectedListener {
@@ -70,5 +74,7 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
             fornecedorSelecionadoPos = position
         }
     }
+
+
 
 }

@@ -40,7 +40,7 @@ abstract class ActivitiesModule {
     abstract fun bindLoginActivity(): LoginActivity
 
 
-    /* Cadastra Recebimento */
+    /* Cadastra RecebimentoSemPedido */
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecibimentoModule::class))
     abstract fun bindSelecionaEnvioActivity(): SelecionaEnvioRecebimentoActivity
 
@@ -82,7 +82,7 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
 
-    /* Cadastra Recebimento sem Pedido */
+    /* Cadastra RecebimentoSemPedido sem Pedido */
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
     abstract fun bindSelecionaItemActivity(): SelecionaItemActivity
 

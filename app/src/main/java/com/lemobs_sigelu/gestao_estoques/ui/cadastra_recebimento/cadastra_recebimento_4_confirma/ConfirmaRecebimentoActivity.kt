@@ -88,7 +88,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "Recebimento enviado com sucesso!",
+            "RecebimentoSemPedido enviado com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)

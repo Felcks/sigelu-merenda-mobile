@@ -1,14 +1,14 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Fornecedor
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
+import com.lemobs_sigelu.gestao_estoques.exceptions.FornecedorSemContratoVigenteException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
 import io.reactivex.Observable
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -19,9 +19,11 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
                                                                  private val nucleoRepository: NucleoRepository) {
 
     companion object{
+        private var recebimentoSemPedido: RecebimentoSemPedido? = null
+
+        private var listaItemContrato : MutableList<ItemContrato>? = mutableListOf()
+
         private var listaFornecedorComContratoVigente: List<Fornecedor>? = null
-
-
         fun ListaFornecedorComContratoVigente() = listaFornecedorComContratoVigente
     }
 
@@ -64,11 +66,29 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         return meuNucleo
     }
 
+    fun confirmarInformacoesBasicasRecebimento(fornecedorSelecionadoPos: Int){
+
+        val nucleo = getNucleoDestino()
+        val fornecedor = listaFornecedorComContratoVigente?.get(fornecedorSelecionadoPos) ?: throw RecebimentoSemPedido.FornecedorNaoSelecionadoException()
+
+        recebimentoSemPedido = RecebimentoSemPedido(null, fornecedor, nucleo)
+    }
+
+    fun getListaContratoVigenteIDs(): List<Int>{
+
+        val fornecedor = recebimentoSemPedido?.fornecedorOrigem ?: throw Exception("Sem Fornecedor")
+        val listaContratoVigente = fornecedor.listaContratoEstoque?.filter { it.situacao == "Vigente" }
+        return listaContratoVigente?.map { it.id } ?: throw FornecedorSemContratoVigenteException()
+    }
+
     fun getListaItem(contratoID: Int): Observable<List<ItemContrato>> {
 
         return itemContratoRepository.carregaListaItemContrato(contratoID)
     }
 
+    fun salvaListaItemContrato(lista: List<ItemContrato>){
 
+        listaItemContrato?.addAll(lista)
+    }
 
 }

@@ -128,7 +128,7 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
             throw ValorMenorQueZeroException()
         }
 
-        /* Gerando o Item Recebimento */
+        /* Gerando o Item RecebimentoSemPedido */
         val itemEnvioID = FlowSharedPreferences.getItemEnvioID(App.instance)
 
         val itemRecebimento = ItemRecebimento(

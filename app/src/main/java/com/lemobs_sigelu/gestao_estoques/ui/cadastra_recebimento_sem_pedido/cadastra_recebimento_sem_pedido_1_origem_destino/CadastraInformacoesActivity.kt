@@ -18,9 +18,11 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.utils.CustomAdapterTuple
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_recebimento_sp_informacoes.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -71,9 +73,7 @@ class CadastraInformacoesActivity: AppCompatActivity() {
             viewModel!!.carregaListaFornecedores()
         }
         catch(e: UsuarioSemNucleoException){
-
-            //mostrar snackbar de erro
-            Log.i("script2", "uaheufhaf")
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -91,6 +91,15 @@ class CadastraInformacoesActivity: AppCompatActivity() {
 
         if(item?.itemId == R.id.btn_done) {
 
+            try{
+                viewModel!!.confirmarInformacoesBasicasRecebimento()
+
+                val intent = Intent(this, SelecionaItemActivity::class.java)
+                startActivity(intent)
+            }
+            catch(e: Exception){
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            }
         }
 
         return super.onOptionsItemSelected(item)
