@@ -44,10 +44,10 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
 
     fun responseFluxo(): MutableLiveData<Response> = responseFluxo
 
-    fun carregaListaEmpresa(){
+    fun carregaListaFornecedor(){
 
         loading.set(true)
-        disposables.add(controller.carregaListaEmpresa()
+        disposables.add(controller.carregaListaFornecedor()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseEmpresas.setValue(Response.loading()) }

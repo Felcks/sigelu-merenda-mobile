@@ -10,7 +10,7 @@ import java.util.*
 import javax.inject.Inject
 
 class CadastraPedidoController @Inject constructor(private val nucleoRepository: NucleoRepository,
-                                                   private val empresaRepository: EmpresaRepository,
+                                                   private val fornecedorRepository: FornecedorRepository,
                                                    private val obraRepository: ObraRepository,
                                                    private val contratoRepository: ContratoRepository,
                                                    private val itemContratoRepository: ItemContratoRepository,
@@ -62,8 +62,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return nucleoRepository.carregaListaNucleo()
     }
 
-    fun carregaListaEmpresa(): Observable<List<Empresa>> {
-        return empresaRepository.carregaListaEmpresa()
+    fun carregaListaFornecedor(): Observable<List<Fornecedor>> {
+        return fornecedorRepository.carregaListaFornecedor()
     }
 
     fun carregaListaObra(): Observable<List<Obra>> {

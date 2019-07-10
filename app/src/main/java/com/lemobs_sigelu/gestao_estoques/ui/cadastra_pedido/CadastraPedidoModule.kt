@@ -20,8 +20,8 @@ class CadastraPedidoModule {
     }
 
     @Provides
-    fun carregaListaEmpresaRepository(): EmpresaRepository {
-        return EmpresaRepository()
+    fun fornecedorRepository(): FornecedorRepository {
+        return FornecedorRepository()
     }
 
     @Provides

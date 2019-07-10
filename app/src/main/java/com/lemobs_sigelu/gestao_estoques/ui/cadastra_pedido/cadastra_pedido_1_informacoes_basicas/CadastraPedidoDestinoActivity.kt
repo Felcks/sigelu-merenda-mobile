@@ -73,8 +73,8 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
                     if(response.data[0] is Nucleo)
                         renderDataNucleo(response.data)
 
-                    if(response.data[0] is Empresa)
-                        renderDataEmpresa(response.data)
+                    if(response.data[0] is Fornecedor)
+                        renderDataFornecedor(response.data)
 
                     if(response.data[0] is Obra)
                         renderDataObra(response.data)
@@ -103,14 +103,14 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
             viewModel!!.listaDestino.addAll((result).map { Local(it.id,"Núcleo",it.nome) })
         }
 
-        viewModel!!.carregaListaEmpresa()
+        viewModel!!.carregaListaFornecedor()
         viewModel!!.carregaListaObra()
     }
 
-    private fun renderDataEmpresa(result: Any?) {
+    private fun renderDataFornecedor(result: Any?) {
 
         if(result is List<*>){
-            viewModel!!.listaOrigem.addAll((result as List<Empresa>).map { Local(it.id,"Fornecedor", it.nome) })
+            viewModel!!.listaOrigem.addAll((result as List<Fornecedor>).map { Local(it.id,"Fornecedor", it.nome ?: "") })
         }
         iniciarSpinnerOrigem()
     }
