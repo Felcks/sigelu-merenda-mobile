@@ -1,5 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.ItemRecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
@@ -114,6 +118,10 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
             valor
         )
 
+        itemRecebimento.quantidadeUnidade = item?.quantidadeUnidade
+
+        itemRecebimento.itemEstoque = item?.itemEstoque
+
         if(valor > item?.quantidadeUnidade ?: 999999999.0){
             throw ValorMaiorQuePermitidoException()
         }
@@ -121,4 +129,61 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         CadastraRecebimentoSemPedidoController.itemRecebimento = itemRecebimento
     }
 
+    fun getItemRecebimento(): Observable<ItemRecebimento>{
+        return Observable.create {subscriber ->
+            if(itemRecebimento != null)
+                subscriber.onNext(itemRecebimento!!)
+            else
+                subscriber.onError(Exception("Sem item recebimento."))
+        }
+    }
+
+    fun cancelaRecebimento(){
+        recebimentoSemPedido = null
+        itemRecebimento = null
+        listaItemContrato = mutableListOf()
+        listaFornecedorComContratoVigente = null
+    }
+
+    fun enviaRecebimento(): Observable<Boolean> {
+
+        return Observable.create { subscriber ->
+
+            val origemID = recebimentoSemPedido?.fornecedorOrigem?.id
+            val destinoID = recebimentoSemPedido?.nucleoDestino?.id
+
+            if (origemID == null) {
+                subscriber.onError(Throwable("Pedido sem origem"))
+            }
+            if (destinoID == null) {
+                subscriber.onError(Throwable("Pedido sem destino"))
+            }
+
+            val recebimentoDataRequest = RecebimentoSemPedidoDataRequest(
+                origemID!!,
+                destinoID!!,
+                listaItemContrato!!.map {
+                    ItemRecebimentoDataRequest(
+                        it.categoria?.categoria_id ?: 0,
+                        it.itemEstoqueID ?: 0,
+                        it.precoUnidade ?: 0.0,
+                        itemRecebimento?.quantidadeRecebida ?: 0.0
+                    )
+                }
+            )
+
+
+            val callResponse = api.postRecebimentoSemPedidoEstoque(recebimentoDataRequest)
+            val response = callResponse.execute()
+
+            if (response.isSuccessful) {
+                subscriber.onNext(true)
+                subscriber.onComplete()
+            } else {
+                subscriber.onError(Throwable(response.message()))
+            }
+        }
+    }
+
+    val api = RestApi()
 }

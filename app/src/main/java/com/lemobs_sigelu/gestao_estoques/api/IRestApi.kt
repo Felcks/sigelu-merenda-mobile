@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -56,6 +57,10 @@ interface IRestApi {
     @POST("recebimento-estoque")
     fun postRecebimentoEstoque(@Header("Authorization") auth: String,
                                @Body recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>
+
+    @POST("recebimento-estoque")
+    fun postRecebimentoEstoque(@Header("Authorization") auth: String,
+                               @Body recebimentoDataRequest: RecebimentoSemPedidoDataRequest): Call<Unit>
 
     @GET("empresa")
     fun getEmpresas(@Header("Authorization") auth: String,
