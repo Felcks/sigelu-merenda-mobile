@@ -143,9 +143,17 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     fun processResponseOrigem(response: Local?) {
 
         if(response?.tipo == "Núcleo"){
+            if(viewModel!!.origemIsNucleo.get() == false){
+                viewModel!!.resetDestino()
+                spinner_destino_para_nucleo.setSelection(0)
+            }
             viewModel!!.origemIsNucleo.set(true)
         }
         else{
+            if(viewModel!!.origemIsNucleo.get() == true){
+                viewModel!!.resetDestino()
+                spinner_destino_para_fornecedor.setSelection(0)
+            }
             viewModel!!.origemIsNucleo.set(false)
         }
     }

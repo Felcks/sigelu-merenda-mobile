@@ -34,6 +34,10 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
     val listaDestino = mutableListOf<Local>()
     val listaContrato = mutableListOf<ContratoEstoque>()
 
+    fun resetDestino(){
+        destino.value = this.listaDestino.get(0)
+    }
+
     init {
         origem.value = Local(-1, "Núcleo", "")
         destino.value = Local(-1, "Núcleo", "")
