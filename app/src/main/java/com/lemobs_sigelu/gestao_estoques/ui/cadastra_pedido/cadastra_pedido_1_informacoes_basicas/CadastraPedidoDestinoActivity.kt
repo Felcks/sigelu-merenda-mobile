@@ -49,7 +49,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseObras.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseContratos.observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.origem.observe(this, Observer<Local> { response -> processResponseOrigem(response) })
+        viewModel!!.origem().observe(this, Observer<Local> { response -> processResponseOrigem(response) })
 
         viewModel!!.carregaListaNucleo()
         viewModel!!.carregaListaContrato()
@@ -63,6 +63,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     }
 
     /* Process Response Nucleo */
+    private var contadorCarregamentos = 0
     fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> renderLoading()
@@ -81,6 +82,11 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
 
                     if(response.data[0] is ContratoEstoque)
                         renderDataContrato(response.data)
+
+                    contadorCarregamentos++
+                    if(contadorCarregamentos >= 4){
+                        viewModel!!.loading.set(false)
+                    }
                 }
 
             }
@@ -94,13 +100,16 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         viewModel!!.loading.set(true)
     }
 
-    private fun renderError(throwable: Throwable?) {}
+    private fun renderError(throwable: Throwable?) {
+        viewModel!!.loading.set(false)
+    }
 
     private fun renderDataNucleo(result: Any?) {
 
         if(result is List<*>){
             viewModel!!.listaOrigem.addAll((result as List<Nucleo>).map { Local(it.id, "Núcleo", it.nome) })
             viewModel!!.listaDestino.addAll((result).map { Local(it.id,"Núcleo",it.nome) })
+            this.iniciarSpinnerDestinoParaFornecedor(result)
         }
 
         viewModel!!.carregaListaFornecedor()
@@ -120,7 +129,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         if(result is List<*>){
             viewModel!!.listaDestino.addAll((result as List<Obra>).map { Local(it.id,"Obra",it.codigo) })
         }
-        iniciarSpinnerDestino()
+        iniciarSpinnerDestinoParaNucleo()
     }
 
     private fun renderDataContrato(result: Any?) {
@@ -134,12 +143,10 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
     fun processResponseOrigem(response: Local?) {
 
         if(response?.tipo == "Núcleo"){
-            tv_contrato_layout.visibility = View.GONE
-            ll_botoes_contratos.visibility = View.GONE
+            viewModel!!.origemIsNucleo.set(true)
         }
         else{
-            tv_contrato_layout.visibility = View.VISIBLE
-            ll_botoes_contratos.visibility = View.VISIBLE
+            viewModel!!.origemIsNucleo.set(false)
         }
     }
 
@@ -152,13 +159,22 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
         spinner_origem.onItemSelectedListener = viewModel!!.selecionadorOrigem
     }
 
-    fun iniciarSpinnerDestino(){
+    fun iniciarSpinnerDestinoParaNucleo(){
 
         val textoDestino = viewModel!!.listaDestino.map { CustomAdapterTuple.RowItem(it.tipo, it.nome) }
         var adapter = CustomAdapterTuple(this, textoDestino)
-        spinner_destiner.adapter = adapter
+        spinner_destino_para_nucleo.adapter = adapter
 
-        spinner_destiner.onItemSelectedListener = viewModel!!.selecionadorDestino
+        spinner_destino_para_nucleo.onItemSelectedListener = viewModel!!.selecionadorDestino
+    }
+
+    fun iniciarSpinnerDestinoParaFornecedor(nucleos: List<Nucleo>){
+
+        val textoDestino = nucleos.map { CustomAdapterTuple.RowItem("Núcleo", it.nome) }
+        var adapter = CustomAdapterTuple(this, textoDestino)
+        spinner_destino_para_fornecedor.adapter = adapter
+
+        spinner_destino_para_fornecedor.onItemSelectedListener = viewModel!!.selecionadorDestino
     }
 
     fun iniciarSpinnerContratos(){

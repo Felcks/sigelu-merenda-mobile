@@ -25,9 +25,10 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
     val responseObras = MutableLiveData<Response>()
     val responseContratos = MutableLiveData<Response>()
 
-    var origem : MutableLiveData<Local> = MutableLiveData<Local>()
-    private var destino : MutableLiveData<Local> = MutableLiveData<Local>()
-    private var contrato : MutableLiveData<ContratoEstoque> = MutableLiveData<ContratoEstoque>()
+    var origemIsNucleo: ObservableField<Boolean> = ObservableField<Boolean>(true)
+    private var origem: MutableLiveData<Local> = MutableLiveData<Local>()
+    private var destino: MutableLiveData<Local> = MutableLiveData<Local>()
+    private var contrato: MutableLiveData<ContratoEstoque> = MutableLiveData<ContratoEstoque>()
 
     val listaOrigem = mutableListOf<Local>()
     val listaDestino = mutableListOf<Local>()
@@ -42,22 +43,22 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
         disposables.clear()
     }
 
+    fun origem(): MutableLiveData<Local> = this.origem
+
+
     fun responseFluxo(): MutableLiveData<Response> = responseFluxo
 
     fun carregaListaFornecedor(){
 
-        loading.set(true)
         disposables.add(controller.carregaListaFornecedor()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseEmpresas.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    loading.set(false)
                     responseEmpresas.value = Response.success(result)
                 },
                 { throwable ->
-                    loading.set(false)
                     responseEmpresas.value = Response.error(throwable)
                 }
             )
@@ -89,7 +90,6 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
             .doOnSubscribe { responseObras.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    loading.set(false)
                     responseObras.value = Response.success(result)
                 },
                 { throwable ->
@@ -107,7 +107,6 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
             .doOnSubscribe { responseContratos.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    loading.set(false)
                     responseContratos.value = Response.success(result)
                 },
                 { throwable ->
