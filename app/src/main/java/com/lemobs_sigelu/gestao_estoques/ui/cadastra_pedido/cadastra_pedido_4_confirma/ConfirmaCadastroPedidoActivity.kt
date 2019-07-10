@@ -114,7 +114,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
 
         this.errorDialog = DialogUtil.buildAlertDialogOk(this,
             "Erro",
-            "Falha no envio do pedido",
+            "Ocorreu um erro ao incluir o Pedido. Contate o administrador do sistema.",
             {
 
             },

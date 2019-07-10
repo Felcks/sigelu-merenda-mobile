@@ -5,5 +5,4 @@ import java.lang.Exception
 /**
  * Created by felcks on Jul, 2019
  */
-class ValorMenorQueZeroException: Exception("Valor menor que zero.") {
-}
+class ValorMenorQueZeroException: Exception("Informe uma quantidade válida.")
