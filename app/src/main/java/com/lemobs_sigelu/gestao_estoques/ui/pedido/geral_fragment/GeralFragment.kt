@@ -74,7 +74,7 @@ class GeralFragment: Fragment() {
             tv_origem.text = result.getOrigemFormatado()
             tv_destino.text = result.getDestinoFormatado()
             tv_data_pedido.text = result.dataPedido?.getDataFormatada()?.tracoSeVazio() ?: "-"
-            tv_data_entrega.text = result.dataEntrega?.getDataFormatada()?.tracoSeVazio() ?: "-"
+            tv_data_entrega.text = result.dataUltimoEnvio?.getDataFormatada()?.tracoSeVazio() ?: "-"
         }
 
         viewModel!!.loading.set(false)

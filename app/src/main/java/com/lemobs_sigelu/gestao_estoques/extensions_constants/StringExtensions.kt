@@ -18,6 +18,9 @@ fun String.horaMinutoSegundoToDate(): Date {
 }
 
 fun String.anoMesDiaHoraMinutoSegundoToDate(): Date {
+    if(this.isEmpty())
+        return Date()
+
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd/hh:mm:ss", Locale.getDefault())
     return simpleDateFormat.parse(this) as Date
 }
@@ -27,6 +30,9 @@ fun String.toDate(): Date {
 }
 
 fun String.createdAtToDate(): Date {
+    if(this.isEmpty())
+        return Date()
+
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     simpleDateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
     return simpleDateFormat.parse(this) as Date

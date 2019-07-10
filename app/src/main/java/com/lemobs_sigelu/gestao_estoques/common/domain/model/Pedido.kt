@@ -30,11 +30,15 @@ data class Pedido(
     @ColumnInfo(name = "data_pedido")
     var dataPedido: Date? = null,
 
-    @ColumnInfo(name = "data_entrega")
-    var dataEntrega: Date? = null,
+    @ColumnInfo(name = "data_ultimo_envio")
+    var dataUltimoEnvio: Date? = null,
+
+    @ColumnInfo(name = "data_ultimo_recebimento")
+    var dataUltimoRecebimento: Date? = null,
 
     @Embedded
-    var situacao: Situacao?){
+    var situacao: Situacao?
+){
 
     @Ignore
     var historicoSituacoes: List<SituacaoHistorico> = listOf()
@@ -64,8 +68,12 @@ data class Pedido(
         return dataPedido?.getDataFormatada() ?: ""
     }
 
-    fun getDataEntregaFormatada(): String{
-        return dataEntrega?.getDataFormatada() ?: ""
+    fun getDataEnvioFormatada(): String{
+        return dataUltimoEnvio?.getDataFormatada() ?: ""
+    }
+
+    fun getDataRecebimentoFormatada(): String{
+        return dataUltimoRecebimento?.getDataFormatada() ?: ""
     }
 
     fun getOrigemFormatado() = when(origem){

@@ -2,13 +2,10 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import android.databinding.ObservableField
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

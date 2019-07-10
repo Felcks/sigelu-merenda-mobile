@@ -10,12 +10,10 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.createdAtToDate
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.util.*
 
 class PedidoRepository {
 
@@ -63,7 +61,8 @@ class PedidoRepository {
                         destinoID,
                         origemNome,
                         destinoNome,
-                        this.data_aprovacao?.createdAtToDate(),
+                        null,
+                        null,
                         null,
                         Situacao(
                             this.situacao.id,
@@ -120,7 +119,15 @@ class PedidoRepository {
                         else -> Tupla(null, null)
                     }
 
-                    Pedido(it.id,
+                    val dataUltimoEnvio = if(it.data_ultimo_envio != null && it.hora_ultimo_envio != null){
+                        "${it.data_ultimo_envio}/${it.hora_ultimo_envio}".anoMesDiaHoraMinutoSegundoToDate()
+                    }
+                    else{
+                        Date()
+                    }
+
+                    Pedido(
+                        it.id,
                         it.codigo ?: "",
                         it.tipo_origem ?: "",
                         it.tipo_destino ?: "",
@@ -128,8 +135,9 @@ class PedidoRepository {
                         destinoID,
                         origemNome,
                         destinoNome,
-                        null,
-                        null,
+                        it.created_at?.createdAtToDate(),
+                        dataUltimoEnvio,
+                        it.data_ultimo_recebimento?.createdAtToDate(),
                         Situacao(it.situacao.id, it.situacao.nome)
                     )
                 }
