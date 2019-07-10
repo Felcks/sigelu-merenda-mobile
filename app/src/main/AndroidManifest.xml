@@ -134,5 +134,11 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
+        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity"
+                  android:label="Confirme o recebimento"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"
+                  android:theme="@style/AppThemeNoActionBar"/>
+
     </application>
 </manifest>

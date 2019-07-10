@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoExcept
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_item_recebimento_sp.*
 import javax.inject.Inject
@@ -53,8 +54,8 @@ class CadastraItemActivity: AppCompatActivity() {
                 tv_5.esconderTeclado()
                 viewModel!!.confirmaCadastroMaterial()
 
-//                val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, ConfirmaRecebimentoSPActivity::class.java)
+                startActivity(intent)
             }
             catch (e: CampoNaoPreenchidoException){
                 Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()

@@ -6,6 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraReceb
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPViewModel
 
 /**
  * Created by felcks on Jul, 2019
@@ -25,13 +26,9 @@ class CadastraRecebimentoSemPedidoViewModelFactory (val controller: CadastraRece
             return CadastraItemViewModel(controller) as T
         }
 
-//        if (modelClass.isAssignableFrom(CadastraItemRecebimentoViewModel::class.java!!)) {
-//            return CadastraItemRecebimentoViewModel(controller) as T
-//        }
-//
-//        if (modelClass.isAssignableFrom(ConfirmaRecebimentoViewModel::class.java!!)) {
-//            return ConfirmaRecebimentoViewModel(controller) as T
-//        }
+        if (modelClass.isAssignableFrom(ConfirmaRecebimentoSPViewModel::class.java!!)) {
+            return ConfirmaRecebimentoSPViewModel(controller) as T
+        }
 
         throw IllegalArgumentException("Unknown ViewModel class")
     }
