@@ -86,7 +86,10 @@ class PedidoRepository {
     private fun salvaPedidoBD(pedido: Pedido) {
 
         val dao  = db.pedidoDAO()
-        dao.updateItem(pedido)
+        dao.updateItem(pedido.id,
+            pedido.codigo,
+            pedido.origem,
+            pedido.destino)
     }
 
     fun salvaListaPedidoBD(lista: List<Pedido>){

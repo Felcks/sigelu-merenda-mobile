@@ -16,8 +16,11 @@ interface PedidoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg users: Pedido)
 
-    @Update(onConflict = OnConflictStrategy.ROLLBACK)
-    fun updateItem(item: Pedido)
+    @Query("UPDATE pedido SET codigo = :codigo, origem = :origem, destino = :destino WHERE id = :id")
+    fun updateItem(id: Int,
+                   codigo: String?,
+                   origem: String?,
+                   destino: String?)
 
     @Delete
     fun delete(user: Pedido)
