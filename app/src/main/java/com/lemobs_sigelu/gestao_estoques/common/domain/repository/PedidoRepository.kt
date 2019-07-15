@@ -144,7 +144,9 @@ class PedidoRepository {
                         Situacao(it.situacao.id, it.situacao.nome)
                     )
                 }
-                subscriber.onNext(list ?: listOf())
+
+                this.salvaListaPedidoBD(list ?: listOf())
+                subscriber.onNext(getListaPedidoBD())
                 subscriber.onComplete()
             }
             else{

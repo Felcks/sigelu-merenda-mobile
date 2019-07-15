@@ -58,4 +58,8 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
     fun selecionaItem(itemID: Int){
         return controller.selecionaItem(itemID)
     }
+
+    fun salvaRascunho(){
+        return controller.salvaPedidoRascunho()
+    }
 }

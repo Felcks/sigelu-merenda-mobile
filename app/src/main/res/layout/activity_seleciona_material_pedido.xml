@@ -22,7 +22,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="16sp"
             android:layout_marginTop="@dimen/espacamento_maximo"
-            android:visibility="gone"
-    />
+            android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

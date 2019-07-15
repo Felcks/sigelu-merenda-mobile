@@ -62,4 +62,9 @@ data class PedidoCadastro(
 
         return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
     }
+
+    fun toPedido(): Pedido{
+
+        return Pedido(id ?: 500, codigo, origemTipo, destinoTipo, origemID, destinoID, origem, destino, dataPedido, Date(), Date(), situacao)
+    }
 }

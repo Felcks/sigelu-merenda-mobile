@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
@@ -15,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
@@ -85,10 +88,29 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickList
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId ==  R.id.btn_rascunho){
+
+            try{
+                viewModel!!.salvaRascunho()
+                val intent = Intent(this, ListaPedidoActivity::class.java)
+                startActivity(intent)
+                this.finishAffinity()
+            }
+            catch (e: Exception){
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        menuInflater.inflate(R.menu.menu_rascunho, menu)
         return true
     }
 

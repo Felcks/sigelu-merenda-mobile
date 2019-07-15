@@ -5,6 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
@@ -39,7 +40,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
 
         val pedido = PedidoCadastro(
             null,
-            "Código gerado",
+            "XXXX",
             origem.nome,
             destino.nome,
             origem.tipo,
@@ -48,7 +49,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
             destino.id,
             Date(),
             Date(),
-            Situacao(1, "")
+            Situacao(1, "Rascunho")
         )
 
         if(origem.tipo == "Fornecedor"){
@@ -131,4 +132,10 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoCadastro
     }
 
+    fun salvaPedidoRascunho(){
+
+        val pedido = pedidoCadastro?.toPedido()
+        val dao = db.pedidoDAO()
+        dao.insertAll(pedido!!)
+    }
 }

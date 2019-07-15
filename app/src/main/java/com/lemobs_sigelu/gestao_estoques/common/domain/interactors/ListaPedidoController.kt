@@ -12,14 +12,11 @@ class ListaPedidoController @Inject constructor(private val pedidoRepository: Pe
 
     fun carregaListaPedido(): Observable<List<Pedido>> {
 
-        if(isConnected(App.instance)) {
-            return pedidoRepository.getListaPedido()
-        }
-        else{
-            return Observable.create { subscriber ->
-                subscriber.onNext(pedidoRepository.getListaPedidoBD())
-            }
-        }
+        if(isConnected(App.instance))
+             return pedidoRepository.getListaPedido()
+
+
+        return Observable.create { subscriber-> subscriber.onNext(pedidoRepository.getListaPedidoBD()) }
     }
 
     fun salvaListaPedido(lista: List<Pedido>){
