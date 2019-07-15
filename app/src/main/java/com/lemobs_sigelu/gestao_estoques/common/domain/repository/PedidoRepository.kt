@@ -72,7 +72,7 @@ class PedidoRepository {
                 }
 
                 this.salvaPedidoBD(pedido)
-                subscribe.onNext(pedido)
+                subscribe.onNext(this.getPedidoBD(pedidoEstoqueID)!!)
                 subscribe.onComplete()
             }
             else{
@@ -86,7 +86,7 @@ class PedidoRepository {
     private fun salvaPedidoBD(pedido: Pedido) {
 
         val dao  = db.pedidoDAO()
-        dao.insertAll(pedido)
+        dao.updateItem(pedido)
     }
 
     fun salvaListaPedidoBD(lista: List<Pedido>){

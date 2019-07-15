@@ -11,7 +11,7 @@ import com.lemobs_sigelu.gestao_estoques.bd_room.AppDatabase
 
 val db = Room.databaseBuilder(
     App.instance,
-        AppDatabase::class.java, "${BuildConfig.APPLICATION_ID}.database"
+        AppDatabase::class.java, "${BuildConfig.APPLICATION_ID}.db"
     )
     .fallbackToDestructiveMigration() //Destrói toda a database se o schema do banco não estiver compatível -> drop table all
     .allowMainThreadQueries() //Queries na main thread

@@ -86,7 +86,7 @@
         <TextView android:id="@+id/tv_data_pedido_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Data do pedido: "
+                  android:text="Data do pedido:"
                   android:textColor="@color/primary_text"
                   android:layout_marginTop="@dimen/espacamento_medio"
                   app:layout_constraintTop_toBottomOf="@id/view_2"
@@ -107,21 +107,21 @@
                 android:layout_marginTop="@dimen/espacamento_curto"
                 app:layout_constraintTop_toBottomOf="@id/tv_data_pedido_layout"/>
 
-        <TextView android:id="@+id/tv_data_entrega_layout"
+        <TextView android:id="@+id/tv_data_envio_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Data da entrega: "
+                  android:text="Data da último envio:"
                   android:textColor="@color/primary_text"
                   android:layout_marginTop="@dimen/espacamento_medio"
                   app:layout_constraintTop_toBottomOf="@id/view_3"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView android:id="@+id/tv_data_entrega"
+        <TextView android:id="@+id/tv_data_envio"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text=""
                   android:textColor="@color/primary_text"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_data_entrega_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_data_envio_layout"
                   app:layout_constraintRight_toRightOf="parent"/>
 
         <View   android:id="@+id/view_4"
@@ -129,7 +129,32 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
                 android:layout_marginTop="@dimen/espacamento_curto"
-                app:layout_constraintTop_toBottomOf="@id/tv_data_entrega_layout"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_data_envio_layout"/>
+
+        <TextView android:id="@+id/tv_data_recebimento_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Data da último recebimento:"
+                  android:textColor="@color/primary_text"
+                  android:layout_marginTop="@dimen/espacamento_medio"
+                  app:layout_constraintTop_toBottomOf="@id/view_4"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_data_recebimento"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text=""
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_data_recebimento_layout"
+                  app:layout_constraintRight_toRightOf="parent"/>
+
+        <View   android:id="@+id/view_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/espacamento_curto"
+                app:layout_constraintTop_toBottomOf="@id/tv_data_recebimento_layout"/>
+
 
 
     </android.support.constraint.ConstraintLayout>

@@ -16,6 +16,9 @@ interface PedidoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg users: Pedido)
 
+    @Update(onConflict = OnConflictStrategy.ROLLBACK)
+    fun updateItem(item: Pedido)
+
     @Delete
     fun delete(user: Pedido)
 
