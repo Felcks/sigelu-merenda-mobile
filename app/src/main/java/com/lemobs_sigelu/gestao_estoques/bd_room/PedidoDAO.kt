@@ -10,7 +10,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 @Dao
 interface PedidoDAO {
 
-    @Query("SELECT * FROM pedido")
+    @Query("SELECT * FROM pedido ORDER BY id DESC")
     fun getAll(): List<Pedido>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
