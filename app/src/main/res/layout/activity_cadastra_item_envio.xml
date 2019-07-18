@@ -15,6 +15,7 @@
             android:layout_height="match_parent"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ll_all"
+            android:background="@android:color/white"
             android:padding="@dimen/espacamento_medio">
 
         <TextView
@@ -24,6 +25,7 @@
                 android:text="Total de materiais"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -34,6 +36,7 @@
                 android:text="(9)"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:layout_marginLeft="@dimen/espacamento_curto"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/tv_total_material_layout"/>
@@ -46,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold"
+                android:layout_marginTop="@dimen/espacamento_medio"
                 app:layout_constraintTop_toBottomOf="@id/tv_total_material_layout"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 

@@ -29,12 +29,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
         <ImageView
+                android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_cancel_round"
-        />
+                android:src="@drawable/ic_cancel_round"/>
 
         <TextView
                 android:id="@+id/tv_quantidade_fornecida_layout"
@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_quantidade_fornecida_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="40.5"
                 android:textColor="@color/secondary_text"/>
 
         <TextView
@@ -59,9 +58,11 @@
                 android:layout_height="wrap_content"
                 android:text="Kilos"
                 android:textColor="@color/primary_text"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_marginLeft="@dimen/espacamento_curto"
+                app:layout_constraintVertical_bias="0.7"
                 app:layout_constraintBottom_toBottomOf="@+id/edt_quantidade_fornecida"
+                app:layout_constraintTop_toTopOf="@id/edt_quantidade_fornecida"
                 app:layout_constraintLeft_toRightOf="@+id/edt_quantidade_fornecida"/>
 
         <TextView

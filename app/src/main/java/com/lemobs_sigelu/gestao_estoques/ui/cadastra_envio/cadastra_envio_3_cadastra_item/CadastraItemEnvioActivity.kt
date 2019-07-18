@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -21,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_item_envio.*
 import javax.inject.Inject
@@ -48,10 +51,18 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
 
         val itemEnvio = viewModel!!.getItemSolicitado()
         if(itemEnvio != null) {
-            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-            tv_2.text = itemEnvio.itemEstoque?.descricao
-            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista_material.layoutManager = layoutManager
+
+            val adapter = ListaItemEnvioAdapter(App.instance, listOf(itemEnvio), removerItemListener)
+            rv_lista_material.adapter = adapter
+
+//            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
+//            tv_2.text = itemEnvio.itemEstoque?.descricao
+//            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
+//            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
         }
     }
 
@@ -88,6 +99,13 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
             tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
             tv_4.setText(itemEnvio.quantidadeUnidade.toString())
         }
+    }
+
+    private val removerItemListener = object: OneIntParameterClickListener{
+        override fun onClick(id: Int) {
+            //faz nada
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
