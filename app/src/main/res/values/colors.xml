@@ -12,6 +12,7 @@
     <!-- Cores auxiliares -->
     <color name="primary_text">#222222</color>
     <color name="secondary_text">#757575</color>
+    <color name="layout_bar">#f5f5f5</color>
 
     <!-- Cores situação de pedido -->
     <color name="pedido_em_analise">#d84315</color>
@@ -39,4 +40,6 @@
     <color name="envio_entregue">#ECECEC</color>
 
     <!-- CORES TELA DE LOGIN -->
+
+
 </resources>
