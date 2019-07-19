@@ -17,5 +17,6 @@
 
     <!-- Cadastra Motorista -->
     <string name="infoEnvio">Informações de envio</string>
+    <string name="passo2">Passo 2 de 4</string>
 
 </resources>
