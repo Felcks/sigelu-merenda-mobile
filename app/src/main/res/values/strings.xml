@@ -7,9 +7,15 @@
     <string name="dialogo_button_sim">Sim</string>
     <string name="dialogo_button_nao">Não</string>
 
-    <!-- Cadastra Motorista -->
+    <!-- Top Bar -->
     <string name="passo1">Passo 1 de 4</string>
     <string name="proximosItens">Próximo: Itens</string>
+
+    <!-- Bottom Bar -->
+    <string name="anterior"> ANTERIOR </string>
+    <string name="proximo">PRÓXIMO</string>
+
+    <!-- Cadastra Motorista -->
     <string name="infoEnvio">Informações de envio</string>
 
 </resources>

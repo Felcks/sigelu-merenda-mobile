@@ -6,4 +6,6 @@
     <dimen name="espacamento_grande">12dp</dimen>
     <dimen name="espacamento_maximo">16dp</dimen>
     <dimen name="espacamento_maximo_2">24dp</dimen>
+    <dimen name="espacamento_maximo_3">28dp</dimen>
+    <dimen name="espacamento_maximo_4">32dp</dimen>
 </resources>

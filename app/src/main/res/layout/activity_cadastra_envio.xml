@@ -18,7 +18,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/topBar_height"
+                android:layout_height="@dimen/top_bar_height"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -200,8 +200,92 @@
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height"
+                android:orientation="horizontal"
+                android:background="@color/layout_bar"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+        >
 
-        
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/ic_arrow_left"
+                    android:layout_marginTop="@dimen/espacamento_curto"/>
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anterior"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginRight="@dimen/espacamento_maximo_4"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+
+            />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_minimo"
+                    android:layout_marginRight="@dimen/espacamento_minimo">
+
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_filled_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"/>
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/proximo"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_maximo_2"
+            />
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/ic_arrow_right"
+                    android:layout_marginTop="@dimen/espacamento_curto"/>
+
+        </LinearLayout>
+
+
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>
