@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:id="@+id/ll_borda"
-                                             android:background="@android:color/darker_gray"
-                                             android:layout_marginTop="@dimen/espacamento_medio"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content">
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/espacamento_curto"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="false"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="1dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@android:color/white"
-                                                 android:padding="@dimen/espacamento_medio"
-                                                 android:layout_marginBottom="@dimen/espacamento_minimo">
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="@dimen/espacamento_grande"
+            android:layout_marginBottom="@dimen/espacamento_minimo">
 
         <TextView
                 android:id="@+id/tv_nome_material"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textColor="@color/primary_text"
-                android:text="Areia"
+                android:text="Cimento de brita"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -29,17 +34,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
-                android:layout_marginTop="@dimen/espacamento_curto"
-                android:text="Descrição"/>
+                android:text="Descrição"
+                android:textColor="@color/primary_text"/>
 
         <TextView
                 android:id="@+id/tv_pedido_total_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pedido Total: "
-                android:layout_marginTop="@dimen/espacamento_curto"
+                android:text="Pedido Total:"
                 app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@color/primary_text"/>
 
         <TextView android:id="@+id/tv_pedido_total"
                   android:layout_width="wrap_content"
@@ -54,7 +59,8 @@
         <TextView android:id="@+id/tv_material_recebido_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Recebido: "
+                  android:text="Recebido:"
+                  android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -70,7 +76,8 @@
         <TextView android:id="@+id/tv_material_quantidade_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Quantidade: "
+                  android:text="Quantidade:"
+                  android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -78,10 +85,10 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@color/primary_text"
-                  android:text="0"
+                  android:text="80,0 km"
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_material_quantidade_layout"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_material_quantidade_layout"/>
 
     </android.support.constraint.ConstraintLayout>
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
