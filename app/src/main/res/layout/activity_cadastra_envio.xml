@@ -52,8 +52,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_margin="@dimen/espacamento_maximo_2"/>
-
+                android:layout_margin="@dimen/espacamento_maximo"/>
 
         <EditText
                 android:id="@+id/edt_motorista"

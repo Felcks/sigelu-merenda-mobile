@@ -103,9 +103,10 @@
         <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity"
                   android:label="Selecione os itens"/>
 
-        <!-- SELECIONA ITEM ENVIO ACTIVITY -->
+        <!-- CADASTRA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity"
-                  android:label="Selecione as quantidades"/>
+                  android:label="Selecione as quantidades"
+                  android:windowSoftInputMode="adjustPan"/>
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
         <activity android:name= ".ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity"

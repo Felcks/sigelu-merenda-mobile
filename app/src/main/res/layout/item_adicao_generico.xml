@@ -20,8 +20,8 @@
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:paddingLeft="@dimen/espacamento_maximo"
-            android:paddingRight="@dimen/espacamento_maximo">
+            android:paddingLeft="@dimen/espacamento_minimo"
+            android:paddingRight="@dimen/espacamento_medio">
 
         <TextView
                 android:id="@+id/tv_name"

@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemEnvioBinding
@@ -26,6 +28,11 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_conf
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_item_envio.*
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_all
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_anterior
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_proximo
+import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -49,7 +56,6 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-
         val listaItemEnvio = viewModel!!.getItensSolicitados()
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -57,6 +63,20 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
 
         val adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
         rv_lista_material.adapter = adapter
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        btn_add.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
     }
 
     private fun processResponse(response: Response?) {
@@ -87,10 +107,10 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     private fun iniciarPreenchimento(itemEnvio: ItemEnvio?){
 
         if(itemEnvio != null){
-            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-            tv_2.text = itemEnvio.itemEstoque?.descricao
-            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+//            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
+//            tv_2.text = itemEnvio.itemEstoque?.descricao
+//            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
+//            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
         }
     }
 
@@ -101,12 +121,12 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    private fun clicouProximo(){
 
-        if(item?.itemId == R.id.btn_done){
+        try{
 
             try {
-                tv_5.esconderTeclado()
+                //tv_5.esconderTeclado()
                 viewModel!!.confirmaCadastroMaterial()
 
                 val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
@@ -121,17 +141,20 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
             catch (e: ValorMaiorQuePermitidoException){
                 Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
             }
-
         }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        return super.onOptionsItemSelected(item)
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        menuInflater.inflate(R.menu.menu_done, menu)
         return true
     }
 
