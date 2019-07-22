@@ -34,7 +34,6 @@ class ListaItemEnvioAdapter (val context: Context,
         holder.itemView.tv_2.text = item.itemEstoque?.descricao
         holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
         holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
-
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
