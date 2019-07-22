@@ -259,38 +259,36 @@
                         android:layout_marginRight="@dimen/espacamento_medio"/>
             </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
-                android:id="@+id/ll_layout_proximo"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="center">
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ll_layout_proximo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-            <ImageView
-                    android:id="@+id/iv_seta_direita"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_right"
-                    android:layout_marginTop="@dimen/espacamento_curto"
-                    android:layout_marginRight="@dimen/espacamento_curto"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                <ImageView
+                        android:id="@+id/iv_seta_direita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_right"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        android:layout_marginRight="@dimen/espacamento_curto"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/proximo"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
-                    android:layout_marginTop="@dimen/espacamento_curto"
-                    android:layout_marginLeft="@dimen/espacamento_maximo_2"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
-                    app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
-            />
-        </android.support.constraint.ConstraintLayout>
-
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proximo"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        android:layout_marginLeft="@dimen/espacamento_maximo_2"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
+                        app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"/>
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
 

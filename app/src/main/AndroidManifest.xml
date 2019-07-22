@@ -101,7 +101,7 @@
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity"
-                  android:label="Selecione um item"/>
+                  android:label="Selecione os itens"/>
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity"

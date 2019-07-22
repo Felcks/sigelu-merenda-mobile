@@ -22,7 +22,11 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewMode
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_cadastra_envio.*
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
+import kotlinx.android.synthetic.main.activity_seleciona_item_envio.ll_all
+import kotlinx.android.synthetic.main.activity_seleciona_item_envio.ll_layout_anterior
+import kotlinx.android.synthetic.main.activity_seleciona_item_envio.ll_layout_proximo
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -48,6 +52,14 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         mainBinding.executePendingBindings()
 
         viewModel!!.carregaListaItens()
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
     }
 
     private fun processResponse(response: Response?) {
@@ -65,8 +77,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderLoadingState() {
-    }
+    private fun renderLoadingState() {}
 
     private fun iniciarAdapter(list: List<ItemPedido>) {
 
@@ -109,10 +120,17 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         }
     }
 
+    private fun clicouProximo(){
+        
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
         return true
     }
 
