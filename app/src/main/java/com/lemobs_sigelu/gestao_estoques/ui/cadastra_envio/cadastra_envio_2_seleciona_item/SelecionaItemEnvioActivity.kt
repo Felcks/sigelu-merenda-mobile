@@ -53,8 +53,6 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        viewModel!!.carregaListaItens()
-
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
         }
@@ -62,6 +60,11 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         ll_layout_anterior.setOnClickListener {
             this.clicouAnterior()
         }
+    }
+
+    override fun onResume() {
+        viewModel!!.carregaListaItens()
+        super.onResume()
     }
 
     private fun processResponse(response: Response?) {

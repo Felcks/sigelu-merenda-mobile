@@ -28,8 +28,8 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
         return response
     }
 
-    fun getItemSolicitado(): ItemEnvio? {
-        return controller.getItemEnvioSolicitado()
+    fun getItensSolicitados(): List<ItemEnvio> {
+        return controller.getItensEnvioSolicitado()
     }
 
     fun confirmaCadastroMaterial(): Double {

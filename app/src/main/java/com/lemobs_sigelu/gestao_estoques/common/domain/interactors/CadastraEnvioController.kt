@@ -47,8 +47,8 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         envioParaCadastro?.pedido = pedido
     }
 
-    fun getItemEnvioSolicitado(): ItemEnvio?{
-        return envioParaCadastro?.itens?.last()
+    fun getItensEnvioSolicitado(): List<ItemEnvio>{
+        return envioParaCadastro?.itens ?: listOf()
     }
 
     fun getItensEnvio(): List<ItemEnvio>?{
@@ -111,27 +111,27 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
 
     fun selecionaItemPedidoParaEnvio(itemPedidoID: Int): Boolean{
 
-        val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
-        if(itemPedido != null){
-
-            val itemEnvio =  with(itemPedido){
-                ItemEnvio(
-                    id,
-                    0,
-                    quantidadeUnidade ?: 0.0,
-                    precoUnidade ?: 0.0,
-                    categoria,
-                    itemEstoqueID,
-                    itemEstoque
-                )
-            }
+//        val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
+//        if(itemPedido != null){
+//
+//            val itemEnvio =  with(itemPedido){
+//                ItemEnvio(
+//                    id,
+//                    0,
+//                    quantidadeUnidade ?: 0.0,
+//                    precoUnidade ?: 0.0,
+//                    categoria,
+//                    itemEstoqueID,
+//                    itemEstoque
+//                )
+//            }
 
             //Se contém retorna false, se não contém retorna true
-            return envioParaCadastro?.itens?.contains(itemEnvio) != true
-        }
-        else{
-            throw Exception("Erro!")
-        }
+            return envioParaCadastro?.itens?.map { it.id }?.contains(itemPedidoID) != true
+//        }
+//        else{
+//            throw Exception("Erro!")
+//        }
     }
 
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemPedido>, listaParaRemover: List<ItemPedido>){

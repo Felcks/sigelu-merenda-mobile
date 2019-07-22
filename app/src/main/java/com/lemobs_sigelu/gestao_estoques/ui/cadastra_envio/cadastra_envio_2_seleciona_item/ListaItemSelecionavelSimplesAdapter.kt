@@ -51,7 +51,7 @@ class ListaItemSelecionavelSimplesAdapter (private val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_name.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.btn_add.setOnClickListener {
+        holder.itemView.ll_background.setOnClickListener {
             itemClickListener.onClick(item.id, position)
         }
 

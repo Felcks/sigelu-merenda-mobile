@@ -49,21 +49,14 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        val itemEnvio = viewModel!!.getItemSolicitado()
-        if(itemEnvio != null) {
 
-            val layoutManager = LinearLayoutManager(applicationContext)
-            layoutManager.orientation = LinearLayoutManager.VERTICAL
-            rv_lista_material.layoutManager = layoutManager
+        val listaItemEnvio = viewModel!!.getItensSolicitados()
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista_material.layoutManager = layoutManager
 
-            val adapter = ListaItemEnvioAdapter(App.instance, listOf(itemEnvio), removerItemListener)
-            rv_lista_material.adapter = adapter
-
-//            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-//            tv_2.text = itemEnvio.itemEstoque?.descricao
-//            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-//            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
-        }
+        val adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
+        rv_lista_material.adapter = adapter
     }
 
     private fun processResponse(response: Response?) {
@@ -148,7 +141,7 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        viewModel!!.removeUltimoItemSelecionado()
+        //viewModel!!.removeUltimoItemSelecionado()
         super.onBackPressed()
     }
 }

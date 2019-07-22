@@ -9,7 +9,12 @@
 
     <!-- Top Bar -->
     <string name="passo1">Passo 1 de 4</string>
-    <string name="proximosItens">Próximo: Itens</string>
+    <string name="passo2">Passo 2 de 4</string>
+    <string name="passo3">Passo 3 de 4</string>
+    <string name="passo4">Passo 4 de 4</string>
+    <string name="proximo_itens">Próximo: Itens</string>
+    <string name="proximo_quantidades">Próximo: Quantidades</string>
+    <string name="proximo_confirmar">Próximo: Confirmar</string>
 
     <!-- Bottom Bar -->
     <string name="anterior"> ANTERIOR </string>
@@ -17,7 +22,4 @@
 
     <!-- Cadastra Motorista -->
     <string name="infoEnvio">Informações de envio</string>
-    <string name="passo2">Passo 2 de 4</string>
-    <string name="passo4">Passo 4 de 4</string>
-
 </resources>
