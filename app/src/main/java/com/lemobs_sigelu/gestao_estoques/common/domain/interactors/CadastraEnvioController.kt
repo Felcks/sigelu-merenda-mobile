@@ -134,6 +134,27 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         }
     }
 
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemPedido>, listaParaRemover: List<ItemPedido>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        envioParaCadastro?.itens?.removeAll { idItensParaRemover.contains(it.id) }
+
+
+        val itensParaAdicionar = listaParaAdicionar.map {
+            ItemEnvio(
+                it.id,
+                0,
+                it.quantidadeUnidade ?: 0.0,
+                it.precoUnidade ?: 0.0,
+                it.categoria,
+                it.itemEstoqueID,
+                it.itemEstoque
+            )
+        }
+
+        envioParaCadastro?.itens?.addAll(itensParaAdicionar)
+    }
+
     fun removeUltimoItemSelecionado(){
 
         envioParaCadastro?.itens?.removeAt(envioParaCadastro?.itens?.lastIndex ?: 0)

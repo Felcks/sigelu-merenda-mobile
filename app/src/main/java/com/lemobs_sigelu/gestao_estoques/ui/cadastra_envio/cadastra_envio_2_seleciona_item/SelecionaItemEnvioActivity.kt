@@ -133,13 +133,13 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
 
         try{
 
-            
+            viewModel!!.confirmaSelecaoItens(this.adapter?.itemsParaAdicao as List<ItemPedido>, this.adapter?.itemsParaRemocao as List<ItemPedido>)
 
             val intent = Intent(applicationContext, CadastraItemEnvioActivity::class.java)
             startActivity(intent)
         }
         catch(e: Exception){
-
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
         }
     }
 

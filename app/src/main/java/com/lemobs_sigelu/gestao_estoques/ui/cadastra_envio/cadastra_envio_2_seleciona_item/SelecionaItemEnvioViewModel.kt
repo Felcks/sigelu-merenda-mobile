@@ -67,4 +67,8 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
     fun getIdItensAdicionados(): List<Int>{
         return controller.getEnvio()?.itens?.map { it.id } ?: listOf()
     }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemPedido>, listaParaRemover: List<ItemPedido>){
+        return controller.confirmaSelecaoItens(listaParaAdicionar, listaParaRemover)
+    }
 }
