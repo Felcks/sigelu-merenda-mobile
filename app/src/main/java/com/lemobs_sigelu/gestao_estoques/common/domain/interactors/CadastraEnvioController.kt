@@ -56,17 +56,26 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         return envioParaCadastro?.itens
     }
 
-    fun confirmaCadastroMaterial(valor: Double): Double{
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
 
-        if(valor <= 0.0){
-            throw ValorMenorQueZeroException()
-        }
-        if(valor > envioParaCadastro?.itens?.last()?.quantidadeUnidade ?: 999999999.0){
-            throw ValorMaiorQuePermitidoException()
-        }
+        if(envioParaCadastro?.itens == null)
+            throw Exception()
 
-        envioParaCadastro?.itens?.last()?.quantidadeRecebida = valor
-        return valor
+        var count = 0
+        for(item in envioParaCadastro!!.itens){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
     }
 
     fun cancelaEnvio(){

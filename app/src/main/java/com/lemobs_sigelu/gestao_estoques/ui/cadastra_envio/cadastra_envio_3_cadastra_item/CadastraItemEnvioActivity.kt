@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemEnvioBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
@@ -86,15 +87,7 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     private fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
-            Status.SUCCESS -> {
-
-                if(response.data is List<*>){
-
-                    if(response.data.first() is ItemEnvio) {
-                        this.iniciarPreenchimento((response.data as ItemEnvio?))
-                    }
-                }
-            }
+            Status.SUCCESS -> { }
             Status.ERROR -> renderErrorState(response.error)
         }
     }
@@ -103,19 +96,8 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         viewModel!!.loading.set(true)
     }
 
-
     private fun renderErrorState(throwable: Throwable?) {
         viewModel!!.loading.set(false)
-    }
-
-    private fun iniciarPreenchimento(itemEnvio: ItemEnvio?){
-
-        if(itemEnvio != null){
-//            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-//            tv_2.text = itemEnvio.itemEstoque?.descricao
-//            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-//            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
-        }
     }
 
     private val removerItemListener = object: TwoIntParametersClickListener{
@@ -129,7 +111,6 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
                 Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun clicouProximo(){
@@ -138,10 +119,13 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
 
             try {
                 //tv_5.esconderTeclado()
-                viewModel!!.confirmaCadastroMaterial()
+                viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
                 val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
                 startActivity(intent)
+            }
+            catch (e: NenhumItemSelecionadoException){
+                Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
             }
             catch (e: CampoNaoPreenchidoException){
                 Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
