@@ -7,8 +7,10 @@
     <string name="dialogo_button_sim">Sim</string>
     <string name="dialogo_button_nao">Não</string>
 
-    <!-- Top Bar -->
+    <!-- Top Bar - Motorista -->
     <string name="passo1">Passo 1 de 4</string>
+    <string name="passo2">Passo 2 de 4</string>
+    <string name="passo4">Passo 4 de 4</string>
     <string name="proximosItens">Próximo: Itens</string>
 
     <!-- Bottom Bar -->
@@ -17,7 +19,25 @@
 
     <!-- Cadastra Motorista -->
     <string name="infoEnvio">Informações de envio</string>
-    <string name="passo2">Passo 2 de 4</string>
-    <string name="passo4">Passo 4 de 4</string>
+
+
+    <!-- Top Bar - Pedido -->
+    <string name="passo1b">Passo 1 de 5</string>
+    <string name="passo2b">Passo 2 de 5</string>
+    <string name="passo3b">Passo 3 de 5</string>
+    <string name="passo4b">Passo 4 de 5</string>
+    <string name="passo5b">Passo 5 de 5</string>
+    <string name="proxfornecedor">Próximo: Fornecedor</string>
+    <string name="proxitens">Próximo: Itens</string>
+    <string name="info_pedido">Informações do Pedido</string>
+
+    <!-- Cadastrar pedido -->
+    <string name="pedido_fornecedor">Pedir para fornecedor</string>
+    <string name="pedido_nucleo">Pedir para Núcleo</string>
+    <string name="pedido_obra">Enviar para obra</string>
+    <string name="selecione_fornecedor">Selecione um fornecedor</string>
+    <string name="selecione_nucleo">Selecione um núcleo</string>
+    <string name="selecione_obra">Selecione a Obra</string>
+
 
 </resources>
