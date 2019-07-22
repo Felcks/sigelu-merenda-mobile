@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import kotlinx.android.synthetic.main.activity_cadastra_item_envio.view.*
 import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
 class ListaItemEnvioAdapter (val context: Context,
@@ -34,6 +33,7 @@ class ListaItemEnvioAdapter (val context: Context,
         holder.itemView.tv_2.text = item.itemEstoque?.descricao
         holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
         holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
+        holder.itemView.tv_5.text = item.quantidadeUnidade.toString()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
