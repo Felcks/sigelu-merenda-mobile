@@ -16,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemEnvioBinding
@@ -33,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_ant
 import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_proximo
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
 import java.lang.Exception
+import java.text.FieldPosition
 import javax.inject.Inject
 
 /**
@@ -43,6 +45,8 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: CadastraItemEnvioViewModel? = null
+
+    private var adapter: ListaItemEnvioAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -61,7 +65,7 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista_material.layoutManager = layoutManager
 
-        val adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
+        this.adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
         rv_lista_material.adapter = adapter
 
         ll_layout_proximo.setOnClickListener {
@@ -114,9 +118,16 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         }
     }
 
-    private val removerItemListener = object: OneIntParameterClickListener{
-        override fun onClick(id: Int) {
-            //faz nada
+    private val removerItemListener = object: TwoIntParametersClickListener{
+        override fun onClick(id: Int, position: Int) {
+            try{
+                viewModel?.removeItem(id)
+                adapter?.removeItem(position)
+                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+            }
+            catch (e: Exception){
+                Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

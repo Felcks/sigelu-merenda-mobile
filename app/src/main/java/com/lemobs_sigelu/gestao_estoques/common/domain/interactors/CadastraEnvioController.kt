@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 import kotlin.system.exitProcess
@@ -158,6 +159,16 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
     fun removeUltimoItemSelecionado(){
 
         envioParaCadastro?.itens?.removeAt(envioParaCadastro?.itens?.lastIndex ?: 0)
+    }
+
+    fun removeItem(itemPedidoID: Int){
+        val item = envioParaCadastro?.itens?.find { it.id == itemPedidoID }
+        if(item != null){
+            envioParaCadastro?.itens?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
     }
 
     fun armazenaListaItemPedido(lista: List<ItemPedido>){

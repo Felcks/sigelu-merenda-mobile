@@ -48,4 +48,8 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
         return controller.removeUltimoItemSelecionado()
     }
 
+    fun removeItem(id: Int){
+        return controller.removeItem(id)
+    }
+
 }

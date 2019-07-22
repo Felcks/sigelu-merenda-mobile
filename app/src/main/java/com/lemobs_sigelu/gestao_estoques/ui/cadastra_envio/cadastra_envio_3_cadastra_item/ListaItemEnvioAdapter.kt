@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import kotlinx.android.synthetic.main.item_cadastrar_quantidade.view.*
 
 class ListaItemEnvioAdapter (private val context: Context,
                              private val list: List<ItemEnvio>,
-                             private val remocaoItemClickListener: OneIntParameterClickListener):
+                             private val remocaoItemClickListener: TwoIntParametersClickListener
+):
 
     RecyclerView.Adapter<ListaItemEnvioAdapter.MyViewHolder>() {
 
@@ -34,7 +35,11 @@ class ListaItemEnvioAdapter (private val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_quantidade_disponivel.text = item.quantidadeUnidade.toString() ?: "0.0"
-        holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id)}
+        holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
+    }
+
+    fun removeItem(position: Int){
+        notifyItemRemoved(position)
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
