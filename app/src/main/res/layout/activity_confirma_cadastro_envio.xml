@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -38,8 +39,7 @@
             android:id="@+id/ll_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/espacamento_grande"
-            android:layout_marginTop="@dimen/espacamento_medio"
+            android:layout_marginTop="@dimen/espacamento_grande"
             android:layout_marginLeft="@dimen/espacamento_maximo"
             android:layout_marginRight="@dimen/espacamento_maximo"
             app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
@@ -183,7 +183,7 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_filled_circle"
+                    android:background="@drawable/ic_flow_circle"
                     android:layout_marginRight="@dimen/espacamento_medio"/>
 
             <ImageView
@@ -199,7 +199,7 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_flow_circle"
+                    android:background="@drawable/ic_filled_circle"
                     android:layout_marginRight="@dimen/espacamento_medio"/>
         </LinearLayout>
 
@@ -224,7 +224,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/proximo"
+                    android:text="CONFIRMAR"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorAccent"
