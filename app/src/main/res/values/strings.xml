@@ -6,4 +6,18 @@
     <string name="dialogo_button_cancel">Cancelar</string>
     <string name="dialogo_button_sim">Sim</string>
     <string name="dialogo_button_nao">Não</string>
+
+    <!-- Top Bar -->
+    <string name="passo1">Passo 1 de 4</string>
+    <string name="proximosItens">Próximo: Itens</string>
+
+    <!-- Bottom Bar -->
+    <string name="anterior"> ANTERIOR </string>
+    <string name="proximo">PRÓXIMO</string>
+
+    <!-- Cadastra Motorista -->
+    <string name="infoEnvio">Informações de envio</string>
+    <string name="passo2">Passo 2 de 4</string>
+    <string name="passo4">Passo 4 de 4</string>
+
 </resources>

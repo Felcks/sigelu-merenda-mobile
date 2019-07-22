@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:padding="@dimen/espacamento_curto"
+            android:padding="@dimen/espacamento_minimo"
             android:background="@color/colorAccent"
             android:layout_margin="@dimen/espacamento_grande">
 
@@ -33,102 +33,84 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Nome"/>
+                    android:text="Nome: "
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"/>
             <TextView
                     android:id="@+id/tv_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/layout_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="BICA CORRIDA"
-                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/layout_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="Cimento"
+                    android:textSize="15sp"
                     android:textColor="@color/primary_text"/>
 
             <TextView
                     android:id="@+id/layout_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_1"
+                    app:layout_constraintTop_toBottomOf="@id/layout_1"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/espacamento_grande"
-                    android:text="Descrição"/>
+                    android:text="Descrição: "
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
             <TextView
                     android:id="@+id/tv_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/layout_2"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Bica corrida usada para alguma coisa"
-                    android:textSize="18sp"
-                    android:textColor="@color/primary_text"/>
+                    app:layout_constraintLeft_toRightOf="@id/layout_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_1"
+                    android:text="Cimento queimado"
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
+
 
             <TextView
                     android:id="@+id/layout_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_2"
+                    app:layout_constraintTop_toBottomOf="@id/layout_2"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/espacamento_grande"
-                    android:text="Unidade"/>
+                    android:text="Unidade: "
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
             <TextView
                     android:id="@+id/tv_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/layout_3"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Quilograma (kg)"
-                    android:textSize="18sp"
-                    android:textColor="@color/primary_text"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_2"
+                    app:layout_constraintLeft_toRightOf="@id/layout_3"
+                    android:text="Kg"
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
 
 
             <TextView
                     android:id="@+id/layout_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_3"
+                    app:layout_constraintTop_toBottomOf="@id/layout_3"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/espacamento_grande"
-                    android:text="Quantidade Disponível"/>
-            <EditText
-                    android:id="@+id/tv_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/layout_4"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="@id/layout_4"
-                    android:textSize="18sp"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:textColor="@color/primary_text"/>
+                    android:text="Quantidade Disponível: "
+                    android:textSize="15sp"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
 
             <TextView
-                    android:id="@+id/layout_5"
+                    android:id="@+id/tv_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_4"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/espacamento_grande"
-                    android:text="Quantidade Recebida"/>
-            <EditText
-                    android:id="@+id/tv_5"
-                    android:layout_width="0dp"
-                    android:text="@={viewModel.quantidadeRecebida}"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/layout_5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="@id/tv_4"
-                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_3"
+                    app:layout_constraintLeft_toRightOf="@id/layout_4"
+                    android:text="80.0 Kg"
+                    android:textSize="15sp"
                     android:textColor="@color/primary_text"
-                    android:paddingRight="@dimen/espacamento_grande"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:layout_weight="3"
-                    android:inputType="numberDecimal"
-                    android:digits="1234567890,"
-                    android:hint="0"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:selectAllOnFocus="true"/>
+                    android:layout_marginTop="@dimen/espacamento_minimo"/>
 
         </android.support.constraint.ConstraintLayout>
 

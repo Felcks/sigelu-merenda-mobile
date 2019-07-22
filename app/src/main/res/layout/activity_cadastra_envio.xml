@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -13,47 +13,72 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:id="@+id/ll_all"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:id="@+id/ll_all">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_bar_height"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/layout_bar"
+                android:id="@+id/linearLayout">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/passo1"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    android:textSize="17sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/proximosItens"
+                    android:layout_margin="12dp"
+                    android:textSize="17sp"
+
+            />
+
+        </LinearLayout>
+
 
         <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/ll_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="Informações do Envio"
+                app:layout_constraintLeft_toLeftOf="@id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout"
+                android:text="@string/infoEnvio"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
-                android:layout_marginTop="@dimen/espacamento_maximo"/>
+                android:textStyle="bold"
+                android:layout_margin="@dimen/espacamento_maximo_2"/>
 
         <TextView
                 android:id="@+id/tv_motorista_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ll_titulo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="108dp"
+                android:layout_height="28dp"
                 android:text="Motorista"
-                android:layout_marginBottom="@dimen/espacamento_curto"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/secondary_text"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+                android:layout_marginTop="@dimen/espacamento_maximo_2"
+                android:paddingLeft="@dimen/espacamento_minimo"
+                />
 
         <EditText
                 android:id="@+id/edt_motorista"
-                android:layout_width="300dp"
+                android:layout_width="291dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:orientation="horizontal"
                 android:singleLine="true"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_motorista_layout"
-                android:layout_marginTop="@dimen/espacamento_medio"
-                android:text="@={viewModel.nomeMotorista}"/>
+                android:text="@={viewModel.nomeMotorista}"
+                app:layout_constraintLeft_toLeftOf="@id/tv_motorista_layout"
+                app:layout_constraintTop_toTopOf="@id/tv_motorista_layout"/>
 
         <TextView
                 android:id="@+id/tv_data_saida_layo"
@@ -175,6 +200,92 @@
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height"
+                android:orientation="horizontal"
+                android:background="@color/layout_bar"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+        >
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/ic_arrow_left"
+                    android:layout_marginTop="@dimen/espacamento_curto"/>
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anterior"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginRight="@dimen/espacamento_maximo_4"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+
+            />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_minimo"
+                    android:layout_marginRight="@dimen/espacamento_minimo">
+
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_filled_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"/>
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/proximo"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_maximo_2"
+            />
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/ic_arrow_right"
+                    android:layout_marginTop="@dimen/espacamento_curto"/>
+
+        </LinearLayout>
+
+
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>
