@@ -33,7 +33,7 @@ class ListaRecebimentoSPAdapter (val context: Context,
         holder.itemView.tv_2.text = item.itemEstoque?.descricao
         holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
         holder.itemView.tv_4.setText(item.quantidadeUnidade.toString())
-        holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
+        //holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
 
     }
 

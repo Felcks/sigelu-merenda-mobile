@@ -97,7 +97,7 @@
 
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
-                  android:label="Cadastrar Envio"/>
+                  android:label="Nome do motorista"/>
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity"

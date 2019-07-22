@@ -48,10 +48,10 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         this.iniciarToolbar()
 
-        btn_adicionar_materiais.setOnClickListener {
-            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
-            startActivity(intent)
-        }
+//        btn_adicionar_materiais.setOnClickListener {
+//            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     fun processResponse(response: Response?) {
@@ -78,14 +78,14 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
     }
 
     private fun iniciarToolbar(){
-        if(toolbar != null){
-
-            toolbar.setNavigationIcon(R.drawable.ic_cancel)
-            setSupportActionBar(toolbar)
-            toolbar.setNavigationOnClickListener {
-                mostrarDialogCancelamento()
-            }
-        }
+//        if(toolbar != null){
+//
+//            toolbar.setNavigationIcon(R.drawable.ic_cancel)
+//            setSupportActionBar(toolbar)
+//            toolbar.setNavigationOnClickListener {
+//                mostrarDialogCancelamento()
+//            }
+//        }
     }
 
     private fun mostrarDialogCancelamento(){

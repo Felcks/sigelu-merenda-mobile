@@ -51,6 +51,14 @@ class CadastraEnvioActivity: AppCompatActivity() {
 
         //this.adicionarListenersHoraSaida()
         this.adicionarListenerEdtMotorista()
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
     }
 
     private fun adicionarListenerEdtMotorista(){
@@ -184,27 +192,24 @@ class CadastraEnvioActivity: AppCompatActivity() {
         alertDialogBuilder.create().show()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if (item?.itemId == R.id.btn_done) {
-            try {
-                viewModel!!.cadastraInformacoesIniciais()
-                val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
-                startActivity(intent)
-            }
-            catch (e: Exception){
-                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
-            }
+    private fun clicouProximo(){
+        try {
+            viewModel!!.cadastraInformacoesIniciais()
+            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
+            startActivity(intent)
         }
+        catch (e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+        }
+    }
 
-        return super.onOptionsItemSelected(item)
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_done, menu)
         return true
     }
 
