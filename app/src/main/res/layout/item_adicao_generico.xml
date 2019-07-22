@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+        android:id="@+id/ll_background"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -20,13 +21,12 @@
 
         <TextView
                 android:id="@+id/tv_name"
-                android:text=""
+                android:text="Betoneira"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textAlignment="gravity"
                 android:gravity="center"
-                android:background="#ffffff"
                 android:padding="2dp"
                 android:textColor="@color/secondary_text"
                 app:layout_constraintStart_toStartOf="parent"/>

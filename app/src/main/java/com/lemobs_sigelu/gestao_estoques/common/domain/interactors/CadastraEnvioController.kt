@@ -109,23 +109,25 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         return listaFiltrada
     }
 
-    fun selecionaItemPedidoParaEnvio(itemPedidoID: Int){
+    fun selecionaItemPedidoParaEnvio(itemPedidoID: Int): Boolean{
 
         val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
         if(itemPedido != null){
-            envioParaCadastro?.itens?.add(
-                with(itemPedido){
-                    ItemEnvio(
-                        id,
-                        0,
-                        quantidadeUnidade ?: 0.0,
-                        precoUnidade ?: 0.0,
-                        categoria,
-                        itemEstoqueID,
-                        itemEstoque
-                    )
-                }
-            )
+
+            val itemEnvio =  with(itemPedido){
+                ItemEnvio(
+                    id,
+                    0,
+                    quantidadeUnidade ?: 0.0,
+                    precoUnidade ?: 0.0,
+                    categoria,
+                    itemEstoqueID,
+                    itemEstoque
+                )
+            }
+
+            //Se contém retorna false, se não contém retorna true
+            return envioParaCadastro?.itens?.contains(itemEnvio) != true
         }
         else{
             throw Exception("Erro!")

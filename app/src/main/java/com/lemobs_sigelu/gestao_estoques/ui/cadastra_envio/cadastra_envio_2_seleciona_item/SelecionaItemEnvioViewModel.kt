@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -59,7 +60,11 @@ class SelecionaItemEnvioViewModel (private val controller: CadastraEnvioControll
         )
     }
 
-    fun selecionaItem(itemID: Int){
+    fun selecionaItem(itemID: Int): Boolean{
         return controller.selecionaItemPedidoParaEnvio(itemID)
+    }
+
+    fun getIdItensAdicionados(): List<Int>{
+        return controller.getEnvio()?.itens?.map { it.id } ?: listOf()
     }
 }

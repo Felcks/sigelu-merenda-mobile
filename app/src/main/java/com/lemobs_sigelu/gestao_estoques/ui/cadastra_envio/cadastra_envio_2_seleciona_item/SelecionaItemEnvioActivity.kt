@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
@@ -22,7 +23,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewMode
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_cadastra_envio.*
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.ll_all
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.ll_layout_anterior
@@ -38,6 +38,8 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: SelecionaItemEnvioViewModel? = null
+
+    private var adapter: ListaItemSelecionavelSimplesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -85,10 +87,11 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemPedidoSelecionavelSimplesAdapter(
+        this.adapter = ListaItemSelecionavelSimplesAdapter(
             applicationContext,
             list,
-            selecionaItemPedidoClickListener
+            selecionaItemPedidoClickListener,
+            viewModel?.getIdItensAdicionados() ?: listOf()
         )
 
         rv_lista.adapter = adapter
@@ -105,14 +108,20 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
         }
     }
 
-    private val selecionaItemPedidoClickListener = object: OneIntParameterClickListener{
+    private val selecionaItemPedidoClickListener = object: TwoIntParametersClickListener{
 
-        override fun onClick(id: Int) {
+        override fun onClick(id: Int, position: Int) {
 
             try {
-                viewModel!!.selecionaItem(id)
-                val intent = Intent(applicationContext, CadastraItemEnvioActivity::class.java)
-                startActivity(intent)
+                //true adicionou, false removeu
+                val adicionou = viewModel!!.selecionaItem(id)
+
+                if(adicionou){
+                    adapter?.adicionarItem(position)
+                }
+                else{
+                    adapter?.removerItem(position)
+                }
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
@@ -121,7 +130,17 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
     }
 
     private fun clicouProximo(){
-        
+
+        try{
+
+            
+
+            val intent = Intent(applicationContext, CadastraItemEnvioActivity::class.java)
+            startActivity(intent)
+        }
+        catch(e: Exception){
+
+        }
     }
 
     private fun clicouAnterior(){
