@@ -16,7 +16,6 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ListaItemEnvioAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -42,7 +41,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         val envio = viewModel!!.getEnvio()
         if(envio != null){
-            tv_pedido.text = envio.pedido?.getCodigoFormatado()
+            tv_pedido.text = envio.pedido?.getSomenteCodigoFormatado()
             tv_motorista.text = envio.motorista
         }
 
@@ -171,9 +170,5 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        this.mostrarDialogCancelamento()
     }
 }

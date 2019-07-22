@@ -64,6 +64,10 @@ data class Pedido(
         return "Código - $codigo"
     }
 
+    fun getSomenteCodigoFormatado(): String{
+        return "$codigo"
+    }
+
     fun getDataPedidoFormatada(): String{
         return dataPedido?.getDataFormatada() ?: ""
     }

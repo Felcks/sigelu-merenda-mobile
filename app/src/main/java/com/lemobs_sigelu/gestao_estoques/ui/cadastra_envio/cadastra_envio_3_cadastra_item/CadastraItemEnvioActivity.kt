@@ -118,7 +118,6 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         try{
 
             try {
-                //tv_5.esconderTeclado()
                 viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
                 val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
