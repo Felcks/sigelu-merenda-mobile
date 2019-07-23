@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoViewModel
@@ -14,6 +15,9 @@ class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController):
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SelecionaTipoPedidoViewModel::class.java!!)) {
             return SelecionaTipoPedidoViewModel(controller) as T
+        }
+        if (modelClass.isAssignableFrom(CadastraFornecedorViewModel::class.java!!)) {
+            return CadastraFornecedorViewModel(controller) as T
         }
         if (modelClass.isAssignableFrom(CadastraPedidoDestinoViewModel::class.java!!)) {
             return CadastraPedidoDestinoViewModel(controller) as T
