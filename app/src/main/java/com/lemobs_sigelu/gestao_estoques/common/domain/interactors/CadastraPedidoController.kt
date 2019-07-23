@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoExcept
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -18,8 +19,20 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
                                                    private val pedidoRepository: PedidoRepository) {
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
+        var tipoPedido: TipoPedido? = null
     }
     var itensContrato = mutableListOf<ItemContrato>()
+
+    fun selecionaTipoPedido(tipoPedido: TipoPedido){
+        Companion.tipoPedido = tipoPedido
+    }
+
+    fun getInicialTipoPedido(): TipoPedido{
+        if (Companion.tipoPedido == null)
+            throw Exception("Sem tipo de pedido")
+
+        return Companion.tipoPedido!!
+    }
 
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?) {
 
