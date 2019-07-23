@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity
@@ -53,7 +54,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         /* Float button Cadastra pedido */
         menu_item_cadastrar_pedido.setOnClickListener {
-            val intent = Intent(this, CadastraPedidoDestinoActivity::class.java)
+            val intent = Intent(this, SelecionaTipoPedidoActivity::class.java)
             startActivity(intent)
         }
 
