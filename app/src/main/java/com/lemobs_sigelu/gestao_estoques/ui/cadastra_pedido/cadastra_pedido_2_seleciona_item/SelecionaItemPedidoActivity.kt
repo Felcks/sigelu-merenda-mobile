@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -41,6 +42,26 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickList
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaItemPedidoViewModel::class.java)
         viewModel!!.response.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaListaItens()
+
+        ll_layout_anterior.setOnClickListener {
+            clicouNoAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            clicouNoProximo()
+        }
+    }
+
+    private fun clicouNoProximo(){
+        try{
+
+        }
+        catch(e: Exception){
+        }
+    }
+
+    private fun clicouNoAnterior(){
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response?) {
@@ -109,8 +130,6 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickList
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_rascunho, menu)
         return true
     }
 

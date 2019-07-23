@@ -18,7 +18,7 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_adicao, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_adicao_generico, parent, false)
         return MyViewHolder(view)
     }
 

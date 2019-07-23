@@ -72,8 +72,8 @@ class CadastraFornecedorActivity: AppCompatActivity() {
             val fornecedor = this.listaFornecedor[this.fornecedorSelecionado]
             val contrato = this.listaContrato.filter { it.empresaID == fornecedor.id }[contratoSelecionado ?: 0]
 
-            val origem = Local(fornecedor.id, fornecedor.nome ?: "", "Fornecedor")
-            val destino = Local(AppSharedPreferences.getNucleoID(App.instance), AppSharedPreferences.getNucleoNome(App.instance), "Núcleo")
+            val origem = Local(fornecedor.id, "Fornecedor", fornecedor.nome ?: "")
+            val destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
 
             viewModel!!.confirmaFornecedorContrato(origem, destino, contrato)
 

@@ -64,7 +64,7 @@
 
         <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
-                  android:label="Adicione material recebido" />
+                  android:label="Selecione os itens" />
 
         <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
