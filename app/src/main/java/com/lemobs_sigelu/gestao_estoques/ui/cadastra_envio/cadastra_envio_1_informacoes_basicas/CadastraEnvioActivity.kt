@@ -235,7 +235,5 @@ class CadastraEnvioActivity: AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
 
-
-
     }
 }
