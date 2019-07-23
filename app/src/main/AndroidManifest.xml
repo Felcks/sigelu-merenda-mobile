@@ -58,6 +58,10 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity"
                   android:label="Selecione o fornecedor" />
 
+        <!-- CADASTRA NÚCLEO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity"
+                  android:label="Cadastrar pedido" />
+
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
                   android:label="Cadastrar Pedido" />
