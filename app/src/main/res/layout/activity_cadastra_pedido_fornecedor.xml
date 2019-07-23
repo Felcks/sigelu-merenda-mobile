@@ -78,11 +78,13 @@
 
 
             <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/divider"
+                    android:id="@+id/spinner_fornecedor"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="@dimen/espacamento_curto"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_fornecedor_titulo"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fornecedor_titulo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
 
