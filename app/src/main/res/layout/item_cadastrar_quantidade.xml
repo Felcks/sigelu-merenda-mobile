@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
+        android:id="@+id/ll_card_view"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -8,81 +9,93 @@
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="1dp"
+        android:background="@android:color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ll_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:padding="@dimen/espacamento_grande"
-            android:layout_marginBottom="@dimen/espacamento_minimo">
+            android:background="@android:color/white">
 
-        <TextView
-                android:id="@+id/tv_nome_material"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/primary_text"
-                android:text="Cimento"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+        <android.support.constraint.ConstraintLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:padding="@dimen/espacamento_grande"
+                android:layout_margin="@dimen/espacamento_minimo">
 
-        <ImageView
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_cancel_round"/>
+            <TextView
+                    android:id="@+id/tv_nome_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/primary_text"
+                    android:text="Cimento"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView
-                android:id="@+id/tv_quantidade_fornecida_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
-                android:text="Quantidade fornecida"
-                android:textColor="@color/divider"/>
+            <ImageView
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_cancel_round"/>
 
-        <EditText
-                android:id="@+id/edt_quantidade_fornecida"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_quantidade_fornecida_layout"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:textColor="@color/secondary_text"/>
+            <TextView
+                    android:id="@+id/tv_quantidade_fornecida_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                    android:text="Quantidade fornecida"
+                    android:textColor="@color/divider"/>
 
-        <TextView
-                android:id="@+id/edt_quantidade_fornecida_unidade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kilos"
-                android:textColor="@color/primary_text"
-                android:textSize="18dp"
-                android:layout_marginLeft="@dimen/espacamento_curto"
-                app:layout_constraintVertical_bias="0.7"
-                app:layout_constraintBottom_toBottomOf="@+id/edt_quantidade_fornecida"
-                app:layout_constraintTop_toTopOf="@id/edt_quantidade_fornecida"
-                app:layout_constraintLeft_toRightOf="@+id/edt_quantidade_fornecida"/>
+            <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                    android:id="@+id/edt_quantidade_fornecida"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:digits="1234567890,"
+                    android:hint="0"
+                    android:maxLength="5"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_quantidade_fornecida_layout"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textColor="@color/secondary_text"/>
 
-        <TextView
-                android:id="@+id/tv_quantidade_disponivel_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:text="*Quantidade disponível: "
-                app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+            <TextView
+                    android:id="@+id/edt_quantidade_fornecida_unidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kilos"
+                    android:textColor="@color/primary_text"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+                    app:layout_constraintVertical_bias="0.7"
+                    app:layout_constraintBottom_toBottomOf="@+id/edt_quantidade_fornecida"
+                    app:layout_constraintTop_toTopOf="@id/edt_quantidade_fornecida"
+                    app:layout_constraintLeft_toRightOf="@+id/edt_quantidade_fornecida"/>
 
-        <TextView
-                android:id="@+id/tv_quantidade_disponivel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="80.0 Kg"
-                android:textColor="@color/primary_text"
-                app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
-                app:layout_constraintLeft_toRightOf="@+id/tv_quantidade_disponivel_layout"/>
+            <TextView
+                    android:id="@+id/tv_quantidade_disponivel_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:text="*Saldo: "
+                    app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-
+            <TextView
+                    android:id="@+id/tv_quantidade_disponivel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="80.0 Kg"
+                    android:textColor="@color/primary_text"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_quantidade_disponivel_layout"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

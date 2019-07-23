@@ -21,7 +21,9 @@ import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.Mask
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_envio.*
 import java.lang.Exception
@@ -51,6 +53,14 @@ class CadastraEnvioActivity: AppCompatActivity() {
 
         //this.adicionarListenersHoraSaida()
         this.adicionarListenerEdtMotorista()
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
     }
 
     private fun adicionarListenerEdtMotorista(){
@@ -184,34 +194,48 @@ class CadastraEnvioActivity: AppCompatActivity() {
         alertDialogBuilder.create().show()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if (item?.itemId == R.id.btn_done) {
-            try {
-                viewModel!!.cadastraInformacoesIniciais()
-                val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
-                startActivity(intent)
-            }
-            catch (e: Exception){
-                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
-            }
+    private fun clicouProximo(){
+        try {
+            viewModel!!.cadastraInformacoesIniciais()
+            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
+            startActivity(intent)
         }
+        catch (e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+        }
+    }
 
-        return super.onOptionsItemSelected(item)
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_done, menu)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Deseja Cancelar o Envio? ",
+                    "Ao escolher Sim os dados serão perdidos",
+                    {
+                        finish()
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+
+
     }
-
-
 }

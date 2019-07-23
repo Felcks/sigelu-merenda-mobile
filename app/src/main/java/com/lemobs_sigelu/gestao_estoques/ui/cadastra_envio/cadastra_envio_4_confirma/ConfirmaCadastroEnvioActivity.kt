@@ -11,17 +11,19 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ListaItemEnvioAdapter
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastro_envio.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
@@ -42,16 +44,17 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         val envio = viewModel!!.getEnvio()
         if(envio != null){
-            tv_pedido.text = envio.pedido?.getCodigoFormatado()
+            tv_pedido.text = envio.pedido?.getSomenteCodigoFormatado()
             tv_motorista.text = envio.motorista
         }
 
-        this.iniciarToolbar()
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
 
-//        btn_adicionar_materiais.setOnClickListener {
-//            val intent = Intent(this, SelecionaItemEnvioActivity::class.java)
-//            startActivity(intent)
-//        }
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
     }
 
     fun processResponse(response: Response?) {
@@ -75,17 +78,6 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
 
         val adapter = ListaItemEnvioAdapter(applicationContext, list)
         rv_lista.adapter = adapter
-    }
-
-    private fun iniciarToolbar(){
-//        if(toolbar != null){
-//
-//            toolbar.setNavigationIcon(R.drawable.ic_cancel)
-//            setSupportActionBar(toolbar)
-//            toolbar.setNavigationOnClickListener {
-//                mostrarDialogCancelamento()
-//            }
-//        }
     }
 
     private fun mostrarDialogCancelamento(){
@@ -153,27 +145,47 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
         this.errorDialog?.show()
     }
 
+    private fun clicouProximo(){
+
+        try{
+            viewModel!!.cadastraEnvio()
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_done, menu)
-
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        if(item?.itemId == R.id.btn_done){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Deseja Cancelar o Envio? ",
+                    "Ao escolher Sim os dados serão perdidos",
+                    {
+                        finish()
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    },
+                    {}).show()
 
-            viewModel!!.cadastraEnvio()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        this.mostrarDialogCancelamento()
     }
 }

@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -18,8 +19,6 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
     var response = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
 
-    var quantidadeRecebida: ObservableField<String> = ObservableField("")
-
     override fun onCleared() {
         disposables.clear()
     }
@@ -28,24 +27,35 @@ class CadastraItemEnvioViewModel(private val controller: CadastraEnvioController
         return response
     }
 
-    fun getItemSolicitado(): ItemEnvio? {
-        return controller.getItemEnvioSolicitado()
+    fun getItensSolicitados(): List<ItemEnvio> {
+        return controller.getItensEnvioSolicitado()
     }
 
-    fun confirmaCadastroMaterial(): Double {
+    fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
 
-        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
-        if(quantidadeRecebida.isNotEmpty()) {
-            val valor = quantidadeRecebida.replace(',', '.').toDouble()
-            return controller.confirmaCadastroMaterial(valor)
+//        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
+//        if(quantidadeRecebida.isNotEmpty()) {
+//            val valor = quantidadeRecebida.replace(',', '.').toDouble()
+//            return controller.confirmaCadastroMaterial(valor)
+//        }
+//        else{
+//            throw CampoNaoPreenchidoException()
+//        }
+
+        if(listValoresRecebidos.isNotEmpty()){
+            controller.confirmaCadastroMaterial(listValoresRecebidos)
         }
         else{
-            throw CampoNaoPreenchidoException()
+            throw NenhumItemSelecionadoException()
         }
     }
 
     fun removeUltimoItemSelecionado(){
         return controller.removeUltimoItemSelecionado()
+    }
+
+    fun removeItem(id: Int){
+        return controller.removeItem(id)
     }
 
 }

@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 import kotlin.system.exitProcess
@@ -47,25 +48,34 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         envioParaCadastro?.pedido = pedido
     }
 
-    fun getItemEnvioSolicitado(): ItemEnvio?{
-        return envioParaCadastro?.itens?.last()
+    fun getItensEnvioSolicitado(): List<ItemEnvio>{
+        return envioParaCadastro?.itens ?: listOf()
     }
 
     fun getItensEnvio(): List<ItemEnvio>?{
         return envioParaCadastro?.itens
     }
 
-    fun confirmaCadastroMaterial(valor: Double): Double{
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
 
-        if(valor <= 0.0){
-            throw ValorMenorQueZeroException()
-        }
-        if(valor > envioParaCadastro?.itens?.last()?.quantidadeUnidade ?: 999999999.0){
-            throw ValorMaiorQuePermitidoException()
-        }
+        if(envioParaCadastro?.itens == null)
+            throw Exception()
 
-        envioParaCadastro?.itens?.last()?.quantidadeRecebida = valor
-        return valor
+        var count = 0
+        for(item in envioParaCadastro!!.itens){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
     }
 
     fun cancelaEnvio(){
@@ -109,32 +119,65 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
         return listaFiltrada
     }
 
-    fun selecionaItemPedidoParaEnvio(itemPedidoID: Int){
+    fun selecionaItemPedidoParaEnvio(itemPedidoID: Int): Boolean{
 
-        val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
-        if(itemPedido != null){
-            envioParaCadastro?.itens?.add(
-                with(itemPedido){
-                    ItemEnvio(
-                        id,
-                        0,
-                        quantidadeUnidade ?: 0.0,
-                        precoUnidade ?: 0.0,
-                        categoria,
-                        itemEstoqueID,
-                        itemEstoque
-                    )
-                }
+//        val itemPedido = this.listaItemPedido?.first { it.id == itemPedidoID }
+//        if(itemPedido != null){
+//
+//            val itemEnvio =  with(itemPedido){
+//                ItemEnvio(
+//                    id,
+//                    0,
+//                    quantidadeUnidade ?: 0.0,
+//                    precoUnidade ?: 0.0,
+//                    categoria,
+//                    itemEstoqueID,
+//                    itemEstoque
+//                )
+//            }
+
+            //Se contém retorna false, se não contém retorna true
+            return envioParaCadastro?.itens?.map { it.id }?.contains(itemPedidoID) != true
+//        }
+//        else{
+//            throw Exception("Erro!")
+//        }
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemPedido>, listaParaRemover: List<ItemPedido>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        envioParaCadastro?.itens?.removeAll { idItensParaRemover.contains(it.id) }
+
+
+        val itensParaAdicionar = listaParaAdicionar.map {
+            ItemEnvio(
+                it.id,
+                0,
+                it.quantidadeUnidade ?: 0.0,
+                it.precoUnidade ?: 0.0,
+                it.categoria,
+                it.itemEstoqueID,
+                it.itemEstoque
             )
         }
-        else{
-            throw Exception("Erro!")
-        }
+
+        envioParaCadastro?.itens?.addAll(itensParaAdicionar)
     }
 
     fun removeUltimoItemSelecionado(){
 
         envioParaCadastro?.itens?.removeAt(envioParaCadastro?.itens?.lastIndex ?: 0)
+    }
+
+    fun removeItem(itemPedidoID: Int){
+        val item = envioParaCadastro?.itens?.find { it.id == itemPedidoID }
+        if(item != null){
+            envioParaCadastro?.itens?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
     }
 
     fun armazenaListaItemPedido(lista: List<ItemPedido>){

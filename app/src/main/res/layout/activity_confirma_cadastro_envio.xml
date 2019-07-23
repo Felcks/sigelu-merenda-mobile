@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -32,14 +33,15 @@
             android:textColor="@color/primary_text"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_margin="@dimen/espacamento_maximo_2"/>
+            android:layout_margin="@dimen/espacamento_maximo"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/ll_info"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="@dimen/espacamento_grande"
-            android:layout_marginTop="@dimen/espacamento_medio"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacamento_grande"
+            android:layout_marginLeft="@dimen/espacamento_maximo"
+            android:layout_marginRight="@dimen/espacamento_maximo"
             app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
             app:layout_constraintTop_toBottomOf="@id/ll_titulo">
 
@@ -58,7 +60,7 @@
                   android:text=""
                   android:textColor="@color/primary_text"
                   app:layout_constraintTop_toTopOf="@id/tv_pedido_layout"
-                  app:layout_constraintRight_toRightOf="parent"/>
+                  app:layout_constraintLeft_toRightOf="@id/tv_pedido_layout"/>
 
         <TextView android:id="@+id/tv_motorista_layout"
                   android:layout_width="wrap_content"
@@ -75,16 +77,15 @@
                   android:text=""
                   android:textColor="@color/primary_text"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_motorista_layout"
-                  app:layout_constraintRight_toRightOf="parent"/>
+                  app:layout_constraintLeft_toRightOf="@id/tv_motorista_layout"/>
 
         <View   android:id="@+id/view_2"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
-                android:layout_marginTop="@dimen/espacamento_maximo_4"
+                android:layout_marginTop="@dimen/espacamento_maximo_2"
                 app:layout_constraintTop_toBottomOf="@id/tv_motorista_layout"
-                app:layout_constraintLeft_toLeftOf="parent"
-        />
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_contrato_layout"
                   android:layout_width="wrap_content"
@@ -120,12 +121,13 @@
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_lista"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/espacamento_maximo_3"
+            android:layout_marginLeft="@dimen/espacamento_maximo"
+            android:layout_marginRight="@dimen/espacamento_maximo"
             app:layout_constraintTop_toBottomOf="@id/ll_info"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintRight_toRightOf="parent">
     </android.support.v7.widget.RecyclerView>
 
 
@@ -137,75 +139,100 @@
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-    >
+            android:gravity="center">
 
-        <ImageView
-                android:layout_width="30dp"
-                android:layout_height="27dp"
-                android:background="@drawable/ic_arrow_left"
-                android:layout_marginTop="@dimen/espacamento_curto"/>
-        />
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/anterior"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="@dimen/espacamento_curto"
-                android:layout_marginRight="@dimen/espacamento_maximo_4"
-                android:layout_marginLeft="@dimen/espacamento_curto"
-        />
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/ll_layout_anterior"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <ImageView
+                    android:id="@+id/iv_seta_esquerda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_arrow_left"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anterior"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
+        </android.support.constraint.ConstraintLayout>
+
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/espacamento_curto"
                 android:layout_marginLeft="@dimen/espacamento_minimo"
                 android:layout_marginRight="@dimen/espacamento_minimo">
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_flow_circle"
-                    android:layout_marginRight="@dimen/espacamento_medio"
-            />
 
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_flow_circle"
-                    android:layout_marginRight="@dimen/espacamento_medio"
-            />
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_flow_circle"
-                    android:layout_marginRight="@dimen/espacamento_medio"
-            />
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_flow_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_filled_circle"
                     android:layout_marginRight="@dimen/espacamento_medio"/>
-
         </LinearLayout>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/proximo"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorAccent"
-                android:layout_marginTop="@dimen/espacamento_curto"
-                android:layout_marginLeft="@dimen/espacamento_maximo_2"
-        />
-        <ImageView
-                android:layout_width="30dp"
-                android:layout_height="27dp"
-                android:background="@drawable/ic_arrow_right"
-                android:layout_marginTop="@dimen/espacamento_curto"/>
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/ll_layout_proximo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
+            <ImageView
+                    android:id="@+id/iv_seta_direita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_arrow_right"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginRight="@dimen/espacamento_curto"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONFIRMAR"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_maximo_2"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
+                    app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"/>
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

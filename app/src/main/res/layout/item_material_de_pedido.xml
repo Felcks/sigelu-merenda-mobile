@@ -41,7 +41,7 @@
                 android:id="@+id/tv_pedido_total_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pedido Total:"
+                android:text="Pedido:"
                 app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textColor="@color/primary_text"/>
@@ -53,8 +53,7 @@
                   android:textColor="@color/primary_text"
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_pedido_total_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"
-        />
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"/>
 
         <TextView android:id="@+id/tv_material_recebido_layout"
                   android:layout_width="wrap_content"
@@ -76,7 +75,7 @@
         <TextView android:id="@+id/tv_material_quantidade_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Quantidade:"
+                  android:text="Saldo:"
                   android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
@@ -85,7 +84,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@color/primary_text"
-                  android:text="80,0 km"
+                  android:text="0"
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_material_quantidade_layout"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_material_quantidade_layout"/>

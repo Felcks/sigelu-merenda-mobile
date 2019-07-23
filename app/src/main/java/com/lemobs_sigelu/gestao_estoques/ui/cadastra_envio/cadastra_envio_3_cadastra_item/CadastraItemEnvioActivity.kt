@@ -11,21 +11,33 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemEnvioBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_item_envio.*
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_all
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_anterior
+import kotlinx.android.synthetic.main.activity_cadastra_item_envio.ll_layout_proximo
+import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
+import java.lang.Exception
+import java.text.FieldPosition
 import javax.inject.Inject
 
 /**
@@ -36,6 +48,8 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: CadastraEnvioViewModelFactory
     var viewModel: CadastraItemEnvioViewModel? = null
+
+    private var adapter: ListaItemEnvioAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -49,35 +63,33 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        val itemEnvio = viewModel!!.getItemSolicitado()
-        if(itemEnvio != null) {
+        val listaItemEnvio = viewModel!!.getItensSolicitados()
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista_material.layoutManager = layoutManager
 
-            val layoutManager = LinearLayoutManager(applicationContext)
-            layoutManager.orientation = LinearLayoutManager.VERTICAL
-            rv_lista_material.layoutManager = layoutManager
+        this.adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
+        rv_lista_material.adapter = adapter
 
-            val adapter = ListaItemEnvioAdapter(App.instance, listOf(itemEnvio), removerItemListener)
-            rv_lista_material.adapter = adapter
-
-//            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-//            tv_2.text = itemEnvio.itemEstoque?.descricao
-//            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-//            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
         }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        btn_add.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
     }
 
     private fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
-            Status.SUCCESS -> {
-
-                if(response.data is List<*>){
-
-                    if(response.data.first() is ItemEnvio) {
-                        this.iniciarPreenchimento((response.data as ItemEnvio?))
-                    }
-                }
-            }
+            Status.SUCCESS -> { }
             Status.ERROR -> renderErrorState(response.error)
         }
     }
@@ -86,38 +98,35 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
         viewModel!!.loading.set(true)
     }
 
-
     private fun renderErrorState(throwable: Throwable?) {
         viewModel!!.loading.set(false)
     }
 
-    private fun iniciarPreenchimento(itemEnvio: ItemEnvio?){
-
-        if(itemEnvio != null){
-            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-            tv_2.text = itemEnvio.itemEstoque?.descricao
-            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+    private val removerItemListener = object: TwoIntParametersClickListener{
+        override fun onClick(id: Int, position: Int) {
+            try{
+                viewModel?.removeItem(id)
+                adapter?.removeItem(position)
+                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+            }
+            catch (e: Exception){
+                Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private val removerItemListener = object: OneIntParameterClickListener{
-        override fun onClick(id: Int) {
-            //faz nada
-        }
+    private fun clicouProximo(){
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item?.itemId == R.id.btn_done){
+        try{
 
             try {
-                tv_5.esconderTeclado()
-                viewModel!!.confirmaCadastroMaterial()
+                viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
                 val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
                 startActivity(intent)
+            }
+            catch (e: NenhumItemSelecionadoException){
+                Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
             }
             catch (e: CampoNaoPreenchidoException){
                 Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
@@ -128,18 +137,44 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
             catch (e: ValorMaiorQuePermitidoException){
                 Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
             }
-
         }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        return super.onOptionsItemSelected(item)
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        menuInflater.inflate(R.menu.menu_done, menu)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Deseja Cancelar o Envio? ",
+                    "Ao escolher Sim os dados serão perdidos",
+                    {
+                        finish()
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    },
+                    {}).show()
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -148,7 +183,7 @@ class CadastraItemEnvioActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        viewModel!!.removeUltimoItemSelecionado()
+        //viewModel!!.removeUltimoItemSelecionado()
         super.onBackPressed()
     }
 }
