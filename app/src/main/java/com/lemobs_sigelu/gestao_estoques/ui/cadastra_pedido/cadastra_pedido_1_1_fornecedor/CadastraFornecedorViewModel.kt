@@ -3,6 +3,8 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -48,6 +50,11 @@ class CadastraFornecedorViewModel (val controller: CadastraPedidoController): Vi
                 }
             )
         )
+    }
+
+    fun confirmaFornecedorContrato(origem: Local?, destino: Local?, contrato: ContratoEstoque?){
+
+        return controller.confirmaDestinoDePedido(origem, destino, contrato)
     }
 
 }

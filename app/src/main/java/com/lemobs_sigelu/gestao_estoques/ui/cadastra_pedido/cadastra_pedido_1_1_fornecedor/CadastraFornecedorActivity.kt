@@ -2,7 +2,9 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.SimpleAdapter
@@ -19,6 +21,10 @@ import javax.inject.Inject
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.view.View
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
+import java.lang.Exception
 
 
 class CadastraFornecedorActivity: AppCompatActivity() {
@@ -54,7 +60,24 @@ class CadastraFornecedorActivity: AppCompatActivity() {
     }
 
     private fun clicouNoProximo(){
+        try{
+            if(contratoSelecionado == null)
+                throw Exception("Contrato não selecionado.")
 
+            val fornecedor = this.listaFornecedor[this.fornecedorSelecionado]
+            val contrato = this.listaContrato.filter { it.empresaID == fornecedor.id }[contratoSelecionado ?: 0]
+
+            val origem = Local(fornecedor.id, fornecedor.nome ?: "", "Fornecedor")
+            val destino = Local(AppSharedPreferences.getNucleoID(App.instance), AppSharedPreferences.getNucleoNome(App.instance), "Núcleo")
+
+            viewModel!!.confirmaFornecedorContrato(origem, destino, contrato)
+
+            val intent = Intent(this, SelecionaItemPedidoActivity::class.java)
+            startActivity(intent)
+        }
+        catch(e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun clicouNoAnterior(){
@@ -120,15 +143,17 @@ class CadastraFornecedorActivity: AppCompatActivity() {
             val textoDestino = list.map { it.numeroContrato }
             var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textoDestino)
             spinner_contrato.adapter = adapter
-        }
 
-        spinner_contrato.onItemSelectedListener = object : OnItemSelectedListener {
+            spinner_contrato.onItemSelectedListener = object : OnItemSelectedListener {
 
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                contratoSelecionado = position
+                override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                    contratoSelecionado = position
+                }
+
+                override fun onNothingSelected(parentView: AdapterView<*>) {}
             }
-
-            override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
+
+
     }
 }
