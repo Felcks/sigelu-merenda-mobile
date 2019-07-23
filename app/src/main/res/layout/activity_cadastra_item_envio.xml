@@ -17,6 +17,8 @@
             android:id="@+id/ll_all"
             android:background="@android:color/white">
 
+
+
         <LinearLayout
                 android:id="@+id/linear_layout_passos"
                 android:layout_width="match_parent"
