@@ -62,7 +62,8 @@ class ContratoRepository{
                         it.numero_contrato ?: "",
                         it.valor_contratual ?: 0.0,
                         it.data_conclusao?.toDate() ?: Date(),
-                        it.data_inicio?.toDate() ?: Date()
+                        it.data_inicio?.toDate() ?: Date(),
+                        it.empresa_id
                     )
                 }
 
@@ -74,5 +75,4 @@ class ContratoRepository{
             }
         }
     }
-
 }

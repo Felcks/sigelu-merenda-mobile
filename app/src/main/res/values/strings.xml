@@ -36,6 +36,7 @@
     <string name="pedido_nucleo">Pedir para Núcleo</string>
     <string name="pedido_obra">Enviar para obra</string>
     <string name="selecione_fornecedor">Selecione um fornecedor</string>
+    <string name="selecione_contrato">Selecione um contrato</string>
     <string name="selecione_nucleo">Selecione um núcleo</string>
     <string name="selecione_obra">Selecione a Obra</string>
 

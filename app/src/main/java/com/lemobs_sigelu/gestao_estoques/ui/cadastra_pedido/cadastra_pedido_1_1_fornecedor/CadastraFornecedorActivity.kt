@@ -16,12 +16,21 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewMo
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_fornecedor.*
 import javax.inject.Inject
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.view.View
+
 
 class CadastraFornecedorActivity: AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: CadastraFornecedorViewModel? = null
+
+    private var listaFornecedor = mutableListOf<Fornecedor>()
+    private var listaContrato = mutableListOf<ContratoEstoque>()
+    private var fornecedorSelecionado = 0
+    private var contratoSelecionado: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -62,8 +71,10 @@ class CadastraFornecedorActivity: AppCompatActivity() {
                     if(response.data[0] is Fornecedor)
                         renderDataFornecedor(response.data)
 
-                    if(response.data[0] is ContratoEstoque)
+                    if(response.data[0] is ContratoEstoque) {
+                        this.listaContrato.addAll(response.data as List<ContratoEstoque>)
                         renderDataContrato(response.data)
+                    }
                 }
 
             }
@@ -74,19 +85,50 @@ class CadastraFornecedorActivity: AppCompatActivity() {
     private fun renderDataFornecedor(result: Any?) {
 
         val list = result as List<Fornecedor>
+        this.listaFornecedor.addAll(list)
 
         val listaTextoOrigem = list.map { it.nome }
         var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
         spinner_fornecedor.adapter = adapter
 
-        //spinner_fornecedor.onItemSelectedListener = viewModel!!.selecionadorOrigem
+        spinner_fornecedor.onItemSelectedListener = object : OnItemSelectedListener {
+
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                fornecedorSelecionado = position
+                renderDataContrato(position)
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+            }
+        }
+        viewModel!!.carregaListaContrato()
     }
 
     private fun renderDataContrato(result: Any?) {
 
-//        if(result is List<*>){
-//            viewModel!!.listaContrato.addAll((result as List<ContratoEstoque>))
-//        }
-//        iniciarSpinnerContratos()
+        val list = this.listaContrato.filter { it.empresaID == this.listaFornecedor[fornecedorSelecionado].id }
+
+        if(list.isEmpty()){
+
+            this.contratoSelecionado = null
+            val textoDestino = listOf("Fornecedor sem contrato vigente")
+            var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textoDestino)
+            spinner_contrato.adapter = adapter
+        }
+        else{
+
+            val textoDestino = list.map { it.numeroContrato }
+            var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textoDestino)
+            spinner_contrato.adapter = adapter
+        }
+
+        spinner_contrato.onItemSelectedListener = object : OnItemSelectedListener {
+
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                contratoSelecionado = position
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {}
+        }
     }
 }

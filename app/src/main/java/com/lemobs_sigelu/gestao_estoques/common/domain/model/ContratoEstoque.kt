@@ -12,4 +12,19 @@ class ContratoEstoque (val id: Int,
                        val numeroContrato: String,
                        val valorContratual: Double,
                        val dataInicio: Date,
-                       val dataConclusao: Date)
+                       val dataConclusao: Date){
+
+    var empresaID: Int? = null
+
+    constructor (id: Int,
+                 situacao: String,
+                 objetoContrato: String,
+                 numeroContrato: String,
+                 valorContratual: Double,
+                 dataInicio: Date,
+                 dataConclusao: Date,
+                 empresaID: Int): this(id, situacao, objetoContrato, numeroContrato, valorContratual, dataInicio, dataConclusao){
+
+        this.empresaID = empresaID
+    }
+}

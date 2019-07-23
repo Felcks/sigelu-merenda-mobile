@@ -4,6 +4,7 @@ package com.lemobs_sigelu.gestao_estoques.api_model.pedido
  * Created by felcks on May, 2019
  */
 class ContratoEstoqueDataResponse (val id: Int,
+                                   val empresa_id: Int,
                                    val situacao: String?,
                                    val objeto_contrato: String?,
                                    val numero_contrato: String?,

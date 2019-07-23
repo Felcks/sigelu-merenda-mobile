@@ -88,6 +88,38 @@
 
         </android.support.constraint.ConstraintLayout>
 
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/ll_selecione_contrato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/espacamento_grande"
+                android:paddingBottom="@dimen/espacamento_medio"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@id/ll_selecione_fornecedor"
+                app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
+                android:layout_margin="@dimen/espacamento_maximo_2">
+
+            <TextView
+                    android:id="@+id/tv_contrato_titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="@string/selecione_contrato"
+                    android:textSize="16sp"/>
+
+
+            <Spinner
+                    android:id="@+id/spinner_contrato"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contrato_titulo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_bar_height"
