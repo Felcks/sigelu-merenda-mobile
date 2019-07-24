@@ -125,23 +125,26 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoCadastro?.listaItemContrato?.map { it.id }!!
     }
 
-    fun confirmaCadastroMaterial(valor: Double){
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
 
-        if(valor <= 0.0){
-            throw ValorMenorQueZeroException()
+        if(pedidoCadastro?.listaItemContrato == null)
+            throw Exception()
+
+        var count = 0
+        for(item in pedidoCadastro!!.listaItemContrato){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
         }
-
-        val itemContrato = pedidoCadastro?.listaItemContrato?.last()
-
-        if(valor > itemContrato?.quantidadeUnidade ?: 999999999.0){
-            throw ValorMaiorQuePermitidoException()
-        }
-
-        itemContrato?.quantidadeRecebida = valor
-    }
-
-    fun getItemSolicitado(): ItemContrato?{
-        return pedidoCadastro?.listaItemContrato?.last()
     }
 
     fun getListaItensContrato(): List<ItemContrato>{
@@ -150,6 +153,17 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
 
     fun getListaItensAdicionados(): List<ItemContrato>{
         return pedidoCadastro?.listaItemContrato!!.toList()
+    }
+
+    fun removeItem(itemContratoID: Int){
+
+        val item = pedidoCadastro?.listaItemContrato?.find { it.id == itemContratoID }
+        if(item != null){
+            pedidoCadastro?.listaItemContrato?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
     }
 
     fun cancelarPedido() {

@@ -44,7 +44,6 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaItemPedidoViewModel::class.java)
         viewModel!!.response.observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregaListaItens()
 
         ll_layout_anterior.setOnClickListener {
             clicouNoAnterior()
@@ -71,6 +70,11 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
     private fun clicouNoAnterior(){
         this.onBackPressed()
+    }
+
+    override fun onResume() {
+        viewModel!!.carregaListaItens()
+        super.onResume()
     }
 
     fun processResponse(response: Response?) {

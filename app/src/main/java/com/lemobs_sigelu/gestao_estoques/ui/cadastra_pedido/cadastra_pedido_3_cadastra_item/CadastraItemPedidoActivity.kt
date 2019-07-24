@@ -16,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
@@ -70,42 +71,36 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
 
     private fun clicouProximo(){
 
+        try {
+            viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+
+            val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
+            startActivity(intent)
+        }
+        catch (e: NenhumItemSelecionadoException){
+            Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
+        }
+        catch (e: CampoNaoPreenchidoException){
+            Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
+        }
+        catch(e: ValorMenorQueZeroException){
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+        }
+        catch (e: ValorMaiorQuePermitidoException){
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun clicouAnterior(){
         this.onBackPressed()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item?.itemId == R.id.btn_done){
-
-            try {
-                viewModel!!.confirmaCadastroMaterial()
-
-                val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-                startActivity(intent)
-            }
-            catch (e: CampoNaoPreenchidoException){
-                Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
-            }
-            catch(e: ValorMenorQueZeroException){
-                Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
-            }
-            catch (e: ValorMaiorQuePermitidoException){
-                Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
     private val removerItemListener = object: TwoIntParametersClickListener {
         override fun onClick(id: Int, position: Int) {
             try{
-//                viewModel?.removeItem(id)
-//                adapter?.removeItem(position)
-//                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+                viewModel?.removeItem(id)
+                adapter?.removeItem(position)
+                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()

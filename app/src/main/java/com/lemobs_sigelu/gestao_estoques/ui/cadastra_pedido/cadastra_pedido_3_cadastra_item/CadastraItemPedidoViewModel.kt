@@ -8,6 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedid
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import io.reactivex.disposables.CompositeDisposable
 
 class CadastraItemPedidoViewModel (private val controller: CadastraPedidoController): ViewModel() {
@@ -30,15 +31,17 @@ class CadastraItemPedidoViewModel (private val controller: CadastraPedidoControl
         return controller.getListaItensContrato()
     }
 
-    fun confirmaCadastroMaterial() {
+    fun removeItem(id: Int){
+        return controller.removeItem(id)
+    }
 
-        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
+    fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
 
-        if(quantidadeRecebida.isEmpty())
-            throw CampoNaoPreenchidoException()
-
-
-        val valor = quantidadeRecebida.replace(',', '.').toDouble()
-        return controller.confirmaCadastroMaterial(valor)
+        if(listValoresRecebidos.isNotEmpty()){
+            controller.confirmaCadastroMaterial(listValoresRecebidos)
+        }
+        else{
+            throw NenhumItemSelecionadoException()
+        }
     }
 }
