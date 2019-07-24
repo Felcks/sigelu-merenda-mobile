@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
-import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.view.*
+import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
 class ListaItemContratoAdapter (val context: Context,
                                 val list: List<ItemContrato>):
@@ -17,7 +17,7 @@ class ListaItemContratoAdapter (val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_material_pedido_cadastrado, parent, false)
         return MyViewHolder(view)
     }
 
@@ -29,12 +29,10 @@ class ListaItemContratoAdapter (val context: Context,
 
         val item = this.list[position]
 
-//        holder.itemView.tv_1.text = item.itemEstoque?.nomeAlternativo
-//        holder.itemView.tv_2.text = item.itemEstoque?.descricao
-//        holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-//        holder.itemView.tv_4.setText(item.quantidadeUnidade.toString())
-//        holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
-
+        holder.itemView.tv_1.text = item.itemEstoque?.nomeAlternativo
+        holder.itemView.tv_2.text = item.itemEstoque?.descricao
+        holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
+        holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

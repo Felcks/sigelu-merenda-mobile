@@ -47,7 +47,6 @@
                   android:noHistory="false"/>
 
 
-
         <!-- CADASTRA PEDIDO -->
 
         <!-- SELECIONA TIPO PEDIDO ACTIVITY -->
@@ -62,29 +61,6 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
                   android:label="Cadastrar Pedido" />
 
-        <!-- SELECIONA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
-                  android:label="Selecione os itens" />
-
-        <!-- CADASTRA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
-                  android:label="Selecione as quantidades"/>
-
-        <!-- CONFIRMA MATERIAL PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity"
-                  android:label="Materiais Solicitados"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateHidden"
-                  android:theme="@style/AppThemeNoActionBar" />
-
-
-
-        <!-- CADASTRA RECEBIMENTO -->
-
-        <!-- SELECIONA ENVIO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity"
-                  android:label="Selecione o envio"/>
-
         <!-- SELECIONA ITEM ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity"
                   android:label="Selecione um item"/>
@@ -97,8 +73,32 @@
         <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity"
                   android:label="Cadastrar Pedido"
                   android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateHidden"
-                  android:theme="@style/AppThemeNoActionBar"/>
+                  android:windowSoftInputMode="stateHidden"/>
+
+
+
+
+
+
+
+        <!-- CADASTRA RECEBIMENTO -->
+
+        <!-- SELECIONA ENVIO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity"
+                  android:label="Selecione o envio"/>
+
+        <!-- SELECIONA MATERIAL RECEBIMENTO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
+                  android:label="Selecione os itens" />
+
+        <!-- CADASTRA MATERIAL RECEBIMENTO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
+                  android:label="Selecione as quantidades"/>
+
+        <!-- CONFIRMA MATERIAL RECEBIMENTO ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity"
+                  android:label="Confirme Informações"
+                  android:screenOrientation="portrait" />
 
 
 
@@ -107,9 +107,7 @@
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
                   android:label="Nome do motorista"
-                  android:noHistory="true"
-
-        />
+                  android:noHistory="true"/>
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity"
@@ -122,13 +120,12 @@
                   android:windowSoftInputMode="adjustPan"
                   android:noHistory="true"/>
 
-        <!-- CONFIRMA CADASTRO PEDIDO -->
+        <!-- CONFIRMA CADASTRO ENVIO -->
         <activity android:name= ".ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity"
                   android:label="Confirme informações"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
                   android:noHistory="true"/>
-
 
 
         <!-- CADASTRA RECEBIMENTO SEM PEDIDO-->

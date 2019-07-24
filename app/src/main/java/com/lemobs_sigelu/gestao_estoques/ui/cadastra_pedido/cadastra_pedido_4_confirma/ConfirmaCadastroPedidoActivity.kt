@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -22,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewMo
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastro_pedido.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
@@ -35,14 +37,10 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirma_cadastro_pedido)
 
-        toolbar.title = "Cadastrar Pedido"
-
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaCadastroPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
         viewModel!!.carregaListaItem()
-
-        this.iniciarToolbar()
 
         val pedido = viewModel!!.getPedido()
         tv_origem.text = pedido?.origem?.tracoSeVazio()
@@ -50,9 +48,30 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         if(pedido?.origemTipo == "Fornecedor"){
             tv_contrato.visibility = View.VISIBLE
             tv_contrato_layout.visibility = View.VISIBLE
-            view_3.visibility = View.VISIBLE
             tv_contrato.text = pedido.contratoEstoque?.numeroContrato
         }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+    }
+
+    private fun clicouProximo(){
+
+        try{
+            viewModel!!.enviaPedido()
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response?) {
@@ -69,8 +88,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
             this.iniciarAdapter(result as List<ItemContrato>)
         }
     }
-
-
 
     fun processResponseEnvioPedido(response: Response?){
         when(response?.status){
@@ -123,8 +140,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         this.errorDialog?.show()
     }
 
-
-
     private fun renderErrorState(throwable: Throwable?) {}
 
     private fun iniciarAdapter(list: List<ItemContrato>){
@@ -134,17 +149,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
 
         val adapter = ListaItemContratoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
-    }
-
-    private fun iniciarToolbar(){
-        if(toolbar != null){
-
-            toolbar.setNavigationIcon(R.drawable.ic_cancel)
-            setSupportActionBar(toolbar)
-            toolbar.setNavigationOnClickListener {
-                mostrarDialogCancelamento()
-            }
-        }
     }
 
     private fun mostrarDialogCancelamento(){
@@ -163,26 +167,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         val actionBar : ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_done, menu)
-
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item?.itemId == R.id.btn_done){
-
-            viewModel!!.enviaPedido()
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        this.mostrarDialogCancelamento()
     }
 }
