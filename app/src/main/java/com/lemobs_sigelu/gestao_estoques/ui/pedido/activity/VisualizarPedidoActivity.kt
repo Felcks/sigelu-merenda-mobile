@@ -99,18 +99,10 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
             btn_cadastra_recebimento.setOnClickListener {
-
-                if(viewModel!!.loadingEnvios.get() == true){
-
-                }
-                else if(viewModel!!.envios().size == 0){
-                    Toast.makeText(App.instance, "Não há envios.", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    viewModel!!.apagaListaItemRecebimentoAnteriores()
-                    val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
-                    startActivity(intent)
-                }
+                
+                viewModel!!.apagaListaItemRecebimentoAnteriores()
+                val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
+                startActivity(intent)
             }
             btn_cadastra_envio.setOnClickListener {
 
