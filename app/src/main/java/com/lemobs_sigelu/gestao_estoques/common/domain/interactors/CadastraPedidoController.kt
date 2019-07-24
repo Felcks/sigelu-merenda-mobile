@@ -144,6 +144,10 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoCadastro?.listaItemContrato?.last()
     }
 
+    fun getListaItensContrato(): List<ItemContrato>{
+        return pedidoCadastro?.listaItemContrato ?: listOf()
+    }
+
     fun getListaItensAdicionados(): List<ItemContrato>{
         return pedidoCadastro?.listaItemContrato!!.toList()
     }

@@ -155,7 +155,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
     }
 
     private fun clicouAnterior(){
-        this.onBackPressed()
+        onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -186,7 +186,6 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

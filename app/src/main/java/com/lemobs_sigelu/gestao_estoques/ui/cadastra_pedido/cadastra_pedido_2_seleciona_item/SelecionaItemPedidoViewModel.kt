@@ -65,7 +65,7 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
     }
 
     fun confirmaSelecaoItens(listaAdicao: List<ItemContrato>, listaRemocao: List<ItemContrato>){
-        confirmaSelecaoItens(listaAdicao, listaRemocao)
+        controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
     }
 
     fun salvaRascunho(){

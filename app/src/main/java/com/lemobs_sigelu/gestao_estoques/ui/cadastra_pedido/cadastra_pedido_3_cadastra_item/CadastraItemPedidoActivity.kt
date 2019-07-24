@@ -7,10 +7,13 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
@@ -29,6 +32,8 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: CadastraItemPedidoViewModel? = null
 
+    private var adapter: ListaItemContratoAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -40,18 +45,35 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        try {
-            val itemEnvio = viewModel!!.getItemContrato()
-            if (itemEnvio != null) {
-                tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-                tv_2.text = itemEnvio.itemEstoque?.descricao
-                tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-                tv_4.setText(itemEnvio.quantidadeUnidade.toString())
-            }
+        val listaItemEnvio = viewModel!!.getItensSolicitados()
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista_material.layoutManager = layoutManager
+
+        this.adapter = ListaItemContratoAdapter(App.instance, listaItemEnvio, removerItemListener)
+        rv_lista_material.adapter = adapter
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
         }
-        catch (e: Exception){
-            
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
         }
+
+        btn_add.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+    }
+
+    private fun clicouProximo(){
+
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -59,7 +81,6 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         if(item?.itemId == R.id.btn_done){
 
             try {
-                tv_5.esconderTeclado()
                 viewModel!!.confirmaCadastroMaterial()
 
                 val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
@@ -79,11 +100,23 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private val removerItemListener = object: TwoIntParametersClickListener {
+        override fun onClick(id: Int, position: Int) {
+            try{
+//                viewModel?.removeItem(id)
+//                adapter?.removeItem(position)
+//                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+            }
+            catch (e: Exception){
+                Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        menuInflater.inflate(R.menu.menu_done, menu)
         return true
     }
 

@@ -26,8 +26,8 @@ class CadastraItemPedidoViewModel (private val controller: CadastraPedidoControl
         return response
     }
 
-    fun getItemContrato(): ItemContrato? {
-        return controller.getItemSolicitado()
+    fun getItensSolicitados(): List<ItemContrato> {
+        return controller.getListaItensContrato()
     }
 
     fun confirmaCadastroMaterial() {
