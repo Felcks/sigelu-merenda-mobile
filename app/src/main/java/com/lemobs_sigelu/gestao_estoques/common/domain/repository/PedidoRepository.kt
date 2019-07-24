@@ -126,7 +126,7 @@ class PedidoRepository {
                         "${it.data_ultimo_envio}/${it.hora_ultimo_envio}".anoMesDiaHoraMinutoSegundoToDate()
                     }
                     else{
-                        Date()
+                        null
                     }
 
                     Pedido(
