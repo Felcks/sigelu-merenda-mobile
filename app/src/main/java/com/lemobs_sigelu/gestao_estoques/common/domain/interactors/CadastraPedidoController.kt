@@ -62,7 +62,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
             destino.id,
             Date(),
             Date(),
-            Situacao(1, "Rascunho")
+            Situacao(2, "Em Análise")
         )
 
         if(origem.tipo == "Fornecedor"){

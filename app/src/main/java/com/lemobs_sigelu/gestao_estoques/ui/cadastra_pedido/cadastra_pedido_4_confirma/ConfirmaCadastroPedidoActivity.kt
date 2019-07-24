@@ -163,11 +163,5 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
                 this.finishAffinity()
             },
             {}).show()
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val actionBar : ActionBar? = supportActionBar
-        return true
     }
 }

@@ -225,7 +225,7 @@ class PedidoRepository {
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
                     situacaoID,
-                    1,
+                    2,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
                             it.categoria?.categoria_id ?: 0,
