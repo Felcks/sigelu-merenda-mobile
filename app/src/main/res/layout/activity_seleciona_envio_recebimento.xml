@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ll_all"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,13 +33,26 @@
                 android:textSize="17sp"/>
     </LinearLayout>
 
-
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/ll_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/linear_layout_passos"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_passos"
+            android:text="Informações do recebimento"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/espacamento_maximo"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_lista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_passos"/>
+            android:layout_marginLeft="@dimen/espacamento_maximo"
+            android:layout_marginRight="@dimen/espacamento_maximo"
+            android:layout_marginTop="@dimen/espacamento_maximo_2"
+            app:layout_constraintTop_toBottomOf="@+id/ll_titulo"/>
 
     <LinearLayout
             android:layout_width="match_parent"
