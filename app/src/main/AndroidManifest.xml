@@ -71,7 +71,7 @@
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
         <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity"
-                  android:label="Cadastrar Pedido"
+                  android:label="Confirme informações"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
