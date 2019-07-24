@@ -29,11 +29,18 @@ class EnvioRepository {
 
                 val envios = response.body()!!.map {
 
+                    val dataSaida = if(it.data_saida != null && it.hora_saida != null){
+                        it.data_saida.plus("/${it.hora_saida}").anoMesDiaHoraMinutoSegundoToDate()
+                    }
+                    else{
+                        null
+                    }
+
                     Envio(it.id,
                         pedidoID,
                         it.situacao ?: "",
                         it.codigo ?: "",
-                        it.data_saida?.plus("/${it.hora_saida}")?.anoMesDiaHoraMinutoSegundoToDate() ?: Date(),
+                        dataSaida,
                         it.data_recebimento?.createdAtToDate() ?: Date(),
                         it.flag_entregue ?: false,
                         it.responsavel?.nome ?: "",

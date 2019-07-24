@@ -46,7 +46,7 @@ class Envio (
                 pedidoID: Int,
                 situacao: String,
                 codigo: String,
-                dataSaida: Date,
+                dataSaida: Date?,
                 dataRecebimento: Date,
                 isEntregue: Boolean,
                 responsavel: String,
