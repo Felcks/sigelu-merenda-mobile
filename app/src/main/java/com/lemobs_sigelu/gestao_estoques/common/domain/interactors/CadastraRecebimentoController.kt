@@ -27,6 +27,10 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
     private var listaEnvio = listOf<Envio>()
     private val api = RestApi()
 
+    companion object{
+        private var listaItemEnvio: MutableList<ItemEnvio>? = null
+    }
+
     fun getListaEnvioDePedido(pedidoID: Int): Observable<List<Envio>> {
 
         if(isConnected(App.instance)) {
@@ -94,20 +98,41 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         }
     }
 
-    fun selecionaItem(itemEnvioID: Int){
+    fun selecionaItem(itemEnvioID: Int): Boolean{
 
-        val itemEnvioDAO = db.itemEnvioDAO()
-        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
+        return listaItemEnvio?.map { it.id }?.contains(itemEnvioID) != true
 
-        val itemEstoqueDAO = db.itemEstoqueDAO()
-        itemEnvio?.itemEstoque = itemEstoqueDAO.getById(itemEnvio?.itemEstoqueID ?: 0)
+//        val itemEnvioDAO = db.itemEnvioDAO()
+//        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
+//
+//        val itemEstoqueDAO = db.itemEstoqueDAO()
+//        itemEnvio?.itemEstoque = itemEstoqueDAO.getById(itemEnvio?.itemEstoqueID ?: 0)
+//
+//        val quantidade = itemEnvio?.quantidadeUnidade ?: 0.0
+//
+//        if(quantidade < 0)
+//            throw ItemSemQuantidadeDisponivelException()
+//
+//        if(listaItemEnvio == null)
+//            listaItemEnvio = mutableListOf()
+//
+//
+//        listaItemEnvio?.add(itemEnvio!!)
+    }
 
-        val quantidade = itemEnvio?.quantidadeUnidade ?: 0.0
+    fun getItensJaAdicionados(): List<Int>{
 
-        if(quantidade < 0)
-            throw ItemSemQuantidadeDisponivelException()
+        if(listaItemEnvio == null)
+            return listOf<Int>()
 
-        FlowSharedPreferences.setItemEnvioID(App.instance, itemEnvioID)
+        return listaItemEnvio?.map { it.id }!!
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEnvio>, listaParaRemover: List<ItemEnvio>){
+
+//        val idItensParaRemover = listaParaRemover.map { it.id }
+//        pedidoCadastro?.listaItemContrato?.removeAll { idItensParaRemover.contains(it.id) }
+//        pedidoCadastro?.listaItemContrato?.addAll(listaParaAdicionar)
     }
 
     fun getItemSolicitado(): ItemEnvio?{
