@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -46,6 +47,22 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), OneIntParamete
         val binding: ActivitySelecionaItemRecebimentoBinding = DataBindingUtil.setContentView(this, R.layout.activity_seleciona_item_recebimento)
         binding.viewModel = viewModel!!
         binding.executePendingBindings()
+
+        ll_layout_anterior.setOnClickListener {
+            clicouNoAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            clicouNoProximo()
+        }
+    }
+
+    private fun clicouNoProximo(){
+
+    }
+
+    private fun clicouNoAnterior(){
+        this.onBackPressed()
     }
 
 
@@ -107,17 +124,4 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), OneIntParamete
             this.iniciarAdapter(result as List<ItemEnvio>)
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val actionBar : ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
 }
