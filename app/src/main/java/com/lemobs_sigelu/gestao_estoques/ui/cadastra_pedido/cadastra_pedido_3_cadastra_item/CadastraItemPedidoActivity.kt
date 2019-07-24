@@ -20,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewMo
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class CadastraItemPedidoActivity: AppCompatActivity() {
@@ -39,12 +40,17 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
-        val itemEnvio = viewModel!!.getItemContrato()
-        if(itemEnvio != null) {
-            tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
-            tv_2.text = itemEnvio.itemEstoque?.descricao
-            tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-            tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+        try {
+            val itemEnvio = viewModel!!.getItemContrato()
+            if (itemEnvio != null) {
+                tv_1.text = itemEnvio.itemEstoque?.nomeAlternativo
+                tv_2.text = itemEnvio.itemEstoque?.descricao
+                tv_3.text = itemEnvio.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
+                tv_4.setText(itemEnvio.quantidadeUnidade.toString())
+            }
+        }
+        catch (e: Exception){
+            
         }
     }
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -55,8 +56,16 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
         )
     }
 
-    fun selecionaItem(itemID: Int){
+    fun getItensAdicionados(): List<Int>{
+        return controller.getItensJaCadastrados()
+    }
+
+    fun selecionaItem(itemID: Int): Boolean{
         return controller.selecionaItem(itemID)
+    }
+
+    fun confirmaSelecaoItens(listaAdicao: List<ItemContrato>, listaRemocao: List<ItemContrato>){
+        confirmaSelecaoItens(listaAdicao, listaRemocao)
     }
 
     fun salvaRascunho(){

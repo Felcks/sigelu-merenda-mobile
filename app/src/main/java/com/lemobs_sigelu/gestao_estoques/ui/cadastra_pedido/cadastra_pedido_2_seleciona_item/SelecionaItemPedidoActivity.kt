@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
@@ -28,11 +29,13 @@ import javax.inject.Inject
 /**
  * Created by felcks on Jun, 2019
  */
-class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickListener {
+class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickListener {
 
     @Inject
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
     var viewModel: SelecionaItemPedidoViewModel? = null
+
+    private var adapter: ListaItemContratoSelecionavelSimplesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -54,9 +57,15 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickList
 
     private fun clicouNoProximo(){
         try{
+            viewModel!!.confirmaSelecaoItens(
+                this.adapter?.itemsParaAdicao as List<ItemContrato>,
+                this.adapter?.itemsParaRemocao as List<ItemContrato>)
 
+            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -93,16 +102,24 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), OneIntParameterClickList
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemContratoSelecionavelSimplesAdapter(applicationContext, list, this)
+        this.adapter = ListaItemContratoSelecionavelSimplesAdapter(applicationContext,
+            list,
+            this,
+            viewModel!!.getItensAdicionados())
         rv_lista.adapter = adapter
     }
 
-    override fun onClick(id: Int) {
+    override fun onClick(id: Int, pos: Int) {
 
         try{
-            viewModel!!.selecionaItem(id)
-            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-            startActivity(intent)
+            val adicionou = viewModel!!.selecionaItem(id)
+
+            if(adicionou){
+                adapter?.adicionaItem(pos)
+            }
+            else{
+                adapter?.removeItem(pos)
+            }
         }
         catch (e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()

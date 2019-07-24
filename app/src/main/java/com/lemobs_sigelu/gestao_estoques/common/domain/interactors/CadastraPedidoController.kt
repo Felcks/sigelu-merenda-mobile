@@ -103,10 +103,26 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         this.itensContrato = list.toMutableList()
     }
 
-    fun selecionaItem(itemContratoID: Int){
+    fun selecionaItem(itemContratoID: Int): Boolean{
 
-        val itemContrato = itensContrato.first { it.id == itemContratoID }
-        pedidoCadastro?.listaItemContrato?.add(itemContrato)
+        return pedidoCadastro?.listaItemContrato?.map { it.id }?.contains(itemContratoID) != true
+//        val itemContrato = itensContrato.first { it.id == itemContratoID }
+//        pedidoCadastro?.listaItemContrato?.add(itemContrato)
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemContrato>, listaParaRemover: List<ItemContrato>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        pedidoCadastro?.listaItemContrato?.removeAll { idItensParaRemover.contains(it.id) }
+        pedidoCadastro?.listaItemContrato?.addAll(listaParaAdicionar)
+    }
+
+    fun getItensJaCadastrados(): List<Int>{
+
+        if(pedidoCadastro?.listaItemContrato == null)
+            return listOf<Int>()
+
+        return pedidoCadastro?.listaItemContrato?.map { it.id }!!
     }
 
     fun confirmaCadastroMaterial(valor: Double){
