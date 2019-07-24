@@ -5,8 +5,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
->
+        xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.CardView
             android:id="@+id/ll_all"
@@ -14,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             app:cardElevation="1dp"
-            app:contentPadding="@dimen/espacamento_medio"
+            app:contentPadding="@dimen/espacamento_curto"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="@dimen/espacamento_medio">

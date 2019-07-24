@@ -99,7 +99,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
             btn_cadastra_recebimento.setOnClickListener {
-                
+
                 viewModel!!.apagaListaItemRecebimentoAnteriores()
                 val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
                 startActivity(intent)

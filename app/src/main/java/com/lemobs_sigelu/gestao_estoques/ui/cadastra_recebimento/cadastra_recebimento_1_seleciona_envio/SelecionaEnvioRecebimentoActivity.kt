@@ -21,6 +21,10 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebim
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
+import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_all
+import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_layout_anterior
+import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_layout_proximo
+import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
 import javax.inject.Inject
 
 /**
@@ -44,6 +48,33 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaEnvios()
         viewModel!!.apagarTodaListaRecebimentoAnterior()
+
+        ll_layout_anterior.setOnClickListener {
+            clicouNoAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            clicouNoProximo()
+        }
+    }
+
+    private fun clicouNoProximo(){
+        try{
+            viewModel!!.selecionaEnvio(this.listaEnvioAdapter?.posicaoSelecionada)
+
+            val intent = Intent(App.instance, SelecionaItemEnvioRecebimentoActivity::class.java)
+            startActivity(intent)
+        }
+        catch (e: NenhumItemSelecionadoException){
+            Snackbar.make(ll_all, "Selecione um envio", Snackbar.LENGTH_SHORT).show()
+        }
+        catch(e: ItemNaoSelecionavelException){
+            Snackbar.make(ll_all, "Esse envio já foi entregue.", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clicouNoAnterior(){
+        this.onBackPressed()
     }
 
     private fun processResponse(response: Response?) {
@@ -74,35 +105,6 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
         listaEnvioAdapter = ListaEnvioSelecionavelAdapter(App.instance, this.listaEnvio)
         rv_lista.adapter = listaEnvioAdapter
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item?.itemId == R.id.btn_done){
-
-            try{
-                viewModel!!.selecionaEnvio(this.listaEnvioAdapter?.posicaoSelecionada)
-
-                val intent = Intent(App.instance, SelecionaItemEnvioRecebimentoActivity::class.java)
-                startActivity(intent)
-            }
-            catch (e: NenhumItemSelecionadoException){
-                Snackbar.make(ll_all, "Selecione um envio", Snackbar.LENGTH_SHORT).show()
-            }
-            catch(e: ItemNaoSelecionavelException){
-                Snackbar.make(ll_all, "Esse envio já foi entregue.", Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val actionBar : ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        menuInflater.inflate(R.menu.menu_done, menu)
-
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
