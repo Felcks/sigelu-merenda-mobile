@@ -172,10 +172,10 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
                 buildAlertDialogSimNao(
                     this,
-                    "Deseja Cancelar o Envio? ",
-                    "Ao escolher Sim os dados serão perdidos",
+                    "Cancelar envio ",
+                    "Deseja sair e cancelar o envio?",
                     {
-                        finish()
+                        super.onBackPressed()
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
 
