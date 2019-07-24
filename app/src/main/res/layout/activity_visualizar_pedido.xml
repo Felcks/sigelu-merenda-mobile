@@ -82,7 +82,7 @@
 
                 <LinearLayout
                         android:id="@+id/footer"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:layout_gravity="center"
@@ -97,11 +97,14 @@
 
                     <Button
                             android:id="@+id/btn_cadastra_recebimento"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_button_states"
-                            android:drawableLeft="@drawable/ic_sheet"
-                            android:padding="5dp"
+                            android:drawableLeft="@drawable/ic_truck_right"
+                            android:paddingRight="50dp"
+                            android:paddingLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
                             android:text="Cadastrar Recebimento"
                             android:textColor="@android:color/white"
                             android:visibility="gone"
@@ -109,11 +112,14 @@
 
                     <Button
                             android:id="@+id/btn_cadastra_envio"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_button_states"
-                            android:drawableLeft="@drawable/ic_sheet"
-                            android:padding="5dp"
+                            android:drawableLeft="@drawable/ic_truck_right"
+                            android:paddingRight="50dp"
+                            android:paddingLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
                             android:text="Cadastrar Envio"
                             android:textColor="@android:color/white"
                             android:visibility="gone"
