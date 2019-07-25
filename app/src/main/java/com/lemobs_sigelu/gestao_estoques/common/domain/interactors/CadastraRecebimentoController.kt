@@ -216,10 +216,15 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         itemRecebimentoDAO.insertAll(itemRecebimento)
     }
 
+    fun getEnvio(): Envio?{
+
+        return db.envioDAO().getByID(FlowSharedPreferences.getEnvioId(App.instance))
+    }
+
     fun getListaItemRecebimento(): Observable<List<ItemRecebimento>> {
 
         return Observable.create { subscriber ->
-            subscriber.onNext(itemRecebimentoRepository.getListaItemRecebimento())
+            subscriber.onNext(listaItemEnvio?.map { ItemRecebimento(null, it.envio_id, it.quantidadeRecebida, it) } ?: listOf())
         }
     }
 

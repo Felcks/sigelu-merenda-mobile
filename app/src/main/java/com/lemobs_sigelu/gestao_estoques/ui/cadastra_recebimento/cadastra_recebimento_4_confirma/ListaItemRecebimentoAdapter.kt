@@ -16,7 +16,7 @@ class ListaItemRecebimentoAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado_recebimento, parent, false)
         return MyViewHolder(view)
     }
 
@@ -31,9 +31,8 @@ class ListaItemRecebimentoAdapter(val context: Context,
         holder.itemView.tv_1.text = item.itemEnvio?.itemEstoque?.nomeAlternativo
         holder.itemView.tv_2.text = item.itemEnvio?.itemEstoque?.descricao
         holder.itemView.tv_3.text = item.itemEnvio?.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-        holder.itemView.tv_4.setText(item.itemEnvio?.quantidadeUnidade.toString())
-        //holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
-
+        holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
+        holder.itemView.tv_5.text = item.itemEnvio?.quantidadeUnidade.toString()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

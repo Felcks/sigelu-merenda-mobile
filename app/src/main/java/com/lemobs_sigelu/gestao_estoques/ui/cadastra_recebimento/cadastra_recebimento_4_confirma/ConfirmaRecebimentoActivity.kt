@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -21,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebi
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualiza_materiais_cadastrados.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class ConfirmaRecebimentoActivity: AppCompatActivity(){
@@ -39,11 +41,32 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
         viewModel!!.carregaListaItemRecebimento()
 
-        btn_adicionar_materiais.setOnClickListener {
-            val intent = Intent(this, SelecionaItemEnvioRecebimentoActivity::class.java)
-            startActivity(intent)
+        val envio = viewModel!!.getEnvio()
+        if(envio != null){
+            tv_envio.text = envio.codigo
         }
-        this.iniciarToolbar()
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+    }
+
+    private fun clicouProximo(){
+
+        try{
+            viewModel!!.enviaRecebimento()
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response?) {
@@ -126,17 +149,6 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         rv_lista.adapter = adapter
     }
 
-    private fun iniciarToolbar(){
-        if(toolbar != null){
-
-            toolbar.setNavigationIcon(R.drawable.ic_cancel)
-            setSupportActionBar(toolbar)
-            toolbar.setNavigationOnClickListener {
-                mostrarDialogCancelamento()
-            }
-        }
-    }
-
     private fun mostrarDialogCancelamento(){
 
         DialogUtil.buildAlertDialogSimNao(this,
@@ -150,28 +162,5 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
             },
             {}).show()
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
-        val actionBar : ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        menuInflater.inflate(R.menu.menu_done, menu)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if(item?.itemId == R.id.btn_done){
-            viewModel!!.enviaRecebimento()
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        this.mostrarDialogCancelamento()
     }
 }
