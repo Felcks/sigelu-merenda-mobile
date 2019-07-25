@@ -100,7 +100,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_button_states"
-                            android:drawableLeft="@drawable/ic_truck_right"
+                            android:drawableLeft="@drawable/ic_truck_left"
                             android:paddingRight="50dp"
                             android:paddingLeft="40dp"
                             android:paddingBottom="5dp"
@@ -108,7 +108,7 @@
                             android:text="Cadastrar Recebimento"
                             android:textColor="@android:color/white"
                             android:visibility="gone"
-                            isVisible="@{!viewModel.isTipoOrigemNucleo}"/>
+                            isVisible="@{!viewModel.isTipoDestinoObra}"/>
 
                     <Button
                             android:id="@+id/btn_cadastra_envio"
@@ -123,7 +123,7 @@
                             android:text="Cadastrar Envio"
                             android:textColor="@android:color/white"
                             android:visibility="gone"
-                            isVisible="@{viewModel.isTipoOrigemNucleo}"/>
+                            isVisible="@{viewModel.isTipoDestinoObra}"/>
 
                 </LinearLayout>
 

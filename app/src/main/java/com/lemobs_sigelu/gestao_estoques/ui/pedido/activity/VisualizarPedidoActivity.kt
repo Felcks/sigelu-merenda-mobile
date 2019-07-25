@@ -72,7 +72,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(result is Pedido) {
 
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
-            viewModel!!.setTipoOrigem(result.origem ?: "")
+            viewModel!!.setTipoDestinoOrigemEOrigemNome(result.destino ?: "", result.origem ?: "", result.origemNome ?: "")
             this.createTableLayout()
             this.ativarBotaoDeCadastrarEntrega()
         }

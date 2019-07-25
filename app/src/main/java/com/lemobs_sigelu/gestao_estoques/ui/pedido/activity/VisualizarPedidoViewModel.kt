@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -38,7 +39,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     private val envios = mutableListOf<Envio>()
     private var quantidadeEnviosCarregando = 0
 
-    var isTipoOrigemNucleo = ObservableField<Boolean>(true)
+    var isTipoDestinoObra = ObservableField<Boolean>(true)
 
     override fun onCleared() {
         disposables.clear()
@@ -186,13 +187,13 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
         controller.apagaListaItemRecebimentoAnteriores()
     }
 
-    fun setTipoOrigem(tipoOrigem: String){
+    fun setTipoDestinoOrigemEOrigemNome(tipoDestino: String, tipoOrigem: String, origemNome: String){
 
-        if(tipoOrigem == "Núcleo"){
-            this.isTipoOrigemNucleo.set(true)
+        if(tipoDestino == "Obra" || (tipoOrigem == "Núcleo" && origemNome == AppSharedPreferences.getNucleoNome(App.instance))){
+            this.isTipoDestinoObra.set(true)
         }
         else {
-            this.isTipoOrigemNucleo.set(false)
+            this.isTipoDestinoObra.set(false)
         }
     }
 }
