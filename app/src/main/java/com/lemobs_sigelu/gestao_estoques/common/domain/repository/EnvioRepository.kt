@@ -27,28 +27,33 @@ class EnvioRepository {
 
             if(response.isSuccessful && response.body() != null){
 
-                val envios = response.body()!!.map {
+                if(response.body()!!.isEmpty())
+                    subscriber.onNext(listOf())
+                else {
+                    val envios = response.body()!!.map {
 
-                    val dataSaida = if(it.data_saida != null && it.hora_saida != null){
-                        it.data_saida.plus("/${it.hora_saida}").anoMesDiaHoraMinutoSegundoToDate()
-                    }
-                    else{
-                        null
+                        val dataSaida = if (it.data_saida != null && it.hora_saida != null) {
+                            it.data_saida.plus("/${it.hora_saida}").anoMesDiaHoraMinutoSegundoToDate()
+                        } else {
+                            null
+                        }
+
+                        Envio(
+                            it.id,
+                            pedidoID,
+                            it.situacao ?: "",
+                            it.codigo ?: "",
+                            dataSaida,
+                            it.data_recebimento?.createdAtToDate() ?: Date(),
+                            it.flag_entregue ?: false,
+                            it.responsavel?.nome ?: "",
+                            listOf()
+                        )
                     }
 
-                    Envio(it.id,
-                        pedidoID,
-                        it.situacao ?: "",
-                        it.codigo ?: "",
-                        dataSaida,
-                        it.data_recebimento?.createdAtToDate() ?: Date(),
-                        it.flag_entregue ?: false,
-                        it.responsavel?.nome ?: "",
-                        listOf())
+                    subscriber.onNext(envios)
+                    subscriber.onComplete()
                 }
-
-                subscriber.onNext(envios)
-                subscriber.onComplete()
             }
             else{
                 subscriber.onError(Throwable(response.message()))

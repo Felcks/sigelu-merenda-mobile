@@ -4,12 +4,15 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.service.autofill.TextValueSanitizer
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
@@ -20,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_all
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_layout_anterior
@@ -89,11 +93,23 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
     private fun renderDataState(result: Any?) {
         if(result is List<*>){
-            this.iniciarAdapter(result as List<Envio>)
+
+            if(result.isNotEmpty()) {
+                tv_erro.visibility = View.GONE
+                pgb_carregamento.visibility = View.GONE
+                this.iniciarAdapter(result as List<Envio>)
+            }
+            else{
+                tv_erro.visibility = View.VISIBLE
+                pgb_carregamento.visibility = View.GONE
+            }
         }
     }
 
-    private fun renderErrorState(throwable: Throwable?) {}
+    private fun renderErrorState(throwable: Throwable?) {
+        tv_erro.visibility = View.VISIBLE
+        pgb_carregamento.visibility = View.GONE
+    }
 
     private fun iniciarAdapter(list: List<Envio>){
 
