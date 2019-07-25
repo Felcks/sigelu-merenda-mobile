@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -28,7 +29,7 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
     private val api = RestApi()
 
     companion object{
-        private var listaItemEnvio: MutableList<ItemEnvio>? = null
+        private var listaItemEnvio: MutableList<ItemEnvio>? = mutableListOf()
     }
 
     fun getListaEnvioDePedido(pedidoID: Int): Observable<List<Envio>> {
@@ -39,6 +40,10 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         else{
             return envioRepository.getListaEnvioDePedidoBD(pedidoID)
         }
+    }
+
+    fun getItensEnvioSolicitado(): List<ItemEnvio>?{
+        return listaItemEnvio
     }
 
     fun armazenaListaEnvio(list: List<Envio>){
@@ -130,9 +135,19 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
 
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEnvio>, listaParaRemover: List<ItemEnvio>){
 
-//        val idItensParaRemover = listaParaRemover.map { it.id }
-//        pedidoCadastro?.listaItemContrato?.removeAll { idItensParaRemover.contains(it.id) }
-//        pedidoCadastro?.listaItemContrato?.addAll(listaParaAdicionar)
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        listaItemEnvio?.removeAll { idItensParaRemover.contains(it.id) }
+        listaItemEnvio?.addAll(listaParaAdicionar)
+    }
+
+    fun removeItem(itemPedidoID: Int){
+        val item = listaItemEnvio?.find { it.id == itemPedidoID }
+        if(item != null){
+            listaItemEnvio?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
     }
 
     fun getItemSolicitado(): ItemEnvio?{

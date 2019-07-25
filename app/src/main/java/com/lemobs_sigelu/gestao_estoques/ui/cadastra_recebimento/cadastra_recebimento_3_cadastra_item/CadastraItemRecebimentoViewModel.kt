@@ -24,8 +24,8 @@ class CadastraItemRecebimentoViewModel (private val controller: CadastraRecebime
         return response
     }
 
-    fun getItemSolicitado(): ItemEnvio? {
-        return controller.getItemSolicitado()
+    fun getItensSolicitados(): List<ItemEnvio> {
+        return controller.getItensEnvioSolicitado() ?: mutableListOf()
     }
 
     fun confirmaCadastroItem() {
@@ -36,5 +36,9 @@ class CadastraItemRecebimentoViewModel (private val controller: CadastraRecebime
 
         val valor = quantidadeRecebida.replace(',', '.').toDouble()
         controller.confirmaCadastroItem(valor)
+    }
+
+    fun removeItem(id: Int){
+        return controller.removeItem(id)
     }
 }
