@@ -46,6 +46,28 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         return listaItemEnvio
     }
 
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
+
+        var count = 0
+        if(listaItemEnvio == null)
+            throw Exception("")
+
+        for(item in listaItemEnvio!!){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
+    }
+
     fun armazenaListaEnvio(list: List<Envio>){
 
         this.listaEnvio = list

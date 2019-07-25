@@ -71,10 +71,10 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
         try{
 
             try {
-//                viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
-//
-//                val intent = Intent(this, ConfirmaCadastroEnvioActivity::class.java)
-//                startActivity(intent)
+                viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+
+                val intent = Intent(this, ConfirmaRecebimentoActivity::class.java)
+                startActivity(intent)
             }
             catch (e: NenhumItemSelecionadoException){
                 Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
