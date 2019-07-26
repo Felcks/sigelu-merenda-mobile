@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.isConnected
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -27,6 +28,10 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
     private var listaEnvio = listOf<Envio>()
     private val api = RestApi()
 
+    companion object{
+        private var listaItemEnvio: MutableList<ItemEnvio>? = mutableListOf()
+    }
+
     fun getListaEnvioDePedido(pedidoID: Int): Observable<List<Envio>> {
 
         if(isConnected(App.instance)) {
@@ -34,6 +39,32 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         }
         else{
             return envioRepository.getListaEnvioDePedidoBD(pedidoID)
+        }
+    }
+
+    fun getItensEnvioSolicitado(): List<ItemEnvio>?{
+        return listaItemEnvio
+    }
+
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
+
+        var count = 0
+        if(listaItemEnvio == null)
+            throw Exception("")
+
+        for(item in listaItemEnvio!!){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
         }
     }
 
@@ -94,20 +125,51 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         }
     }
 
-    fun selecionaItem(itemEnvioID: Int){
+    fun selecionaItem(itemEnvioID: Int): Boolean{
 
-        val itemEnvioDAO = db.itemEnvioDAO()
-        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
+        return listaItemEnvio?.map { it.id }?.contains(itemEnvioID) != true
 
-        val itemEstoqueDAO = db.itemEstoqueDAO()
-        itemEnvio?.itemEstoque = itemEstoqueDAO.getById(itemEnvio?.itemEstoqueID ?: 0)
+//        val itemEnvioDAO = db.itemEnvioDAO()
+//        val itemEnvio = itemEnvioDAO.getById(itemEnvioID)
+//
+//        val itemEstoqueDAO = db.itemEstoqueDAO()
+//        itemEnvio?.itemEstoque = itemEstoqueDAO.getById(itemEnvio?.itemEstoqueID ?: 0)
+//
+//        val quantidade = itemEnvio?.quantidadeUnidade ?: 0.0
+//
+//        if(quantidade < 0)
+//            throw ItemSemQuantidadeDisponivelException()
+//
+//        if(listaItemEnvio == null)
+//            listaItemEnvio = mutableListOf()
+//
+//
+//        listaItemEnvio?.add(itemEnvio!!)
+    }
 
-        val quantidade = itemEnvio?.quantidadeUnidade ?: 0.0
+    fun getItensJaAdicionados(): List<Int>{
 
-        if(quantidade < 0)
-            throw ItemSemQuantidadeDisponivelException()
+        if(listaItemEnvio == null)
+            return listOf<Int>()
 
-        FlowSharedPreferences.setItemEnvioID(App.instance, itemEnvioID)
+        return listaItemEnvio?.map { it.id }!!
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEnvio>, listaParaRemover: List<ItemEnvio>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        listaItemEnvio?.removeAll { idItensParaRemover.contains(it.id) }
+        listaItemEnvio?.addAll(listaParaAdicionar)
+    }
+
+    fun removeItem(itemPedidoID: Int){
+        val item = listaItemEnvio?.find { it.id == itemPedidoID }
+        if(item != null){
+            listaItemEnvio?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
     }
 
     fun getItemSolicitado(): ItemEnvio?{
@@ -154,10 +216,15 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         itemRecebimentoDAO.insertAll(itemRecebimento)
     }
 
+    fun getEnvio(): Envio?{
+
+        return db.envioDAO().getByID(FlowSharedPreferences.getEnvioId(App.instance))
+    }
+
     fun getListaItemRecebimento(): Observable<List<ItemRecebimento>> {
 
         return Observable.create { subscriber ->
-            subscriber.onNext(itemRecebimentoRepository.getListaItemRecebimento())
+            subscriber.onNext(listaItemEnvio?.map { ItemRecebimento(null, it.envio_id, it.quantidadeRecebida, it) } ?: listOf())
         }
     }
 

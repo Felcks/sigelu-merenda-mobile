@@ -72,7 +72,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(result is Pedido) {
 
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
-            viewModel!!.setTipoOrigem(result.origem ?: "")
+            viewModel!!.setTipoDestinoOrigemEOrigemNome(result.destino ?: "", result.origem ?: "", result.origemNome ?: "")
             this.createTableLayout()
             this.ativarBotaoDeCadastrarEntrega()
         }
@@ -100,17 +100,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
             btn_cadastra_recebimento.setOnClickListener {
 
-                if(viewModel!!.loadingEnvios.get() == true){
-
-                }
-                else if(viewModel!!.envios().size == 0){
-                    Toast.makeText(App.instance, "Não há envios.", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    viewModel!!.apagaListaItemRecebimentoAnteriores()
-                    val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
-                    startActivity(intent)
-                }
+                viewModel!!.apagaListaItemRecebimentoAnteriores()
+                val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
+                startActivity(intent)
             }
             btn_cadastra_envio.setOnClickListener {
 

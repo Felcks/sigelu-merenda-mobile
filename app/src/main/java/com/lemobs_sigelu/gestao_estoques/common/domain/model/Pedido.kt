@@ -1,7 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import java.lang.Exception
 import java.util.*
 
@@ -94,21 +96,19 @@ data class Pedido(
 
     fun getTipoPedido(): TipoPedido{
 
-        //TODO Não consigo saber ainda se é o meu núcleo ou outro núcleo para encaixar outro_nucleo_para_meu_nucleo
-
         if(this.origem == "Núcleo" && this.destino == "Núcleo"){
-            return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
-        }
 
-        if(this.origem == "Núcleo" && this.destino == "Obra"){
-            return TipoPedido.MEU_NUCLEO_PARA_OBRA
+            if(this.origemNome == AppSharedPreferences.getNucleoNome(App.instance))
+                return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
+            else
+                return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
         }
 
         if(this.origem == "Fornecedor"){
             return TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
         }
 
-        return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
+        return TipoPedido.MEU_NUCLEO_PARA_OBRA
     }
 
     class SemContratoException: Exception("Pedido sem contrato.")

@@ -42,7 +42,7 @@
                 android:textColor="#fff"
                 android:visibility="invisible"
                 android:layout_marginRight="@dimen/espacamento_curto"
-                android:background="@drawable/ic_sheet"
+                android:background="@drawable/ic_truck_right"
                 app:layout_constraintTop_toTopOf="@+id/ll_titulo"
                 app:layout_constraintBottom_toBottomOf="@id/tv_titulo"
                 app:layout_constraintRight_toRightOf="parent"

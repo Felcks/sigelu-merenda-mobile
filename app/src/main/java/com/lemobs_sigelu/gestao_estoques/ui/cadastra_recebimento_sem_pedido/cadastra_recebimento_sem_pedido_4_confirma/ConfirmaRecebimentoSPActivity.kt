@@ -38,8 +38,6 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
         viewModel!!.carregaItemRecebimento()
-
-        this.iniciarToolbar()
     }
 
     fun processResponse(response: Response?) {
@@ -120,17 +118,6 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
             list
         )
         rv_lista.adapter = adapter
-    }
-
-    private fun iniciarToolbar(){
-        if(toolbar != null){
-
-            toolbar.setNavigationIcon(R.drawable.ic_cancel)
-            setSupportActionBar(toolbar)
-            toolbar.setNavigationOnClickListener {
-                mostrarDialogCancelamento()
-            }
-        }
     }
 
     private fun mostrarDialogCancelamento(){
