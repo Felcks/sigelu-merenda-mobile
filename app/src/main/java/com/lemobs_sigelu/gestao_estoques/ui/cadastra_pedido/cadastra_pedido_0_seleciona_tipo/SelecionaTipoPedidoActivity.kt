@@ -3,12 +3,18 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_s
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
@@ -70,6 +76,34 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
             val intent = Intent(this, CadastraNucleoActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Deseja Cancelar o Pedido? ",
+                    "Ao escolher Sim os dados serão perdidos",
+                    {
+                        finish()
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 
 }
