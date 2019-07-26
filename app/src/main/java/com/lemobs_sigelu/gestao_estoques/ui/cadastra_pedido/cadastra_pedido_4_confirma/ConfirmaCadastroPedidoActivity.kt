@@ -40,6 +40,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaCadastroPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
+        viewModel!!.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
         viewModel!!.carregaListaItem()
 
         val pedido = viewModel!!.getPedido()
@@ -58,6 +59,10 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
         }
+
+        btn_salva_rascunho.setOnClickListener {
+            this.salvaRascunho()
+        }
     }
 
     private fun clicouProximo(){
@@ -74,11 +79,22 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         this.onBackPressed()
     }
 
+    private fun salvaRascunho(){
+
+        try{
+            viewModel!!.salvaRascunho()
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     fun processResponse(response: Response?) {
         when (response?.status) {
             Status.LOADING -> {}
             Status.SUCCESS -> renderDataState(response.data)
-            Status.ERROR -> renderErrorState(response.error)
+            Status.ERROR -> {}
         }
     }
 
@@ -87,6 +103,54 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemContrato>)
         }
+    }
+
+    fun processResponseRascunhoPedido(response: Response?){
+        when(response?.status){
+            Status.LOADING -> renderLoadingStateRascunho()
+            Status.SUCCESS -> renderSucessoRascunho(response.data)
+            Status.ERROR ->renderErroRascunho(response.error)
+        }
+    }
+
+    private fun renderLoadingStateRascunho() {
+
+        progressDialog = DialogUtil.buildDialogCarregamento(this,
+            "Salvando pedido como rascunho",
+            "Por favor, espere...")
+    }
+
+    private fun renderSucessoRascunho(result: Any?){
+
+        progressDialog?.dismiss()
+
+        val activity = this
+        this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
+            "Sucesso",
+            "Pedido salvo com sucesso!",
+            {
+                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                startActivity(intent)
+                this.finishAffinity()
+            },
+            false)
+
+        this.sucessDialog?.show()
+    }
+
+    private fun renderErroRascunho(error: Throwable?){
+
+        progressDialog?.dismiss()
+
+        this.errorDialog = DialogUtil.buildAlertDialogOk(this,
+            "Erro",
+            "Ocorreu um erro ao salvar como rascunho. Contate o administrador do sistema.",
+            {
+
+            },
+            true)
+
+        this.errorDialog?.show()
     }
 
     fun processResponseEnvioPedido(response: Response?){
@@ -140,8 +204,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         this.errorDialog?.show()
     }
 
-    private fun renderErrorState(throwable: Throwable?) {}
-
     private fun iniciarAdapter(list: List<ItemContrato>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -149,19 +211,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
 
         val adapter = ListaItemContratoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
-    }
-
-    private fun mostrarDialogCancelamento(){
-
-        DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar pedido",
-            "Deseja cancelar o cadastro do pedido?",
-            {
-                val intent = Intent(this, ListaPedidoActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            {}).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

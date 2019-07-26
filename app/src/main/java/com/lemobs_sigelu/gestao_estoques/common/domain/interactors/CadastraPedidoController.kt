@@ -175,6 +175,13 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoRepository.cadastraPedido(pedidoCadastro!!)
     }
 
+    fun salvaRascunho(): Observable<Unit>{
+
+        val pedido = pedidoCadastro
+        pedido?.situacao = Situacao(1, "Rascunho")
+        return pedidoRepository.cadastraPedido(pedido!!)
+    }
+
     fun getPedido(): PedidoCadastro?{
         return pedidoCadastro
     }

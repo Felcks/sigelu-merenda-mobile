@@ -15,6 +15,7 @@ class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoCont
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var envioPedidoResponse = MutableLiveData<Response>()
+    var rascunhoPedidoResponse = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
 
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
@@ -44,6 +45,19 @@ class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoCont
             .subscribe(
                 { result -> envioPedidoResponse.setValue(Response.success(result)) },
                 { throwable -> envioPedidoResponse.setValue(Response.error(throwable)) }
+            )
+        )
+    }
+
+    fun salvaRascunho(){
+
+        disposables.add(controller.salvaRascunho()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { rascunhoPedidoResponse.setValue(Response.loading()) }
+            .subscribe(
+                { result -> rascunhoPedidoResponse.setValue(Response.success(result)) },
+                { throwable -> rascunhoPedidoResponse.setValue(Response.error(throwable)) }
             )
         )
     }
