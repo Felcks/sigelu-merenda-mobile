@@ -5,5 +5,5 @@ class PedidoDataRequestNucleoNucleo (val tipo_origem: String,
                                      val tipo_destino: String,
                                      val destino_nucleo_id: Int?,
                                      val contrato_estoque_id: Int?,
-                                     val situacao_id: Int,
+                                     val rascunho: Boolean,
                                      val items: List<ItemPedidoCadastroDataRequest>)

@@ -219,13 +219,15 @@ class PedidoRepository {
 
             val callResponse = if(pedidoCadastro.origemTipo == "Fornecedor") {
 
+                val isRascunho = pedidoCadastro.situacao?.situacao_id == 1
+
                 val pedidoDataRequest = PedidoDataRequestFornecedorNucleo(
                     pedidoCadastro.origemTipo ?: "",
                     origemFornecedorID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
                     situacaoID,
-                    2,
+                    isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
                             it.categoria?.categoria_id ?: 0,
@@ -240,13 +242,15 @@ class PedidoRepository {
             }
             else if(pedidoCadastro.destinoTipo == "Núcleo") {
 
+                val isRascunho = pedidoCadastro.situacao?.situacao_id == 1
+
                 val pedidoDataRequest = PedidoDataRequestNucleoNucleo(
                     pedidoCadastro.origemTipo ?: "",
                     origemNucleoID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
                     1,
-                    situacaoID,
+                    isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
                             it.categoria?.categoria_id ?: 0,
@@ -261,13 +265,15 @@ class PedidoRepository {
             }
             else{
 
+                val isRascunho = pedidoCadastro.situacao?.situacao_id == 1
+
                 val pedidoDataRequest = PedidoDataRequestNucleoObra(
                     pedidoCadastro.origemTipo ?: "",
                     origemNucleoID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoObraID,
                     situacaoID,
-                    1,
+                    isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
                             it.categoria?.categoria_id ?: 0,
