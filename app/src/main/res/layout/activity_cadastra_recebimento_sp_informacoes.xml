@@ -16,30 +16,54 @@
             android:id="@+id/ll_all"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_bar_height"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/layout_bar"
+                android:id="@+id/linearLayout">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/passo1"
+                    android:layout_margin="@dimen/espacamento_grande"
+                    android:layout_weight="1"
+                    android:textSize="17sp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/proximo_itens"
+                    android:layout_margin="@dimen/espacamento_grande"
+                    android:textSize="17sp"
+            />
+        </LinearLayout>
         <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/ll_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="Informações do Recebimento"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
-                android:layout_marginTop="@dimen/espacamento_maximo"/>
+                android:layout_marginTop="@dimen/espacamento_maximo_4"/>
 
         <TextView
                 android:id="@+id/tv_origem_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/ll_titulo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="80dp"
                 android:text="Origem"
-                android:layout_marginBottom="@dimen/espacamento_curto"
                 android:textColor="@color/primary_text"
+                android:textSize="20sp"
                 isVisible="@{!viewModel.loading}"/>
 
         <LinearLayout
@@ -54,99 +78,132 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_origem_layout"
                 android:layout_marginTop="@dimen/espacamento_medio"
                 isVisible="@{!viewModel.loading}"
-                android:background="@drawable/custom_border_grey">
+              >
 
             <Spinner
-                    android:id="@+id/spinner_origem"
+                    android:id="@+id/spinner_fornecedor"
                     android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical"
-                    android:padding="8dp"
-                    android:spinnerMode="dropdown"
-                    android:textAlignment="center"
-                    android:textColor="@color/primary_text"
-                    android:textSize="12sp" />
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fornecedor_titulo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"/>
+
         </LinearLayout>
 
-        <TextView
-                android:id="@+id/tv_destino_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="@dimen/espacamento_maximo_2"
-                android:text="Destino"
-                android:textColor="@color/primary_text"
-                isVisible="@{!viewModel.loading}"/>
-
         <LinearLayout
-                android:id="@+id/ll_botoes_destino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height"
                 android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_destino_layout"
-                android:layout_marginTop="@dimen/espacamento_medio"
-                android:background="@drawable/custom_border_grey"
-                isVisible="@{!viewModel.loading}">
-
-            <TextView
-                    android:id="@+id/tv_destino"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical"
-                    android:padding="8dp"
-                    android:textAlignment="center"
-                    android:text="@{viewModel.nomeNucleo}"
-                    android:textColor="@color/primary_text"
-                    android:textSize="12sp" />
-        </LinearLayout>
-
-        <TextView
-                android:id="@+id/tv_contrato_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Contratos"
-                app:layout_constraintVertical_bias="0.3"
-                app:layout_constraintTop_toBottomOf="@id/ll_botoes_origem"
-                android:layout_marginTop="50dp"
-                android:textColor="@color/primary_text"
-                android:visibility="gone"/>
-
-        <LinearLayout
-                android:id="@+id/ll_botoes_contratos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:background="@color/layout_bar"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_contrato_layout"
-                android:layout_marginTop="@dimen/espacamento_medio"
-                android:background="@drawable/custom_border_grey"
-                android:visibility="gone">
+        >
 
-            <Spinner
-                    android:id="@+id/spinner_contrato"
-                    android:layout_width="300dp"
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ll_layout_anterior"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                <ImageView
+                        android:id="@+id/iv_seta_esquerda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_left"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        android:layout_marginLeft="@dimen/espacamento_curto"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/anterior"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
                     android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical"
-                    android:padding="8dp"
-                    android:spinnerMode="dropdown"
-                    android:textAlignment="center"
-                    android:textColor="@color/primary_text"
-                    android:textSize="12sp" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_minimo"
+                    android:layout_marginRight="@dimen/espacamento_minimo">
+
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_filled_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_flow_circle"
+                        android:layout_marginRight="@dimen/espacamento_medio"/>
+
+
+
+            </LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ll_layout_proximo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                <ImageView
+                        android:id="@+id/iv_seta_direita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_right"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        android:layout_marginRight="@dimen/espacamento_curto"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proximo"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginTop="@dimen/espacamento_curto"
+                        android:layout_marginLeft="@dimen/espacamento_maximo_2"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
+                        app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
+                />
+            </android.support.constraint.ConstraintLayout>
+
         </LinearLayout>
 
         <include layout="@layout/progressbar_carregamento"
