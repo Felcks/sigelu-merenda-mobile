@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -17,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
@@ -73,7 +75,9 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderLoadingState() {}
+    private fun renderLoadingState() {
+        viewModel!!.isError.set(false)
+    }
 
     private fun renderDataState(result: Any?) {
         if(result is List<*>){
@@ -82,7 +86,14 @@ class ListaPedidoActivity: AppCompatActivity() {
     }
 
     private fun renderErrorState(throwable: Throwable?) {
-        Toast.makeText(applicationContext, throwable?.message, Toast.LENGTH_SHORT).show()
+
+        viewModel!!.isError.set(true)
+        if(throwable is ListaVaziaException){
+            viewModel!!.errorMessage.set("Nenhum item encontrado.")
+        }
+        else{
+            viewModel!!.errorMessage.set(throwable?.message)
+        }
     }
 
     private fun iniciarAdapter(list: List<Pedido>){

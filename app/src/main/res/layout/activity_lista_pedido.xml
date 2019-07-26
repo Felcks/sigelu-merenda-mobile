@@ -22,12 +22,24 @@
                 android:id="@+id/ll_loading"
                 app:isVisible="@{viewModel.loading}"/>
 
+        <TextView
+                android:id="@id/tv_erro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:paddingTop="20dp"
+                android:paddingLeft="15dp"
+                android:textColor="@color/secondary_text"
+                android:text="@{viewModel.errorMessage}"
+                app:isVisible="@{viewModel.isError}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_lista"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:isVisible="@{!viewModel.loading}"
-        />
+                app:isVisible="@{!viewModel.loading}"/>
 
         <com.github.clans.fab.FloatingActionMenu
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -100,7 +112,6 @@
                     app:fab_colorPressed="@color/colorAccent"
                     app:fab_colorRipple="@android:color/white"
                     app:fab_label="Cadastrar recebimento sem pedido"/>
-
         </com.github.clans.fab.FloatingActionMenu>
 
     </android.support.constraint.ConstraintLayout>

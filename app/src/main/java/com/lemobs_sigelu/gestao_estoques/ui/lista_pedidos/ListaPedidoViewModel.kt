@@ -15,6 +15,8 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
     private val disposables = CompositeDisposable()
     private var response = MutableLiveData<Response>()
     private var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
+    var errorMessage = ObservableField<String>("")
 
     override fun onCleared() {
         disposables.clear()

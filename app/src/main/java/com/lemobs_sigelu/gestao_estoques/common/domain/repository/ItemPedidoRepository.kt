@@ -46,7 +46,7 @@ class ItemPedidoRepository {
                     ItemPedido(it.id,
                         pedidoID,
                         it.quantidade_unidade ?: 0.0,
-                        it.preco_unidade ?: 0.0,
+                        0.0,
                         itemEstoque.id,
                         categoria,
                         itemEstoque)
