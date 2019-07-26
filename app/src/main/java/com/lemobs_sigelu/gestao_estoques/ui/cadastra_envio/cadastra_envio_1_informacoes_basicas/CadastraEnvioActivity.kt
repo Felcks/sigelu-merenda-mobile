@@ -54,13 +54,14 @@ class CadastraEnvioActivity: AppCompatActivity() {
         //this.adicionarListenersHoraSaida()
         this.adicionarListenerEdtMotorista()
 
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
         }
 
-        ll_layout_anterior.setOnClickListener {
-            this.clicouAnterior()
-        }
+
     }
 
     private fun adicionarListenerEdtMotorista(){
@@ -222,8 +223,8 @@ class CadastraEnvioActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Deseja Cancelar o Envio? ",
-                    "Ao escolher Sim os dados serão perdidos",
+                    "Cancelar envio ",
+                    "Deseja sair e cancelar o envio?",
                     {
                         finish()
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -234,8 +235,6 @@ class CadastraEnvioActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-
 
     }
 }
