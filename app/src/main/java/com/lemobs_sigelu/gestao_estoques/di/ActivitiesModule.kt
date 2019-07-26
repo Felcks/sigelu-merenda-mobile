@@ -14,6 +14,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_conf
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
@@ -66,6 +67,9 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindCadastraFornecedorActivity(): CadastraFornecedorActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
+    abstract fun bindCadastraNucleoActivity(): CadastraNucleoActivity
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity

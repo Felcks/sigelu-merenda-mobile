@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
 import javax.inject.Inject
@@ -63,6 +64,10 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
 
         if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
             val intent = Intent(this, CadastraFornecedorActivity::class.java)
+            startActivity(intent)
+        }
+        else if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO){
+            val intent = Intent(this, CadastraNucleoActivity::class.java)
             startActivity(intent)
         }
     }
