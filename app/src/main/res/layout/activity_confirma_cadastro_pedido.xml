@@ -116,12 +116,28 @@
             android:layout_marginTop="@dimen/espacamento_maximo_3"
             android:layout_marginLeft="@dimen/espacamento_maximo"
             android:layout_marginRight="@dimen/espacamento_maximo"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintTop_toBottomOf="@id/ll_info"
+            app:layout_constraintBottom_toTopOf="@+id/btn_salva_rascunho"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
     </android.support.v7.widget.RecyclerView>
 
+    <Button
+            android:id="@+id/btn_salva_rascunho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_states"
+            android:padding="5dp"
+            android:text="Salvar como rascunho"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/espacamento_medio"
+            app:layout_constraintBottom_toTopOf="@id/ll_bar_anterior_proximo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
     <LinearLayout
+            android:id="@+id/ll_bar_anterior_proximo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_height"
             android:orientation="horizontal"

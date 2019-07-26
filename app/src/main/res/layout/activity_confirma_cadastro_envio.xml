@@ -114,7 +114,6 @@
                 android:layout_marginTop="@dimen/espacamento_grande"
                 app:layout_constraintTop_toBottomOf="@id/tv_contrato"
                 app:layout_constraintLeft_toLeftOf="parent"/>
-
     </android.support.constraint.ConstraintLayout>
 
 
@@ -125,13 +124,16 @@
             android:layout_marginTop="@dimen/espacamento_maximo_3"
             android:layout_marginLeft="@dimen/espacamento_maximo"
             android:layout_marginRight="@dimen/espacamento_maximo"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintTop_toBottomOf="@id/ll_info"
+            app:layout_constraintBottom_toTopOf="@id/ll_bar_anterior_proximo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
     </android.support.v7.widget.RecyclerView>
 
 
     <LinearLayout
+            android:id="@+id/ll_bar_anterior_proximo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_height"
             android:orientation="horizontal"
