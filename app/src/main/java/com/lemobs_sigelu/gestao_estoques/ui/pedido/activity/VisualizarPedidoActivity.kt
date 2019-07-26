@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
@@ -72,7 +73,15 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(result is Pedido) {
 
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
-            viewModel!!.setTipoDestinoOrigemEOrigemNome(result.destino ?: "", result.origem ?: "", result.origemNome ?: "")
+            if(result.situacao?.situacao_id == SITUACAO_APROVADO_ID || result.situacao?.situacao_id == SITUACAO_PARCIAL_ID) {
+
+                when(result.getTipoPedido()){
+                    TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> btn_cadastra_envio.visibility = View.VISIBLE
+                    TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
+                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                    TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                }
+            }
             this.createTableLayout()
             this.ativarBotaoDeCadastrarEntrega()
         }

@@ -39,8 +39,6 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     private val envios = mutableListOf<Envio>()
     private var quantidadeEnviosCarregando = 0
 
-    var isTipoDestinoObra = ObservableField<Boolean>(true)
-
     override fun onCleared() {
         disposables.clear()
     }
@@ -185,15 +183,5 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     fun apagaListaItemRecebimentoAnteriores(){
         controller.apagaListaItemRecebimentoAnteriores()
-    }
-
-    fun setTipoDestinoOrigemEOrigemNome(tipoDestino: String, tipoOrigem: String, origemNome: String){
-
-        if(tipoDestino == "Obra" || (tipoOrigem == "Núcleo" && origemNome == AppSharedPreferences.getNucleoNome(App.instance))){
-            this.isTipoDestinoObra.set(true)
-        }
-        else {
-            this.isTipoDestinoObra.set(false)
-        }
     }
 }

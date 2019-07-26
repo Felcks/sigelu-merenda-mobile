@@ -107,8 +107,7 @@
                             android:paddingTop="5dp"
                             android:text="Cadastrar Recebimento"
                             android:textColor="@android:color/white"
-                            android:visibility="gone"
-                            isVisible="@{!viewModel.isTipoDestinoObra}"/>
+                            android:visibility="gone"/>
 
                     <Button
                             android:id="@+id/btn_cadastra_envio"
@@ -122,8 +121,7 @@
                             android:paddingTop="5dp"
                             android:text="Cadastrar Envio"
                             android:textColor="@android:color/white"
-                            android:visibility="gone"
-                            isVisible="@{viewModel.isTipoDestinoObra}"/>
+                            android:visibility="gone"/>
 
                 </LinearLayout>
 
