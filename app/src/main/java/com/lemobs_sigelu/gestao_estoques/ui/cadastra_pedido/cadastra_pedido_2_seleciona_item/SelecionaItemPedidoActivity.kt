@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewMo
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import java.lang.Exception
@@ -132,7 +133,7 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        if(item?.itemId ==  R.id.btn_rascunho){
+        if(item?.itemId == R.id.btn_rascunho){
 
             try{
                 viewModel!!.salvaRascunho()
@@ -144,12 +145,29 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
                 Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
             }
         }
+        else if(item?.itemId == android.R.id.home){
+            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            DialogUtil.buildAlertDialogSimNao(
+                this,
+                "Cancelar pedido ",
+                "Deseja sair e cancelar o pedido?",
+                {
+                    finish()
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                },
+                {}).show()
+
+            return true
+        }
 
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
     }
 

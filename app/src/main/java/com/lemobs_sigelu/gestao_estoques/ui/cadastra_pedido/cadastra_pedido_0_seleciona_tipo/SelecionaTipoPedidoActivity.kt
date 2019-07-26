@@ -91,11 +91,11 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Deseja Cancelar o Pedido? ",
-                    "Ao escolher Sim os dados serão perdidos",
+                    "Cancelar pedido ",
+                    "Deseja sair e cancelar o pedido?",
                     {
                         finish()
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     },
                     {}).show()
@@ -103,7 +103,5 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
     }
-
 }

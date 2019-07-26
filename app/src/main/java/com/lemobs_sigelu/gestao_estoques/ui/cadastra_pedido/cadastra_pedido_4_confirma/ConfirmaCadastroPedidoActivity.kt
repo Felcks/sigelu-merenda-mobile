@@ -157,11 +157,38 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
             "Cancelar pedido",
             "Deseja cancelar o cadastro do pedido?",
             {
-                this.viewModel!!.cancelarPedido()
                 val intent = Intent(this, ListaPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },
             {}).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Cancelar pedido ",
+                    "Deseja sair e cancelar o pedido?",
+                    {
+                        this.viewModel!!.cancelarPedido()
+                        finish()
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
