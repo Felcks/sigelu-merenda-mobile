@@ -104,8 +104,8 @@ class CadastraInformacoesActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Deseja Cancelar o Envio? ",
-                    "Ao escolher Sim os dados serão perdidos",
+                    "Cancelar recebimento",
+                    "Deseja cancelar o cadastro de recebimento?",
                     {
                         finish()
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
