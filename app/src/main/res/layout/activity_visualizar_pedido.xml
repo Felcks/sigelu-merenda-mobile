@@ -110,6 +110,20 @@
                             android:visibility="gone"/>
 
                     <Button
+                            android:id="@+id/btn_cadastra_recebimento_sem_envio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_button_states"
+                            android:drawableLeft="@drawable/ic_truck_left"
+                            android:paddingRight="50dp"
+                            android:paddingLeft="40dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:text="Cadastrar Recebimento"
+                            android:textColor="@android:color/white"
+                            android:visibility="gone"/>
+
+                    <Button
                             android:id="@+id/btn_cadastra_envio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
