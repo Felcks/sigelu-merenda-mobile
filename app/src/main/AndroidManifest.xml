@@ -161,7 +161,12 @@
 
         <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM ENVIO  -->
         <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity"
-                  android:label="Cadastrar recebimento"
+                  android:label="Selecione os itens"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item.CadastraRecebimentoSECadastraItemActivity"
+                  android:label="Selecione as quantidades"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
