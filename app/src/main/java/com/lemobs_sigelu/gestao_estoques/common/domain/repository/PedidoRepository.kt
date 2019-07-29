@@ -68,8 +68,8 @@ class PedidoRepository {
                     )
                 }
 
-                if(response.body()!!.contrato_estoque != null) {
-                    val contrato = with(response.body()!!.contrato_estoque!!) {
+                val contrato = if(response.body()!!.contrato_estoque != null) {
+                    with(response.body()!!.contrato_estoque!!) {
 
                         ContratoEstoque(
                             id ?: 0,
@@ -82,12 +82,16 @@ class PedidoRepository {
                             empresa_id
                         )
                     }
-
-                    pedido.contrato = contrato
                 }
+                else{
+                    null
+                }
+                pedido.contrato = contrato
 
                 this.salvaPedidoBD(pedido)
-                subscribe.onNext(this.getPedidoBD(pedidoEstoqueID)!!)
+                val pedidoBD = this.getPedidoBD(pedidoEstoqueID)!!
+                pedidoBD.contrato = contrato
+                subscribe.onNext(pedidoBD)
                 subscribe.onComplete()
             }
             else{
