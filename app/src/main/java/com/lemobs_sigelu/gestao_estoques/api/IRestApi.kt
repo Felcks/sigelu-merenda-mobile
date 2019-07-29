@@ -80,7 +80,7 @@ interface IRestApi {
     fun getItensContrato(@Header("Authorization") auth: String,
                          @Path("contrato_estoque_id") contratoEstoqueID: Int): Call<OrcamentoDataResponse>
 
-    @GET("/estoque/item")
+    @GET("estoque/item")
     fun getItensEstoque(@Header("Authorization") auth: String) : Call<List<ItemEstoqueDataResponse>>
 
     @POST("pedido-estoque")
