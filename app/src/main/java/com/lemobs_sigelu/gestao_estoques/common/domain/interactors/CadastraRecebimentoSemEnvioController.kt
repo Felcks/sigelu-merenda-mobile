@@ -1,4 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-class CadastraRecebimentoSemEnvioController {
+import javax.inject.Inject
+
+class CadastraRecebimentoSemEnvioController @Inject constructor() {
 }
