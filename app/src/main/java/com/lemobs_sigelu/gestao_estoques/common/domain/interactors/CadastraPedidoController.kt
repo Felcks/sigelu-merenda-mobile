@@ -5,6 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 import java.lang.Exception
@@ -122,7 +123,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         if(pedidoCadastro?.listaItemContrato == null)
             return listOf<Int>()
 
-        return pedidoCadastro?.listaItemContrato?.map { it.id }!!
+        return pedidoCadastro?.listaItemContrato?.map { it.itemEstoqueID ?: 0 }!!
     }
 
     fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
@@ -172,6 +173,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
 
     fun enviaPedido(): Observable<Unit>{
 
+        pedidoCadastro?.situacao = Situacao(SITUACAO_EM_ANALISE_ID, "Em Análise")
         return pedidoRepository.cadastraPedido(pedidoCadastro!!)
     }
 

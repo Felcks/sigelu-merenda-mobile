@@ -66,7 +66,7 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
             holder.itemView.ll_background.setBackgroundColor(colorBranco!!)
             holder.itemView.tv_name.setTextColor(colorSecundaryText!!)
 
-            if(itensJaCadastrados.contains(item.id)) {
+            if(itensJaCadastrados.contains(item.itemEstoqueID)) {
                 holder.itemView.btn_add.background = context.resources.getDrawable(R.drawable.ic_minus_rounded)
             }
             else{

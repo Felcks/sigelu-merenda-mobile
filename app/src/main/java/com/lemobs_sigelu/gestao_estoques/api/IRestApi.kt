@@ -83,12 +83,27 @@ interface IRestApi {
     fun postPedidoFornecedorNucleo(@Header("Authorization") auth: String,
                                    @Body pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>
 
+    @PUT("pedido-estoque/{pedido_estoque_id}")
+    fun putPedidoFornecedorNucleo(@Header("Authorization") auth: String,
+                                   @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                                   @Body pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>
+
     @POST("pedido-estoque")
     fun postPedidoNucleoNucleo(@Header("Authorization") auth: String,
                                @Body pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>
 
+    @PUT("pedido-estoque/{pedido_estoque_id}")
+    fun putPedidoNucleoNucleo(@Header("Authorization") auth: String,
+                               @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                               @Body pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>
+
     @POST("pedido-estoque")
     fun postPedidoNucleoObra(@Header("Authorization") auth: String,
+                             @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>
+
+    @PUT("pedido-estoque/{pedido_estoque_id}")
+    fun putPedidoNucleoObra(@Header("Authorization") auth: String,
+                             @Path("pedido_estoque_id") pedido_estoque_id: Int,
                              @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>
 
     @POST("pedido-estoque/{pedido_estoque_id}/envio")

@@ -257,7 +257,10 @@ class PedidoRepository {
                     }
                 )
 
-                api.postPedidoFornecedorNucleo(pedidoDataRequest)
+                if(pedidoCadastro.isEdicao)
+                    api.putPedidoFornecedorNucleo(pedidoCadastro.id ?: 0, pedidoDataRequest)
+                else
+                    api.postPedidoFornecedorNucleo(pedidoDataRequest)
             }
             else if(pedidoCadastro.destinoTipo == "Núcleo") {
 
@@ -279,8 +282,10 @@ class PedidoRepository {
                         )
                     }
                 )
-
-                api.postPedidoNucleoNucleo(pedidoDataRequest)
+                if(pedidoCadastro.isEdicao)
+                    api.putPedidoNucleoNucleo(pedidoCadastro.id ?: 0, pedidoDataRequest)
+                else
+                    api.postPedidoNucleoNucleo(pedidoDataRequest)
             }
             else{
 
@@ -303,7 +308,10 @@ class PedidoRepository {
                     }
                 )
 
-                api.postPedidoNucleoObra(pedidoDataRequest)
+                if(pedidoCadastro.isEdicao)
+                    api.putPedidoNucleoObra(pedidoCadastro.id ?: 0, pedidoDataRequest)
+                else
+                    api.postPedidoNucleoObra(pedidoDataRequest)
             }
 
             val response = callResponse.execute()

@@ -140,17 +140,33 @@ class RestApi {
         return api.getItensContrato(auth, contratoID)
     }
 
+    /* Pedido fornecedor-nucleo */
     fun postPedidoFornecedorNucleo(pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>{
         return api.postPedidoFornecedorNucleo(auth, pedidoRequest)
     }
 
+    fun putPedidoFornecedorNucleo(pedidoEstoqueID: Int, pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>{
+        return api.putPedidoFornecedorNucleo(auth, pedidoEstoqueID, pedidoRequest)
+    }
+
+    /* Pedido nucleo-nucleo */
     fun postPedidoNucleoNucleo(pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>{
         return api.postPedidoNucleoNucleo(auth, pedidoRequest)
     }
 
+    fun putPedidoNucleoNucleo(pedidoEstoqueID: Int, pedidoRequest: PedidoDataRequestNucleoNucleo): Call<Unit>{
+        return api.putPedidoNucleoNucleo(auth, pedidoEstoqueID, pedidoRequest)
+    }
+
+    /* pedido nucleo-obra */
     fun postPedidoNucleoObra(pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>{
         return api.postPedidoNucleoObra(auth, pedidoRequest)
     }
+
+    fun putPedidoNucleoObra(pedidoEstoqueID: Int, pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>{
+        return api.putPedidoNucleoObra(auth, pedidoEstoqueID, pedidoRequest)
+    }
+
 
     fun postEnvio(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest): Call<Unit>{
         return api.postEnvio(auth, pedidoEstoqueID, envioDataRequest)
