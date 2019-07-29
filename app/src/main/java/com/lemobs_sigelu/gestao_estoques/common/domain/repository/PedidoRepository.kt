@@ -88,7 +88,7 @@ class PedidoRepository {
                 }
                 pedido.contrato = contrato
 
-//                this.salvaPedidoBD(pedido)
+                this.salvaPedidoBD(pedido)
 //                val pedidoBD = this.getPedidoBD(pedidoEstoqueID)!!
 //                pedidoBD.contrato = contrato
                 subscribe.onNext(pedido)
@@ -163,7 +163,7 @@ class PedidoRepository {
                     )
                 }
 
-                //this.salvaListaPedidoBD(list ?: listOf())
+                this.salvaListaPedidoBD(list ?: listOf())
                 subscriber.onNext(list ?: listOf())
                 subscriber.onComplete()
             }

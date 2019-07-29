@@ -1,13 +1,19 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemPedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CadastraRecebimentoSemEnvioController @Inject constructor(private val itemPedidoRepository: ItemPedidoRepository) {
+class CadastraRecebimentoSemEnvioController @Inject constructor(private val itemPedidoRepository: ItemPedidoRepository,
+                                                                private val pedidoRepository: PedidoRepository) {
 
     companion object{
         val listaItemPedido = mutableListOf<ItemPedido>()
@@ -71,5 +77,16 @@ class CadastraRecebimentoSemEnvioController @Inject constructor(private val item
 
     fun zerarRecebimentosAnteriores(){
         listaItemPedido.clear()
+    }
+
+    fun getPedido(): Pedido?{
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+        val pedido = pedidoRepository.getPedidoBD(pedidoID)
+
+        return pedido
+    }
+
+    fun getListaItemPedidoJaSolicitados(): Observable<List<ItemPedido>>{
+        return Observable.create{ subscriber -> subscriber.onNext(listaItemPedido)}
     }
 }

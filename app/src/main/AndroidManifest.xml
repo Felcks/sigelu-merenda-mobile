@@ -170,6 +170,10 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
+        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma.CadastraRecebimentoSEConfirmaActivity"
+                  android:label="Confirme o recebimento"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
 
     </application>
 </manifest>
