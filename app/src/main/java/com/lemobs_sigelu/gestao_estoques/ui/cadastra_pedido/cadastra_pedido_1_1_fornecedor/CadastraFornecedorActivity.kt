@@ -70,7 +70,7 @@ class CadastraFornecedorActivity: AppCompatActivity() {
                 throw Exception("Contrato não selecionado.")
 
             val fornecedor = this.listaFornecedor[this.fornecedorSelecionado]
-            val contrato = this.listaContrato.filter { it.empresaID == fornecedor.id }[contratoSelecionado ?: 0]
+            val contrato = this.listaContrato.filter { it.empresaID == this.listaFornecedor[fornecedorSelecionado].id }[this.contratoSelecionado ?: 0]
 
             val origem = Local(fornecedor.id, "Fornecedor", fornecedor.nome ?: "")
             val destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
