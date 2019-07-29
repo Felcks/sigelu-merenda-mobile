@@ -56,21 +56,21 @@ class ListaItemPedidoAdapter (private val context: Context,
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
-//        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
-//
-//
-//        if(item.quantidadeRecebida ?: 0.0 == 0.0){
-//            holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
-//        }
-//        else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade){
-//            holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
-//        }
-//        else
-//            holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
-//
-//        if(position > ultimaPosicao){
-//            ultimaPosicao = position
-//        }
+        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+
+
+        if(item.quantidadeRecebida ?: 0.0 == 0.0){
+            holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
+        }
+        else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade ?: 0.0){
+            holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
+        }
+        else
+            holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
+
+        if(position > ultimaPosicao){
+            ultimaPosicao = position
+        }
 
         this.adicionarMascaras(item, holder, position)
     }
@@ -91,7 +91,7 @@ class ListaItemPedidoAdapter (private val context: Context,
                     catch (e: NumberFormatException) { }
 
                 }
-                //item.quantidadeRecebida = doubleValue
+                item.quantidadeRecebida = doubleValue
             }
         }
         mascaras[position] = mascara
@@ -140,9 +140,7 @@ class ListaItemPedidoAdapter (private val context: Context,
     }
 
     fun getListaValoresItemEnvio(): List<Double>{
-
-        return list.map { 0.0 }
-//        return list.map { it.quantidadeRecebida ?: 0.0 }
+        return list.map { it.quantidadeRecebida ?: 0.0 }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

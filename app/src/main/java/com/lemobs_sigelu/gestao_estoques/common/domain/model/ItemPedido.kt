@@ -42,7 +42,7 @@ class ItemPedido (
     var itemEstoque: ItemEstoque? = null
 
     @Ignore
-    var entregue: Double = 0.0
+    var quantidadeRecebida: Double = 0.0
 
     constructor(id: Int,
                 pedidoID: Int,

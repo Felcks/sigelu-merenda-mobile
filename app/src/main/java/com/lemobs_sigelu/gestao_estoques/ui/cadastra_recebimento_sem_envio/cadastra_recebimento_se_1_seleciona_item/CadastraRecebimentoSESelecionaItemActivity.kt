@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.CadastraRecebimentoSemEnvioViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item.CadastraRecebimentoSECadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -39,7 +40,8 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraRecebimentoSESelecionaItemViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarItensDePedido()
+
+        viewModel!!.zerarRecebimentosAnteriores()
 
         ll_layout_anterior.setOnClickListener {
             clicouNoAnterior()
@@ -50,12 +52,17 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
         }
     }
 
+    override fun onResume() {
+        viewModel!!.carregarItensDePedido()
+        super.onResume()
+    }
+
     private fun clicouNoProximo(){
         try{
             viewModel!!.confirmaSelecaoItens(this.adapter?.itemsParaAdicao as List<ItemPedido>, this.adapter?.itemsParaRemocao as List<ItemPedido>)
 
-//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CadastraRecebimentoSECadastraItemActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()

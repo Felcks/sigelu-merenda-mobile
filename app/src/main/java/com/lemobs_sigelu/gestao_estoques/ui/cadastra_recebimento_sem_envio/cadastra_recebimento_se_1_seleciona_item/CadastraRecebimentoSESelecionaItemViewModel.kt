@@ -59,4 +59,8 @@ class CadastraRecebimentoSESelecionaItemViewModel  (val controller: CadastraRece
     fun confirmaSelecaoItens(listaAdicao: List<ItemPedido>, listaRemocao: List<ItemPedido>){
         controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
     }
+
+    fun zerarRecebimentosAnteriores(){
+        controller.zerarRecebimentosAnteriores()
+    }
 }

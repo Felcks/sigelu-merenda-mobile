@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="parent"
-                    android:text="Informações do pedido"
+                    android:text="Informações do recebimento"
                     android:textColor="@color/primary_text"
                     android:textSize="24sp"
                     android:textStyle="bold"

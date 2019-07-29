@@ -6,6 +6,7 @@ import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import io.reactivex.disposables.CompositeDisposable
 
 class CadastraRecebimentoSECadastraItemViewModel(private val controller: CadastraRecebimentoSemEnvioController): ViewModel() {
@@ -25,21 +26,20 @@ class CadastraRecebimentoSECadastraItemViewModel(private val controller: Cadastr
     }
 
     fun getItensSolicitados(): List<ItemPedido> {
-        return listOf()
-        //return controller.getListaItensPedidoSolicitado()
+        return controller.getListaItensPedidoSolicitado()
     }
 
     fun removeItem(id: Int){
-        //return controller.removeItem(id)
+        return controller.removeItem(id)
     }
 
     fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
 
-//        if(listValoresRecebidos.isNotEmpty()){
-//            controller.confirmaCadastroMaterial(listValoresRecebidos)
-//        }
-//        else{
-//            throw NenhumItemSelecionadoException()
-//        }
+        if(listValoresRecebidos.isNotEmpty()){
+            controller.confirmaCadastroMaterial(listValoresRecebidos)
+        }
+        else{
+            throw NenhumItemSelecionadoException()
+        }
     }
 }
