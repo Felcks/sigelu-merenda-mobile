@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">S. Estoques</string>
+    <string name="app_name">Logística</string>
 
     <!-- Diálogos -->
     <string name="dialogo_button_ok">Ok</string>
