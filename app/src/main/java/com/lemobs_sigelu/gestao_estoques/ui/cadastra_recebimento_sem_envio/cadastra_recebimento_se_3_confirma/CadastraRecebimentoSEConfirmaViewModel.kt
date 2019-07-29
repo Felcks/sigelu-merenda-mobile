@@ -38,15 +38,15 @@ class CadastraRecebimentoSEConfirmaViewModel (val controller: CadastraRecebiment
 
     fun enviaRecebimento(){
 
-//        disposables.add(controller.enviaRecebimento()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnSubscribe { envioRecebimentoResponse.setValue(Response.loading()) }
-//            .subscribe(
-//                { result -> envioRecebimentoResponse.setValue(Response.success(result)) },
-//                { throwable -> envioRecebimentoResponse.setValue(Response.error(throwable)) }
-//            )
-//        )
+        disposables.add(controller.enviaRecebimento()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { envioRecebimentoResponse.setValue(Response.loading()) }
+            .subscribe(
+                { result -> envioRecebimentoResponse.setValue(Response.success(result)) },
+                { throwable -> envioRecebimentoResponse.setValue(Response.error(throwable)) }
+            )
+        )
     }
 
     fun cancelaRecebimento(){
