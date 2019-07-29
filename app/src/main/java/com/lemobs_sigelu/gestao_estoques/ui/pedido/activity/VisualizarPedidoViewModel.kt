@@ -223,6 +223,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             item
         } ?: listOf()
 
+        pedidoCadastro.isEdicao = true
         pedidoCadastro.listaItemContrato.addAll(listItemContrato)
         CadastraPedidoController.pedidoCadastro = pedidoCadastro
     }

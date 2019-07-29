@@ -43,6 +43,8 @@ data class PedidoCadastro(
 
     val listaItemContrato: MutableList<ItemContrato> = mutableListOf()
 
+    var isEdicao: Boolean = false
+
     fun getTipoPedido(): TipoPedido{
 
         if(this.origemTipo == "Núcleo" && this.destinoTipo == "Núcleo"){
