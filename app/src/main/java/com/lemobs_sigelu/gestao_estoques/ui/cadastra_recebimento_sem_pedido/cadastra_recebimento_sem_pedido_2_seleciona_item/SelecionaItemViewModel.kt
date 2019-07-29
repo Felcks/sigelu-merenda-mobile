@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -60,5 +61,13 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
 
     fun selecionaItem(itemID: Int){
         return controller.selecionaItem(itemID)
+    }
+
+    fun getIdItensAdicionados(): List<Int>{
+        return controller.getItensJaAdicionados()
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEnvio>, listaParaRemover: List<ItemEnvio>){
+        return controller.confirmaSelecaoItens(listaParaAdicionar, listaParaRemover)
     }
 }

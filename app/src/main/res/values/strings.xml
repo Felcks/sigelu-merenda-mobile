@@ -42,6 +42,8 @@
     <string name="selecione_contrato">Selecione um contrato</string>
     <string name="selecione_nucleo">Selecione um núcleo</string>
     <string name="selecione_obra">Selecione a Obra</string>
+    <string name="cadastra_itens">Próximo: Cadastrar Itens</string>
+    <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
 
 
 </resources>
