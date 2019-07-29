@@ -22,6 +22,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.login.LoginModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecibimentoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.CadastraRecebimentoSemEnvioModule
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity
@@ -97,8 +99,8 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraEnvioModule::class))
     abstract fun bindConfirmaCadastroEnvioActivity(): ConfirmaCadastroEnvioActivity
 
-    /* Cadastra RecebimentoSemPedido sem Pedido */
 
+    /* Cadastra Recebimento Sem Pedido */
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
     abstract fun bindCadastraInfoActivity(): CadastraInformacoesActivity
 
@@ -110,5 +112,10 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemPedidoModule::class))
     abstract fun bindConfirmaRecebimentoSP(): ConfirmaRecebimentoSPActivity
+
+
+    /* Cadastra Recebimento Sem Envio */
+    @ContributesAndroidInjector(modules = arrayOf(CadastraRecebimentoSemEnvioModule::class))
+    abstract fun bindCadastraRecebimentoSESelecionaItem(): CadastraRecebimentoSESelecionaItemActivity
 
 }

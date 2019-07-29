@@ -156,5 +156,15 @@
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/AppThemeNoActionBar"/>
 
+
+        <!-- CADASTRA RECEBIMENTO SEM ENVIO-->
+
+        <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM ENVIO  -->
+        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity"
+                  android:label="Cadastrar recebimento"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
+
+
     </application>
 </manifest>
