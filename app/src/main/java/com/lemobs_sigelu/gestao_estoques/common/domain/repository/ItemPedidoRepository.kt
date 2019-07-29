@@ -40,15 +40,12 @@ class ItemPedidoRepository {
                             unidadeMedida)
                     }
 
-                    val categoria = Categoria(it.categoria.id,
-                        it.categoria.nome ?: "")
-
                     ItemPedido(it.id,
                         pedidoID,
                         it.quantidade_unidade ?: 0.0,
                         0.0,
                         itemEstoque.id,
-                        categoria,
+                        null,
                         itemEstoque)
                 }
 

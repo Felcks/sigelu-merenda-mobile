@@ -50,17 +50,12 @@ class ItemEnvioRepository {
                         )
                     }
 
-                    val categoria = Categoria(
-                        it.categoria.id,
-                        it.categoria.nome ?: ""
-                    )
-
                     ItemEnvio(
                         it.id,
                         envioID,
                         it.quantidade_unidade ?: 0.0,
-                        it.preco_unidade ?: 0.0,
-                        categoria,
+                        0.0,
+                        null,
                         itemEstoque.id,
                         itemEstoque
                     )
