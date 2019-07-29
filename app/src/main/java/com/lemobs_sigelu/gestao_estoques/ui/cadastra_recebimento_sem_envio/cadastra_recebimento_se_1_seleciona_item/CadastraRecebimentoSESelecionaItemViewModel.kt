@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemEnvioController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,7 +48,15 @@ class CadastraRecebimentoSESelecionaItemViewModel  (val controller: CadastraRece
         )
     }
 
-    fun selecionaItem(itemID: Int) {
-       // return controller.selecionaItem(itemID)
+    fun selecionaItem(itemID: Int): Boolean {
+        return controller.selecionaItem(itemID)
+    }
+
+    fun getItensAdicionados(): List<Int>{
+        return controller.getItensJaCadastrados()
+    }
+
+    fun confirmaSelecaoItens(listaAdicao: List<ItemPedido>, listaRemocao: List<ItemPedido>){
+        controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
     }
 }

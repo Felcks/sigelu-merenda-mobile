@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,6 +30,8 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
     lateinit var viewModelFactory: CadastraRecebimentoSemEnvioViewModelFactory
     var viewModel: CadastraRecebimentoSESelecionaItemViewModel? = null
 
+    private var adapter: ListaItemPedidoSelecionavelAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -48,17 +51,15 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
     }
 
     private fun clicouNoProximo(){
-//        try{
-//            viewModel!!.confirmaSelecaoItens(
-//                this.adapter?.itemsParaAdicao as List<ItemContrato>,
-//                this.adapter?.itemsParaRemocao as List<ItemContrato>)
-//
+        try{
+            viewModel!!.confirmaSelecaoItens(this.adapter?.itemsParaAdicao as List<ItemPedido>, this.adapter?.itemsParaRemocao as List<ItemPedido>)
+
 //            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
 //            startActivity(intent)
-//        }
-//        catch(e: Exception){
-//            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
-//        }
+        }
+        catch(e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun clicouNoAnterior(){
@@ -70,9 +71,9 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
             Status.LOADING -> {}
             Status.SUCCESS -> {
                 if(response.data is List<*>){
-//                    if(response.data.first() is ItemContrato){
-//                        this.iniciarAdapter(response.data as List<ItemContrato>)
-//                    }
+                    if(response.data.first() is ItemPedido){
+                        this.iniciarAdapter(response.data as List<ItemPedido>)
+                    }
                 }
             }
             Status.ERROR -> {}
@@ -81,33 +82,29 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
 
     private fun iniciarAdapter(lista: List<ItemPedido>){
 
-//        val layoutManager = LinearLayoutManager(applicationContext)
-//        layoutManager.orientation = LinearLayoutManager.VERTICAL
-//        rv_lista.layoutManager = layoutManager
-//
-//        val adapter = ListaItemContratoSelecionavelSimplesAdapter(
-//            applicationContext,
-//            lista,
-//            this
-//        )
-//        rv_lista.adapter = adapter
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista.layoutManager = layoutManager
+
+        this.adapter = ListaItemPedidoSelecionavelAdapter(applicationContext, lista, this, viewModel!!.getItensAdicionados())
+        rv_lista.adapter = adapter
     }
 
     override fun onClick(id: Int, pos: Int) {
 
-//        try{
-//            val adicionou = viewModel!!.selecionaItem(id)
-//
-//            if(adicionou){
-//                adapter?.adicionaItem(pos)
-//            }
-//            else{
-//                adapter?.removeItem(pos)
-//            }
-//        }
-//        catch (e: Exception){
-//            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
-//        }
+        try{
+            val adicionou = viewModel!!.selecionaItem(id)
+
+            if(adicionou){
+                adapter?.adicionaItem(pos)
+            }
+            else{
+                adapter?.removeItem(pos)
+            }
+        }
+        catch (e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
