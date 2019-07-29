@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.CadastraRecebimentoSemEnvioViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma.CadastraRecebimentoSEConfirmaActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -72,8 +73,8 @@ class CadastraRecebimentoSECadastraItemActivity : AppCompatActivity() {
         try {
             viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
-            //val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, CadastraRecebimentoSEConfirmaActivity::class.java)
+            startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
             Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
