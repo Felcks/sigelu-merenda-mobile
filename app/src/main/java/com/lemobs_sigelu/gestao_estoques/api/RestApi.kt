@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
+import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
@@ -18,10 +19,14 @@ import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRe
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
+import io.reactivex.exceptions.UndeliverableException
+import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.IOException
+import java.net.SocketException
 import java.util.concurrent.TimeUnit
 
 class RestApi {
@@ -46,7 +51,34 @@ class RestApi {
             .build()
 
         api = retrofit.create(IRestApi::class.java)
+
+        RxJavaPlugins.setErrorHandler { e ->
+
+            var error: Throwable? = Throwable()
+            if (e is UndeliverableException) {
+                error = e.cause
+                Log.i("RxError", error.toString())
+            }
+            if ((e is IOException) || (e is SocketException)) {
+                // fine, irrelevant network problem or API that throws on cancellation
+                Log.i("RxError", e.cause.toString())
+            }
+            if (e is InterruptedException) {
+                // fine, some blocking code was interrupted by a dispose call
+                Log.i("RxError", e.cause.toString())
+            }
+            if ((e is NullPointerException) || (e is IllegalArgumentException)) {
+                // that's likely a bug in the application
+                Log.i("RxError", e.cause.toString())
+            }
+            if (e is IllegalStateException) {
+                // that's a bug in RxJava or in a custom operator
+                Log.i("RxError", e.cause.toString())
+            }
+        }
     }
+
+
 
     fun getPermissoes(authorization: String): Call<List<String>>{
         return api.getPermissoes(authorization)
