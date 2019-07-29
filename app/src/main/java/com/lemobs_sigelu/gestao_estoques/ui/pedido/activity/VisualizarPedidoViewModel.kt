@@ -206,25 +206,25 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             pedidoCadastro.contratoEstoque = pedido!!.contrato
         }
 
-        val listItemContrato = pedido?.materiais?.map {
-            val item = ItemContrato(
-                it.id,
-                0,
-                "",
-                it.quantidadeUnidade ?: 0.0,
-                0.0,
-                "",
-                0.0,
-                null,
-                it.itemEstoqueID
-            )
-
-            item.itemEstoque = it.itemEstoque
-            item
-        } ?: listOf()
+//        val listItemContrato = pedido?.materiais?.map {
+//            val item = ItemContrato(
+//                it.id,
+//                0,
+//                "",
+//                it.quantidadeUnidade ?: 0.0,
+//                0.0,
+//                "",
+//                0.0,
+//                null,
+//                it.itemEstoqueID
+//            )
+//
+//            item.itemEstoque = it.itemEstoque
+//            item
+//        } ?: listOf()
 
         pedidoCadastro.isEdicao = true
-        pedidoCadastro.listaItemContrato.addAll(listItemContrato)
+        //pedidoCadastro.listaItemContrato.addAll(listItemContrato)
         CadastraPedidoController.pedidoCadastro = pedidoCadastro
     }
 
