@@ -3,8 +3,10 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cada
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,9 +25,26 @@ class CadastraRecebimentoSESelecionaItemViewModel  (val controller: CadastraRece
         return response
     }
 
-    fun carregaListaItens() {
+    fun carregarItensDePedido() {
 
         loading.set(true)
+        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+
+        disposables.add(controller.getListaItemPedido(pedidoID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    response.setValue(Response.success(result))
+                },
+                { throwable ->
+                    loading.set(false)
+                    response.setValue(Response.error(throwable))
+                }
+            )
+        )
     }
 
     fun selecionaItem(itemID: Int) {

@@ -36,7 +36,33 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraRecebimentoSESelecionaItemViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregaListaItens()
+        viewModel!!.carregarItensDePedido()
+
+        ll_layout_anterior.setOnClickListener {
+            clicouNoAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            clicouNoProximo()
+        }
+    }
+
+    private fun clicouNoProximo(){
+//        try{
+//            viewModel!!.confirmaSelecaoItens(
+//                this.adapter?.itemsParaAdicao as List<ItemContrato>,
+//                this.adapter?.itemsParaRemocao as List<ItemContrato>)
+//
+//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+//            startActivity(intent)
+//        }
+//        catch(e: Exception){
+//            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+//        }
+    }
+
+    private fun clicouNoAnterior(){
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response?) {
