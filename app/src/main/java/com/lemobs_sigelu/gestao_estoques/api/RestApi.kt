@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResponse
@@ -106,6 +107,10 @@ class RestApi {
 
     fun getItensContrato(contratoID: Int): Call<OrcamentoDataResponse>{
         return api.getItensContrato(auth, contratoID)
+    }
+
+    fun getItensEstoque() : Call<List<ItemEstoqueDataResponse>>{
+        return api.getItensEstoque(auth)
     }
 
     fun postPedidoFornecedorNucleo(pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>{
