@@ -245,7 +245,7 @@ class PedidoRepository {
                     origemFornecedorID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
-                    situacaoID,
+                    pedidoCadastro.contratoEstoque?.id,
                     isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
@@ -271,7 +271,6 @@ class PedidoRepository {
                     origemNucleoID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
-                    1,
                     isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
@@ -296,7 +295,6 @@ class PedidoRepository {
                     origemNucleoID,
                     pedidoCadastro.destinoTipo ?: "",
                     destinoObraID,
-                    situacaoID,
                     isRascunho,
                     pedidoCadastro.listaItemContrato.map {
                         ItemPedidoCadastroDataRequest(
