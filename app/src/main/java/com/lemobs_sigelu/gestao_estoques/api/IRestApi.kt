@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResponse
@@ -79,6 +80,9 @@ interface IRestApi {
     fun getItensContrato(@Header("Authorization") auth: String,
                          @Path("contrato_estoque_id") contratoEstoqueID: Int): Call<OrcamentoDataResponse>
 
+    @GET("estoque/item")
+    fun getItensEstoque(@Header("Authorization") auth: String) : Call<List<ItemEstoqueDataResponse>>
+
     @POST("pedido-estoque")
     fun postPedidoFornecedorNucleo(@Header("Authorization") auth: String,
                                    @Body pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>
@@ -110,4 +114,6 @@ interface IRestApi {
     fun postEnvio(@Header("Authorization") auth: String,
                   @Path("pedido_estoque_id") pedido_estoque_id: Int,
                   @Body envioRequest: EnvioDataRequest): Call<Unit>
+
+
 }
