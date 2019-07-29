@@ -67,7 +67,7 @@
 
         <!-- SELECIONA ITEM ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity"
-                  android:label="Selecione um item"/>
+                  android:label="Selecione os itens"/>
 
         <!-- CADASTRA ITEM PEDIDO ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity"

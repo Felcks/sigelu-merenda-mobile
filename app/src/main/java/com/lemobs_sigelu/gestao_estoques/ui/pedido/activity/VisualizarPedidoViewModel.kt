@@ -6,10 +6,7 @@ import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -98,6 +95,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             .subscribe(
                 { result ->
                     controller.salvaListaItemPedido(result)
+                    pedido?.materiais = result
                     responseMateriais.setValue(Response.success(result))
                 },
                 { throwable ->
@@ -208,6 +206,24 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             pedidoCadastro.contratoEstoque = pedido!!.contrato
         }
 
+        val listItemContrato = pedido?.materiais?.map {
+            val item = ItemContrato(
+                it.id,
+                0,
+                "",
+                it.quantidadeUnidade ?: 0.0,
+                0.0,
+                "",
+                0.0,
+                null,
+                it.itemEstoqueID
+            )
+
+            item.itemEstoque = it.itemEstoque
+            item
+        } ?: listOf()
+
+        pedidoCadastro.listaItemContrato.addAll(listItemContrato)
         CadastraPedidoController.pedidoCadastro = pedidoCadastro
     }
 
