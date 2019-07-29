@@ -88,14 +88,13 @@ class PedidoRepository {
                 }
                 pedido.contrato = contrato
 
-                this.salvaPedidoBD(pedido)
-                val pedidoBD = this.getPedidoBD(pedidoEstoqueID)!!
-                pedidoBD.contrato = contrato
-                subscribe.onNext(pedidoBD)
+//                this.salvaPedidoBD(pedido)
+//                val pedidoBD = this.getPedidoBD(pedidoEstoqueID)!!
+//                pedidoBD.contrato = contrato
+                subscribe.onNext(pedido)
                 subscribe.onComplete()
             }
             else{
-
 
                 subscribe.onError(Throwable(response.message()))
             }
@@ -164,14 +163,13 @@ class PedidoRepository {
                     )
                 }
 
-                this.salvaListaPedidoBD(list ?: listOf())
-                subscriber.onNext(getListaPedidoBD())
+                //this.salvaListaPedidoBD(list ?: listOf())
+                subscriber.onNext(list ?: listOf())
                 subscriber.onComplete()
             }
             else{
                 subscriber.onError(Throwable(response.errorBody().toString()))
             }
-
         }
     }
 
