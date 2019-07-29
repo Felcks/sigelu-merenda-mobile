@@ -4,9 +4,11 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
@@ -14,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): ViewModel(){
 
@@ -175,6 +178,37 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                 }
             )
         )
+    }
+
+    fun validaEdicaoPedido(): Boolean{
+
+        if(pedido == null)
+            return false
+
+        return pedido!!.isPedidoEditavel()
+    }
+
+    fun editaPedido(){
+
+        val pedidoCadastro = PedidoCadastro(
+            pedido!!.id,
+            pedido!!.codigo,
+            pedido!!.origemNome,
+            pedido!!.destinoNome,
+            pedido!!.origem,
+            pedido!!.destino,
+            pedido!!.origemID,
+            pedido!!.destinoID,
+            Date(),
+            Date(),
+            pedido!!.situacao
+        )
+
+        if(pedido!!.origem == "Fornecedor"){
+            pedidoCadastro.contratoEstoque = pedido!!.contrato
+        }
+
+        CadastraPedidoController.pedidoCadastro = pedidoCadastro
     }
 
     fun getSituacaoDePedido(): Situacao{

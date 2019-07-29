@@ -18,17 +18,17 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_PARCIAL_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class VisualizarPedidoActivity: AppCompatActivity() {
@@ -80,6 +80,24 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
                     TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
                     TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                }
+            }
+            else if(result.situacao?.situacao_id == SITUACAO_RASCUNHO || result.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
+                btn_edita_pedido.visibility = View.VISIBLE
+                btn_edita_pedido.setOnClickListener {
+                    try{
+
+                        if(viewModel!!.validaEdicaoPedido()){
+                            viewModel!!.editaPedido()
+
+                            val intent = Intent(applicationContext, SelecionaItemPedidoActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    }
+                    catch (e: Exception){
+
+                    }
                 }
             }
             this.createTableLayout()

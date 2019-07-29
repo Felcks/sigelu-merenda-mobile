@@ -2,6 +2,8 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
 import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_RASCUNHO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import java.lang.Exception
@@ -47,6 +49,9 @@ data class Pedido(
 
     @Ignore
     var materiais: List<ItemPedido> = listOf()
+
+    @Ignore
+    var contrato: ContratoEstoque? = null
 
 //    constructor(id: Int,
 //                codigo: String,
@@ -109,6 +114,10 @@ data class Pedido(
         }
 
         return TipoPedido.MEU_NUCLEO_PARA_OBRA
+    }
+
+    fun isPedidoEditavel(): Boolean{
+        return(this.situacao?.situacao_id == SITUACAO_RASCUNHO || this.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA)
     }
 
     class SemContratoException: Exception("Pedido sem contrato.")

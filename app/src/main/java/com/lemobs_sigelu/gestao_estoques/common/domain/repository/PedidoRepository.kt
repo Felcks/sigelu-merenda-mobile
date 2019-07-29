@@ -6,10 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.ItemPedidoCadastr
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Situacao
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.SituacaoPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
@@ -69,6 +66,24 @@ class PedidoRepository {
                             this.situacao.nome
                         )
                     )
+                }
+
+                if(response.body()!!.contrato_estoque != null) {
+                    val contrato = with(response.body()!!.contrato_estoque!!) {
+
+                        ContratoEstoque(
+                            id ?: 0,
+                            situacao ?: "",
+                            objeto_contrato ?: "",
+                            numero_contrato ?: "",
+                            valor_contratual ?: 0.0,
+                            data_inicio?.anoMesDiaToDate() ?: Date(),
+                            data_conclusao?.anoMesDiaToDate() ?: Date(),
+                            empresa_id
+                        )
+                    }
+
+                    pedido.contrato = contrato
                 }
 
                 this.salvaPedidoBD(pedido)

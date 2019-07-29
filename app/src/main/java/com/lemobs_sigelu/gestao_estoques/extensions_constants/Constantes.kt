@@ -17,7 +17,9 @@ val db = Room.databaseBuilder(
     .allowMainThreadQueries() //Queries na main thread
     .build()
 
+const val SITUACAO_RASCUNHO = 1
 const val SITUACAO_EM_ANALISE_ID = 2
+const val SITUACAO_CORRECAO_SOLICITADA = 3
 const val SITUACAO_APROVADO_ID = 4
 const val SITUACAO_REPROVADO_ID = 5
 const val SITUACAO_PARCIAL_ID = 6
