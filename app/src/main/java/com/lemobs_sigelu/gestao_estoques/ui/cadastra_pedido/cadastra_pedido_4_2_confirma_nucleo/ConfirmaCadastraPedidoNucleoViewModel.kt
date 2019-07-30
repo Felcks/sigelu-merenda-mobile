@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoController): ViewModel() {
+class ConfirmaCadastraPedidoNucleoViewModel(private val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -29,7 +29,7 @@ class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoCont
     }
 
     fun carregaListaItem(){
-        response.value = Response.success(controller.getListaItensAdicionados())
+        response.value = Response.success(controller.getListaItensAdicionadosNucleo())
     }
 
     fun cancelarPedido(){

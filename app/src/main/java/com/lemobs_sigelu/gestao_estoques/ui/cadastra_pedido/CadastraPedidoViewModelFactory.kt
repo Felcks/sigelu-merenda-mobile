@@ -11,7 +11,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_1_cadastra_item_contrato.CadastraItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoViewModel
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_1_confirma.ConfirmaCadastroPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoViewModel
 
 class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController): ViewModelProvider.Factory{
 
@@ -42,6 +43,9 @@ class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController):
         }
         if (modelClass.isAssignableFrom(CadastraItemNucleoViewModel::class.java!!)) {
             return CadastraItemNucleoViewModel(controller) as T
+        }
+        if (modelClass.isAssignableFrom(ConfirmaCadastraPedidoNucleoViewModel::class.java!!)) {
+            return ConfirmaCadastraPedidoNucleoViewModel(controller) as T
         }
 
 

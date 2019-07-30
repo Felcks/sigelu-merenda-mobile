@@ -209,6 +209,10 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return pedidoCadastro?.listaItemContrato!!.toList()
     }
 
+    fun getListaItensAdicionadosNucleo(): List<ItemNucleo>{
+        return pedidoCadastro?.listaItemNucleo!!.toList()
+    }
+
     fun removeItem(itemContratoID: Int){
 
         val item = pedidoCadastro?.listaItemContrato?.find { it.id == itemContratoID }
