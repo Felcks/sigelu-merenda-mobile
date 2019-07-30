@@ -20,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBin
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
@@ -90,8 +91,14 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                         if(viewModel!!.validaEdicaoPedido()){
                             viewModel!!.editaPedido()
 
-                            val intent = Intent(applicationContext, SelecionaItemPedidoActivity::class.java)
-                            startActivity(intent)
+                            if(result.getTipoPedido() == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO) {
+                                val intent = Intent(applicationContext, SelecionaItemPedidoActivity::class.java)
+                                startActivity(intent)
+                            }
+                            else{
+                                val intent = Intent(applicationContext, SelecionaItemNucleoActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
 
                     }
