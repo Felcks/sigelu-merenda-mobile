@@ -9,8 +9,11 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.SimpleAdapter
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Fornecedor
@@ -18,18 +21,13 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
-import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_cadastra_pedido_fornecedor.*
-import javax.inject.Inject
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.view.View
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.sigelu.core.lib.DialogUtil
-import java.lang.Exception
+import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_cadastra_pedido_fornecedor.*
+import javax.inject.Inject
 
 
 class CadastraFornecedorActivity: AppCompatActivity() {
@@ -49,7 +47,6 @@ class CadastraFornecedorActivity: AppCompatActivity() {
         setContentView(R.layout.activity_cadastra_pedido_fornecedor)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraFornecedorViewModel::class.java)
-
         viewModel!!.responseEmpresas.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseContratos.observe(this, Observer<Response> { response -> processResponse(response) })
 
@@ -111,7 +108,6 @@ class CadastraFornecedorActivity: AppCompatActivity() {
     }
 
     private fun renderDataFornecedor(result: Any?) {
-
         val list = result as List<Fornecedor>
         this.listaFornecedor.addAll(list)
 
@@ -185,5 +181,10 @@ class CadastraFornecedorActivity: AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

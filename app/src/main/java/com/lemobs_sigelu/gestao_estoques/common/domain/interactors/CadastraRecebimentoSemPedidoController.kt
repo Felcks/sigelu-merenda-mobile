@@ -1,16 +1,15 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.ItemRecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import io.reactivex.Observable
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -18,27 +17,25 @@ import javax.inject.Inject
  */
 class CadastraRecebimentoSemPedidoController @Inject constructor(private val itemContratoRepository: ItemContratoRepository,
                                                                  private val fornecedorRepository: FornecedorRepository,
-                                                                 private val nucleoRepository: NucleoRepository) {
+                                                                 private val nucleoRepository: NucleoRepository,
+                                                                 private val itemEstoqueRepository: ItemEstoqueRepository) {
+
+    private val api = RestApi()
 
     companion object{
         private var recebimentoSemPedido: RecebimentoSemPedido? = null
-
         private var listaItemContrato : MutableList<ItemContrato>? = mutableListOf()
         private var itemRecebimento: ItemRecebimento? = null
-
         private var listaFornecedorComContratoVigente: List<Fornecedor>? = null
-        fun ListaFornecedorComContratoVigente() = listaFornecedorComContratoVigente
+        private var listaItemEstoque: MutableList<ItemEstoque>? = mutableListOf()
     }
 
     fun carregaListaFornecedor(): Observable<List<Fornecedor>>{
-
         return fornecedorRepository.carregaListaFornecedor()
     }
 
     fun filtraListaFornecedorParaFornecedorComPeloMenosUmContratoVigente(listaFornecedor: List<Fornecedor>): List<Fornecedor>{
-
         val listaFiltrata = mutableListOf<Fornecedor>()
-
         for(fornecedor in listaFornecedor){
 
             if(fornecedor.listaContratoEstoque?.none { it.situacao == "Vigente" } == true){
@@ -54,7 +51,6 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
         return listaFiltrata
     }
-
 
     fun salvaLista(listaFornecedor: List<Fornecedor>){
         listaFornecedorComContratoVigente = listaFornecedor
@@ -94,11 +90,6 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         listaItemContrato?.addAll(lista)
     }
 
-    fun selecionaItem(itemID: Int){
-
-        val itemContrato = listaItemContrato?.first { it.id == itemID } ?: throw Exception("Item Contrato é nulo")
-        recebimentoSemPedido?.listaItemContrato?.add(itemContrato)
-    }
 
     fun getItemContrato(): ItemContrato{
         return recebimentoSemPedido?.listaItemContrato?.first() ?: throw Exception("Sem nenhum item contrato")
@@ -145,6 +136,29 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         listaFornecedorComContratoVigente = null
     }
 
+    fun getItensJaAdicionados(): List<Int>{
+
+        if(listaItemEstoque == null)
+            return listOf<Int>()
+
+        return listaItemEstoque?.map { it.id }!!
+    }
+
+    fun selecionaItem(itemID: Int) : Boolean{
+        return listaItemEstoque?.map { it.id }?.contains(itemID) != true
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        listaItemEstoque?.removeAll { idItensParaRemover.contains(it.id) }
+        listaItemEstoque?.addAll(listaParaAdicionar)
+    }
+
+    fun getListaItemEstoque(): Observable<List<ItemEstoque>>{
+        return itemEstoqueRepository.carregaListaEstoque()
+    }
+
     fun enviaRecebimento(): Observable<Boolean> {
 
         return Observable.create { subscriber ->
@@ -185,5 +199,5 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         }
     }
 
-    val api = RestApi()
+
 }

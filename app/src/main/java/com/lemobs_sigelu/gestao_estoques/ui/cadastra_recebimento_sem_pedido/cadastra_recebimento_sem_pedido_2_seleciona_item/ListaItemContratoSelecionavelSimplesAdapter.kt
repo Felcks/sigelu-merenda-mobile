@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import kotlinx.android.synthetic.main.item_adicao_generico.view.*
 import kotlinx.android.synthetic.main.item_material_adicao.view.tv_name
 
 class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
                                                   private val list: List<ItemEstoque>,
-                                                  private val itemClickListener: OneIntParameterClickListener,
+                                                  private val itemClickListener: TwoIntParametersClickListener,
                                                   private val itensJaCadastrados: List<Int>): RecyclerView.Adapter<ListaItemContratoSelecionavelSimplesAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -46,7 +46,7 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
 
         holder.itemView.tv_name.text = item.nomeAlternativo
         holder.itemView.btn_add.setOnClickListener {
-            itemClickListener.onClick(item.id) }
+            itemClickListener.onClick(item.id, position) }
 
 
         if(itensParaAdicao.contains(item)){
@@ -70,33 +70,33 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
                 holder.itemView.btn_add.background = context.resources.getDrawable(R.drawable.ic_plus_rounded)
             }
         }
-        fun adicionaItem(position: Int){
+    }
 
-            val item = this.list[position]
-            if(itensParaAdicao.contains(item)){
-                itensParaAdicao.remove(item)
-                notifyItemChanged(position)
-            }
-            else {
-                itensParaAdicao.add(item)
-                notifyItemChanged(position)
-            }
+    fun adicionaItem(position: Int){
+
+        val item = this.list[position]
+        if(itensParaAdicao.contains(item)){
+            itensParaAdicao.remove(item)
+            notifyItemChanged(position)
         }
-
-        fun removeItem(position: Int){
-
-            val item = this.list[position]
-
-            if(itensParaRemocao.contains(item)){
-                itensParaRemocao.remove(item)
-                notifyItemChanged(position)
-            }
-            else{
-                itensParaRemocao.add(item)
-                notifyItemChanged(position)
-            }
+        else {
+            itensParaAdicao.add(item)
+            notifyItemChanged(position)
         }
+    }
 
+    fun removeItem(position: Int){
+
+        val item = this.list[position]
+
+        if(itensParaRemocao.contains(item)){
+            itensParaRemocao.remove(item)
+            notifyItemChanged(position)
+        }
+        else{
+            itensParaRemocao.add(item)
+            notifyItemChanged(position)
+        }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
