@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import kotlinx.android.synthetic.main.item_adicao_generico.view.*
 import kotlinx.android.synthetic.main.item_material_adicao.view.btn_add
 import kotlinx.android.synthetic.main.item_material_adicao.view.tv_name
