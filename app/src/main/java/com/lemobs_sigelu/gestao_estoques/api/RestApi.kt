@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
@@ -115,6 +116,10 @@ class RestApi {
 
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)
+    }
+
+    fun postRecebimentoEstoqueSemEnvio(recebimentoDataRequest: RecebimentoSEDataRequest): Call<Unit>{
+        return api.postRecebimentoEstoqueSemEnvio(auth, recebimentoDataRequest)
     }
 
     fun postRecebimentoSemPedidoEstoque(recebimentoDataRequest: RecebimentoSemPedidoDataRequest): Call<Unit>{

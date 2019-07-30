@@ -59,6 +59,7 @@ android {
             applicationIdSuffix '.dev'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
             buildConfigField("String", "BASE_URL", "\"https://api.obras.dev.sigelu.com/v1/\"")
+            //buildConfigField("String", "BASE_URL", "\"http://192.168.4.97:2999/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.dev.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.dev.sigelu.com/obra-direta/diario/foto/\"")
         }

@@ -22,6 +22,8 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
@@ -78,7 +80,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 when(result.getTipoPedido()){
                     TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> btn_cadastra_envio.visibility = View.VISIBLE
                     TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
-                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento_sem_envio.visibility = View.VISIBLE
                     TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
                 }
             }
@@ -134,6 +136,11 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             btn_cadastra_envio.setOnClickListener {
 
                 val intent = Intent(this, CadastraEnvioActivity::class.java)
+                startActivity(intent)
+            }
+            btn_cadastra_recebimento_sem_envio.setOnClickListener {
+
+                val intent = Intent(this, CadastraRecebimentoSESelecionaItemActivity::class.java)
                 startActivity(intent)
             }
         }
