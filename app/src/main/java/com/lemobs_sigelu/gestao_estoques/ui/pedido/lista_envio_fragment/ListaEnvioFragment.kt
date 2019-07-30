@@ -42,6 +42,7 @@ class ListaEnvioFragment : Fragment() {
             this.viewModel = ViewModelProviders.of(it).get(VisualizarPedidoViewModel::class.java)
             this.viewModel!!.responseEnvios.observe(this, Observer<Response> { response -> processResponse(response) })
             this.viewModel!!.responseItensEnvios.observe(this, Observer<Response> { response -> processResponseEnvioCompleto(response)})
+            this.viewModel!!.responseItensRecebimento.observe(this, Observer<Response> { response -> processResponseListaItemRecebimento(response)})
 
             binding!!.viewModel = this.viewModel
             binding!!.executePendingBindings()
@@ -92,17 +93,40 @@ class ListaEnvioFragment : Fragment() {
 
     private fun renderErrorStateItens(throwable: Throwable?) {
 
-        viewModel!!.loadingEnvios.set(false)
         if(viewModel!!.quantidadeEnviosCarregando() <= 0){
+            viewModel!!.loadingEnvios.set(false)
             this.iniciarAdapter(viewModel!!.envios())
         }
     }
 
     private fun renderDataStateItens(result: Any?) {
 
-        viewModel!!.loadingEnvios.set(false)
         if(viewModel!!.quantidadeEnviosCarregando() <= 0){
-            //this.iniciarAdapter(viewModel!!.envios())
+
+            viewModel!!.loadingEnvios.set(false)
+            viewModel!!.setQuantidadeEnviosCarregando(viewModel!!.envios().filter{it.recebimentoID != null}.size)
+            for(envio in viewModel!!.envios()){
+
+                if(envio.recebimentoID != null)
+                    viewModel!!.carregaListaItemRecebimento(envio)
+            }
+        }
+    }
+
+    fun processResponseListaItemRecebimento(response: Response?){
+
+        when (response?.status) {
+            Status.LOADING -> renderLoadingState()
+            Status.SUCCESS -> {
+
+
+                if(viewModel!!.quantidadeEnviosCarregando() <= 0){
+
+                    viewModel!!.loadingEnvios.set(false)
+                    this.iniciarAdapter(viewModel!!.envios())
+                }
+            }
+            Status.ERROR -> renderErrorStateItens(response.error)
         }
     }
 

@@ -23,6 +23,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     var responseSituacoes = MutableLiveData<Response>()
     var responseEnvios = MutableLiveData<Response>()
     var responseItensEnvios = MutableLiveData<Response>()
+    var responseItensRecebimento = MutableLiveData<Response>()
     val loading : ObservableField<Boolean> = ObservableField(false)
 
     val loadingSituacoes : ObservableField<Boolean> = ObservableField(false)
@@ -38,6 +39,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     private var pedido: Pedido? = null
     private val envios = mutableListOf<Envio>()
     private var quantidadeEnviosCarregando = 0
+    private var quantidadeDeEnvios = 0
 
     override fun onCleared() {
         disposables.clear()
@@ -52,6 +54,10 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     }
 
     fun quantidadeEnviosCarregando() = quantidadeEnviosCarregando
+
+    fun setQuantidadeEnviosCarregando(quantidade: Int){
+        quantidadeEnviosCarregando = quantidade
+    }
 
     fun carregarPedido(recarregar: Boolean = false) {
 
@@ -140,6 +146,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                 .subscribe(
                     { result ->
                         quantidadeEnviosCarregando = result.size
+                        quantidadeDeEnvios = result.size
                         responseEnvios.value = Response.success(result)
                     },
                     { throwable ->
@@ -173,6 +180,31 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
                     responseItensEnvios.value = Response.error(throwable)
+                }
+            )
+        )
+    }
+
+    fun carregaListaItemRecebimento(envio: Envio){
+
+        disposables.add(controller.getListaItemRecebimento(envio.recebimentoID ?: 0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {  responseItensRecebimento.value = Response.loading() }
+            .subscribe(
+                { result ->
+                    quantidadeEnviosCarregando -= 1
+                    for((index, itemRecebimento) in result.withIndex()){
+                        if(index < envio.itens.size) {
+                            val itemEnvio = envio.itens[index]
+                            itemEnvio.quantidadeRecebida = itemRecebimento.quantidadeRecebida
+                        }
+                    }
+                    responseItensRecebimento.value = Response.success(result)
+                },
+                { throwable ->
+                    quantidadeEnviosCarregando -= 1
+                    responseItensRecebimento.value = Response.error(throwable)
                 }
             )
         )
