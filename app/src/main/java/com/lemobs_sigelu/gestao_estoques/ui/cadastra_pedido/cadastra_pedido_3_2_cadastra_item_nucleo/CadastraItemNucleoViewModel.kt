@@ -1,15 +1,15 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemNucleo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import io.reactivex.disposables.CompositeDisposable
 
-class CadastraItemPedidoViewModel (private val controller: CadastraPedidoController): ViewModel() {
+class CadastraItemNucleoViewModel (private val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -25,12 +25,12 @@ class CadastraItemPedidoViewModel (private val controller: CadastraPedidoControl
         return response
     }
 
-    fun getItensSolicitados(): List<ItemContrato> {
-        return controller.getListaItensContrato()
+    fun getItensSolicitados(): List<ItemNucleo> {
+        return controller.getListaItensNucleo()
     }
 
     fun removeItem(id: Int){
-        return controller.removeItem(id)
+        return controller.removeItemNucleo(id)
     }
 
     fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {

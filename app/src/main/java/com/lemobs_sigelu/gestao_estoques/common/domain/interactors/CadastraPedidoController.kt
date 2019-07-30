@@ -175,8 +175,34 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         }
     }
 
+    fun confirmaCadastroMaterialNucleo(listaValoresRecebidos: List<Double>){
+
+        if(pedidoCadastro?.listaItemNucleo == null)
+            throw Exception()
+
+        var count = 0
+        for(item in pedidoCadastro!!.listaItemNucleo){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeDisponivel ?: 0.0){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
+    }
+
     fun getListaItensContrato(): List<ItemContrato>{
         return pedidoCadastro?.listaItemContrato ?: listOf()
+    }
+
+    fun getListaItensNucleo(): List<ItemNucleo>{
+        return pedidoCadastro?.listaItemNucleo ?: listOf()
     }
 
     fun getListaItensAdicionados(): List<ItemContrato>{
@@ -188,6 +214,17 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         val item = pedidoCadastro?.listaItemContrato?.find { it.id == itemContratoID }
         if(item != null){
             pedidoCadastro?.listaItemContrato?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
+    }
+
+    fun removeItemNucleo(itemNucleoID: Int){
+
+        val item = pedidoCadastro?.listaItemNucleo?.find { it.id == itemNucleoID }
+        if(item != null){
+            pedidoCadastro?.listaItemNucleo?.remove(item)
         }
         else{
             throw Exception("Erro")

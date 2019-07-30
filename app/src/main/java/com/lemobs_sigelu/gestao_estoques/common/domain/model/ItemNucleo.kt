@@ -5,4 +5,8 @@ class ItemNucleo (val id: Int,
                   val nomeAlternativo: String?,
                   val descricao: String?,
                   val quantidadeDisponivel: Double?,
-                  val unidadeMedida: UnidadeMedida)
+                  val unidadeMedida: UnidadeMedida){
+
+
+    var quantidadeRecebida: Double? = null
+}

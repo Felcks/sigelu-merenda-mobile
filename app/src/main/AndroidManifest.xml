@@ -71,8 +71,8 @@
                   android:label="Selecione os itens"/>
 
         <!-- CADASTRA ITEM PEDIDO ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity"
-                  android:label="Preencha a quantidade solicitada"/>
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_1_cadastra_item_contrato.CadastraItemPedidoActivity"
+                  android:label="Selecione as quantidades"/>
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
         <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity"
@@ -85,6 +85,9 @@
         <!-- SELECIONA ITEM ACTIVITY -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity"
                   android:label="Selecione os itens"/>
+
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoActivity"
+                  android:label="Selecione as quantidades"/>
 
 
 

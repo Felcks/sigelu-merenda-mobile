@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -56,8 +57,8 @@ class SelecionaItemNucleoActivity: AppCompatActivity(), TwoIntParametersClickLis
         try{
             viewModel!!.confirmaSelecaoItens(this.adapter?.itemsParaAdicao as List<ItemNucleo>, this.adapter?.itemsParaRemocao as List<ItemNucleo>)
 
-//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CadastraItemNucleoActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()

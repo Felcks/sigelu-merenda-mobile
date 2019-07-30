@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_cadastra_item
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -14,37 +14,33 @@ import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
-import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_cadastra_material_pedido.*
-import java.lang.Exception
+import kotlinx.android.synthetic.main.activity_cadastra_material_pedido_nucleo.*
 import javax.inject.Inject
 
-class CadastraItemPedidoActivity: AppCompatActivity() {
+class CadastraItemNucleoActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
-    var viewModel: CadastraItemPedidoViewModel? = null
+    var viewModel: CadastraItemNucleoViewModel? = null
 
-    private var adapter: ListaItemContratoAdapter? = null
+    private var adapter: ListaItemNucleoAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_material_pedido)
+        setContentView(R.layout.activity_cadastra_material_pedido_nucleo)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraItemPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraItemNucleoViewModel::class.java)
 
-        val mainBinding: ActivityCadastraMaterialPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_material_pedido)
+        val mainBinding: com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraMaterialPedidoNucleoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_material_pedido_nucleo)
         mainBinding.viewModel = viewModel!!
         mainBinding.executePendingBindings()
 
@@ -53,7 +49,7 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista_material.layoutManager = layoutManager
 
-        this.adapter = ListaItemContratoAdapter(App.instance, listaItemEnvio, removerItemListener)
+        this.adapter = ListaItemNucleoAdapter(App.instance, listaItemEnvio, removerItemListener)
         rv_lista_material.adapter = adapter
 
         ll_layout_proximo.setOnClickListener {
@@ -74,10 +70,10 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
     private fun clicouProximo(){
 
         try {
-            viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+            //viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
-            val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
+//            startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
             Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
