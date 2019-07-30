@@ -64,7 +64,7 @@
                         app:tabMode="scrollable"
                         app:tabGravity="fill"
                         app:tabMaxWidth="0dp"
-                        android:singleLine="true"
+                        android:singleLine="false"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"/>
