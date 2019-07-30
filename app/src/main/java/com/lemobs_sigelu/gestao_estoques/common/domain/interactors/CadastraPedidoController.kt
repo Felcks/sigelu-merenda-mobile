@@ -17,7 +17,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
                                                    private val obraRepository: ObraRepository,
                                                    private val contratoRepository: ContratoRepository,
                                                    private val itemContratoRepository: ItemContratoRepository,
-                                                   private val pedidoRepository: PedidoRepository) {
+                                                   private val pedidoRepository: PedidoRepository,
+                                                   private val itemNucleoRepository: ItemNucleoRepository) {
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
         var tipoPedido: TipoPedido? = null
@@ -96,6 +97,16 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return itemContratoRepository.carregaListaItemContrato(contratoID)
     }
 
+    fun carregaListaItensNucleo(): Observable<List<ItemNucleo>>{
+
+        val origemID = pedidoCadastro?.origemID
+
+        if(origemID == null || origemID == 0)
+            throw Exception("")
+
+        return itemNucleoRepository.getListaItemNucleo(origemID)
+    }
+
     fun getTipoPedido(): TipoPedido?{
         return pedidoCadastro?.getTipoPedido()
     }
@@ -105,10 +116,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
 
     fun selecionaItem(itemContratoID: Int): Boolean{
-
         return pedidoCadastro?.listaItemContrato?.map { it.id }?.contains(itemContratoID) != true
-//        val itemContrato = itensContrato.first { it.id == itemContratoID }
-//        pedidoCadastro?.listaItemContrato?.add(itemContrato)
     }
 
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemContrato>, listaParaRemover: List<ItemContrato>){
@@ -116,6 +124,13 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         val idItensParaRemover = listaParaRemover.map { it.id }
         pedidoCadastro?.listaItemContrato?.removeAll { idItensParaRemover.contains(it.id) }
         pedidoCadastro?.listaItemContrato?.addAll(listaParaAdicionar)
+    }
+
+    fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemNucleo>, listaParaRemover: List<ItemNucleo>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        pedidoCadastro?.listaItemNucleo?.removeAll { idItensParaRemover.contains(it.id) }
+        pedidoCadastro?.listaItemNucleo?.addAll(listaParaAdicionar)
     }
 
     fun getItensJaCadastrados(): List<Int>{

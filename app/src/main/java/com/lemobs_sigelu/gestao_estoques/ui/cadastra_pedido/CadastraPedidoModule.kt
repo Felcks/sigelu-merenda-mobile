@@ -45,6 +45,11 @@ class CadastraPedidoModule {
     }
 
     @Provides
+    fun provideitemNucleoRepository(): ItemNucleoRepository{
+        return ItemNucleoRepository()
+    }
+
+    @Provides
     fun provideListaPedidoViewModelFactory(cadastraPedidoController: CadastraPedidoController): CadastraPedidoViewModelFactory {
         return CadastraPedidoViewModelFactory(
             cadastraPedidoController
