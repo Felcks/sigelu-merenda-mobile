@@ -74,7 +74,10 @@ class ListaPedidoAdapter(private val context: Context,
     }
 
     fun updateAllItens(list: List<Pedido>){
-        filterList.addAll(list)
+        filterList.apply {
+            clear()
+            addAll(list)
+        }
         this.list = list
         notifyDataSetChanged()
     }
