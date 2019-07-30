@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_confirma
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
@@ -15,29 +15,30 @@ import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemNucleo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_confirma_cadastro_pedido.*
+import kotlinx.android.synthetic.main.activity_confirma_cadastra_pedido_nucleo.*
 import java.lang.Exception
 import javax.inject.Inject
 
-class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
+class ConfirmaCadastraPedidoNucleoActivity: AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: CadastraPedidoViewModelFactory
-    var viewModel: ConfirmaCadastroPedidoViewModel? = null
+    var viewModel: ConfirmaCadastraPedidoNucleoViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_confirma_cadastro_pedido)
+        setContentView(R.layout.activity_confirma_cadastra_pedido_nucleo)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaCadastroPedidoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaCadastraPedidoNucleoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
         viewModel!!.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
@@ -46,11 +47,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         val pedido = viewModel!!.getPedido()
         tv_origem.text = pedido?.origem?.tracoSeVazio()
         tv_destino.text = pedido?.destino?.tracoSeVazio()
-        if(pedido?.origemTipo == "Fornecedor"){
-            tv_contrato.visibility = View.VISIBLE
-            tv_contrato_layout.visibility = View.VISIBLE
-            tv_contrato.text = pedido.contratoEstoque?.numeroContrato
-        }
 
         ll_layout_anterior.setOnClickListener {
             this.clicouAnterior()
@@ -101,7 +97,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result as List<ItemContrato>)
+            this.iniciarAdapter(result as List<ItemNucleo>)
         }
     }
 
@@ -204,12 +200,12 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         this.errorDialog?.show()
     }
 
-    private fun iniciarAdapter(list: List<ItemContrato>){
+    private fun iniciarAdapter(list: List<ItemNucleo>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemContratoAdapter(applicationContext, list)
+        val adapter = ListaItemNucleoAdapter(applicationContext, list)
         rv_lista.adapter = adapter
     }
 

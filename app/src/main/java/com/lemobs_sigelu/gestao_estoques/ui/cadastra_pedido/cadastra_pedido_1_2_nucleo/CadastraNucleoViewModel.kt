@@ -17,25 +17,25 @@ class CadastraNucleoViewModel(val controller: CadastraPedidoController): ViewMod
     val responseNucleos = MutableLiveData<Response>()
 
 
-        fun carregaListaNucleo(){
+    fun carregaListaNucleo(){
 
-                disposables.add(controller.carregaListaNucleo()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
-                    .subscribe(
-                        { result ->
-                            responseNucleos.value = Response.success(result)
-                        },
-                        { throwable ->
-                            responseNucleos.value = Response.error(throwable)
-                        }
-                    )
+            disposables.add(controller.carregaListaNucleo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
+                .subscribe(
+                    { result ->
+                        responseNucleos.value = Response.success(result)
+                    },
+                    { throwable ->
+                        responseNucleos.value = Response.error(throwable)
+                    }
                 )
-        }
+            )
+    }
 
+    fun confirmaFornecedorContrato(origem: Local?, destino: Local?){
 
-
-
-
+        return controller.confirmaDestinoDePedido(origem, destino, null, false)
+    }
 }

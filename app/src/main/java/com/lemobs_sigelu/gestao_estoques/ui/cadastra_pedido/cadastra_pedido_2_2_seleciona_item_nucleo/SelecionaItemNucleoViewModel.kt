@@ -1,20 +1,17 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_seleciona_item
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemNucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by felcks on Jun, 2019
- */
-class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoController): ViewModel() {
+class SelecionaItemNucleoViewModel  (private val controller: CadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -32,21 +29,20 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
 
         val tipoPedido = controller.getTipoPedido()
 
-        if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO) {
-            this.carregaListaItensContrato()
+        if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO) {
+            this.carregaListaItensNucleo()
         }
     }
 
-    private fun carregaListaItensContrato(){
+    private fun carregaListaItensNucleo(){
 
-        disposables.add(controller.carregaListaItensContrato()
+        disposables.add(controller.carregaListaItensNucleo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
                     loading.set(false)
-                    controller.armazenarListaItemContrato(result)
                     response.value = Response.success(result)
                 },
                 { throwable ->
@@ -56,19 +52,15 @@ class SelecionaItemPedidoViewModel (private val controller: CadastraPedidoContro
         )
     }
 
-    fun getItensAdicionados(): List<Int>{
-        return controller.getItensJaCadastrados()
+    fun getItensAdicionadosNucleo(): List<Int>{
+        return controller.getItensJaCadastradosNucleo()
     }
 
     fun selecionaItem(itemID: Int): Boolean{
-        return controller.selecionaItem(itemID)
+        return controller.selecionaItemNucleo(itemID)
     }
 
-    fun confirmaSelecaoItens(listaAdicao: List<ItemContrato>, listaRemocao: List<ItemContrato>){
-        controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
-    }
-
-    fun salvaRascunho(){
-        return controller.salvaPedidoRascunho()
+    fun confirmaSelecaoItens(listaAdicao: List<ItemNucleo>, listaRemocao: List<ItemNucleo>){
+        controller.confirmaSelecaoItensNucleo(listaAdicao, listaRemocao)
     }
 }

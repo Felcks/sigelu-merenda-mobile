@@ -17,7 +17,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
                                                    private val obraRepository: ObraRepository,
                                                    private val contratoRepository: ContratoRepository,
                                                    private val itemContratoRepository: ItemContratoRepository,
-                                                   private val pedidoRepository: PedidoRepository) {
+                                                   private val pedidoRepository: PedidoRepository,
+                                                   private val itemNucleoRepository: ItemNucleoRepository) {
     companion object {
         var pedidoCadastro: PedidoCadastro? = null
         var tipoPedido: TipoPedido? = null
@@ -35,7 +36,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return Companion.tipoPedido!!
     }
 
-    fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?) {
+    fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?, contratoObrigatorio: Boolean = true) {
 
         if(origem == null || destino == null)
             throw CampoNaoPreenchidoException()
@@ -44,7 +45,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
             throw Pedido.OrigemEDestinoIguaisException()
         }
 
-        if(origem.tipo == "Fornecedor" && contrato == null){
+        if(origem.tipo == "Fornecedor" && (contrato == null && contratoObrigatorio)){
             throw Pedido.SemContratoException()
         }
 
@@ -96,6 +97,16 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return itemContratoRepository.carregaListaItemContrato(contratoID)
     }
 
+    fun carregaListaItensNucleo(): Observable<List<ItemNucleo>>{
+
+        val origemID = pedidoCadastro?.origemID
+
+        if(origemID == null || origemID == 0)
+            throw Exception("")
+
+        return itemNucleoRepository.getListaItemNucleo(origemID)
+    }
+
     fun getTipoPedido(): TipoPedido?{
         return pedidoCadastro?.getTipoPedido()
     }
@@ -105,10 +116,11 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
 
     fun selecionaItem(itemContratoID: Int): Boolean{
-
         return pedidoCadastro?.listaItemContrato?.map { it.id }?.contains(itemContratoID) != true
-//        val itemContrato = itensContrato.first { it.id == itemContratoID }
-//        pedidoCadastro?.listaItemContrato?.add(itemContrato)
+    }
+
+    fun selecionaItemNucleo(itemID: Int): Boolean{
+        return pedidoCadastro?.listaItemNucleo?.map { it.id }?.contains(itemID) != true
     }
 
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemContrato>, listaParaRemover: List<ItemContrato>){
@@ -118,12 +130,27 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         pedidoCadastro?.listaItemContrato?.addAll(listaParaAdicionar)
     }
 
+    fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemNucleo>, listaParaRemover: List<ItemNucleo>){
+
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        pedidoCadastro?.listaItemNucleo?.removeAll { idItensParaRemover.contains(it.id) }
+        pedidoCadastro?.listaItemNucleo?.addAll(listaParaAdicionar)
+    }
+
     fun getItensJaCadastrados(): List<Int>{
 
         if(pedidoCadastro?.listaItemContrato == null)
             return listOf<Int>()
 
         return pedidoCadastro?.listaItemContrato?.map { it.itemEstoqueID ?: 0 }!!
+    }
+
+    fun getItensJaCadastradosNucleo(): List<Int>{
+
+        if(pedidoCadastro?.listaItemNucleo == null)
+            return listOf<Int>()
+
+        return pedidoCadastro?.listaItemNucleo?.map { it.id ?: 0 }!!
     }
 
     fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
@@ -148,12 +175,42 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         }
     }
 
+    fun confirmaCadastroMaterialNucleo(listaValoresRecebidos: List<Double>){
+
+        if(pedidoCadastro?.listaItemNucleo == null)
+            throw Exception()
+
+        var count = 0
+        for(item in pedidoCadastro!!.listaItemNucleo){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeDisponivel ?: 0.0){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
+    }
+
     fun getListaItensContrato(): List<ItemContrato>{
         return pedidoCadastro?.listaItemContrato ?: listOf()
     }
 
+    fun getListaItensNucleo(): List<ItemNucleo>{
+        return pedidoCadastro?.listaItemNucleo ?: listOf()
+    }
+
     fun getListaItensAdicionados(): List<ItemContrato>{
         return pedidoCadastro?.listaItemContrato!!.toList()
+    }
+
+    fun getListaItensAdicionadosNucleo(): List<ItemNucleo>{
+        return pedidoCadastro?.listaItemNucleo!!.toList()
     }
 
     fun removeItem(itemContratoID: Int){
@@ -161,6 +218,17 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         val item = pedidoCadastro?.listaItemContrato?.find { it.id == itemContratoID }
         if(item != null){
             pedidoCadastro?.listaItemContrato?.remove(item)
+        }
+        else{
+            throw Exception("Erro")
+        }
+    }
+
+    fun removeItemNucleo(itemNucleoID: Int){
+
+        val item = pedidoCadastro?.listaItemNucleo?.find { it.id == itemNucleoID }
+        if(item != null){
+            pedidoCadastro?.listaItemNucleo?.remove(item)
         }
         else{
             throw Exception("Erro")

@@ -9,6 +9,7 @@ data class Situacao (
 
     fun getColor(): Int{
         return when(situacao_id){
+            SITUACAO_RASCUNHO -> R.color.pedido_rascunho
             SITUACAO_EM_ANALISE_ID -> R.color.pedido_em_analise
             SITUACAO_APROVADO_ID -> R.color.pedido_aprovado
             SITUACAO_ENTREGUE_ID -> R.color.pedido_entregue

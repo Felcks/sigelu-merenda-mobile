@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import java.util.*
 
 @Entity(tableName = "pedido_cadastro")
@@ -43,23 +45,25 @@ data class PedidoCadastro(
 
     val listaItemContrato: MutableList<ItemContrato> = mutableListOf()
 
+    val listaItemNucleo: MutableList<ItemNucleo> = mutableListOf()
+
     var isEdicao: Boolean = false
 
     fun getTipoPedido(): TipoPedido{
 
         if(this.origemTipo == "Núcleo" && this.destinoTipo == "Núcleo"){
-            return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
-        }
 
-        if(this.origemTipo == "Núcleo" && this.destinoTipo == "Obra"){
-            return TipoPedido.MEU_NUCLEO_PARA_OBRA
+            if(this.origem == AppSharedPreferences.getNucleoNome(App.instance))
+                return TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO
+            else
+                return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
         }
 
         if(this.origemTipo == "Fornecedor"){
             return TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
         }
 
-        return TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO
+        return TipoPedido.MEU_NUCLEO_PARA_OBRA
     }
 
     fun toPedido(): Pedido{

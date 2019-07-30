@@ -234,10 +234,20 @@ class PedidoRepository {
                 else -> Tupla(null, null)
             }
 
-            val situacaoID = when(pedidoCadastro.origemTipo){
-                "Núcleo" -> SITUACAO_APROVADO_ID
-                "Fornecedor" -> SITUACAO_EM_ANALISE_ID
-                else -> 2
+            val itens = when(pedidoCadastro.origemTipo){
+
+                "Fornecedor" -> pedidoCadastro.listaItemContrato.map {
+                    ItemPedidoCadastroDataRequest(
+                        it.itemEstoqueID ?: 0,
+                        it.quantidadeRecebida ?: 0.0
+                    )
+                }
+                else -> pedidoCadastro.listaItemNucleo.map {
+                    ItemPedidoCadastroDataRequest(
+                        it.id,
+                        it.quantidadeRecebida ?: 0.0
+                    )
+                }
             }
 
 
@@ -252,14 +262,7 @@ class PedidoRepository {
                     destinoNucleoID,
                     pedidoCadastro.contratoEstoque?.id,
                     isRascunho,
-                    pedidoCadastro.listaItemContrato.map {
-                        ItemPedidoCadastroDataRequest(
-                            it.categoria?.categoria_id ?: 0,
-                            it.itemEstoqueID ?: 0,
-                            it.precoUnidade ?: 0.0,
-                            it.quantidadeRecebida ?: 0.0
-                        )
-                    }
+                    itens
                 )
 
                 if(pedidoCadastro.isEdicao)
@@ -277,14 +280,7 @@ class PedidoRepository {
                     pedidoCadastro.destinoTipo ?: "",
                     destinoNucleoID,
                     isRascunho,
-                    pedidoCadastro.listaItemContrato.map {
-                        ItemPedidoCadastroDataRequest(
-                            it.categoria?.categoria_id ?: 0,
-                            it.itemEstoqueID ?: 0,
-                            it.precoUnidade ?: 0.0,
-                            it.quantidadeRecebida ?: 0.0
-                        )
-                    }
+                    itens
                 )
                 if(pedidoCadastro.isEdicao)
                     api.putPedidoNucleoNucleo(pedidoCadastro.id ?: 0, pedidoDataRequest)
@@ -301,14 +297,7 @@ class PedidoRepository {
                     pedidoCadastro.destinoTipo ?: "",
                     destinoObraID,
                     isRascunho,
-                    pedidoCadastro.listaItemContrato.map {
-                        ItemPedidoCadastroDataRequest(
-                            it.categoria?.categoria_id ?: 0,
-                            it.itemEstoqueID ?: 0,
-                            it.precoUnidade ?: 0.0,
-                            it.quantidadeRecebida ?: 0.0
-                        )
-                    }
+                    itens
                 )
 
                 if(pedidoCadastro.isEdicao)

@@ -65,22 +65,32 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
                   android:label="Cadastrar Pedido" />
 
+        <!-- FLUXO FORNECEDOR - NUCLEO -->
         <!-- SELECIONA ITEM ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_seleciona_item.SelecionaItemPedidoActivity"
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity"
                   android:label="Selecione os itens"/>
 
         <!-- CADASTRA ITEM PEDIDO ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_cadastra_item.CadastraItemPedidoActivity"
-                  android:label="Preencha a quantidade solicitada"/>
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_1_cadastra_item_contrato.CadastraItemPedidoActivity"
+                  android:label="Selecione as quantidades"/>
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
-        <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_confirma.ConfirmaCadastroPedidoActivity"
+        <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_1_confirma.ConfirmaCadastroPedidoActivity"
                   android:label="Confirme informações"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
 
+        <!-- FLUXO NUCLEO - OBRA ou NUCLEO - NUCLEO -->
+        <!-- SELECIONA ITEM ACTIVITY -->
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity"
+                  android:label="Selecione os itens"/>
 
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoActivity"
+                  android:label="Selecione as quantidades"/>
+
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity"
+                  android:label="Confirme informações"/>
 
 
 
