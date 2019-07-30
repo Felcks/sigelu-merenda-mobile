@@ -102,7 +102,7 @@ class ListaEnvioFragment : Fragment() {
 
         viewModel!!.loadingEnvios.set(false)
         if(viewModel!!.quantidadeEnviosCarregando() <= 0){
-            this.iniciarAdapter(viewModel!!.envios())
+            //this.iniciarAdapter(viewModel!!.envios())
         }
     }
 
