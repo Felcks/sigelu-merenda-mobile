@@ -7,6 +7,9 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -39,6 +42,8 @@ class ListaPedidoActivity: AppCompatActivity() {
     var viewModel: ListaPedidoViewModel? = null
 
     var adapter: ListaPedidoAdapter? = null
+    /* Pesquisa */
+    private var pesquisando = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -66,6 +71,45 @@ class ListaPedidoActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+        this.iniciaCampoBusca()
+    }
+
+    private fun iniciaCampoBusca(){
+
+        tv_busca.inputType = InputType.TYPE_CLASS_TEXT
+
+        tv_busca.addTextChangedListener( object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+                filtraBusca(tv_busca.text.toString())
+
+                if(tv_busca.text.isNotEmpty()){
+                    img_busca.setBackgroundResource(R.drawable.ic_cancel_gray)
+                }
+                else{
+                    img_busca.setBackgroundResource(R.drawable.ic_magn_glass)
+                }
+                pesquisando = tv_busca.text.isNotEmpty()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+        img_busca.setOnClickListener {
+
+            if(pesquisando){
+                limpaBusca()
+            }
+        }
+    }
+
+    private fun filtraBusca(text: String) {
+        adapter?.filtraBusca(text)
+    }
+
+    private fun limpaBusca(){
+        tv_busca.text.clear()
     }
 
     private fun processResponse(response: Response?) {

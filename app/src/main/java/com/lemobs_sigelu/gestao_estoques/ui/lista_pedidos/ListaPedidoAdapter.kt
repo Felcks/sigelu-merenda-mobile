@@ -12,17 +12,18 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_PARCIAL_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDiaMesAno
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
-class ListaPedidoAdapter(val context: Context,
-                         var list: List<Pedido>,
+class ListaPedidoAdapter(private val context: Context,
+                         private var list: List<Pedido>,
                          private val envioOuRecebimentoClickListener: OneIntParameterClickListener,
-                         private val visualizarPedidoClickListener: OneIntParameterClickListener
-): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
+                         private val visualizarPedidoClickListener: OneIntParameterClickListener): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val filterList = mutableListOf<Pedido>()
 
     private var drawableIconeEnvio: Drawable? = null
     private var drawableIconeRecebimento: Drawable? = null
@@ -35,13 +36,11 @@ class ListaPedidoAdapter(val context: Context,
         return MyViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int =  filterList.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val item = this.list[position]
+        val item = this.filterList[position]
 
         holder.itemView.tv_titulo.text = item.getCodigoFormatado()
         holder.itemView.tv_origem.text = item.getOrigemFormatado().tracoSeVazio()
@@ -75,6 +74,7 @@ class ListaPedidoAdapter(val context: Context,
     }
 
     fun updateAllItens(list: List<Pedido>){
+        filterList.addAll(list)
         this.list = list
         notifyDataSetChanged()
     }
@@ -83,5 +83,30 @@ class ListaPedidoAdapter(val context: Context,
         return this.list.first { it.id == id }
     }
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
+    fun filtraBusca(text: String) {
+
+        filterList.removeAll { true }
+
+        for (item in list) {
+
+            val dataPedido = item.dataPedido?.toDiaMesAno()
+            if (text == "") {
+                filterList.add(item)
+            }
+            else if(item.codigo?.contains(text, ignoreCase = true) == true ||
+                item.origem?.contains(text, ignoreCase = true) == true ||
+                item.origemNome?.contains(text, ignoreCase = true) == true ||
+                item.destino?.contains(text, ignoreCase = true) == true ||
+                item.destinoNome?.contains(text, ignoreCase = true) == true ||
+                item.situacao?.situacao_nome?.contains(text, ignoreCase = true) == true ||
+                dataPedido?.contains(text, ignoreCase = true) == true){
+
+                filterList.add(item)
+            }
+        }
+
+        notifyDataSetChanged()
+    }
+
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

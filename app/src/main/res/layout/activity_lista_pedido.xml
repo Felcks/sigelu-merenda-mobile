@@ -30,7 +30,7 @@
                 app:layout_constraintRight_toRightOf="parent">
 
             <EditText
-                    android:id="@+id/txt_busca"
+                    android:id="@+id/tv_busca"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
@@ -69,11 +69,14 @@
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_lista"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:isVisible="@{!viewModel.loading}"
                 android:layout_marginTop="@dimen/espacamento_grande"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
                 app:layout_constraintTop_toBottomOf="@+id/ll_busca"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
