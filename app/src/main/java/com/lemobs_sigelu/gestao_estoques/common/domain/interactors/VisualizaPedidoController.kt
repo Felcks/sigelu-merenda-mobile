@@ -12,7 +12,8 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
                                                     private val itemPedidoRepository: ItemPedidoRepository,
                                                     private val envioRepository: EnvioRepository,
                                                     private val itemEnvioRepository: ItemEnvioRepository,
-                                                    private val itemRecebimentoRepository: ItemRecebimentoRepository) {
+                                                    private val itemRecebimentoRepository: ItemRecebimentoRepository,
+                                                    private val itemRecebimentoRepository2: ItemRecebimentoRepository2) {
 
     fun getPedido(): Observable<Pedido> {
 
@@ -72,5 +73,9 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
 
     fun apagaListaItemRecebimentoAnteriores(){
         itemRecebimentoRepository.apagaTodosItemRecebimento()
+    }
+
+    fun getListaItemRecebimento(recebimentoID: Int): Observable<List<ItemRecebimento>>{
+        return itemRecebimentoRepository2.getListaItemRecebimento(recebimentoID)
     }
 }

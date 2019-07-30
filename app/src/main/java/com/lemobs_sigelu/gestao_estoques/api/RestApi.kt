@@ -6,6 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataRespon
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.empresa.EmpresaDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.item_recebimento.ItemRecebimentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
@@ -183,4 +184,7 @@ class RestApi {
     }
 
 
+    fun getListaItemRecebimento(recebimentoID: Int): Call<List<ItemRecebimentoDataResponse>>{
+        return api.getListaItemRecebimento(auth, recebimentoID)
+    }
 }

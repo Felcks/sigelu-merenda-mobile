@@ -10,4 +10,5 @@ class EnvioDataResponse (val id: Int,
                          val hora_saida: String?,
                          val data_recebimento: String?,
                          val flag_entregue: Boolean?,
-                         val responsavel: ResponsavelDataResponse?)
+                         val responsavel: ResponsavelDataResponse?,
+                         val recebimento_estoque: RecebimentoDataResponse?)

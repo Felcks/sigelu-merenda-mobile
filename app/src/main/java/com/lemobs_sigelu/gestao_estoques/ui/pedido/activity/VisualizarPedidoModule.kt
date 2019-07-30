@@ -37,4 +37,9 @@ class VisualizarPedidoModule {
     fun provideItemRecebimentoRepository(): ItemRecebimentoRepository{
         return ItemRecebimentoRepository()
     }
+
+    @Provides
+    fun provideItemRecebimentoRepository2(): ItemRecebimentoRepository2{
+        return ItemRecebimentoRepository2()
+    }
 }

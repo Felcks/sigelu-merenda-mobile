@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import kotlinx.android.synthetic.main.item_itemenvio.view.*
 
 /**
@@ -32,10 +33,14 @@ class ListaItemEnvioAdapter (val context: Context,
         val item = list[position]
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.tv_codigo.text = item.itemEstoque?.codigo
+        holder.itemView.tv_codigo.text = item.itemEstoque?.codigo?.tracoSeVazio()
         holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
-        holder.itemView.tv_preco.text = item.precoUnidade.toString()
-        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
+        holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
+
+        if(item.quantidadeRecebida != null)
+            holder.itemView.tv_material_recebido.text = "${item.quantidadeRecebida.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
+        else
+            holder.itemView.tv_material_recebido.text = "-"
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

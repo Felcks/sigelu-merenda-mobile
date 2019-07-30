@@ -30,7 +30,7 @@ class VisualizarPedidoPageAdapter constructor(fm: FragmentManager, visualizarPed
     override fun getPageTitle(position: Int): CharSequence =  when(position) {
         0 -> "Geral"
         1 -> "Materiais"
-        2 -> "Envios"
+        2 -> "Mov."
         3 -> "Situações"
         else -> "Situações"
     }

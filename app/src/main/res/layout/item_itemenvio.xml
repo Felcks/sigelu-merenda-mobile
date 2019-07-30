@@ -46,53 +46,17 @@
         <TextView android:id="@+id/tv_codigo"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="0"
+                  android:text="-"
                   android:textColor="@color/primary_text"
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_codigo_layout"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_codigo_layout"/>
 
-
-
-        <TextView
-                android:id="@+id/tv_preco_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preço: "
-                android:layout_marginTop="@dimen/espacamento_curto"
-                app:layout_constraintTop_toBottomOf="@id/tv_codigo_layout"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView android:id="@+id/tv_preco"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="0"
-                  android:textColor="@color/primary_text"
-                  android:layout_marginLeft="@dimen/espacamento_curto"
-                  app:layout_constraintLeft_toRightOf="@id/tv_preco_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_preco_layout"/>
-
-        <TextView android:id="@+id/tv_material_recebido_layout"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Recebido: "
-                  app:layout_constraintTop_toBottomOf="@id/tv_preco_layout"
-                  app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView android:id="@+id/tv_material_recebido"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/primary_text"
-                  android:text="0"
-                  android:layout_marginLeft="@dimen/espacamento_curto"
-                  app:layout_constraintLeft_toRightOf="@id/tv_material_recebido_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"/>
-
         <TextView android:id="@+id/tv_material_quantidade_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Quantidade: "
-                  app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
+                  android:text="Enviado: "
+                  app:layout_constraintTop_toBottomOf="@id/tv_codigo_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_material_quantidade"
@@ -103,6 +67,23 @@
                   android:layout_marginLeft="@dimen/espacamento_curto"
                   app:layout_constraintLeft_toRightOf="@id/tv_material_quantidade_layout"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_material_quantidade_layout"/>
+
+
+        <TextView android:id="@+id/tv_material_recebido_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Recebido: "
+                  app:layout_constraintTop_toBottomOf="@id/tv_material_quantidade_layout"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_material_recebido"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/primary_text"
+                  android:text="-"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_material_recebido_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
