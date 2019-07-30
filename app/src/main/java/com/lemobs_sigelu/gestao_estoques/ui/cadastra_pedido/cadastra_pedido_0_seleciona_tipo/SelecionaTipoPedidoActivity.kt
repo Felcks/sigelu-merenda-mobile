@@ -16,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
 import javax.inject.Inject
@@ -74,6 +75,10 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
         }
         else if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO){
             val intent = Intent(this, CadastraNucleoActivity::class.java)
+            startActivity(intent)
+        }
+        else if(tipoPedido == TipoPedido.MEU_NUCLEO_PARA_OBRA){
+            val intent = Intent(this, CadastraObraActivity::class.java)
             startActivity(intent)
         }
     }
