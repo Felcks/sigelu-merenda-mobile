@@ -49,6 +49,13 @@ class PedidoRepository {
                         else -> Tupla(null, null)
                     }
 
+                    val dataUltimoEnvio = if(this.data_ultimo_envio != null && this.hora_ultimo_envio != null){
+                        "${this.data_ultimo_envio}/${this.hora_ultimo_envio}".anoMesDiaHoraMinutoSegundoToDate()
+                    }
+                    else{
+                        null
+                    }
+
                     Pedido(
                         this.id,
                         this.codigo ?: "",
@@ -58,9 +65,9 @@ class PedidoRepository {
                         destinoID,
                         origemNome,
                         destinoNome,
-                        null,
-                        null,
-                        null,
+                        this.created_at?.createdAtToDate(),
+                        dataUltimoEnvio,
+                        this.data_ultimo_recebimento?.createdAtToDate(),
                         Situacao(
                             this.situacao.id,
                             this.situacao.nome

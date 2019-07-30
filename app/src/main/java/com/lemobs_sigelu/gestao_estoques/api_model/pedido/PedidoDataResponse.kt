@@ -17,4 +17,8 @@ class PedidoDataResponse (val id: Int,
                           val destino_nucleo: DestinoNucleoDataResponse?,
                           val origem_nucleo: OrigemNucleoDataResponse?,
                           val origem_fornecedor: OrigemFornecedorDataResponse?,
-                          val contrato_estoque: ContratoEstoqueDataResponse?)
+                          val contrato_estoque: ContratoEstoqueDataResponse?,
+                          val hora_ultimo_envio: String?,
+                          val data_ultimo_envio: String?,
+                          val data_ultimo_recebimento: String?,
+                          val created_at: String?)
