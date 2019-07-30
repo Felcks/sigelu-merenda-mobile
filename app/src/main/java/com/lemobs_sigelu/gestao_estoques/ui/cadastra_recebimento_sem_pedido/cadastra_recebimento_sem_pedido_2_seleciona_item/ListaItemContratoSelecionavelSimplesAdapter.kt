@@ -25,6 +25,7 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
 
     val itensParaAdicao = mutableListOf<ItemEstoque>()
     val itensParaRemocao = mutableListOf<ItemEstoque>()
+    var mPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
         colorAdicionarItem = ContextCompat.getColor(context, R.color.fundo_item_adicionado)
@@ -45,23 +46,22 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_name.text = item.nomeAlternativo
-        holder.itemView.btn_add.setOnClickListener {
-            itemClickListener.onClick(item.id, position) }
 
+        holder.itemView.ll_background.setOnClickListener {
+            itemClickListener.onClick(item.id, position)
+            mPosition = position
+            notifyItemChanged(mPosition)}
 
+        //se a lista contem um item, pinta de verde
         if(itensParaAdicao.contains(item)){
             holder.itemView.ll_background.setBackgroundColor(colorAdicionarItem!!)
             holder.itemView.tv_name.setTextColor(colorBranco!!)
             holder.itemView.btn_add.background = context.resources.getDrawable(R.drawable.ic_minus_rounded_white)
         }
-        else if(itensParaRemocao.contains(item)){
-            holder.itemView.ll_background.setBackgroundColor(colorRemoverItem!!)
-            holder.itemView.tv_name.setTextColor(colorBranco!!)
-            holder.itemView.btn_add.background = context.resources.getDrawable(R.drawable.ic_plus_rounded_white)
-        }
         else{
             holder.itemView.ll_background.setBackgroundColor(colorBranco!!)
             holder.itemView.tv_name.setTextColor(colorSecundaryText!!)
+
 
             if(itensJaCadastrados.contains(item.id)) {
                 holder.itemView.btn_add.background = context.resources.getDrawable(R.drawable.ic_minus_rounded)
@@ -75,11 +75,17 @@ class ListaItemContratoSelecionavelSimplesAdapter(private val context: Context,
     fun adicionaItem(position: Int){
 
         val item = this.list[position]
+
+
+        //se algum item é mercado, possibilitar a remoção dele
         if(itensParaAdicao.contains(item)){
             itensParaAdicao.remove(item)
             notifyItemChanged(position)
         }
-        else {
+        //senao, adicionar item
+        else{
+            itensParaAdicao.clear()
+            notifyItemChanged(mPosition)
             itensParaAdicao.add(item)
             notifyItemChanged(position)
         }
