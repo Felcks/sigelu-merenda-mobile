@@ -7,10 +7,10 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
+import android.view.*
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
@@ -39,6 +40,8 @@ class ListaPedidoActivity: AppCompatActivity() {
     var viewModel: ListaPedidoViewModel? = null
 
     var adapter: ListaPedidoAdapter? = null
+    /* Pesquisa */
+    private var pesquisando = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -66,6 +69,54 @@ class ListaPedidoActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+        this.iniciaCampoBusca()
+    }
+
+    private fun iniciaCampoBusca(){
+
+        tv_busca.inputType = InputType.TYPE_CLASS_TEXT
+
+        tv_busca.addTextChangedListener( object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+                filtraBusca(tv_busca.text.toString())
+
+                if(tv_busca.text.isNotEmpty()){
+                    img_busca.setBackgroundResource(R.drawable.ic_cancel_gray)
+                }
+                else{
+                    img_busca.setBackgroundResource(R.drawable.ic_magn_glass)
+                }
+                pesquisando = tv_busca.text.isNotEmpty()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+        img_busca.setOnClickListener {
+
+            if(pesquisando){
+                limpaBusca()
+            }
+
+            tv_busca.esconderTeclado()
+        }
+
+        tv_busca.setOnKeyListener { _, keyCode, event ->
+            if ((event?.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                tv_busca.esconderTeclado()
+            }
+            false
+        }
+    }
+
+    private fun filtraBusca(text: String) {
+        adapter?.filtraBusca(text)
+    }
+
+    private fun limpaBusca(){
+        tv_busca.text.clear()
     }
 
     private fun processResponse(response: Response?) {
@@ -156,6 +207,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         return when (item?.itemId) {
             R.id.btn_update -> {
+                limpaBusca()
                 viewModel!!.carregaListaPedido()
                 true
             }
