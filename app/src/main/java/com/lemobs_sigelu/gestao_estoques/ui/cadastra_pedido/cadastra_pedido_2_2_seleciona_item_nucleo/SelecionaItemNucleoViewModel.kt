@@ -43,29 +43,24 @@ class SelecionaItemNucleoViewModel  (private val controller: CadastraPedidoContr
             .subscribe(
                 { result ->
                     loading.set(false)
-//                    controller.armazenarListaItemContrato(result)
-//                    response.value = Response.success(result)
+                    response.value = Response.success(result)
                 },
                 { throwable ->
-                    //response.value = Response.error(throwable)
+                    response.value = Response.error(throwable)
                 }
             )
         )
     }
 
-    fun getItensAdicionados(): List<Int>{
-        return controller.getItensJaCadastrados()
+    fun getItensAdicionadosNucleo(): List<Int>{
+        return controller.getItensJaCadastradosNucleo()
     }
 
     fun selecionaItem(itemID: Int): Boolean{
-        return controller.selecionaItem(itemID)
+        return controller.selecionaItemNucleo(itemID)
     }
 
     fun confirmaSelecaoItens(listaAdicao: List<ItemNucleo>, listaRemocao: List<ItemNucleo>){
         controller.confirmaSelecaoItensNucleo(listaAdicao, listaRemocao)
-    }
-
-    fun salvaRascunho(){
-        return controller.salvaPedidoRascunho()
     }
 }

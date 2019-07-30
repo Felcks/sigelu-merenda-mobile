@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_sele
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoModule
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
@@ -77,6 +78,7 @@ abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindCadastraPedidoDestinoActivity(): CadastraPedidoDestinoActivity
 
+    /* Fluxo do pedido para fornecedor */
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindSelecionaItemPedidoActivity(): SelecionaItemPedidoActivity
 
@@ -85,6 +87,10 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
     abstract fun bindConfirmaCadastroPedidoActivity(): ConfirmaCadastroPedidoActivity
+
+    /* Fluxo do pedido para núcleo ou para obra */
+    @ContributesAndroidInjector(modules = arrayOf(CadastraPedidoModule::class))
+    abstract fun bindSelecionaItemNucleoActivity(): SelecionaItemNucleoActivity
 
 
     /* Cadastro de Envio */

@@ -9,4 +9,4 @@ class ItemNucleoDataResponse (val id: Int,
                               val descricao: String?,
                               val quantidade_disponivel: Double?,
                               val unidade_medida_id: Int?,
-                              val unidadeMedida: UnidadeMedidaDataResponse)
+                              val unidade_medida: UnidadeMedidaDataResponse)

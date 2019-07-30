@@ -32,8 +32,8 @@ class ItemNucleoRepository {
                                 it.quantidade_disponivel,
                                 UnidadeMedida(
                                     it.unidade_medida_id ?: 0,
-                                    it.unidadeMedida.nome ?: "",
-                                    it.unidadeMedida.sigla ?: ""
+                                    it.unidade_medida.nome ?: "",
+                                    it.unidade_medida.sigla ?: ""
                                 )
                             )
                         }
