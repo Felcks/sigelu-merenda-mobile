@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import android.arch.persistence.room.*
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import java.util.*
 
 /**
@@ -42,6 +43,12 @@ class Envio (
     var pedido: Pedido? = null
 
     @Ignore
+    var recebimentoID: Int? = null
+
+    @Ignore
+    var recebimento: Recebimento? = null
+
+    @Ignore
     constructor(id: Int,
                 pedidoID: Int,
                 situacao: String,
@@ -53,5 +60,23 @@ class Envio (
                 itens: List<ItemEnvio>): this(id, pedidoID, situacao, codigo, isEntregue, responsavel, dataSaida, dataRecebimento){
 
         this.itens = itens.toMutableList()
+    }
+
+    @Ignore
+    constructor(id: Int,
+                pedidoID: Int,
+                situacao: String,
+                codigo: String,
+                dataSaida: Date?,
+                dataRecebimento: Date,
+                isEntregue: Boolean,
+                responsavel: String,
+                itens: List<ItemEnvio>,
+                recebimentoID: Int?,
+                recebimento: Recebimento?): this(id, pedidoID, situacao, codigo, isEntregue, responsavel, dataSaida, dataRecebimento){
+
+        this.itens = itens.toMutableList()
+        this.recebimentoID = recebimentoID
+        this.recebimento = recebimento
     }
 }

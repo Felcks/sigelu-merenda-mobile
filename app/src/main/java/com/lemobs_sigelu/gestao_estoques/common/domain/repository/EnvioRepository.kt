@@ -38,8 +38,7 @@ class EnvioRepository {
                             null
                         }
 
-                        Envio(
-                            it.id,
+                        Envio(it.id,
                             pedidoID,
                             it.situacao ?: "",
                             it.codigo ?: "",
@@ -47,7 +46,9 @@ class EnvioRepository {
                             it.data_recebimento?.createdAtToDate() ?: Date(),
                             it.flag_entregue ?: false,
                             it.responsavel?.nome ?: "",
-                            listOf()
+                            listOf(),
+                            it.recebimento_estoque?.id,
+                            if (it.recebimento_estoque != null) Recebimento(it.recebimento_estoque.id, null) else null
                         )
                     }
 

@@ -36,7 +36,11 @@ class ListaItemEnvioAdapter (val context: Context,
         holder.itemView.tv_codigo.text = item.itemEstoque?.codigo?.tracoSeVazio()
         holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
         holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
-        holder.itemView.tv_material_quantidade.text = "${item.quantidadeRecebida.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
+
+        if(item.quantidadeRecebida != null)
+            holder.itemView.tv_material_recebido.text = "${item.quantidadeRecebida.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
+        else
+            holder.itemView.tv_material_recebido.text = "-"
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
