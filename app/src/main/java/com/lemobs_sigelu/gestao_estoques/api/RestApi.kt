@@ -101,7 +101,7 @@ class RestApi {
     }
 
     fun getItensDePedido(pedidoEstoqueID: Int): Call<List<ItemPedidoDataResponse>>{
-        return api.getItensDePedido(auth, pedidoEstoqueID)
+        return api.getItensDePedido(auth, pedidoEstoqueID, true)
     }
 
     fun getSituacoesDePedido(pedidoEstoqueID: Int): Call<List<SituacaoPedidoDataResponse>>{

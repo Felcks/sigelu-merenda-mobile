@@ -40,13 +40,16 @@ class ItemPedidoRepository {
                             unidadeMedida)
                     }
 
-                    ItemPedido(it.id,
+                    val item = ItemPedido(it.id,
                         pedidoID,
                         it.quantidade_unidade ?: 0.0,
                         0.0,
                         itemEstoque.id,
                         null,
                         itemEstoque)
+
+                    item.quantidadeRecebida = it.quantidade_disponivel ?: 0.0
+                    item
                 }
 
                 subscribe.onNext(itens)

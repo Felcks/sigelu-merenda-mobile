@@ -42,7 +42,8 @@ interface IRestApi {
 
     @GET("pedido-estoque/{pedido_estoque_id}/item")
     fun getItensDePedido(@Header("Authorization") auth: String,
-                         @Path("pedido_estoque_id") pedido_estoque_id: Int): Call<List<ItemPedidoDataResponse>>
+                         @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                         @Query("flag_disponibilidade") flag_disponibilidade: Boolean): Call<List<ItemPedidoDataResponse>>
 
 
     @GET("pedido-estoque/{pedido_estoque_id}/situacao")

@@ -8,4 +8,5 @@ import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataRespon
 class ItemPedidoDataResponse (val id: Int,
                               val quantidade_unidade: Double?,
                               val pedido_estoque_id: Int,
+                              val quantidade_disponivel: Double?,
                               val item_estoque: ItemEstoqueDataResponse)

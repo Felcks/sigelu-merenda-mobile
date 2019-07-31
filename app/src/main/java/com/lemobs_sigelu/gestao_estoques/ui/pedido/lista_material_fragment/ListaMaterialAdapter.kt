@@ -28,10 +28,13 @@ class ListaMaterialAdapter (val context: Context,
 
         val item = list[position]
 
+        val quantidadeEnviada = (item.quantidadeUnidade ?: item.quantidadeRecebida) - item.quantidadeRecebida
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
         holder.itemView.tv_pedido_total.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
+        holder.itemView.tv_material_recebido.text = "${quantidadeEnviada.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
+        holder.itemView.tv_material_quantidade.text = "${item.quantidadeRecebida.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
