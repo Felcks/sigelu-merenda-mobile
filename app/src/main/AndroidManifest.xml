@@ -189,5 +189,10 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
+        <!-- VISUALIZA ESTOQUE -->
+        <activity android:name= ".ui.estoque.EstoqueActivity"
+                  android:label="Materiais em estoque"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"/>
     </application>
 </manifest>
