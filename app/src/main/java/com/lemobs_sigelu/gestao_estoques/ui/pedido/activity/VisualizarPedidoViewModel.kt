@@ -33,7 +33,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
     val errorMateriais : ObservableField<Boolean> = ObservableField(false)
 
     val loadingEnvios : ObservableField<Boolean> = ObservableField(false)
-    val errorEnviosText : ObservableField<String> = ObservableField("Nenhum envio registrado.")
+    val errorEnviosText : ObservableField<String> = ObservableField("Nenhuma movimentação registrada.")
     val errorEnvios : ObservableField<Boolean> = ObservableField(false)
 
     private var pedido: Pedido? = null

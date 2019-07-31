@@ -25,6 +25,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="@dimen/espacamento_curto"
             android:layout_gravity="center_vertical"
             app:cardElevation="1dp"
             app:contentPadding="15dp">
@@ -92,7 +93,6 @@
 
                 <LinearLayout
                         android:id="@+id/ll_clickable_layout"
-                        android:animateLayoutChanges="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"
@@ -119,6 +119,7 @@
 
                 <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_itens_envio"
+                        android:animateLayoutChanges="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"/>

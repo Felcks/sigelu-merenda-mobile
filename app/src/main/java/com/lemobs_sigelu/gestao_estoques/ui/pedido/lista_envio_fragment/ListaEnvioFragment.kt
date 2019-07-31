@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment
 
+import android.animation.LayoutTransition
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
