@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
@@ -21,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_1_
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import java.lang.Exception
 import javax.inject.Inject
@@ -81,6 +83,8 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
             Status.LOADING -> renderLoading()
             Status.SUCCESS -> {
 
+                pgb_carregamento.visibility = View.GONE
+                tv_error.visibility = View.GONE
                 if(response.data is List<*>){
 
                     if(response.data[0] is ItemContrato)
@@ -95,9 +99,13 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
     }
 
     private fun renderLoading() {
+        pgb_carregamento.visibility = View.VISIBLE
         viewModel!!.loading.set(true)
     }
-    private fun renderError(throwable: Throwable?) {}
+    private fun renderError(throwable: Throwable?) {
+        tv_error.visibility = View.VISIBLE
+        pgb_carregamento.visibility = View.GONE
+    }
 
     private fun renderDataItemContrato(list: List<ItemContrato>) {
 
