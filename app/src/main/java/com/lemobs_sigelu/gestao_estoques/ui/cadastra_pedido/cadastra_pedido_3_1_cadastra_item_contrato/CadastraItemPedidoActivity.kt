@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
@@ -48,12 +49,17 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         mainBinding.executePendingBindings()
 
         val listaItemEnvio = viewModel!!.getItensSolicitados()
-        val layoutManager = LinearLayoutManager(applicationContext)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_lista_material.layoutManager = layoutManager
+        if(listaItemEnvio.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista_material.layoutManager = layoutManager
 
-        this.adapter = ListaItemContratoAdapter(App.instance, listaItemEnvio, removerItemListener)
-        rv_lista_material.adapter = adapter
+            this.adapter = ListaItemContratoAdapter(App.instance, listaItemEnvio, removerItemListener)
+            rv_lista_material.adapter = adapter
+        }
+        else{
+            tv_error.visibility = View.VISIBLE
+        }
 
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
@@ -73,6 +79,9 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
     private fun clicouProximo(){
 
         try {
+            if(this.adapter == null)
+                throw Exception("Nenhum item cadastrado.")
+
             viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
             val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
@@ -89,6 +98,9 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         }
         catch (e: ValorMaiorQuePermitidoException){
             Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
+        }
+        catch (e: Exception){
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
 
