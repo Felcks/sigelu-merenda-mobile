@@ -17,4 +17,11 @@ open class ItemEstoque(
     var nomeAlternativo: String,
 
     @Embedded
-    var unidadeMedida: UnidadeMedida? = null)
+    var unidadeMedida: UnidadeMedida? = null){
+
+    @Ignore
+    var saldoContrato: Double? = 0.0
+
+    @Ignore
+    var quantidadeDisponivel: Double? = 0.0
+}
