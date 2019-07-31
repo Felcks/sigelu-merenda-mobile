@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.api_model.login.LoginDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Permissao
@@ -21,6 +22,7 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
 
     var username: ObservableField<String> = ObservableField("")
     var password: ObservableField<String> = ObservableField("")
+    var versionName: ObservableField<String> = ObservableField("v${BuildConfig.VERSION_NAME}")
     private var loading: ObservableField<Boolean> = ObservableField(false)
 
     override fun onCleared() {

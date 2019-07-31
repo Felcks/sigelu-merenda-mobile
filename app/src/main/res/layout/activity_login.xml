@@ -41,7 +41,7 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_logo"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="v1.0.0"
+                    android:text="@={viewModel.versionName}"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text"/>
