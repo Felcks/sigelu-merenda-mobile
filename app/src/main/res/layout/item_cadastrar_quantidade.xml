@@ -60,6 +60,7 @@
                     android:lines="1"
                     android:digits="1234567890,"
                     android:hint="0"
+                    android:textColorHint="@color/divider"
                     android:maxLength="5"
                     android:inputType="numberDecimal"
                     app:layout_constraintTop_toBottomOf="@id/tv_quantidade_fornecida_layout"

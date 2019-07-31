@@ -56,7 +56,11 @@ class ListaItemContratoAdapter (private val context: Context,
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
-        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+
+        if((item.quantidadeRecebida ?: 0.0)  > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+        else
+            holder.itemView.edt_quantidade_fornecida.setText("")
 
 
         if(item.quantidadeRecebida ?: 0.0 == 0.0){
@@ -64,9 +68,12 @@ class ListaItemContratoAdapter (private val context: Context,
         }
         else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade){
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
+            holder.itemView.ll_card_view.setBackgroundColor(colorItemNeutro)
         }
-        else
+        else {
             holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
+            holder.itemView.ll_card_view.setBackgroundColor(colorItemNeutro)
+        }
 
         if(position > ultimaPosicao){
             ultimaPosicao = position
@@ -124,6 +131,7 @@ class ListaItemContratoAdapter (private val context: Context,
                 } else {
                     notifyItemChanged(position)
                     holder.itemView.edt_quantidade_fornecida.clearFocus()
+                    holder.itemView.tv_nome_material.requestFocus()
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
 
