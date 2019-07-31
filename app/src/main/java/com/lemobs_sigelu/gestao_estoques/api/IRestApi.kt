@@ -8,6 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.item_nucleo.ItemNucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.item_recebimento.ItemRecebimentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.nucleo_quantidade_item_estoque.NucleoQuantidadeDeItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
@@ -90,6 +91,10 @@ interface IRestApi {
 
     @GET("estoque/item")
     fun getItensEstoque(@Header("Authorization") auth: String) : Call<List<ItemEstoqueDataResponse>>
+
+    @GET("estoque/item/{item_estoque_id}/nucleo")
+    fun getListaNucleoQuantidadeDeItemEstoque(@Header("Authorization") auth: String,
+                                              @Path("item_estoque_id") item_estoque_id: Int): Call<List<NucleoQuantidadeDeItemEstoqueDataResponse>>
 
     @POST("pedido-estoque")
     fun postPedidoFornecedorNucleo(@Header("Authorization") auth: String,
