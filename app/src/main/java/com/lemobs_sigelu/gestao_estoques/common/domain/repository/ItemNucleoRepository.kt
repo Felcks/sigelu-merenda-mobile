@@ -19,29 +19,21 @@ class ItemNucleoRepository {
 
             if(response.isSuccessful){
 
-                when {
-                    response.body() == null -> subscriber.onNext(listOf())
-                    response.body()!!.isEmpty() -> subscriber.onNext(listOf())
-                    else -> {
-
-                        val lista = response.body()!!.map {
-                            ItemNucleo(it.id,
-                                it.codigo,
-                                it.nome_alternativo,
-                                it.descricao,
-                                it.quantidade_disponivel,
-                                UnidadeMedida(
-                                    it.unidade_medida_id ?: 0,
-                                    it.unidade_medida.nome ?: "",
-                                    it.unidade_medida.sigla ?: ""
-                                )
-                            )
-                        }
-                        subscriber.onNext(lista)
-                        subscriber.onComplete()
-                    }
+                val lista = response.body()!!.map {
+                    ItemNucleo(it.id,
+                        it.codigo,
+                        it.nome_alternativo,
+                        it.descricao,
+                        it.quantidade_disponivel,
+                        UnidadeMedida(
+                            it.unidade_medida_id ?: 0,
+                            it.unidade_medida.nome ?: "",
+                            it.unidade_medida.sigla ?: ""
+                        )
+                    )
                 }
-
+                subscriber.onNext(lista)
+                subscriber.onComplete()
             }
             else{
                 subscriber.onError(Throwable(""))
