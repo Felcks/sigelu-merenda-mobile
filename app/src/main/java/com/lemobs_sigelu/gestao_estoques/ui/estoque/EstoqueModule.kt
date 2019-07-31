@@ -9,10 +9,10 @@ import dagger.Provides
 @Module
 class EstoqueModule {
 
-//    @Provides
-//    fun bindViewModelFactory(controller: EstoqueController): EstoqueViewModelFactory{
-//        return EstoqueViewModelFactory(controller)
-//    }
+    @Provides
+    fun bindViewModelFactory(controller: EstoqueController): EstoqueViewModelFactory{
+        return EstoqueViewModelFactory(controller)
+    }
 
     @Provides
     fun bindItemEstoqueRepository(): ItemEstoqueRepository{
