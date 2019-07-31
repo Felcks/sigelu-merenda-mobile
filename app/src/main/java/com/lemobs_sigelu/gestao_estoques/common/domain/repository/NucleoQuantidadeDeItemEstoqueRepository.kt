@@ -8,7 +8,7 @@ class NucleoQuantidadeDeItemEstoqueRepository {
 
     val api = RestApi()
 
-    fun carregaListaNucleoQuantidade(itemEstoqueID: Int): Observable<List<{
+    fun carregaListaNucleoQuantidade(itemEstoqueID: Int): Observable<List<NucleoQuantidadeDeItemEstoque>>{
 
         return Observable.create { subscriber ->
 
