@@ -87,6 +87,8 @@ class SelecionaItemNucleoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
                 pgb_carregamento.visibility = View.GONE
                 tv_error.visibility = View.GONE
+                rv_lista.visibility = View.VISIBLE
+
                 if(response.data is List<*>){
 
                     if(response.data[0] is ItemNucleo)
@@ -102,13 +104,16 @@ class SelecionaItemNucleoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
     private fun renderLoading() {
         pgb_carregamento.visibility = View.VISIBLE
+        rv_lista.visibility = View.GONE
         viewModel!!.loading.set(true)
     }
+
     private fun renderError(throwable: Throwable?) {
 
         pgb_carregamento.visibility = View.GONE
-        tv_error.text = "Nenhum material disponível neste núcleo."
+        tv_error.text = "Nenhum material disponível."
         tv_error.visibility = View.VISIBLE
+        rv_lista.visibility = View.GONE
     }
 
     private fun renderDataItemContrato(list: List<ItemNucleo>) {

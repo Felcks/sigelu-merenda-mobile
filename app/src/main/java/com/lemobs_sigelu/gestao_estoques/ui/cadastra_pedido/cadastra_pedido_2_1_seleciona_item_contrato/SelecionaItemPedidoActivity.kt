@@ -85,6 +85,8 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
                 pgb_carregamento.visibility = View.GONE
                 tv_error.visibility = View.GONE
+                rv_lista.visibility = View.VISIBLE
+
                 if(response.data is List<*>){
 
                     if(response.data[0] is ItemContrato)
@@ -100,11 +102,14 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
 
     private fun renderLoading() {
         pgb_carregamento.visibility = View.VISIBLE
+        rv_lista.visibility = View.GONE
         viewModel!!.loading.set(true)
     }
+
     private fun renderError(throwable: Throwable?) {
         tv_error.visibility = View.VISIBLE
         pgb_carregamento.visibility = View.GONE
+        rv_lista.visibility = View.GONE
     }
 
     private fun renderDataItemContrato(list: List<ItemContrato>) {

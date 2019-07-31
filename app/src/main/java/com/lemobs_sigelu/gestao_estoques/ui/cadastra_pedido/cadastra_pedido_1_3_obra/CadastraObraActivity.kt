@@ -63,7 +63,7 @@ class CadastraObraActivity:  AppCompatActivity() {
     private fun clicouNoProximo(){
         try{
             if(obraSelecionada == null)
-                throw Exception("Nucleo não selecionado.")
+                throw Exception("Obra não selecionada.")
 
             val obraDestino = this.listaObra[this.obraSelecionada!!]
 
