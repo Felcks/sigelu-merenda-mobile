@@ -1,6 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.widget.EditText
 import com.lemobs_sigelu.gestao_estoques.utils.HourRangeFormat
@@ -75,4 +77,10 @@ fun isConnected(context: Context): Boolean{
     }
 
     return false
+}
+
+fun Activity.reiniciarActivity(){
+    val intent = Intent(this, this::class.java)
+    startActivity(intent)
+    finish()
 }
