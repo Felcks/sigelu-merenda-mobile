@@ -26,12 +26,7 @@ class SelecionaItemNucleoViewModel  (private val controller: CadastraPedidoContr
     }
 
     fun carregaListaItens(){
-
-        val tipoPedido = controller.getTipoPedido()
-
-        if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO) {
-            this.carregaListaItensNucleo()
-        }
+        this.carregaListaItensNucleo()
     }
 
     private fun carregaListaItensNucleo(){

@@ -6,6 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedid
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoViewModel
@@ -46,6 +47,9 @@ class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController):
         }
         if (modelClass.isAssignableFrom(ConfirmaCadastraPedidoNucleoViewModel::class.java!!)) {
             return ConfirmaCadastraPedidoNucleoViewModel(controller) as T
+        }
+        if (modelClass.isAssignableFrom(CadastraObraViewModel::class.java!!)) {
+            return CadastraObraViewModel(controller) as T
         }
 
 
