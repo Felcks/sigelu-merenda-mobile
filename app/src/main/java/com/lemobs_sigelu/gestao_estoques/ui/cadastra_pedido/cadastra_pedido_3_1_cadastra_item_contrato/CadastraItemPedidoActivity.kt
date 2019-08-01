@@ -114,6 +114,8 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
                 viewModel?.removeItem(id)
                 adapter?.removeItem(position)
                 tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+                if(viewModel!!.getItensSolicitados().isEmpty())
+                    tv_error.visibility = View.VISIBLE
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
