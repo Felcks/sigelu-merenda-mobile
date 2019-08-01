@@ -31,15 +31,6 @@ class CadastraItemRecebimentoViewModel (private val controller: CadastraRecebime
 
     fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
 
-//        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
-//        if(quantidadeRecebida.isNotEmpty()) {
-//            val valor = quantidadeRecebida.replace(',', '.').toDouble()
-//            return controller.confirmaCadastroMaterial(valor)
-//        }
-//        else{
-//            throw CampoNaoPreenchidoException()
-//        }
-
         if(listValoresRecebidos.isNotEmpty()){
             controller.confirmaCadastroMaterial(listValoresRecebidos)
         }

@@ -67,6 +67,11 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
     private fun clicouNoProximo(){
         try{
+
+            if(this.listaEnvioAdapter == null || this.listaEnvioAdapter?.getPosicaoSelecionada() == -1){
+                throw NenhumItemSelecionadoException()
+            }
+
             viewModel!!.selecionaEnvio(this.listaEnvioAdapter?.getPosicaoSelecionadaID())
 
             val intent = Intent(App.instance, SelecionaItemEnvioRecebimentoActivity::class.java)

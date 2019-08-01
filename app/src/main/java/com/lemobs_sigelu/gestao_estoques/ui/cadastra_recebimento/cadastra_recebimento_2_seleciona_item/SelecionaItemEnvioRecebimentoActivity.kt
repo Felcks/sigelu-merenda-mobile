@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -26,7 +27,9 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemDisponivelException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
 import java.lang.Exception
@@ -47,7 +50,6 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaItemEnvioRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregarListaMateriais()
 
         val binding: ActivitySelecionaItemRecebimentoBinding = DataBindingUtil.setContentView(this, R.layout.activity_seleciona_item_recebimento)
         binding.viewModel = viewModel!!
@@ -60,6 +62,11 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
         ll_layout_proximo.setOnClickListener {
             clicouNoProximo()
         }
+    }
+
+    override fun onResume() {
+        viewModel!!.carregarListaMateriais()
+        super.onResume()
     }
 
     private fun clicouNoProximo(){
@@ -144,5 +151,33 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemEnvio>)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId == android.R.id.home){
+            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            DialogUtil.buildAlertDialogSimNao(
+                this,
+                "Cancelar recebimento ",
+                "Deseja sair e cancelar o recebimento?",
+                {
+                    finish()
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                },
+                {}).show()
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
     }
 }

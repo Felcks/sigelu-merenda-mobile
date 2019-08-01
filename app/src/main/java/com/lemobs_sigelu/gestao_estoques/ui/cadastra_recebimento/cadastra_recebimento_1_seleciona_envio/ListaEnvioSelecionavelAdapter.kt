@@ -91,6 +91,7 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
 
     fun getPosicaoSelecionadaID(): Int = this.list[posicaoSelecionada].envioID
 
+    fun getPosicaoSelecionada(): Int = posicaoSelecionada
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
