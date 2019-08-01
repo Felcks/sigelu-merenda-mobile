@@ -28,7 +28,8 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
     }
 
     fun carregaListaItens(){
-        loading.set(true)
+
+        this.loading.set(true)
 
         disposables.add(controller.getListaItemEstoque()
             .subscribeOn(Schedulers.io())
@@ -36,7 +37,6 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-
                     loading.set(false)
                     response.value = Response.success(result)
                 },

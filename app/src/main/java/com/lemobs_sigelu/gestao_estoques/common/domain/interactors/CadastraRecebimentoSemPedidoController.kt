@@ -90,7 +90,6 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         listaItemContrato?.addAll(lista)
     }
 
-
     fun getItemContrato(): ItemContrato{
         return recebimentoSemPedido?.listaItemContrato?.first() ?: throw Exception("Sem nenhum item contrato")
     }
@@ -148,6 +147,10 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         return listaItemEstoque?.map { it.id }?.contains(itemID) != true
     }
 
+    fun removeItemAdicionado() {
+       listaItemEstoque?.clear()
+    }
+
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>){
 
         val idItensParaRemover = listaParaRemover.map { it.id }
@@ -157,6 +160,32 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
     fun getListaItemEstoque(): Observable<List<ItemEstoque>>{
         return itemEstoqueRepository.carregaListaEstoque()
+    }
+
+    fun getItensEstoqueSolicitado(): List<ItemEstoque>?{
+        return listaItemEstoque
+    }
+
+    fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
+
+        if(CadastraPedidoController.pedidoCadastro?.listaItemContrato == null)
+            throw java.lang.Exception()
+
+        var count = 0
+        for(item in CadastraPedidoController.pedidoCadastro!!.listaItemContrato){
+
+            val valor = listaValoresRecebidos[count]
+
+            if(valor <= 0.0){
+                throw ValorMenorQueZeroException()
+            }
+            if(valor > item.quantidadeUnidade){
+                throw ValorMaiorQuePermitidoException()
+            }
+
+            item.quantidadeRecebida = valor
+            count += 1
+        }
     }
 
     fun enviaRecebimento(): Observable<Boolean> {

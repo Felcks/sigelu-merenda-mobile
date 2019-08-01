@@ -69,17 +69,19 @@
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_lista"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:isVisible="@{!viewModel.loading}"
-                android:layout_marginLeft="@dimen/espacamento_maximo"
-                android:layout_marginRight="@dimen/espacamento_maximo"
-                android:layout_marginTop="@dimen/espacamento_maximo_2"
+                android:layout_marginTop="@dimen/espacamento_maximo"
+                android:layout_marginRight="@dimen/espacamento_maximo_3"
                 app:layout_constraintLeft_toLeftOf="@+id/ll_titulo"
+                app:layout_constraintRight_toRightOf="@id/ll_titulo"
                 app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+                app:layout_constraintBottom_toTopOf="@id/bottom_bar"
               />
 
         <LinearLayout
+                android:id="@+id/bottom_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bottom_bar_height"
                 android:orientation="horizontal"

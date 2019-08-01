@@ -14,7 +14,6 @@
 
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/ll_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white">
@@ -37,19 +36,12 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageView
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/ic_cancel_round"/>
-
             <TextView
                     android:id="@+id/tv_quantidade_fornecida_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_nome_material"
                     android:text="Quantidade fornecida"
                     android:textColor="@color/divider"/>
 
@@ -79,23 +71,6 @@
                     app:layout_constraintTop_toTopOf="@id/edt_quantidade_fornecida"
                     app:layout_constraintLeft_toRightOf="@+id/edt_quantidade_fornecida"/>
 
-            <TextView
-                    android:id="@+id/tv_quantidade_disponivel_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text"
-                    android:text="*Saldo: "
-                    app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <TextView
-                    android:id="@+id/tv_quantidade_disponivel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="80.0 Kg"
-                    android:textColor="@color/primary_text"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_quantidade_fornecida"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_quantidade_disponivel_layout"/>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

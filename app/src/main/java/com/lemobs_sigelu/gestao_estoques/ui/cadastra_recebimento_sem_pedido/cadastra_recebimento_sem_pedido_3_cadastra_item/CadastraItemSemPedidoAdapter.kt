@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,30 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.MASCARA_HORARIO
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
-import com.lemobs_sigelu.gestao_estoques.utils.Mask
-import kotlinx.android.synthetic.main.item_cadastrar_quantidade.view.*
+import kotlinx.android.synthetic.main.item_cadastrar_quantidade_sp.view.*
 import java.text.NumberFormat
 import java.util.*
 
+
+
 class CadastraItemSemPedidoAdapter (private val context: Context,
-                                    private val list: List<ItemEnvio>,
-                                    private val remocaoItemClickListener: TwoIntParametersClickListener
+                                    private val list: List<ItemEstoque>
+
 ):
 
     RecyclerView.Adapter<CadastraItemSemPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val colorItemAprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_aprovado)
-    val colorItemReprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_reprovado)
-    val colorItemNeutro = ContextCompat.getColor(App.instance, android.R.color.white)
 
     private var ultimaPosicao = 0
+
     companion object {
         private var editTexts: Array<EditText?> = arrayOfNulls<EditText?>(50)
         private var mascaras: Array<TextWatcher?> = arrayOfNulls<TextWatcher?>(50)
@@ -41,7 +35,7 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_cadastrar_quantidade, parent, false)
+        val view = mLayoutInflater.inflate(com.lemobs_sigelu.gestao_estoques.R.layout.item_cadastrar_quantidade_sp, parent, false)
         return MyViewHolder(view)
     }
 
@@ -53,33 +47,24 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.tv_quantidade_disponivel.text = item.quantidadeUnidade.toString() ?: "0.0"
-        holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
+        holder.itemView.tv_nome_material.text = item.nomeAlternativo
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
+
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
-        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
 
 
-        if(item.quantidadeRecebida ?: 0.0 == 0.0){
-            holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
-        }
-        else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade){
-            holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
-        }
-        else
-            holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
-
-        if(position > ultimaPosicao){
-            ultimaPosicao = position
-        }
+//        if(position > ultimaPosicao){
+//            ultimaPosicao = position
+//        }
 
         this.adicionarMascaras(item, holder, position)
+
+
     }
 
-    private fun adicionarMascaras(item: ItemEnvio, holder: MyViewHolder, position: Int){
+    private fun adicionarMascaras(item: ItemEstoque, holder: MyViewHolder, position: Int){
 
         val mascara = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -95,9 +80,9 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
                     catch (e: NumberFormatException) { }
 
                 }
-                item.quantidadeRecebida = doubleValue
             }
         }
+
         mascaras[position] = mascara
         holder.itemView.edt_quantidade_fornecida.addTextChangedListener(mascara)
 
@@ -107,6 +92,7 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
                 return@OnKeyListener true
 
             val sizeOfStringBeforeDel = holder.itemView.edt_quantidade_fornecida.text.length
+
             if (keyCode == KeyEvent.KEYCODE_DEL) {
                 if (sizeOfStringBeforeDel == 0) {
                     if (position > 0) {
@@ -116,7 +102,6 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
                         holder.itemView.edt_quantidade_fornecida.clearFocus()
                         holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                     }
-
                     return@OnKeyListener true
                 }
             }
@@ -141,11 +126,6 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
     fun removeItem(position: Int){
         ultimaPosicao = 0
         notifyItemRemoved(position)
-    }
-
-    fun getListaValoresItemEnvio(): List<Double>{
-
-        return list.map { it.quantidadeRecebida ?: 0.0 }
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

@@ -4,8 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
-import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import io.reactivex.disposables.CompositeDisposable
 import okhttp3.Response
 
@@ -25,20 +24,14 @@ class CadastraItemViewModel (private val controller: CadastraRecebimentoSemPedid
         return response
     }
 
-    fun getItemContrato(): ItemContrato{
-        return controller.getItemContrato()
+    fun getItensEstoque():List<ItemEstoque>{
+        return controller.getItensEstoqueSolicitado() ?: mutableListOf()
     }
 
 
-    fun confirmaCadastroMaterial() {
-
-        val quantidadeRecebida = quantidadeRecebida.get() ?: ""
-
-        if(quantidadeRecebida.isEmpty())
-            throw CampoNaoPreenchidoException()
-
-
-        val valor = quantidadeRecebida.replace(',', '.').toDouble()
-        return controller.confirmaCadastroItem(valor)
+    fun removeItens(){
+        return controller.removeItemAdicionado()
     }
+
+
 }
