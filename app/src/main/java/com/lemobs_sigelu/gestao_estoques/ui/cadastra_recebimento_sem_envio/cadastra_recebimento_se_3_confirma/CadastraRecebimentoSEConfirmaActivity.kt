@@ -6,8 +6,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
@@ -15,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.CadastraRecebimentoSemEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualiza_materiais_recebimento_se.*
@@ -109,9 +113,10 @@ class CadastraRecebimentoSEConfirmaActivity : AppCompatActivity(){
             "Sucesso",
             "Recebimento enviado com sucesso!",
             {
-                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                val intent = Intent(this, VisualizarPedidoActivity::class.java)
+                finish()
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
-                this.finishAffinity()
             },
             false)
 
@@ -145,18 +150,35 @@ class CadastraRecebimentoSEConfirmaActivity : AppCompatActivity(){
         rv_lista.adapter = adapter
     }
 
-    private fun mostrarDialogCancelamento(){
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
 
-        DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar recebimento",
-            "Deseja cancelar o cadastro de recebimento?",
-            {
-                this.viewModel!!.cancelaRecebimento()
-                val intent = Intent(this, ListaPedidoActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            {}).show()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Cancelar recebimento",
+                    "Deseja sair e cancelar o recebimento?",
+                    {
+                        finish()
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

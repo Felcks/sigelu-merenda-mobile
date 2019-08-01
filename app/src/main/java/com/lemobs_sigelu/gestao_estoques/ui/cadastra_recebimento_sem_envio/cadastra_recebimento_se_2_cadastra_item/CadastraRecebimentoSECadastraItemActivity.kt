@@ -22,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.CadastraRecebimentoSemEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma.CadastraRecebimentoSEConfirmaActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento_se.*
@@ -125,11 +126,11 @@ class CadastraRecebimentoSECadastraItemActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
-                    "Deseja sair e cancelar o pedido?",
+                    "Cancelar recebimento",
+                    "Deseja sair e cancelar o recebimento?",
                     {
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

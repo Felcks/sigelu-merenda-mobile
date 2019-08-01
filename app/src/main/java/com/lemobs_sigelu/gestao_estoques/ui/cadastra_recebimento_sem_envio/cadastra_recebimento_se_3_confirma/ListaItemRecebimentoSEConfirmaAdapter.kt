@@ -16,7 +16,7 @@ class ListaItemRecebimentoSEConfirmaAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado_recebimento, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado_recebimento_se, parent, false)
         return MyViewHolder(view)
     }
 
