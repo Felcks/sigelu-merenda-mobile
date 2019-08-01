@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_adiciona_materiais.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_visualiza_estoque.*
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class EstoqueActivity: AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: EstoqueViewModelFactory
     var viewModel: EstoqueViewModel? = null
+
+    var quantidadeCarregamentoNucleoQuantidade = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -40,11 +43,15 @@ class EstoqueActivity: AppCompatActivity() {
                 pgb_carregamento.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
-                if(response.data is List<*>) {
 
-                    for(item in response.data){
-                        viewModel!!.carregaListaNucleoQuantidade(item as ItemEstoque)
-                    }
+                if(response.data is ItemEstoque){
+                    quantidadeCarregamentoNucleoQuantidade += 1
+                    viewModel!!.carregaListaNucleoQuantidade(response.data as ItemEstoque, quantidadeCarregamentoNucleoQuantidade)
+                }
+
+                if(response.data is List<*>) {
+                     if(response.data.isNotEmpty())
+                        viewModel!!.carregaListaNucleoQuantidade(response.data[0] as ItemEstoque, 0)
                 }
 
             }
@@ -63,8 +70,8 @@ class EstoqueActivity: AppCompatActivity() {
             Status.SUCCESS -> {
                 pgb_carregamento.visibility = View.GONE
 
-                if(response.data is List<*>) {
 
+                if(response.data is List<*>) {
                     val layoutManager = LinearLayoutManager(applicationContext)
                     layoutManager.orientation = LinearLayoutManager.VERTICAL
                     rv_lista.layoutManager = layoutManager

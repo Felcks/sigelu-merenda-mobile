@@ -88,9 +88,8 @@
                 android:id="@+id/ll_disponibilidade_nucleos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/espacamento_medio"
-                android:paddingBottom="@dimen/espacamento_curto"
                 android:paddingRight="@dimen/espacamento_medio"
+                android:layout_marginTop="@dimen/espacamento_medio"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/tv_disponivel_layout"
                 app:layout_constraintLeft_toLeftOf="@id/tv_disponivel_layout">
@@ -99,16 +98,16 @@
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Disponibilidade Núcleos"
-                      android:textColor="@android:color/black"
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="16sp"
                       app:layout_constraintBottom_toBottomOf="parent"
                       app:layout_constraintTop_toTopOf="parent"
                       app:layout_constraintLeft_toLeftOf="parent"/>
 
             <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iv_down_arrow"
+                    android:id="@+id/iv_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_arrow_down"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/tv_disponibilidade_nucleos"
                     android:layout_marginLeft="@dimen/espacamento_curto"/>
@@ -119,6 +118,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/ll_disponibilidade_nucleos"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="@dimen/espacamento_medio"
+                android:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

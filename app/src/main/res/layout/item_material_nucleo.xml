@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Central:"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="500 m³"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             android:layout_marginLeft="@dimen/espacamento_curto"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>

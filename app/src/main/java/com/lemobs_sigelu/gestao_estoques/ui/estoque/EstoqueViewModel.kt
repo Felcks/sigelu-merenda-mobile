@@ -36,6 +36,7 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
             .subscribe(
                 { result ->
                     this.quantidadeItemEstoque = result.size
+                    listaItemEstoque.addAll(result)
                     response.setValue(Response.success(result))
                 },
                 { throwable ->
@@ -45,7 +46,7 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
         )
     }
 
-    fun carregaListaNucleoQuantidade(itemEstoque: ItemEstoque){
+    fun carregaListaNucleoQuantidade(itemEstoque: ItemEstoque, index: Int){
 
         disposables.add(controller.getListaNucleoQuantidade(itemEstoque.id)
             .subscribeOn(Schedulers.io())
@@ -57,11 +58,15 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
                         item.unidadeMedida = itemEstoque.unidadeMedida
                     }
                     itemEstoque.listaNucleoQuantidadeDeItemEstoque = result
-                    listaItemEstoque.add(itemEstoque)
                     quantidadeItemEstoqueTotalmenteCarregado++
+                    listaItemEstoque[index] = itemEstoque
 
                     if(quantidadeItemEstoqueTotalmenteCarregado >= quantidadeItemEstoque)
                         responseNucleoQuantidade.value = Response.success(listaItemEstoque)
+                    else {
+                        response.value = Response.loading()
+                        response.value = Response.success(listaItemEstoque[quantidadeItemEstoqueTotalmenteCarregado])
+                    }
                 },
                 { throwable ->
                     responseNucleoQuantidade.setValue(Response.error(throwable))
