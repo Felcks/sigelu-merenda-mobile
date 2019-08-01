@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/layout_4"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Disponível: "
+                    android:text="Saldo: "
                     android:textSize="15sp"
                     android:textColor="@color/primary_text"
                     android:layout_marginTop="@dimen/espacamento_minimo"/>
