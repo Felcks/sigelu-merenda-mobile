@@ -30,6 +30,7 @@ class EstoqueActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EstoqueViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseNucleoQuantidade.observe(this, Observer<Response> { response -> processResponseNucleoQuantidade(response) })
         viewModel!!.carregaListaItemEstoque()
     }
 
@@ -39,9 +40,31 @@ class EstoqueActivity: AppCompatActivity() {
                 pgb_carregamento.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
+                if(response.data is List<*>) {
+
+                    for(item in response.data){
+                        viewModel!!.carregaListaNucleoQuantidade(item as ItemEstoque)
+                    }
+                }
+
+            }
+            Status.ERROR -> {
+                pgb_carregamento.visibility = View.GONE
+            }
+        }
+    }
+
+    fun processResponseNucleoQuantidade(response: Response?) {
+
+        when (response?.status) {
+            Status.LOADING -> {
+                pgb_carregamento.visibility = View.VISIBLE
+            }
+            Status.SUCCESS -> {
                 pgb_carregamento.visibility = View.GONE
 
                 if(response.data is List<*>) {
+
                     val layoutManager = LinearLayoutManager(applicationContext)
                     layoutManager.orientation = LinearLayoutManager.VERTICAL
                     rv_lista.layoutManager = layoutManager

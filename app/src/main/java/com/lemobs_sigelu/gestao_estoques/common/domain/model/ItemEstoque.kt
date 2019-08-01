@@ -24,4 +24,7 @@ open class ItemEstoque(
 
     @Ignore
     var quantidadeDisponivel: Double? = 0.0
+
+    @Ignore
+    var listaNucleoQuantidadeDeItemEstoque: List<NucleoQuantidadeDeItemEstoque>? = null
 }
