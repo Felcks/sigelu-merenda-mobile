@@ -131,11 +131,16 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
 
     private fun renderErrorState(throwable: Throwable?) {
 
+        ll_loading.visibility = View.GONE
+        rv_lista.visibility = View.GONE
+        tv_error.visibility = View.VISIBLE
         Snackbar.make(ll_all, "Ocorreu algum erro ao carregar itens.", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun renderDataState(result: Any?) {
 
+        ll_loading.visibility = View.GONE
+        rv_lista.visibility = View.VISIBLE
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemEnvio>)
         }

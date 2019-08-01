@@ -32,7 +32,7 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
     val colorItemNaoSelecionado = ContextCompat.getColor(App.instance, R.color.envio_nao_selecionado)
 
     var layoutSelecionado: CardView? = null
-    var posicaoSelecionada: Int = -1
+    private var posicaoSelecionada: Int = -1
 
     //var mExpandedPosition = -1
 
@@ -89,9 +89,8 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
         holder.itemView.rv_itens_envio.adapter = adapter
     }
 
+    fun getPosicaoSelecionadaID(): Int = this.list[posicaoSelecionada].envioID
 
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var isExpanded = false
-    }
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

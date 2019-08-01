@@ -87,7 +87,7 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
             throw NenhumItemSelecionadoException()
         }
 
-        val envio = this.listaEnvio.getOrNull(envioID) ?: throw ItemNaoSelecionavelException()
+        val envio = this.listaEnvio.find{ it.envioID == envioID } ?: throw ItemNaoSelecionavelException()
 
         if(envio.isEntregue){
             throw ItemNaoSelecionavelException()
