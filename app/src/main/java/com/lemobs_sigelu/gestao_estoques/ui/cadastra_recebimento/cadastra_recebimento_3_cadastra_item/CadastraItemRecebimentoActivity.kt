@@ -23,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento.*
@@ -134,11 +135,11 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
-                    "Deseja sair e cancelar o pedido?",
+                    "Cancelar recebimento",
+                    "Deseja sair e cancelar o recebimento?",
                     {
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

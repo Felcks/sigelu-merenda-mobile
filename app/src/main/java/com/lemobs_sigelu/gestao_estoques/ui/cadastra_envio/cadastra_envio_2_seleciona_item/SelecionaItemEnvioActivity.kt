@@ -170,7 +170,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
                     "Deseja sair e cancelar o envio?",
                     {
                         super.onBackPressed()
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
 
                     },

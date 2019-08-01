@@ -258,33 +258,34 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
             }
 
 
-            val itemRecebimentoDAO = db.itemRecebimentoDAO()
-            val itemEnvioDAO = db.itemEnvioDAO()
-            val itemEstoqueDAO = db.itemEstoqueDAO()
+//            val itemRecebimentoDAO = db.itemRecebimentoDAO()
+//            val itemEnvioDAO = db.itemEnvioDAO()
+//            val itemEstoqueDAO = db.itemEstoqueDAO()
+//
+//            val listaItemRecebimento = itemRecebimentoDAO.getAll()
+//
+//            for (itemRecebimento in listaItemRecebimento) {
+//                val itemEnvio = itemEnvioDAO.getById(itemRecebimento.itemEnvioID ?: 0)
+//                if (itemEnvio != null) {
+//                    itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
+//                }
+//
+//                itemRecebimento.itemEnvio = itemEnvio
+//            }
 
-            val listaItemRecebimento = itemRecebimentoDAO.getAll()
-
-            for (itemRecebimento in listaItemRecebimento) {
-                val itemEnvio = itemEnvioDAO.getById(itemRecebimento.itemEnvioID ?: 0)
-                if (itemEnvio != null) {
-                    itemEnvio.itemEstoque = itemEstoqueDAO.getById(itemEnvio.itemEstoqueID ?: 0)
-                }
-
-                itemRecebimento.itemEnvio = itemEnvio
+            val listaItemRecebimento = listaItemEnvio?.map {
+                ItemRecebimentoDataRequest(
+                    it.itemEstoqueID ?: 0,
+                    it.quantidadeRecebida ?: 0.0
+                )
             }
 
             val recebimentoDataRequest = RecebimentoDataRequest(
+                pedidoID,
                 envioID,
                 origemID!!,
                 destinoID!!,
-                listaItemRecebimento?.map {
-                    ItemRecebimentoDataRequest(
-                        it.itemEnvio?.categoria?.categoria_id ?: 0,
-                        it.itemEnvio?.itemEstoqueID ?: 0,
-                        it.itemEnvio?.precoUnidade ?: 0.0,
-                        it.quantidadeRecebida ?: 0.0
-                    )
-                }
+                listaItemRecebimento ?: listOf()
             )
 
 

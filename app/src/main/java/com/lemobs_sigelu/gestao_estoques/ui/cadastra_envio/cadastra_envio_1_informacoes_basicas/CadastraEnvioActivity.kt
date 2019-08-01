@@ -227,7 +227,7 @@ class CadastraEnvioActivity: AppCompatActivity() {
                     "Deseja sair e cancelar o envio?",
                     {
                         finish()
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     },
                     {}).show()

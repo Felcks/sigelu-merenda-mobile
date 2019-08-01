@@ -17,22 +17,17 @@ class ItemRecebimentoRepository2{
 
             if(response.isSuccessful){
 
-                if(response.body() == null)
-                    subscriber.onNext(listOf())
-                if(response.body()!!.isEmpty())
-                    subscriber.onNext(listOf())
-                else {
-                    val listaItemRecebimento = response.body()!!.map {
-                        ItemRecebimento(
-                            it.id,
-                            null,
-                            it.quantidade_unidade ?: 0.0
-                        )
-                    }
-
-                    subscriber.onNext(listaItemRecebimento)
-                    subscriber.onComplete()
+                val listaItemRecebimento = response.body()!!.map {
+                    ItemRecebimento(
+                        it.id,
+                        null,
+                        it.quantidade_unidade ?: 0.0
+                    )
                 }
+
+                subscriber.onNext(listaItemRecebimento)
+                subscriber.onComplete()
+
             }
             else{
                 subscriber.onError(Throwable(""))

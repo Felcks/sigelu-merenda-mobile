@@ -23,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -158,10 +159,10 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId == android.R.id.home){
-            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             DialogUtil.buildAlertDialogSimNao(
                 this,
-                "Cancelar recebimento ",
+                "Cancelar recebimento",
                 "Deseja sair e cancelar o recebimento?",
                 {
                     finish()

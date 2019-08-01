@@ -29,6 +29,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebim
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
+import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_item_envio.*
@@ -156,10 +157,10 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId == android.R.id.home){
-            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
             DialogUtil.buildAlertDialogSimNao(
                 this,
-                "Cancelar recebimento ",
+                "Cancelar recebimento",
                 "Deseja sair e cancelar o recebimento?",
                 {
                     finish()
