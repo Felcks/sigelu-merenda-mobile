@@ -11,10 +11,10 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import kotlinx.android.synthetic.main.item_adicao_generico.view.*
 
-class ListaItemPedidoSelecionavelAdapter (private val context: Context,
-                                          private val list: List<ItemPedido>,
-                                          private val itemClickListener: TwoIntParametersClickListener,
-                                          private val itensJaCadastrados: List<Int>): RecyclerView.Adapter<ListaItemPedidoSelecionavelAdapter.MyViewHolder>() {
+class ListaItemRecebimentoSESelecionavelAdapter (private val context: Context,
+                                                 private val list: List<ItemPedido>,
+                                                 private val itemClickListener: TwoIntParametersClickListener,
+                                                 private val itensJaCadastrados: List<Int>): RecyclerView.Adapter<ListaItemRecebimentoSESelecionavelAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private var colorAdicionarItem: Int? = null

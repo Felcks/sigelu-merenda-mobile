@@ -125,6 +125,7 @@
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
                   android:label="Nome do motorista"
+                  android:windowSoftInputMode="stateAlwaysVisible"
                  />
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->

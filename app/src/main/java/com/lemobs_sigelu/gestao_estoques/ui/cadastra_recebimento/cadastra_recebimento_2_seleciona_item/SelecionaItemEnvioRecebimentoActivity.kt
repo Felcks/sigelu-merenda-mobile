@@ -131,18 +131,11 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
 
     private fun renderErrorState(throwable: Throwable?) {
 
-        if(throwable is ListaVaziaException || throwable is NenhumItemDisponivelException){
-            (ll_erro as TextView).text = "Todos os materiais foram cadastrados."
-            ll_erro.visibility = View.VISIBLE
-        }
-        else{
-            Snackbar.make(ll_all, "Ocorreu algum erro ao carregar itens.", Snackbar.LENGTH_SHORT).show()
-        }
+        Snackbar.make(ll_all, "Ocorreu algum erro ao carregar itens.", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun renderDataState(result: Any?) {
 
-        ll_erro.visibility = View.GONE
         if(result is List<*>){
             this.iniciarAdapter(result as List<ItemEnvio>)
         }

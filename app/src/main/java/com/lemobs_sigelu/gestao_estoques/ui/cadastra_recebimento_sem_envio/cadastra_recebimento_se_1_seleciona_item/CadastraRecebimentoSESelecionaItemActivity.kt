@@ -32,7 +32,7 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
     lateinit var viewModelFactory: CadastraRecebimentoSemEnvioViewModelFactory
     var viewModel: CadastraRecebimentoSESelecionaItemViewModel? = null
 
-    private var adapter: ListaItemPedidoSelecionavelAdapter? = null
+    private var adapter: ListaItemRecebimentoSESelecionavelAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -106,7 +106,7 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        this.adapter = ListaItemPedidoSelecionavelAdapter(applicationContext, lista, this, viewModel!!.getItensAdicionados())
+        this.adapter = ListaItemRecebimentoSESelecionavelAdapter(applicationContext, lista, this, viewModel!!.getItensAdicionados())
         rv_lista.adapter = adapter
     }
 

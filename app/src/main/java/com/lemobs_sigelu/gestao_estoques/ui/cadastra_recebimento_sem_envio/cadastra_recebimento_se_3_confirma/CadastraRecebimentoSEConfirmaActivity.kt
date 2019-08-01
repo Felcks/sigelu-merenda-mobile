@@ -138,7 +138,7 @@ class CadastraRecebimentoSEConfirmaActivity : AppCompatActivity(){
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemPedidoAdapter(
+        val adapter = ListaItemRecebimentoSEConfirmaAdapter(
             applicationContext,
             list
         )

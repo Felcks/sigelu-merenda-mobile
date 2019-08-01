@@ -9,8 +9,8 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import kotlinx.android.synthetic.main.item_material_cadastrado_recebimento.view.*
 
-class ListaItemPedidoAdapter(val context: Context,
-                             val list: List<ItemPedido>): RecyclerView.Adapter<ListaItemPedidoAdapter.MyViewHolder>() {
+class ListaItemRecebimentoSEConfirmaAdapter(val context: Context,
+                                            val list: List<ItemPedido>): RecyclerView.Adapter<ListaItemRecebimentoSEConfirmaAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 

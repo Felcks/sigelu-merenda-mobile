@@ -33,7 +33,7 @@ class CadastraRecebimentoSECadastraItemActivity : AppCompatActivity() {
     lateinit var viewModelFactory: CadastraRecebimentoSemEnvioViewModelFactory
     var viewModel: CadastraRecebimentoSECadastraItemViewModel? = null
 
-    private var adapter: ListaItemPedidoAdapter? = null
+    private var adapter: ListaItemRecebimentoSECadastroAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -52,7 +52,7 @@ class CadastraRecebimentoSECadastraItemActivity : AppCompatActivity() {
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             rv_lista_material.layoutManager = layoutManager
 
-            this.adapter = ListaItemPedidoAdapter(App.instance, listaItemEnvio, removerItemListener)
+            this.adapter = ListaItemRecebimentoSECadastroAdapter(App.instance, listaItemEnvio, removerItemListener)
             rv_lista_material.adapter = adapter
         }
         else{

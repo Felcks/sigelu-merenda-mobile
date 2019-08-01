@@ -19,10 +19,10 @@ import kotlinx.android.synthetic.main.item_cadastrar_quantidade.view.*
 import java.text.NumberFormat
 import java.util.*
 
-class ListaItemPedidoAdapter (private val context: Context,
-                              private val list: List<ItemPedido>,
-                              private val remocaoItemClickListener: TwoIntParametersClickListener
-): RecyclerView.Adapter<ListaItemPedidoAdapter.MyViewHolder>() {
+class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
+                                             private val list: List<ItemPedido>,
+                                             private val remocaoItemClickListener: TwoIntParametersClickListener
+): RecyclerView.Adapter<ListaItemRecebimentoSECadastroAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     val colorItemAprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_aprovado)

@@ -110,13 +110,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
 
     private fun renderErrorState(throwable: Throwable?) {
 
-        if(throwable is ListaVaziaException){
-            (ll_erro as TextView).text = "Todos os materiais foram cadastrados."
-            ll_erro.visibility = View.VISIBLE
-        }
-        else{
-            Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
-        }
+        Snackbar.make(ll_all, "Ocorreu algum erro ao carregar materiais.", Snackbar.LENGTH_SHORT).show()
     }
 
     private val selecionaItemPedidoClickListener = object: TwoIntParametersClickListener{

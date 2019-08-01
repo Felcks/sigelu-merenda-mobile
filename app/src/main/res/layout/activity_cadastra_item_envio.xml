@@ -61,7 +61,10 @@
                     android:textColor="@color/primary_text"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:layout_margin="@dimen/espacamento_medio"/>
+                    android:layout_marginLeft="@dimen/espacamento_medio"
+                    android:layout_marginRight="@dimen/espacamento_medio"
+                    android:layout_marginBottom="@dimen/espacamento_medio"
+            />
 
             <TextView
                     android:id="@+id/tv_total_material_layout"
@@ -112,12 +115,23 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/espacamento_maximo"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="false"
+                    android:layout_marginTop="@dimen/espacamento_maximo"
                     app:layout_constraintTop_toBottomOf="@id/tv_total_material_layout"
                     app:layout_constraintLeft_toLeftOf="@id/tv_total_material_layout"
                     app:layout_constraintRight_toRightOf="parent"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nenhum material cadastrado."
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_material_layout"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_total_material_layout"
+                    android:textSize="16sp"
+                    android:layout_marginTop="@dimen/espacamento_maximo"
+                    android:visibility="gone"/>
 
         </android.support.constraint.ConstraintLayout>
 
