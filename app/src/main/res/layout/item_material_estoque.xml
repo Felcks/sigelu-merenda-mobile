@@ -22,7 +22,7 @@
                 android:id="@+id/tv_nome_material"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textColor="@color/primary_text"
                 android:text=""
                 android:textStyle="bold"

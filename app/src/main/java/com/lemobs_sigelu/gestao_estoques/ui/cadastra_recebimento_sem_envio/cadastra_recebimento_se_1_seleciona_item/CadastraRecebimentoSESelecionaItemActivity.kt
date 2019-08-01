@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
@@ -21,7 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadas
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
+import kotlinx.android.synthetic.main.activity_seleciona_item_recebimento_sem_envio.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -75,15 +76,27 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
 
     fun processResponse(response: Response?) {
         when (response?.status) {
-            Status.LOADING -> {}
+            Status.LOADING -> {
+                rv_lista.visibility = View.GONE
+                ll_loading.visibility = View.VISIBLE
+            }
             Status.SUCCESS -> {
+
+                ll_loading.visibility = View.GONE
+                tv_error.visibility = View.GONE
+                rv_lista.visibility = View.VISIBLE
+
                 if(response.data is List<*>){
                     if(response.data.first() is ItemPedido){
                         this.iniciarAdapter(response.data as List<ItemPedido>)
                     }
                 }
             }
-            Status.ERROR -> {}
+            Status.ERROR -> {
+                rv_lista.visibility = View.GONE
+                tv_error.visibility = View.VISIBLE
+                ll_loading.visibility = View.GONE
+            }
         }
     }
 

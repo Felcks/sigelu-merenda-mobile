@@ -22,7 +22,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_1_
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido.*
 import java.lang.Exception
 import javax.inject.Inject
@@ -83,7 +82,7 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
             Status.LOADING -> renderLoading()
             Status.SUCCESS -> {
 
-                pgb_carregamento.visibility = View.GONE
+                ll_loading.visibility = View.GONE
                 tv_error.visibility = View.GONE
                 rv_lista.visibility = View.VISIBLE
 
@@ -101,14 +100,14 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
     }
 
     private fun renderLoading() {
-        pgb_carregamento.visibility = View.VISIBLE
+        ll_loading.visibility = View.VISIBLE
         rv_lista.visibility = View.GONE
         viewModel!!.loading.set(true)
     }
 
     private fun renderError(throwable: Throwable?) {
         tv_error.visibility = View.VISIBLE
-        pgb_carregamento.visibility = View.GONE
+        ll_loading.visibility = View.GONE
         rv_lista.visibility = View.GONE
     }
 

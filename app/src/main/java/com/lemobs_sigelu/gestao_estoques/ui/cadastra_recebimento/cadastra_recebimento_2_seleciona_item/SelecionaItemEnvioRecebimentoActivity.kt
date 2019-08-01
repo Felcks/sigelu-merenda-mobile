@@ -124,7 +124,10 @@ class SelecionaItemEnvioRecebimentoActivity: AppCompatActivity(), TwoIntParamete
         }
     }
 
-    private fun renderLoadingState() {}
+    private fun renderLoadingState() {
+        ll_loading.visibility = View.VISIBLE
+        rv_lista.visibility = View.GONE
+    }
 
     private fun renderErrorState(throwable: Throwable?) {
 
