@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/espacamento_curto"
+        android:layout_margin="@dimen/espacamento_medio"
         app:cardElevation="1dp"
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="true"
@@ -84,5 +84,41 @@
                   app:layout_constraintLeft_toRightOf="@id/tv_disponivel_layout"
                   app:layout_constraintBaseline_toBaselineOf="@id/tv_disponivel_layout"/>
 
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/ll_disponibilidade_nucleos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/espacamento_medio"
+                android:paddingBottom="@dimen/espacamento_curto"
+                android:paddingRight="@dimen/espacamento_medio"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@id/tv_disponivel_layout"
+                app:layout_constraintLeft_toLeftOf="@id/tv_disponivel_layout">
+
+            <TextView android:id="@+id/tv_disponibilidade_nucleos"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Disponibilidade Núcleos"
+                      android:textColor="@android:color/black"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_down_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_disponibilidade_nucleos"
+                    android:layout_marginLeft="@dimen/espacamento_curto"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_disponibilidade_nucleos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ll_disponibilidade_nucleos"
+                app:layout_constraintLeft_toLeftOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
