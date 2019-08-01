@@ -53,4 +53,8 @@ class ConfirmaRecebimentoSPViewModel (private val controller: CadastraRecebiment
     fun cancelaRecebimento(){
         return controller.cancelaRecebimento()
     }
+
+    fun removeItens(){
+        return controller.removeItemAdicionado()
+    }
 }

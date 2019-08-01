@@ -82,6 +82,7 @@ class CadastraItemActivity: AppCompatActivity() {
                     "Cancelar recebimento",
                     "Deseja cancelar o cadastro de recebimento?",
                     {
+                        viewModel!!.removeItens()
                         finish()
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
