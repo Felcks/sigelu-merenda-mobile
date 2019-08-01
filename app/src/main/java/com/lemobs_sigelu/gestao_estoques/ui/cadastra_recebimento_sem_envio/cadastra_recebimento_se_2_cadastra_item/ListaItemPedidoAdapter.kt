@@ -50,19 +50,22 @@ class ListaItemPedidoAdapter (private val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.tv_quantidade_disponivel.text = item.quantidadeUnidade.toString() ?: "0.0"
+        holder.itemView.tv_quantidade_disponivel.text = item.quantidadeDisponivel.toString() ?: "0.0"
         holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
-        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
 
+        if((item.quantidadeRecebida)  > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida))
+        else
+            holder.itemView.edt_quantidade_fornecida.setText("")
 
-        if(item.quantidadeRecebida ?: 0.0 == 0.0){
+        if(item.quantidadeRecebida == 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
         }
-        else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade ?: 0.0){
+        else if(item.quantidadeRecebida > item.quantidadeDisponivel ?: 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
         }
         else

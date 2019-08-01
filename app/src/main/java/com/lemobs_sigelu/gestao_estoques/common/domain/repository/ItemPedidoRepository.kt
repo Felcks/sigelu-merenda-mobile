@@ -48,7 +48,7 @@ class ItemPedidoRepository {
                         null,
                         itemEstoque)
 
-                    item.quantidadeRecebida = it.quantidade_disponivel ?: 0.0
+                    item.quantidadeDisponivel = it.quantidade_disponivel ?: 0.0
                     item
                 }
 

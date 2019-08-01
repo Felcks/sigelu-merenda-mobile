@@ -44,6 +44,9 @@ class ItemPedido (
     @Ignore
     var quantidadeRecebida: Double = 0.0
 
+    @Ignore
+    var quantidadeDisponivel: Double = 0.0
+
     constructor(id: Int,
                 pedidoID: Int,
                 quantidadeUnidade: Double?,

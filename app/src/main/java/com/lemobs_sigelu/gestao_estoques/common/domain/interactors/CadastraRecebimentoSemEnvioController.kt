@@ -72,7 +72,7 @@ class CadastraRecebimentoSemEnvioController @Inject constructor(private val item
             if(valor <= 0.0){
                 throw ValorMenorQueZeroException()
             }
-            if(valor > item.quantidadeUnidade ?: 0.0){
+            if(valor > item.quantidadeDisponivel){
                 throw ValorMaiorQuePermitidoException()
             }
 

@@ -75,7 +75,7 @@
         <TextView android:id="@+id/tv_material_quantidade_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Disponivel:"
+                  android:text="Disponível:"
                   android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
