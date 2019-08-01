@@ -149,18 +149,36 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         rv_lista.adapter = adapter
     }
 
-    private fun mostrarDialogCancelamento(){
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
 
-        DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar recebimento",
-            "Deseja cancelar o cadastro de recebimento?",
-            {
-                this.viewModel!!.cancelaRecebimento()
-                val intent = Intent(this, ListaPedidoActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            {}).show()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Cancelar pedido ",
+                    "Deseja sair e cancelar o pedido?",
+                    {
+                        viewModel!!.cancelaRecebimento()
+                        finish()
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

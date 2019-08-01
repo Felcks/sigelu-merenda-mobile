@@ -79,6 +79,7 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
 
     fun apagaTodaListaItemRecebimentoAnterior(){
         itemRecebimentoRepository.apagaTodosItemRecebimento()
+        listaItemEnvio = mutableListOf()
     }
 
     fun selecionaEnvio(envioID: Int?){

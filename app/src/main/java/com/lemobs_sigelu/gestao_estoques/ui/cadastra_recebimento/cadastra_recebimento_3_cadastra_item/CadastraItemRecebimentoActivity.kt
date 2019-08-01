@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
@@ -21,6 +22,8 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_material_recebimento.*
 import javax.inject.Inject
@@ -44,12 +47,18 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
         mainBinding.executePendingBindings()
 
         val listaItemEnvio = viewModel!!.getItensSolicitados()
-        val layoutManager = LinearLayoutManager(applicationContext)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_lista_material.layoutManager = layoutManager
 
-        this.adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
-        rv_lista_material.adapter = adapter
+        if(listaItemEnvio.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista_material.layoutManager = layoutManager
+
+            this.adapter = ListaItemEnvioAdapter(App.instance, listaItemEnvio, removerItemListener)
+            rv_lista_material.adapter = adapter
+        }
+        else{
+            tv_error.visibility = View.VISIBLE
+        }
 
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
@@ -104,10 +113,46 @@ class CadastraItemRecebimentoActivity: AppCompatActivity() {
                 viewModel?.removeItem(id)
                 adapter?.removeItem(position)
                 tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+
+                if(viewModel!!.getItensSolicitados().isEmpty()){
+                    tv_error.visibility = View.VISIBLE
+                }
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Cancelar pedido ",
+                    "Deseja sair e cancelar o pedido?",
+                    {
+                        finish()
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
