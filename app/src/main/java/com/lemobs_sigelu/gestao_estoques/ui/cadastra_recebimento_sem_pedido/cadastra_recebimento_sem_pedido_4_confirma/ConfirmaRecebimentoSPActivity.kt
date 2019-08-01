@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -19,7 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.Cada
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_visualiza_materiais_cadastrados.*
+import kotlinx.android.synthetic.main.activity_confirma_recebimento_sp.*
 import javax.inject.Inject
 
 class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
@@ -37,6 +39,35 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
         viewModel!!.carregaItemRecebimento()
+
+//        val envio = viewModel!!.getEnvio()
+//        if(envio != null){
+//            tv_envio.text = envio.codigo
+//        }
+
+        ll_layout_anterior.setOnClickListener {
+            this.clicouAnterior()
+        }
+
+        ll_layout_proximo.setOnClickListener {
+            this.clicouProximo()
+        }
+
+
+    }
+
+    private fun clicouProximo(){
+
+        try{
+            viewModel!!.enviaRecebimento()
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun clicouAnterior(){
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response?) {
@@ -51,8 +82,8 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
 
     private fun renderDataState(result: Any?) {
 
-        if(result is ItemRecebimento){
-            this.iniciarAdapter(listOf<ItemRecebimento>(result))
+        if(result is List<*>){
+            this.iniciarAdapter(result as List<ItemEstoque>)
         }
     }
 
@@ -107,7 +138,7 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         this.errorDialog?.show()
     }
 
-    private fun iniciarAdapter(list: List<ItemRecebimento>){
+    private fun iniciarAdapter(list: List<ItemEstoque>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
@@ -117,21 +148,6 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
             list
         )
         rv_lista.adapter = adapter
-    }
-
-    private fun mostrarDialogCancelamento(){
-
-        DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar recebimento",
-            "Deseja cancelar o cadastro de recebimento?",
-            {
-                this.viewModel!!.cancelaRecebimento()
-                val intent = Intent(this, ListaPedidoActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            {}).show()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -164,7 +180,4 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        this.mostrarDialogCancelamento()
-    }
 }

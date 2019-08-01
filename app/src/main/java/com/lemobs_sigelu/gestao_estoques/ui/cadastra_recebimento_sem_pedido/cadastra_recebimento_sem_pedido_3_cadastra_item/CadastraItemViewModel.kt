@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import io.reactivex.disposables.CompositeDisposable
 import okhttp3.Response
 
@@ -31,6 +32,16 @@ class CadastraItemViewModel (private val controller: CadastraRecebimentoSemPedid
 
     fun removeItens(){
         return controller.removeItemAdicionado()
+    }
+
+    fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
+
+        if(listValoresRecebidos.isNotEmpty()){
+            controller.confirmaCadastroMaterial(listValoresRecebidos)
+        }
+        else{
+            throw NenhumItemSelecionadoException()
+        }
     }
 
 

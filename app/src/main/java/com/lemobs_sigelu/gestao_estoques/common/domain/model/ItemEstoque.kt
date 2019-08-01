@@ -1,9 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
 @Entity(tableName = "item_estoque")
 
@@ -19,5 +16,9 @@ open class ItemEstoque(
     var nomeAlternativo: String,
 
     @Embedded
-    var unidadeMedida: UnidadeMedida? = null)
+    var unidadeMedida: UnidadeMedida? = null){
+
+    @Ignore
+    var quantidadeRecebida: Double? = null
+}
 

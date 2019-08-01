@@ -38,7 +38,43 @@
             android:layout_margin="@dimen/espacamento_maximo"
             android:padding="6dp"/>
 
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacamento_grande"
+            android:layout_marginLeft="@dimen/espacamento_maximo"
+            android:layout_marginRight="@dimen/espacamento_maximo"
+            app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
+            app:layout_constraintTop_toBottomOf="@id/ll_titulo">
 
+        <TextView android:id="@+id/tv_envio_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Envio - Código: "
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_envio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toTopOf="@id/tv_envio_layout"
+                app:layout_constraintLeft_toRightOf="@id/tv_envio_layout"/>
+
+        <View   android:id="@+id/view_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                android:background="@color/divider"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                app:layout_constraintTop_toBottomOf="@id/tv_envio"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
 
 
     <android.support.v7.widget.RecyclerView
@@ -49,9 +85,9 @@
             android:fadeScrollbars="false"
             android:layout_marginLeft="@dimen/espacamento_maximo"
             android:layout_marginRight="@dimen/espacamento_medio"
-            app:layout_constraintTop_toBottomOf="@id/ll_titulo"
-            app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
-            app:layout_constraintRight_toRightOf="@id/ll_titulo"
+            app:layout_constraintTop_toBottomOf="@id/ll_info"
+            app:layout_constraintLeft_toLeftOf="@id/ll_info"
+            app:layout_constraintRight_toRightOf="@id/ll_info"
             app:layout_constraintBottom_toTopOf="@id/bottom_bar">
     </android.support.v7.widget.RecyclerView>
 

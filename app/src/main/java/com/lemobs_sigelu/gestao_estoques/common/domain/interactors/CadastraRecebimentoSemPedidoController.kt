@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.ItemRecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
@@ -9,6 +10,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRe
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
+import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -166,26 +169,22 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         return listaItemEstoque
     }
 
+    fun getEnvio(): Envio?{
+        return db.envioDAO().getByID(FlowSharedPreferences.getEnvioId(App.instance))
+    }
+
     fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
-
-        if(CadastraPedidoController.pedidoCadastro?.listaItemContrato == null)
-            throw java.lang.Exception()
-
         var count = 0
-        for(item in CadastraPedidoController.pedidoCadastro!!.listaItemContrato){
+        if(listaItemEstoque == null)
+            throw java.lang.Exception("")
+
+        for(item in listaItemEstoque!!){
 
             val valor = listaValoresRecebidos[count]
-
-            if(valor <= 0.0){
-                throw ValorMenorQueZeroException()
-            }
-            if(valor > item.quantidadeUnidade){
-                throw ValorMaiorQuePermitidoException()
-            }
-
             item.quantidadeRecebida = valor
             count += 1
         }
+
     }
 
     fun enviaRecebimento(): Observable<Boolean> {

@@ -4,13 +4,19 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
@@ -58,8 +64,30 @@ class CadastraItemActivity: AppCompatActivity() {
     }
 
     fun clicouProximo(){
-        val intent = Intent(this, ConfirmaRecebimentoSPActivity::class.java)
-        startActivity(intent)
+        try{
+
+            try {
+                viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+
+                val intent = Intent(this, ConfirmaRecebimentoSPActivity::class.java)
+                startActivity(intent)
+            }
+            catch (e: NenhumItemSelecionadoException){
+                Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
+            }
+            catch (e: CampoNaoPreenchidoException){
+                Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
+            }
+            catch(e: ValorMenorQueZeroException){
+                Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+            }
+            catch (e: ValorMaiorQuePermitidoException){
+                Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
+            }
+        }
+        catch(e: Exception){
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

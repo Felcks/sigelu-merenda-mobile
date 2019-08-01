@@ -128,5 +128,12 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
         notifyItemRemoved(position)
     }
 
+    fun getListaValoresItemEnvio(): List<Double>{
+
+        return list.map { it.quantidadeRecebida ?: 0.0 }
+    }
+
+
+
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
