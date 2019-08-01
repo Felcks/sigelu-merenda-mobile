@@ -50,7 +50,7 @@ class ItemEnvioRepository {
                         )
                     }
 
-                    ItemEnvio(
+                    val item = ItemEnvio(
                         it.id,
                         envioID,
                         it.quantidade_unidade ?: 0.0,
@@ -59,6 +59,9 @@ class ItemEnvioRepository {
                         itemEstoque.id,
                         itemEstoque
                     )
+
+                    item.quantidadeDisponivel = it.quantidade_disponivel
+                    item
                 }
 
                 subscriber.onNext(itens)

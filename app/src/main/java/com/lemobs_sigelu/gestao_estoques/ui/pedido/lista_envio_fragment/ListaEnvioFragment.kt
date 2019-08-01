@@ -111,6 +111,9 @@ class ListaEnvioFragment : Fragment() {
                 if(envio.recebimentoID != null)
                     viewModel!!.carregaListaItemRecebimento(envio)
             }
+
+            if(viewModel!!.quantidadeEnviosCarregando() == 0)
+                this.iniciarAdapter(viewModel!!.envios())
         }
     }
 
@@ -119,7 +122,6 @@ class ListaEnvioFragment : Fragment() {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
             Status.SUCCESS -> {
-
 
                 if(viewModel!!.quantidadeEnviosCarregando() <= 0){
 

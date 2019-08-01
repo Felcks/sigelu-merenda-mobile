@@ -151,7 +151,7 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
 
 
         val itensParaAdicionar = listaParaAdicionar.map {
-            ItemEnvio(
+            val item = ItemEnvio(
                 it.id,
                 0,
                 it.quantidadeUnidade ?: 0.0,
@@ -160,6 +160,9 @@ class CadastraEnvioController @Inject constructor(private val envioRepository: E
                 it.itemEstoqueID,
                 it.itemEstoque
             )
+
+            item.quantidadeDisponivel = it.quantidadeDisponivel
+            item
         }
 
         envioParaCadastro?.itens?.addAll(itensParaAdicionar)

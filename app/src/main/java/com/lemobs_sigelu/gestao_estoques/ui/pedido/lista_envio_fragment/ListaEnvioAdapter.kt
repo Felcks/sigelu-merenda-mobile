@@ -78,6 +78,13 @@ class ListaEnvioAdapter(val context: Context,
             holder.firstTime = false
             this.startAdapter(holder, item.itens)
         }
+
+        if(item.situacao == "Enviado"){
+            holder.itemView.time_marker.setMarker(context.resources.getDrawable(com.lemobs_sigelu.gestao_estoques.R.drawable.ic_marker_inactive))
+        }
+        else{
+            holder.itemView.time_marker.setMarker(context.resources.getDrawable(com.lemobs_sigelu.gestao_estoques.R.drawable.ic_marker_active))
+        }
     }
 
     private fun startAdapter(holder: TimeLineViewHolder, itens: List<ItemEnvio>){
