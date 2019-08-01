@@ -154,7 +154,7 @@
                   android:label="Confirme o recebimento"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
-                  android:theme="@style/AppThemeNoActionBar"/>
+                  />
 
     </application>
 </manifest>

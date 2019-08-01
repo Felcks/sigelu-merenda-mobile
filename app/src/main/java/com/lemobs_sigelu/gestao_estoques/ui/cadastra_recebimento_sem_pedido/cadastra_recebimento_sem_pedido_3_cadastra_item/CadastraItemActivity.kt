@@ -12,6 +12,7 @@ import android.view.MenuItem
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -44,7 +45,7 @@ class CadastraItemActivity: AppCompatActivity() {
 
 
         ll_layout_proximo.setOnClickListener {
-           // this.clicouProximo()
+            this.clicouProximo()
         }
 
         ll_layout_anterior.setOnClickListener {
@@ -56,7 +57,10 @@ class CadastraItemActivity: AppCompatActivity() {
 
     }
 
-
+    fun clicouProximo(){
+        val intent = Intent(this, ConfirmaRecebimentoSPActivity::class.java)
+        startActivity(intent)
+    }
 
 
 
