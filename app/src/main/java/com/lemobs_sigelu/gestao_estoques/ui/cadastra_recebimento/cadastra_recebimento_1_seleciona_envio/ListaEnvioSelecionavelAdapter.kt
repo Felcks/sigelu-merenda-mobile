@@ -1,10 +1,12 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio
 
 import android.content.Context
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +34,8 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
     var layoutSelecionado: CardView? = null
     var posicaoSelecionada: Int = -1
 
+    //var mExpandedPosition = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
         val view = mLayoutInflater.inflate(R.layout.item_envio_selecionavel, parent, false)
@@ -56,18 +60,8 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
             holder.itemView.ll_content.setBackgroundColor(colorItemEntregue)
         }
 
-        holder.itemView.ll_clickable_layout.setOnClickListener {
-
-            if (!holder.isExpanded) {
-                holder.itemView.rv_itens_envio.visibility = View.VISIBLE
-                holder.itemView.arrow.background = ContextCompat.getDrawable(App.instance, R.drawable.ic_arrow_up)
-                holder.isExpanded = true
-            } else {
-                holder.itemView.rv_itens_envio.visibility = View.GONE
-                holder.itemView.arrow.background = ContextCompat.getDrawable(App.instance, R.drawable.ic_arrow_down)
-                holder.isExpanded = false
-            }
-        }
+        //val isExpanded: Boolean = position == mExpandedPosition
+        holder.itemView.rv_itens_envio.visibility = View.VISIBLE
 
         holder.itemView.ll_all.setOnClickListener {
 

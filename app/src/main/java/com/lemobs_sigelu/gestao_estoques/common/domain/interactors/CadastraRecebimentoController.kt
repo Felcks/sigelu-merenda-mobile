@@ -42,6 +42,10 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
         }
     }
 
+    fun getListaItensEnvio(envio: Envio): Observable<List<ItemEnvio>>{
+        return itemEnvioRepository.getListaItemEnvio(envio)
+    }
+
     fun getItensEnvioSolicitado(): List<ItemEnvio>?{
         return listaItemEnvio
     }

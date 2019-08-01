@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +19,11 @@ class SelecionaEnvioRecebimentoViewModel (val controller: CadastraRecebimentoCon
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
-    var responseSelecionaEnvio = MutableLiveData<Response>()
+    var responseItensEnvios = MutableLiveData<Response>()
+
+    val envios = mutableListOf<Envio>()
+    var quantidadeEnviosCarregando = 0
+    var quantidadeDeEnvios = 0
 
     override fun onCleared() {
         disposables.clear()
@@ -37,10 +42,35 @@ class SelecionaEnvioRecebimentoViewModel (val controller: CadastraRecebimentoCon
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
+                    quantidadeEnviosCarregando = result.size
+                    quantidadeDeEnvios = result.size
                     controller.armazenaListaEnvio(result)
                     response.setValue(Response.success(result))
                 },
                 { throwable -> response.setValue(Response.error(throwable)) }
+            )
+        )
+    }
+
+    fun carregarItensDeEnvio(envio: Envio){
+
+        this.envios.clear()
+        disposables.add(controller.getListaItensEnvio(envio)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {  responseItensEnvios.value = Response.loading() }
+            .subscribe(
+                { result ->
+                    envio.itens = result.toMutableList()
+                    envios.add(envio)
+                    quantidadeEnviosCarregando -= 1
+                    responseItensEnvios.value = Response.success(result)
+                },
+                { throwable ->
+                    envios.add(envio)
+                    quantidadeEnviosCarregando -= 1
+                    responseItensEnvios.value = Response.error(throwable)
+                }
             )
         )
     }

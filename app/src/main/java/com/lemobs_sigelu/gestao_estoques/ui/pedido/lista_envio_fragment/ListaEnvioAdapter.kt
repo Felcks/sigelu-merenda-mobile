@@ -74,10 +74,7 @@ class ListaEnvioAdapter(val context: Context,
             notifyItemChanged(position)
         }
 
-        if(holder.firstTime) {
-            holder.firstTime = false
-            this.startAdapter(holder, item.itens)
-        }
+        this.startAdapter(holder, item.itens)
 
         if(item.situacao == "Enviado"){
             holder.itemView.time_marker.setMarker(context.resources.getDrawable(com.lemobs_sigelu.gestao_estoques.R.drawable.ic_marker_inactive))
@@ -99,7 +96,6 @@ class ListaEnvioAdapter(val context: Context,
 
     inner class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
 
-        var firstTime = true
         private var mTimelineView: TimelineView = itemView.findViewById(com.lemobs_sigelu.gestao_estoques.R.id.time_marker) as TimelineView
         init {
             mTimelineView.initLine(viewType)

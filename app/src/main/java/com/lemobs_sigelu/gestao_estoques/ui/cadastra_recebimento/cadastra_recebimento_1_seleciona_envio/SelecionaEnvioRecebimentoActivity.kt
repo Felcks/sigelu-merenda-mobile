@@ -22,6 +22,8 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ItemNaoSelecionavelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebimentoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
@@ -50,6 +52,7 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaEnvioRecebimentoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.responseItensEnvios.observe(this, Observer<Response> { response -> processResponseItensEnvio(response) })
         viewModel!!.carregaEnvios()
         viewModel!!.apagarTodaListaRecebimentoAnterior()
 
@@ -89,15 +92,17 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderLoadingState() {}
+    private fun renderLoadingState() {
+        pgb_carregamento.visibility = View.VISIBLE
+    }
 
     private fun renderDataState(result: Any?) {
         if(result is List<*>){
 
             if(result.isNotEmpty()) {
-                tv_erro.visibility = View.GONE
-                pgb_carregamento.visibility = View.GONE
-                this.iniciarAdapter(result as List<Envio>)
+                for(envio in result as List<Envio>){
+                    viewModel!!.carregarItensDeEnvio(envio)
+                }
             }
             else{
                 tv_erro.visibility = View.VISIBLE
@@ -109,6 +114,23 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
     private fun renderErrorState(throwable: Throwable?) {
         tv_erro.visibility = View.VISIBLE
         pgb_carregamento.visibility = View.GONE
+    }
+
+    private fun processResponseItensEnvio(response: Response?) {
+        when (response?.status) {
+            Status.LOADING -> renderLoadingState()
+            Status.SUCCESS -> {
+
+                if(viewModel!!.quantidadeEnviosCarregando <= 0) {
+                    tv_erro.visibility = View.GONE
+                    pgb_carregamento.visibility = View.GONE
+                    iniciarAdapter(viewModel!!.envios)
+                }
+            }
+            Status.ERROR -> {
+                renderErrorState(response.error)
+            }
+        }
     }
 
     private fun iniciarAdapter(list: List<Envio>){
@@ -125,6 +147,34 @@ class SelecionaEnvioRecebimentoActivity: AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId == android.R.id.home){
+            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            DialogUtil.buildAlertDialogSimNao(
+                this,
+                "Cancelar recebimento ",
+                "Deseja sair e cancelar o recebimento?",
+                {
+                    finish()
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                },
+                {}).show()
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
     }
 }
