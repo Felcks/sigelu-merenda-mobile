@@ -92,7 +92,6 @@ class ListaEnvioAdapter(val context: Context,
 
     inner class TimeLineViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
 
-        var isExpanded = false
         var firstTime = true
         private var mTimelineView: TimelineView = itemView.findViewById(com.lemobs_sigelu.gestao_estoques.R.id.time_marker) as TimelineView
         init {

@@ -30,6 +30,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_se
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity
+import com.lemobs_sigelu.gestao_estoques.ui.estoque.EstoqueActivity
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
@@ -232,6 +233,8 @@ class ListaPedidoActivity: AppCompatActivity() {
                 true
             }
             R.id.btn_visualiza_estoque -> {
+                val intent = Intent(this, EstoqueActivity::class.java)
+                startActivity(intent)
                 true
             }
             R.id.btn_aumentar_fonte -> {

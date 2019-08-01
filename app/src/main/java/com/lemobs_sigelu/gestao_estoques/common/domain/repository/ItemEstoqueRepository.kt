@@ -28,7 +28,7 @@ class ItemEstoqueRepository {
                 else{
 
                     val list = response.body()!!.map{
-                        ItemEstoque(
+                        val item = ItemEstoque(
                             it.id,
                             it.codigo ?: "",
                             it.descricao ?: "",
@@ -41,6 +41,12 @@ class ItemEstoqueRepository {
                                 )
                             }
                         )
+
+                        item.apply {
+                            saldoContrato = it.saldo_contrato
+                            quantidadeDisponivel = it.quantidade_disponivel
+                        }
+                        item
                     }
                     subscriber.onNext(list)
                     subscriber.onComplete()

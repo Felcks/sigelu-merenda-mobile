@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.fornecedor.FornecedorDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.item_nucleo.ItemNucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.item_recebimento.ItemRecebimentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.nucleo_quantidade_item_estoque.NucleoQuantidadeDeItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
@@ -148,8 +149,12 @@ class RestApi {
         return api.getItensContrato(auth, contratoID)
     }
 
-    fun getItensEstoque() : Call<List<ItemEstoqueDataResponse>>{
+    fun getItensEstoque(): Call<List<ItemEstoqueDataResponse>>{
         return api.getItensEstoque(auth)
+    }
+
+    fun getListaNucleoQuantidadeDeItemEstoque(itemEstoqueID: Int): Call<List<NucleoQuantidadeDeItemEstoqueDataResponse>>{
+        return api.getListaNucleoQuantidadeDeItemEstoque(auth, itemEstoqueID)
     }
 
     /* Pedido fornecedor-nucleo */

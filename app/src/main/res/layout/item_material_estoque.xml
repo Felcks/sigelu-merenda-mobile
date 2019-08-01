@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/espacamento_medio"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="false"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="1dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="@dimen/espacamento_grande"
+            android:layout_marginBottom="@dimen/espacamento_minimo">
+
+        <TextView
+                android:id="@+id/tv_nome_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"
+                android:text=""
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_descricao_material_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Descrição:"
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_descricao_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                app:layout_constraintLeft_toRightOf="@id/tv_descricao_material_layout"
+                android:layout_marginLeft="@dimen/espacamento_curto"
+                android:text=""
+                android:textColor="@color/primary_text"/>
+
+        <TextView
+                android:id="@+id/tv_contratado_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contratado:"
+                app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@color/primary_text"/>
+
+        <TextView android:id="@+id/tv_contratado"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="0"
+                  android:textColor="@color/primary_text"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_contratado_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_contratado_layout"/>
+
+
+        <TextView android:id="@+id/tv_disponivel_layout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Disponivel:"
+                  android:textColor="@color/primary_text"
+                  app:layout_constraintTop_toBottomOf="@id/tv_contratado_layout"
+                  app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_disponivel"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/primary_text"
+                  android:text="0"
+                  android:layout_marginLeft="@dimen/espacamento_curto"
+                  app:layout_constraintLeft_toRightOf="@id/tv_disponivel_layout"
+                  app:layout_constraintBaseline_toBaselineOf="@id/tv_disponivel_layout"/>
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/ll_disponibilidade_nucleos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/espacamento_medio"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                android:background="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@id/tv_disponivel_layout"
+                app:layout_constraintLeft_toLeftOf="@id/tv_disponivel_layout">
+
+            <TextView android:id="@+id/tv_disponibilidade_nucleos"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Disponibilidade Núcleos"
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="16sp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_disponibilidade_nucleos"
+                    android:layout_marginLeft="@dimen/espacamento_curto"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_disponibilidade_nucleos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ll_disponibilidade_nucleos"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="@dimen/espacamento_medio"
+                android:visibility="gone"/>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
