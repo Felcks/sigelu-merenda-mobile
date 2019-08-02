@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento
 import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
 class ListaRecebimentoSPAdapter (val context: Context,
-                                 val list: List<ItemRecebimento>):
+                                 val list: List<ItemEstoque>):
     RecyclerView.Adapter<ListaRecebimentoSPAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -29,10 +30,10 @@ class ListaRecebimentoSPAdapter (val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_1.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.tv_2.text = item.itemEstoque?.descricao
-        holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-        holder.itemView.tv_4.setText(item.quantidadeRecebida.toString())
+        holder.itemView.tv_1.text = item.nomeAlternativo
+        holder.itemView.tv_2.text = item.descricao
+        holder.itemView.tv_3.text = item.unidadeMedida?.getNomeESiglaPorExtenso()
+        holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
 
     }
 

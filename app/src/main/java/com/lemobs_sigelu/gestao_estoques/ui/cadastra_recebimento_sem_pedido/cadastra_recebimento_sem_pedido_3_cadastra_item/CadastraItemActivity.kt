@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
@@ -43,11 +44,17 @@ class CadastraItemActivity: AppCompatActivity() {
         mainBinding.executePendingBindings()
 
         val listaItemEnvio = viewModel!!.getItensEstoque()
-        val layoutManager = LinearLayoutManager(applicationContext)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_lista_material.layoutManager = layoutManager
-        this.adapter = CadastraItemSemPedidoAdapter(App.instance, listaItemEnvio)
-        rv_lista_material.adapter = adapter
+
+        if(listaItemEnvio.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista_material.layoutManager = layoutManager
+            this.adapter = CadastraItemSemPedidoAdapter(App.instance, listaItemEnvio)
+            rv_lista_material.adapter = adapter
+        }
+        else{
+            tv_error.visibility = View.VISIBLE
+        }
 
 
         ll_layout_proximo.setOnClickListener {
@@ -60,7 +67,6 @@ class CadastraItemActivity: AppCompatActivity() {
         }
 
         tv_total_material.text = "(${viewModel!!.getItensEstoque().size})"
-
     }
 
     fun clicouProximo(){
@@ -90,11 +96,7 @@ class CadastraItemActivity: AppCompatActivity() {
         }
     }
 
-
-
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
@@ -112,7 +114,7 @@ class CadastraItemActivity: AppCompatActivity() {
                     {
                         viewModel!!.removeItens()
                         finish()
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
 
                     },

@@ -38,12 +38,14 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ConfirmaRecebimentoSPViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.envioRecebimentoResponse.observe(this, Observer<Response> { response -> processEnvioRecebimentoResponse(response) })
-        viewModel!!.carregaItemRecebimento()
 
-//        val envio = viewModel!!.getEnvio()
-//        if(envio != null){
-//            tv_envio.text = envio.codigo
-//        }
+        val listaItemEnvio = viewModel!!.getItensEstoque()
+
+        if(listaItemEnvio.isNotEmpty()) {
+            iniciarAdapter(listaItemEnvio)
+        }
+
+
 
         ll_layout_anterior.setOnClickListener {
             this.clicouAnterior()
@@ -52,8 +54,6 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
         }
-
-
     }
 
     private fun clicouProximo(){

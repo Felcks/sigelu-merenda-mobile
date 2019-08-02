@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -61,5 +62,9 @@ class ConfirmaRecebimentoSPViewModel (private val controller: CadastraRecebiment
 
     fun getEnvio(): Envio? {
         return controller.getEnvio()
+    }
+
+    fun getItensEstoque():List<ItemEstoque>{
+        return controller.getItensEstoqueSolicitado() ?: mutableListOf()
     }
 }

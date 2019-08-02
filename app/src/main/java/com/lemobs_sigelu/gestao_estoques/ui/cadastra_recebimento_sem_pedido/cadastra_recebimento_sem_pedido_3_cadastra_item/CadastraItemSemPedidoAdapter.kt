@@ -50,18 +50,15 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
         holder.itemView.tv_nome_material.text = item.nomeAlternativo
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
-
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
 
-
-//        if(position > ultimaPosicao){
-//            ultimaPosicao = position
-//        }
+        if((item.quantidadeRecebida ?: 0.0)  > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida))
+        else
+            holder.itemView.edt_quantidade_fornecida.setText("")
 
         this.adicionarMascaras(item, holder, position)
-
-
     }
 
     private fun adicionarMascaras(item: ItemEstoque, holder: MyViewHolder, position: Int){
@@ -77,8 +74,10 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
                     try {
                         doubleValue = java.lang.Double.parseDouble(s.toString().replace(',', '.'))
                     }
-                    catch (e: NumberFormatException) { }
+                    catch (e: NumberFormatException) {
 
+                    }
+                    item.quantidadeRecebida = doubleValue
                 }
             }
         }
@@ -108,10 +107,8 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
             else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 if (position + 1 <= ultimaPosicao) {
-                    notifyItemChanged(position)
                     editTexts[position + 1]?.requestFocus()
                 } else {
-                    notifyItemChanged(position)
                     holder.itemView.edt_quantidade_fornecida.clearFocus()
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
@@ -132,8 +129,6 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
 
         return list.map { it.quantidadeRecebida ?: 0.0 }
     }
-
-
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
