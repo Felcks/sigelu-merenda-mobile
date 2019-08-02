@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -108,7 +109,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
             "Sucesso",
             "Envio cadastrado com sucesso!",
             {
-                val intent = Intent(activity, VisualizarPedidoActivity::class.java)
+                val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },
@@ -159,7 +160,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
                     "Cancelar envio ",

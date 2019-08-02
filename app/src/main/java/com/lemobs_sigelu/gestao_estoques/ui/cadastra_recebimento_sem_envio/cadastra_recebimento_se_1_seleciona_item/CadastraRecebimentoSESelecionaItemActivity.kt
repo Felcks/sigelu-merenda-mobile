@@ -132,7 +132,7 @@ class CadastraRecebimentoSESelecionaItemActivity: AppCompatActivity(), TwoIntPar
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if(item?.itemId == android.R.id.home){
-            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
             DialogUtil.buildAlertDialogSimNao(
                 this,
                 "Cancelar recebimento ",

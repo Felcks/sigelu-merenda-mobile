@@ -25,6 +25,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil.Companion.buildAlertDialogSimNao
@@ -163,7 +164,7 @@ class SelecionaItemEnvioActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 buildAlertDialogSimNao(
                     this,
                     "Cancelar envio ",

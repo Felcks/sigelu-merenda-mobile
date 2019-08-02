@@ -114,7 +114,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
             "Sucesso",
             "Recebimento enviado com sucesso!",
             {
-                val intent = Intent(activity, VisualizarPedidoActivity::class.java)
+                val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },
@@ -160,7 +160,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
                     "Cancelar recebimento",
