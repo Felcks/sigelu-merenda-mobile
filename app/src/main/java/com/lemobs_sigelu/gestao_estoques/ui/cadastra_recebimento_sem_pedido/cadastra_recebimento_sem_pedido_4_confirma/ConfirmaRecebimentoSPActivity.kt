@@ -45,7 +45,11 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
             iniciarAdapter(listaItemEnvio)
         }
 
-
+        val recebimentoSemPedido = viewModel!!.getRecebimentoSemPedido()
+        if(recebimentoSemPedido != null){
+            tv_destino.text= recebimentoSemPedido.nucleoDestino.nome
+            tv_fornecedor.text = recebimentoSemPedido.fornecedorOrigem.nome
+        }
 
         ll_layout_anterior.setOnClickListener {
             this.clicouAnterior()

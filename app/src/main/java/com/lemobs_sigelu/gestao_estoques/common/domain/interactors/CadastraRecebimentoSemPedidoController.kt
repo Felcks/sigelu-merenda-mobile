@@ -227,5 +227,7 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
         }
     }
 
+    fun getRecebimentoSemPedido(): RecebimentoSemPedido? = recebimentoSemPedido
+
 
 }

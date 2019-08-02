@@ -128,9 +128,12 @@ class CadastraInformacoesActivity: AppCompatActivity() {
 
     fun clicouNoProximo() {
         try {
+            viewModel!!.confirmarInformacoesBasicasRecebimento()
+
             val intent = Intent(this, SelecionaItemActivity::class.java)
             startActivity(intent)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
