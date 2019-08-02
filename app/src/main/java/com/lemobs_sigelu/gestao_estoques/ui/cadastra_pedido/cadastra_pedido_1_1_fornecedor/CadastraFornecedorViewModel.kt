@@ -14,7 +14,6 @@ class CadastraFornecedorViewModel (val controller: CadastraPedidoController): Vi
 
 
     private val disposables = CompositeDisposable()
-
     val responseEmpresas = MutableLiveData<Response>()
     val responseContratos = MutableLiveData<Response>()
 

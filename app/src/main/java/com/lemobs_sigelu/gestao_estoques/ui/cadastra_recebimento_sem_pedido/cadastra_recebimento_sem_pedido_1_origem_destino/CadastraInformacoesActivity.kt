@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemNucleoException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -57,11 +58,12 @@ class CadastraInformacoesActivity: AppCompatActivity() {
 
     fun processResponse(response: Response?) {
         when (response?.status) {
-            Status.LOADING -> {}
+            Status.LOADING -> {
+            }
             Status.SUCCESS -> {
 
-                if(response.data is List<*>){
-                    if(response.data.firstOrNull() is Fornecedor){
+                if (response.data is List<*>) {
+                    if (response.data.firstOrNull() is Fornecedor) {
                         this.iniciaSpinnerOrigem(response.data as List<Fornecedor>)
                     }
                 }
@@ -72,20 +74,19 @@ class CadastraInformacoesActivity: AppCompatActivity() {
         }
     }
 
-    fun carregarInformacoes(){
+    fun carregarInformacoes() {
 
-        try{
+        try {
             viewModel!!.carregaListaFornecedores()
-        }
-        catch(e: UsuarioSemNucleoException){
+        } catch (e: UsuarioSemNucleoException) {
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
 
-    private fun iniciaSpinnerOrigem(lista: List<Fornecedor>){
+    private fun iniciaSpinnerOrigem(lista: List<Fornecedor>) {
 
         val textoDestino = lista.map { it.nome }
-        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  textoDestino)
+        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, textoDestino)
         spinner_origem.adapter = adapter
 
         spinner_origem.onItemSelectedListener = viewModel!!.selecionadorOrigem
@@ -93,11 +94,12 @@ class CadastraInformacoesActivity: AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        val actionBar : ActionBar? = supportActionBar
+        val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -124,8 +126,12 @@ class CadastraInformacoesActivity: AppCompatActivity() {
         return true
     }
 
-    fun clicouNoProximo(){
-
-
+    fun clicouNoProximo() {
+        try {
+            val intent = Intent(this, SelecionaItemActivity::class.java)
+            startActivity(intent)
+        } catch (e: Exception) {
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
     }
 }

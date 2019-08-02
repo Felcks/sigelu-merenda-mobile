@@ -19,6 +19,7 @@
     <!-- Bottom Bar -->
     <string name="anterior"> ANTERIOR </string>
     <string name="proximo">PRÓXIMO</string>
+    <string name="confirmar">CONFIRMAR</string>
 
     <!-- Cadastra Motorista -->
     <string name="infoEnvio">Informações de envio</string>
@@ -42,6 +43,9 @@
     <string name="selecione_contrato">Selecione um contrato</string>
     <string name="selecione_nucleo">Selecione um núcleo</string>
     <string name="selecione_obra">Selecione a Obra</string>
+    <string name="cadastra_itens">Próximo: Cadastrar</string>
+    <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
+
 
 
 </resources>

@@ -17,7 +17,7 @@ class ListaRecebimentoSPAdapter (val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_material_cadastrado_sp, parent, false)
         return MyViewHolder(view)
     }
 
@@ -32,8 +32,7 @@ class ListaRecebimentoSPAdapter (val context: Context,
         holder.itemView.tv_1.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_2.text = item.itemEstoque?.descricao
         holder.itemView.tv_3.text = item.itemEstoque?.unidadeMedida?.getNomeESiglaPorExtenso()
-        holder.itemView.tv_4.setText(item.quantidadeUnidade.toString())
-        //holder.itemView.tv_5.setText(item.quantidadeRecebida.toString())
+        holder.itemView.tv_4.setText(item.quantidadeRecebida.toString())
 
     }
 

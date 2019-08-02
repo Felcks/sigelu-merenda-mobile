@@ -6,8 +6,6 @@ import android.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Fornecedor
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +19,7 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
-    var nomeNucleo = ObservableField<String>("")
+
 
     override fun onCleared() {
         disposables.clear()
@@ -53,12 +51,6 @@ class CadastraInformacoesViewModel  (val controller: CadastraRecebimentoSemPedid
         )
     }
 
-    fun carregaMeuNucleo() {
-
-        loading.set(true)
-        val nucleo = controller.getNucleoDestino()
-        nomeNucleo.set("Núcleo - ${nucleo.nome}")
-    }
 
     fun confirmarInformacoesBasicasRecebimento(){
         return controller.confirmarInformacoesBasicasRecebimento(fornecedorSelecionadoPos)

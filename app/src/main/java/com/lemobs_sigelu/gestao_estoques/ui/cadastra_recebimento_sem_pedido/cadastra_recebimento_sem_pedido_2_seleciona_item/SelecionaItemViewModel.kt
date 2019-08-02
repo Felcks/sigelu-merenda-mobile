@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,37 +29,36 @@ class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoContro
 
     fun carregaListaItens(){
 
-        loading.set(true)
-        val listaContratoVigenteIDs = controller.getListaContratoVigenteIDs()
-        val quantidadeCarregamento = listaContratoVigenteIDs.size
-        var countCarregamento = 0
+        this.loading.set(true)
 
-        for(item in listaContratoVigenteIDs){
+        disposables.add(controller.getListaItemEstoque()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    response.value = Response.success(result)
+                },
+                { throwable ->
 
-            disposables.add(controller.getListaItem(item)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { response.setValue(Response.loading()) }
-                .subscribe(
-                    { result ->
-                        countCarregamento += 1
-                        controller.salvaListaItemContrato(result)
-
-                        if(countCarregamento >= quantidadeCarregamento){
-                            loading.set(false)
-                            response.value = Response.success(result)
-                        }
-                    },
-                    { throwable ->
-                        loading.set(false)
-                        response.value = Response.error(throwable)
-                    }
-                )
+                    loading.set(false)
+                    response.setValue(Response.error(throwable))
+                }
             )
-        }
+        )
+
     }
 
-    fun selecionaItem(itemID: Int){
+    fun selecionaItem(itemID: Int): Boolean{
         return controller.selecionaItem(itemID)
+    }
+
+    fun getIdItensAdicionados(): List<Int>{
+        return controller.getItensJaAdicionados()
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>){
+        return controller.confirmaSelecaoItens(listaParaAdicionar, listaParaRemover)
     }
 }

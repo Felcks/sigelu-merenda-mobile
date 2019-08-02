@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.FornecedorRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemContratoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoRepository
 import dagger.Module
 import dagger.Provides
@@ -32,5 +33,10 @@ class CadastraRecebimentoSemPedidoModule {
     @Provides
     fun provideNucleoRepository(): NucleoRepository{
         return NucleoRepository()
+    }
+
+    @Provides
+    fun provideItemRepository(): ItemEstoqueRepository{
+        return ItemEstoqueRepository()
     }
 }
