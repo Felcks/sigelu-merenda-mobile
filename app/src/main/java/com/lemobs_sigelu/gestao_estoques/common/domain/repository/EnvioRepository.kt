@@ -102,9 +102,7 @@ class EnvioRepository {
                 envio.dataSaida?.toAnoMesDiaComTracos() ?: "",
                 envio.itens.map {
                     ItemEnvioDataRequest(
-                        it.categoria?.categoria_id ?: 0,
                         it.itemEstoqueID ?: 0,
-                        it.precoUnidade ?: 0.0,
                         it.quantidadeRecebida ?: 0.0
                     )
                 }

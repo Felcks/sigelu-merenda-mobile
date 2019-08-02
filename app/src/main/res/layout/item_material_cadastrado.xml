@@ -17,8 +17,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:padding="1dp"
             android:background="@color/colorAccent"
-            android:layout_marginBottom="@dimen/espacamento_medio"
-    >
+            android:layout_marginRight="@dimen/espacamento_grande"
+            android:layout_marginBottom="@dimen/espacamento_grande"
+            android:layout_marginLeft="@dimen/espacamento_curto"
+            android:layout_marginTop="@dimen/espacamento_curto">
 
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"

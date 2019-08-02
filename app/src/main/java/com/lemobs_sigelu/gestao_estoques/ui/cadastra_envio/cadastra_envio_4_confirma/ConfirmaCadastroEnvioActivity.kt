@@ -17,7 +17,6 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
@@ -83,20 +82,6 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
         rv_lista.adapter = adapter
     }
 
-    private fun mostrarDialogCancelamento(){
-
-        DialogUtil.buildAlertDialogSimNao(this,
-            "Cancelar envio",
-            "Deseja cancelar o cadastro do envio?",
-            {
-                this.viewModel!!.cancelaEnvio()
-                val intent = Intent(this, ListaPedidoActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            {}).show()
-    }
-
     fun processResponseEnvioPedido(response: Response?){
         when(response?.status){
             Status.LOADING -> renderLoadingStateEnvio()
@@ -123,7 +108,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
             "Sucesso",
             "Envio cadastrado com sucesso!",
             {
-                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                val intent = Intent(activity, VisualizarPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },

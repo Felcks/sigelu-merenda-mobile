@@ -42,7 +42,7 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
                 { result ->
                     loading.set(false)
                     if(result.isNotEmpty()) {
-                        response.setValue(Response.success(result.sortedBy { it.situacao?.getPrioridadeOrdenacao() }))
+                        response.setValue(Response.success(result))
                     }
                     else{
                         response.setValue(Response.error(ListaVaziaException()))
