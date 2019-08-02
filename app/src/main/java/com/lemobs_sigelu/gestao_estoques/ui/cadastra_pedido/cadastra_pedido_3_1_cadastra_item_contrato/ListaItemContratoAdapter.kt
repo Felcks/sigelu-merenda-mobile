@@ -99,6 +99,17 @@ class ListaItemContratoAdapter (private val context: Context,
 
                 }
                 item.quantidadeRecebida = doubleValue
+                if(item.quantidadeRecebida ?: 0.0 == 0.0){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
+                }
+                else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
+                    holder.itemView.ll_card_view.setBackgroundColor(colorItemNeutro)
+                }
+                else {
+                    holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
+                    holder.itemView.ll_card_view.setBackgroundColor(colorItemNeutro)
+                }
             }
         }
         mascaras[position] = mascara
@@ -127,10 +138,8 @@ class ListaItemContratoAdapter (private val context: Context,
 
                 if (position + 1 <= ultimaPosicao) {
                     editTexts[position + 1]?.requestFocus()
-                } else {
-                    notifyItemChanged(position)
-                    holder.itemView.edt_quantidade_fornecida.clearFocus()
-                    holder.itemView.tv_nome_material.requestFocus()
+                }
+                else {
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
 
