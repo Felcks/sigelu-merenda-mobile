@@ -126,7 +126,6 @@ class ListaItemContratoAdapter (private val context: Context,
             else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 if (position + 1 <= ultimaPosicao) {
-                    notifyItemChanged(position)
                     editTexts[position + 1]?.requestFocus()
                 } else {
                     notifyItemChanged(position)

@@ -36,7 +36,7 @@ class CadastraItemNucleoViewModel (private val controller: CadastraPedidoControl
     fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
 
         if(listValoresRecebidos.isNotEmpty()){
-            controller.confirmaCadastroMaterial(listValoresRecebidos)
+            controller.confirmaCadastroMaterialNucleo(listValoresRecebidos)
         }
         else{
             throw NenhumItemSelecionadoException()

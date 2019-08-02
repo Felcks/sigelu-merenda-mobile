@@ -55,7 +55,11 @@ class ListaItemNucleoAdapter (private val context: Context,
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
-        holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+
+        if((item.quantidadeRecebida ?: 0.0) > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+        else
+            holder.itemView.edt_quantidade_fornecida.setText("")
 
 
         if(item.quantidadeRecebida ?: 0.0 == 0.0){
@@ -118,10 +122,10 @@ class ListaItemNucleoAdapter (private val context: Context,
             else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 if (position + 1 <= ultimaPosicao) {
-                    notifyItemChanged(position)
+                    //notifyItemChanged(position)
                     editTexts[position + 1]?.requestFocus()
                 } else {
-                    notifyItemChanged(position)
+                    //notifyItemChanged(position)
                     holder.itemView.edt_quantidade_fornecida.clearFocus()
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }

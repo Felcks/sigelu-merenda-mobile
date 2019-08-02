@@ -51,6 +51,8 @@ class CadastraItemNucleoActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(applicationContext)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             rv_lista_material.layoutManager = layoutManager
+            rv_lista_material.setItemViewCacheSize(listaItemEnvio.size)
+            rv_lista_material.setHasFixedSize(true)
 
             this.adapter = ListaItemNucleoAdapter(App.instance, listaItemEnvio, removerItemListener)
             rv_lista_material.adapter = adapter
