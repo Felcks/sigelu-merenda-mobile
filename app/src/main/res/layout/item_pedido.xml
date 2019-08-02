@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="Pedido nº 320005"
                 android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="@id/iv_entrega"
                 app:layout_constraintHorizontal_bias="0"
@@ -64,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Origem:"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
         <TextView
@@ -74,7 +76,7 @@
                 android:gravity="end"
                 app:layout_constraintLeft_toRightOf="@id/layout_origem"
                 android:text="-"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
 
@@ -84,7 +86,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/layout_origem"
                 android:text="Destino:"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
         <TextView
@@ -95,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@id/layout_origem"
                 app:layout_constraintLeft_toRightOf="@id/layout_destino"
                 android:text="-"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text" />
 
         <TextView
@@ -104,7 +106,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/layout_destino"
                 android:text="Data do pedido:"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
         <TextView
@@ -115,7 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@id/layout_destino"
                 app:layout_constraintLeft_toRightOf="@+id/layout_data_pedido"
                 android:text="-"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text" />
 
         <TextView
@@ -135,7 +137,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_data_pedido"
                 app:layout_constraintLeft_toRightOf="@+id/layout_data_entrega"
                 android:text="-"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text" />
 
         <TextView
@@ -144,7 +146,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/layout_data_entrega"
                 android:text="Data da último recebimento:"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
         <TextView
@@ -155,7 +157,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_data_entrega"
                 app:layout_constraintLeft_toRightOf="@+id/layout_data_ultima_entrega"
                 android:text="-"
-                android:padding="@dimen/espacamento_curto"
+                android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text" />
 
 
@@ -163,7 +165,7 @@
                 android:id="@+id/rl_situacao"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="@dimen/espacamento_medio"
+                android:layout_marginTop="@dimen/espacamento_curto"
                 android:background="@drawable/rounded_button_states"
                 android:gravity="center"
                 android:padding="@dimen/espacamento_medio"
@@ -175,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:text="Aprovada"
                     android:textColor="@android:color/white"
                     app:layout_constraintTop_toTopOf="parent"

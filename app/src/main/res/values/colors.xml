@@ -19,8 +19,9 @@
     <color name="pedido_aprovado">#237a85</color>
     <color name="pedido_entregue">#43a047</color>
     <color name="pedido_reprovado">#990000</color>
-    <color name="pedido_parcial">#FFDD00</color>
-    <color name="pedido_rascunho">#888888</color>
+    <color name="pedido_parcial">#FFC107</color>
+    <color name="pedido_correcao_solicitada">#673AB7</color>
+    <color name="pedido_rascunho">#858585</color>
 
     <!-- Cores situação do material de pedido -->
     <color name="quantidade_aceita">#43a047</color>
