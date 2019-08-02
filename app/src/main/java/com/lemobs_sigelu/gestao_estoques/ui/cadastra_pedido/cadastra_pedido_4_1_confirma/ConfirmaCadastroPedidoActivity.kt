@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemContrato
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
@@ -50,6 +51,10 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
             tv_contrato.visibility = View.VISIBLE
             tv_contrato_layout.visibility = View.VISIBLE
             tv_contrato.text = pedido.contratoEstoque?.numeroContrato
+        }
+
+        if(pedido?.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
+            btn_salva_rascunho.visibility = View.GONE
         }
 
         ll_layout_anterior.setOnClickListener {

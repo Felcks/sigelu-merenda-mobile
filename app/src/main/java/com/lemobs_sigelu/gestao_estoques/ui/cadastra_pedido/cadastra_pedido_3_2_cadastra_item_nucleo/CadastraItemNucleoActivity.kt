@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
@@ -46,12 +47,17 @@ class CadastraItemNucleoActivity : AppCompatActivity() {
         mainBinding.executePendingBindings()
 
         val listaItemEnvio = viewModel!!.getItensSolicitados()
-        val layoutManager = LinearLayoutManager(applicationContext)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_lista_material.layoutManager = layoutManager
+        if(listaItemEnvio.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(applicationContext)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
+            rv_lista_material.layoutManager = layoutManager
 
-        this.adapter = ListaItemNucleoAdapter(App.instance, listaItemEnvio, removerItemListener)
-        rv_lista_material.adapter = adapter
+            this.adapter = ListaItemNucleoAdapter(App.instance, listaItemEnvio, removerItemListener)
+            rv_lista_material.adapter = adapter
+        }
+        else{
+            tv_error.visibility = View.VISIBLE
+        }
 
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
@@ -100,6 +106,9 @@ class CadastraItemNucleoActivity : AppCompatActivity() {
                 viewModel?.removeItem(id)
                 adapter?.removeItem(position)
                 tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+
+                if(viewModel!!.getItensSolicitados().isEmpty())
+                    tv_error.visibility = View.VISIBLE
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
