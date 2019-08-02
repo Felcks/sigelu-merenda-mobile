@@ -9,7 +9,6 @@
         android:clickable="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:layout_marginRight="@dimen/espacamento_grande"
         android:paddingTop="@dimen/espacamento_maximo">
 
     <android.support.constraint.ConstraintLayout

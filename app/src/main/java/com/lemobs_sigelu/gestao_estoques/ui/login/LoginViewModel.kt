@@ -52,7 +52,6 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
             return
         }
 
-
         loading.set(true)
         disposables.add(loginController.login(username, password)
             .subscribeOn(Schedulers.io())

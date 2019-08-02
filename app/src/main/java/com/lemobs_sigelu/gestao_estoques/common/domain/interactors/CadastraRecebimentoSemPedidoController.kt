@@ -204,16 +204,13 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
             val recebimentoDataRequest = RecebimentoSemPedidoDataRequest(
                 origemID!!,
                 destinoID!!,
-                listaItemContrato!!.map {
+                listaItemEstoque!!.map {
                     ItemRecebimentoDataRequest(
-                        it.categoria?.categoria_id ?: 0,
-                        it.itemEstoqueID ?: 0,
-                        it.precoUnidade ?: 0.0,
+                        it.id,
                         itemRecebimento?.quantidadeRecebida ?: 0.0
                     )
                 }
             )
-
 
             val callResponse = api.postRecebimentoSemPedidoEstoque(recebimentoDataRequest)
             val response = callResponse.execute()
