@@ -162,8 +162,8 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Deseja Cancelar o Envio? ",
-                    "Ao escolher Sim os dados serão perdidos",
+                    "Cancelar envio ",
+                    "Deseja sair e cancelar o envio?",
                     {
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

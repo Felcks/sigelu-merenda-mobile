@@ -51,6 +51,7 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_quantidade_disponivel.text = item.quantidadeDisponivel.toString() ?: "0.0"
+        holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoque?.unidadeMedida?.nome ?: ""
         holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 

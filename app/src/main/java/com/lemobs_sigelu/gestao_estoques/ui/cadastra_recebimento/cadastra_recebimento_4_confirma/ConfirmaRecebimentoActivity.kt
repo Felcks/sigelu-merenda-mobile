@@ -114,7 +114,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
             "Sucesso",
             "Recebimento enviado com sucesso!",
             {
-                val intent = Intent(activity, ListaPedidoActivity::class.java)
+                val intent = Intent(activity, VisualizarPedidoActivity::class.java)
                 startActivity(intent)
                 this.finishAffinity()
             },

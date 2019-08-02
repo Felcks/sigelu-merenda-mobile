@@ -76,7 +76,8 @@ class ListaEnvioSelecionavelAdapter(val context: Context,
             }
         }
 
-        this.startAdapter(holder, item.itens)
+        if(!item.isEntregue)
+            this.startAdapter(holder, item.itens)
     }
 
     private fun startAdapter(holder: MyViewHolder, itens: List<ItemEnvio>){

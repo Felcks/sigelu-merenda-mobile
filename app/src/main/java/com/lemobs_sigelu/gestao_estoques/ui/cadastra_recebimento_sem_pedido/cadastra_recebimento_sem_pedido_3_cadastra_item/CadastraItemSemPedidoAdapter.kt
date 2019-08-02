@@ -48,6 +48,7 @@ class CadastraItemSemPedidoAdapter (private val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_nome_material.text = item.nomeAlternativo
+        holder.itemView.edt_quantidade_fornecida_unidade.text = item.unidadeMedida?.nome
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)

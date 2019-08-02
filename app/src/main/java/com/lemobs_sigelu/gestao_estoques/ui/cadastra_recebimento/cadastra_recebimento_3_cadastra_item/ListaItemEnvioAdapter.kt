@@ -55,6 +55,7 @@ class ListaItemEnvioAdapter (private val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_quantidade_disponivel.text = item.quantidadeUnidade.toString() ?: "0.0"
+        holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoque?.unidadeMedida?.nome
         holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
@@ -101,6 +102,14 @@ class ListaItemEnvioAdapter (private val context: Context,
 
                 }
                 item.quantidadeRecebida = doubleValue
+                if(item.quantidadeRecebida ?: 0.0 == 0.0){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
+                }
+                else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeUnidade){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
+                }
+                else
+                    holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
             }
         }
         mascaras[position] = mascara
@@ -128,10 +137,8 @@ class ListaItemEnvioAdapter (private val context: Context,
             else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 if (position + 1 <= ultimaPosicao) {
-                    notifyItemChanged(position)
                     editTexts[position + 1]?.requestFocus()
                 } else {
-                    notifyItemChanged(position)
                     holder.itemView.edt_quantidade_fornecida.clearFocus()
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
