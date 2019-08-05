@@ -180,9 +180,13 @@ class CadastraRecebimentoSemPedidoController @Inject constructor(private val ite
 
         for(item in listaItemEstoque!!){
 
-            val valor = listaValoresRecebidos[count]
-            item.quantidadeRecebida = valor
-            count += 1
+            if((item.quantidadeRecebida ?: 0.0) <= 0.0){
+                throw ValorMenorQueZeroException()
+            }else{
+                val valor = listaValoresRecebidos[count]
+                item.quantidadeRecebida = valor
+                count += 1
+            }
         }
 
     }
