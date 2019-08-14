@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/layout_data_pedido"
-                android:text="Data da último envio:"
+                android:text="Data do último envio:"
                 android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
@@ -146,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/layout_data_entrega"
-                android:text="Data da último recebimento:"
+                android:text="Data do último recebimento:"
                 android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"/>
 
