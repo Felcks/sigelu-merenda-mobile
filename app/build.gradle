@@ -21,7 +21,7 @@ android {
         config {
             keyAlias 'sigelu_estoques'
             keyPassword 's1g3luEst0qu3s'
-            storeFile file('/home/analu/Kraken/sigelu_estoques.jks')
+            storeFile file('/home/felcks/Documents/chaves/sigelu_estoques.jks')
             storePassword 's1g3luEst0qu3s'
         }
     }
@@ -33,8 +33,8 @@ android {
         applicationId 'com.lemobs_sigelu.estoques'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.1.4"
+        versionCode 8
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         compileOptions {
