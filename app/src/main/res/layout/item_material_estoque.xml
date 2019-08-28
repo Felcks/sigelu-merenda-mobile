@@ -11,9 +11,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:padding="@dimen/espacamento_grande"
             android:layout_marginBottom="@dimen/espacamento_minimo">
@@ -35,6 +34,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/espacamento_medio"
                 android:text="Descrição:"
                 android:textColor="@color/primary_text"/>
 
@@ -42,11 +42,14 @@
                 android:id="@+id/tv_descricao_material"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
-                app:layout_constraintLeft_toRightOf="@id/tv_descricao_material_layout"
                 android:layout_marginLeft="@dimen/espacamento_curto"
+                android:layout_marginStart="@dimen/espacamento_curto"
                 android:text=""
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toTopOf="@id/tv_descricao_material_layout"
+                app:layout_constraintLeft_toRightOf="@id/tv_descricao_material_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0"/>
 
         <TextView
                 android:id="@+id/tv_contratado_layout"
@@ -72,7 +75,7 @@
                   android:layout_height="wrap_content"
                   android:text="Disponivel:"
                   android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toBottomOf="@id/tv_contratado_layout"
+                  app:layout_constraintTop_toBottomOf="@id/tv_contratado"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_disponivel"
@@ -90,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/espacamento_medio"
                 android:layout_marginTop="@dimen/espacamento_medio"
+                android:visibility="gone"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/tv_disponivel_layout"
                 app:layout_constraintLeft_toLeftOf="@id/tv_disponivel_layout">

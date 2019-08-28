@@ -22,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRe
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -131,8 +132,12 @@ interface IRestApi {
     @GET("recebimento-estoque/{recebimento_estoque_id}/item")
     fun getListaItemRecebimento(@Header("Authorization") auth: String,
                                 @Path("recebimento_estoque_id")recebimento_estoque_id: Int): Call<List<ItemRecebimentoDataResponse>>
-
+    //Deprecated
     @GET("estoque/nucleo/{nucleo_id}/item")
     fun getListaItemNucleo(@Header("Authorization") auth: String,
                            @Path("nucleo_id") nucleo_id: Int): Call<List<ItemNucleoDataResponse>>
+
+    @GET("estoque/nucleo/{nucleo_id}/item")
+    fun getListaItemEstoqueDeNucleo(@Header("Authorization") auth: String,
+                                    @Path("nucleo_id") nucleo_id: Int): Call<List<ItemEstoqueDataResponse>>
 }

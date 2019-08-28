@@ -23,6 +23,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRe
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
@@ -196,5 +197,9 @@ class RestApi {
 
     fun getListaItemNucleo(nucleoID: Int): Call<List<ItemNucleoDataResponse>>{
         return api.getListaItemNucleo(auth, nucleoID)
+    }
+
+    fun getListaItemEstoqueDeNucleo(nucleoID: Int): Call<List<ItemEstoqueDataResponse>>{
+        return api.getListaItemEstoqueDeNucleo(auth, nucleoID)
     }
 }

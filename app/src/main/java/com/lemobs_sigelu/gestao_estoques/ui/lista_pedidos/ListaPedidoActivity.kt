@@ -78,6 +78,7 @@ class ListaPedidoActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+//        Opção de cadastrar recebimento sem pedido retirada (para voltar descomente as próximas 4 linhas e também as linhas no layout)
 //        menu_item_cadastrar_recebimento_sem_pedido.setOnClickListener {
 //            val intent = Intent(this, CadastraInformacoesActivity::class.java)
 //            startActivity(intent)
