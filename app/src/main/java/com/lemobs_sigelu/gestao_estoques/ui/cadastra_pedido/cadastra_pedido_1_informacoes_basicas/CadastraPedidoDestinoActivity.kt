@@ -13,7 +13,6 @@ import android.view.Menu
 import android.view.MenuItem
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
-import com.lemobs_sigelu.gestao_estoques.ui.adapters.ListaObraAdapter
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraPedidoDestinoBinding

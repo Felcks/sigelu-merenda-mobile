@@ -139,18 +139,18 @@
                     app:fab_colorNormal="@color/colorAccentDark"
                     app:fab_colorPressed="@color/colorAccent"
                     app:fab_colorRipple="@android:color/white"
-                    app:fab_label="Cadastrar pedido"/>
+                    app:fab_label="Cadastrar RM"/>
 
-            <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/menu_item_cadastrar_recebimento_sem_pedido"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_truck_left_with_question"
-                    fab:fab_size="mini"
-                    app:fab_colorNormal="@color/colorAccentDark"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@android:color/white"
-                    app:fab_label="Cadastrar recebimento sem pedido"/>
+<!--            <com.github.clans.fab.FloatingActionButton-->
+<!--                    android:id="@+id/menu_item_cadastrar_recebimento_sem_pedido"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/ic_truck_left_with_question"-->
+<!--                    fab:fab_size="mini"-->
+<!--                    app:fab_colorNormal="@color/colorAccentDark"-->
+<!--                    app:fab_colorPressed="@color/colorAccent"-->
+<!--                    app:fab_colorRipple="@android:color/white"-->
+<!--                    app:fab_label="Cadastrar recebimento sem pedido"/>-->
         </com.github.clans.fab.FloatingActionMenu>
 
     </android.support.constraint.ConstraintLayout>

@@ -78,10 +78,10 @@ class ListaPedidoActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-        menu_item_cadastrar_recebimento_sem_pedido.setOnClickListener {
-            val intent = Intent(this, CadastraInformacoesActivity::class.java)
-            startActivity(intent)
-        }
+//        menu_item_cadastrar_recebimento_sem_pedido.setOnClickListener {
+//            val intent = Intent(this, CadastraInformacoesActivity::class.java)
+//            startActivity(intent)
+//        }
 
         this.controladorFonte = ControladorFonte(this)
         this.controladorLogout = ControladorLogout(this)

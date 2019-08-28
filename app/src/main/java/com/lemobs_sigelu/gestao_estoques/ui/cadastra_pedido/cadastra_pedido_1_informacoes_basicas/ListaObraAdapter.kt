@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.adapters
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
