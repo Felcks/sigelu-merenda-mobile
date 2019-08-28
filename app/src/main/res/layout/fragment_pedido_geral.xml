@@ -43,20 +43,24 @@
                   app:layout_constraintTop_toTopOf="parent"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView android:id="@+id/tv_origem"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text=""
-                  android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toTopOf="@id/tv_origem_layout"
-                  app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+                android:id="@+id/tv_origem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/primary_text"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="@id/tv_origem_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/tv_origem_layout"
+                />
 
         <View   android:id="@+id/view_1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
                 android:layout_marginTop="@dimen/espacamento_curto"
-                app:layout_constraintTop_toBottomOf="@id/tv_origem_layout"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_origem"/>
 
         <TextView android:id="@+id/tv_destino_layout"
                   android:layout_width="wrap_content"
@@ -80,7 +84,7 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"
                 android:layout_marginTop="@dimen/espacamento_curto"
-                app:layout_constraintTop_toBottomOf="@id/tv_destino_layout"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_destino"/>
 
 
         <TextView android:id="@+id/tv_data_pedido_layout"

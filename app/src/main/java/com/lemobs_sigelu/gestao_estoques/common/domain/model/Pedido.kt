@@ -88,8 +88,8 @@ data class Pedido(
     }
 
     fun getOrigemFormatado() = when(origem){
-        "Núcleo" -> "$origem $origemNome"
-        "Fornecedor" -> "$origem $origemNome"
+        "Núcleo" -> "${origem?.toUpperCase()} $origemNome"
+        "Fornecedor" -> "${origem?.toUpperCase()} $origemNome"
         else -> ""
     }
 
