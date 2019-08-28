@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.bd_room.AppDatabase

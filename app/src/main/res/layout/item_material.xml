@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/espacamento_curto"
@@ -9,7 +9,7 @@
                                     app:cardCornerRadius="1dp"
                                     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                      android:layout_height="wrap_content"
                                                      android:padding="@dimen/espacamento_medio">
 
@@ -98,7 +98,7 @@
                       app:layout_constraintTop_toTopOf="@id/tv_disponivel_layout"
                       app:layout_constraintLeft_toRightOf="@id/tv_disponivel_layout"/>
 
-            <android.support.constraint.ConstraintLayout android:id="@+id/ll_disponibilidade_nucleos"
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/ll_disponibilidade_nucleos"
                                                          android:layout_width="wrap_content"
                                                          android:layout_height="wrap_content"
                                                          android:paddingTop="@dimen/espacamento_medio"
@@ -117,7 +117,7 @@
                           app:layout_constraintTop_toTopOf="parent"
                           app:layout_constraintLeft_toLeftOf="parent"/>
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_down_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                         app:layout_constraintLeft_toRightOf="@id/tv_disponibilidade_nucleos"
                         android:layout_marginLeft="@dimen/espacamento_curto"/>
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_up_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,9 +135,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/tv_disponibilidade_nucleos"
                         android:layout_marginLeft="@dimen/espacamento_curto"/>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.v7.widget.RecyclerView android:id="@+id/rv_disponibilidade_nucleos"
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_disponibilidade_nucleos"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     app:layout_constraintTop_toBottomOf="@id/ll_disponibilidade_nucleos"
@@ -145,5 +145,5 @@
 
 
 
-        </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

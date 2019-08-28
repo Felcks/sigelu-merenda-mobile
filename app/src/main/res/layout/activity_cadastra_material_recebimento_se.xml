@@ -10,7 +10,7 @@
                 type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item.CadastraRecebimentoSECadastraItemViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,7 +43,7 @@
                     android:textSize="17sp"/>
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/espacamento_medio"
@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linear_layout_passos"
                 app:layout_constraintLeft_toLeftOf="@+id/linear_layout_passos">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/ll_titulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginTop="@dimen/espacamento_maximo_3"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_lista_material"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -123,7 +123,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
             />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     android:visibility="gone"/>
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
                 android:id="@+id/ll_bottom_bar"
@@ -148,7 +148,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_layout_anterior"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -175,7 +175,7 @@
                         android:layout_marginTop="@dimen/espacamento_curto"
                         app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
                         app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                     android:layout_width="0dp"
@@ -204,7 +204,7 @@
                         android:layout_marginRight="@dimen/espacamento_medio"/>
             </LinearLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_layout_proximo"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -233,7 +233,7 @@
                         android:layout_marginLeft="@dimen/espacamento_maximo_2"
                         app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
                         app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"/>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

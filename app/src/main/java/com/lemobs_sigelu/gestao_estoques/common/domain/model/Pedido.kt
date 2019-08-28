@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_RASCUNHO

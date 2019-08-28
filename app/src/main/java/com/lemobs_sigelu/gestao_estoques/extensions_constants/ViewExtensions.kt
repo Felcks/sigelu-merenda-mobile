@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.extensions_constants
 
 import android.content.Context
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 

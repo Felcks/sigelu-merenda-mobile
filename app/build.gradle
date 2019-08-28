@@ -8,7 +8,7 @@ apply plugin: 'kotlin-kapt'
 
 project.ext {
     supportLibraryVersion = "28.0.0"
-    daggerVersion = "2.15"
+    daggerVersion = "2.22"
     butterKnifeVersion = "8.8.1"
     rxJavaVersion = "2.2.5"
     rxAndroidVersion = "2.1.0"
@@ -35,7 +35,7 @@ android {
         targetSdkVersion 28
         versionCode 8
         versionName "1.1.5"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -106,32 +106,36 @@ android {
         abortOnError false
     }
     buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     /* Coisas que a Google deveria ter por padrão */
-    implementation "com.android.support:cardview-v7:$project.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
-    implementation "com.android.support:appcompat-v7:$project.supportLibraryVersion"
-    implementation "com.android.support:design:$project.supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     /* OkHttp3 */
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
     /* Retrofit e moshi */
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.0.0'
 
     /* CardView */
-    implementation "com.android.support:cardview-v7:$project.supportLibraryVersion"
+    implementation "androidx.cardview:cardview:1.0.0"
 
     /* Ormlite */
     implementation 'com.j256.ormlite:ormlite-android:4.45'
@@ -152,8 +156,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
 
     /* Life cycle para RX */
-    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
     /* FloatActionButton com subFabs */
     implementation 'com.github.clans:fab:1.6.4'
@@ -161,20 +165,13 @@ dependencies {
     /* TIMELINE VIEW */
     implementation 'com.github.vipulasri:timelineview:1.0.6'
 
-    // Timber
-    implementation "com.jakewharton.timber:timber:$project.timberVersion"
-
-    // ButterKnife
-    implementation "com.jakewharton:butterknife:$project.butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
-
     //kapt 'com.android.databinding:compiler:3.3.1'
     // Extensions = ViewModel + LiveData
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    kapt "android.arch.lifecycle:compiler:1.1.0"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation group: 'androidx.lifecycle', name: 'lifecycle-common-java8', version: '2.2.0-alpha03'
     // Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    implementation 'androidx.room:room-runtime:2.1.0'
+    kapt 'androidx.room:room-compiler:2.1.0'
 }
 
 android {

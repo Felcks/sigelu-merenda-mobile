@@ -9,7 +9,7 @@
                 type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
@@ -43,7 +43,7 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ll_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textStyle="bold"
                 android:layout_margin="@dimen/espacamento_maximo_2"/>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_selecione_fornecedor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             />
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 android:gravity="center"
         >
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_layout_anterior"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -129,7 +129,7 @@
                         android:layout_marginTop="@dimen/espacamento_curto"
                         app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
                         app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                     android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
 
             </LinearLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ll_layout_proximo"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -205,10 +205,10 @@
                         app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
                         app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
                 />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

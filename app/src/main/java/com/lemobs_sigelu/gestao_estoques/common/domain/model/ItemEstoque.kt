@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.*
+import androidx.room.*
 
 @Entity(tableName = "item_estoque")
 

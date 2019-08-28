@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -42,7 +42,7 @@
             android:gravity="center"
     >
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_layout_anterior"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -69,7 +69,7 @@
                     android:layout_marginTop="@dimen/espacamento_curto"
                     app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
                     app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
 
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_layout_proximo"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -145,9 +145,9 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
                     app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
             />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

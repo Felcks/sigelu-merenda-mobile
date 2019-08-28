@@ -1,9 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 
 class ItemContrato (
 

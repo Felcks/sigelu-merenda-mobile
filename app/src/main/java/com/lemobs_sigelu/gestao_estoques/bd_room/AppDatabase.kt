@@ -1,8 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.bd_room
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.TypeConverters
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 
 /**
