@@ -67,99 +67,111 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Origem:"
+                android:textColor="@color/primary_text"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
                 android:id="@+id/tv_origem"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintLeft_toRightOf="@id/layout_origem"
                 android:text="-"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/layout_origem"
+                app:layout_constraintTop_toTopOf="@id/layout_origem" />
 
 
         <TextView
                 android:id="@+id/layout_destino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/layout_origem"
                 android:text="Destino:"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toBottomOf="@id/tv_origem"
+                app:layout_constraintLeft_toLeftOf="@id/layout_origem" />
 
         <TextView
                 android:id="@+id/tv_destino"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintTop_toBottomOf="@id/layout_origem"
-                app:layout_constraintLeft_toRightOf="@id/layout_destino"
                 android:text="-"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_origem"
+                app:layout_constraintLeft_toRightOf="@id/layout_destino" />
 
         <TextView
                 android:id="@+id/layout_data_pedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/layout_destino"
                 android:text="Data do pedido:"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_destino"/>
 
         <TextView
                 android:id="@+id/tv_data_pedido"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintTop_toBottomOf="@id/layout_destino"
-                app:layout_constraintLeft_toRightOf="@+id/layout_data_pedido"
                 android:text="-"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/layout_data_pedido"
+                app:layout_constraintLeft_toRightOf="@id/layout_data_pedido" />
 
         <TextView
                 android:id="@+id/layout_data_entrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/layout_data_pedido"
                 android:text="Data do último envio:"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_data_pedido" />
 
         <TextView
                 android:id="@+id/tv_data_entrega"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintTop_toBottomOf="@id/tv_data_pedido"
-                app:layout_constraintLeft_toRightOf="@+id/layout_data_entrega"
                 android:text="-"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/layout_data_entrega"
+                app:layout_constraintLeft_toRightOf="@+id/layout_data_entrega" />
 
         <TextView
                 android:id="@+id/layout_data_ultima_entrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/layout_data_entrega"
                 android:text="Data do último recebimento:"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text"/>
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toBottomOf="@id/layout_data_entrega"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
                 android:id="@+id/tv_data_ultima_entrega"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintTop_toBottomOf="@id/tv_data_entrega"
-                app:layout_constraintLeft_toRightOf="@+id/layout_data_ultima_entrega"
                 android:text="-"
                 android:padding="@dimen/espacamento_minimo"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/layout_data_ultima_entrega"
+                app:layout_constraintLeft_toRightOf="@+id/layout_data_ultima_entrega" />
 
 
         <android.support.constraint.ConstraintLayout
