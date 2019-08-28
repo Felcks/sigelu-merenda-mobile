@@ -112,6 +112,11 @@ android {
     }
 }
 
+def allTestsConfigs(dependency) {
+    dependencies.add('testImplementation', dependency)
+    dependencies.add('androidTestImplementation', dependency)
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -172,10 +177,26 @@ dependencies {
     // Room
     implementation 'androidx.room:room-runtime:2.1.0'
     kapt 'androidx.room:room-compiler:2.1.0'
+
+
+    implementation 'org.koin:koin-android:1.0.2'
+
+    //Android Testing Stuff
+    testImplementation "org.robolectric:robolectric:4.3"
+    allTestsConfigs "androidx.test:core:1.2.0"
+    allTestsConfigs 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    allTestsConfigs 'androidx.test.ext:junit:1.1.1'
+    allTestsConfigs 'androidx.test.ext:junit-ktx:1.1.1'
 }
 
 android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
