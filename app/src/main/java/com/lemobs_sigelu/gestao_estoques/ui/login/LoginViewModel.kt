@@ -3,7 +3,9 @@ package com.lemobs_sigelu.gestao_estoques.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
+import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.api_model.login.LoginDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.LoginController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Permissao
@@ -48,7 +50,7 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
         val password = password.get() ?: ""
 
         if(username.isBlank() || password.isBlank()){
-            response.value = Response.error(Throwable("Preencha os campos"))
+            response.value = Response.error(Throwable(App.instance.getString(R.string.campos_nao_preenchidos)))
             return
         }
 
