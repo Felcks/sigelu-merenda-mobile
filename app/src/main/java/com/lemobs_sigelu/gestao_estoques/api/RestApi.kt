@@ -40,7 +40,7 @@ class RestApi {
     private val api : IRestApi
     companion object {
         @JvmStatic
-        lateinit var auth: String
+        var auth: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVuY2FycmVnYWRvY2VudHJvMSIsImlhdCI6MTU0MDE3MzgxN30.R7noAbPGOX-96VPKqkN-h30okKjcd21g6kPGAhImEyc"
     }
 
     init{
