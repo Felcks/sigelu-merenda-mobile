@@ -5,10 +5,10 @@ import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -53,6 +53,18 @@ class LoginActivityTest {
         onView(withId(R.id.btn_login)).perform(click())
 
         onView(withText(expectedText)).inRoot(ToastMatcher()).check(matches(withText(expectedText)))
+    }
+
+    @Test
+    fun correctLogin(){
+
+        onView(withId(R.id.edt_matricula)).perform(typeText(loginCerto), closeSoftKeyboard())
+        onView(withId(R.id.edt_senha)).perform(typeText(senhaCerta), closeSoftKeyboard())
+
+        onView(withId(R.id.btn_login)).perform(click())
+
+        Thread.sleep(5000)
+        onView(withId(R.id.btn_login)).check(doesNotExist())
     }
 
     @Test

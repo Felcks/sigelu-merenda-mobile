@@ -41,13 +41,11 @@ class LoginActivity: AppCompatActivity(){
 
     private fun processResponse(response: Response?) {
         when (response?.status) {
-            Status.LOADING -> renderLoadingState()
+            Status.LOADING -> {}
             Status.SUCCESS -> renderDataState(response.data)
             Status.ERROR -> renderErrorState(response.error)
         }
     }
-
-    private fun renderLoadingState() {}
 
     private fun renderDataState(result: Any?) {
         val intent = Intent(this, ListaPedidoActivity::class.java)
