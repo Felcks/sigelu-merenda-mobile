@@ -1,14 +1,14 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.lemobs_sigelu.gestao_estoques.R

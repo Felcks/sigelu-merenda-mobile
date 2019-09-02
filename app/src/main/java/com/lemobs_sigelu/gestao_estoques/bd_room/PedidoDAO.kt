@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.bd_room
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 
 /**

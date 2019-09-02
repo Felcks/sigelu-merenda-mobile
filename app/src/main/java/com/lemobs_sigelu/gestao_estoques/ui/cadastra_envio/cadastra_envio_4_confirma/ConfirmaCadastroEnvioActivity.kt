@@ -2,13 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_con
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast

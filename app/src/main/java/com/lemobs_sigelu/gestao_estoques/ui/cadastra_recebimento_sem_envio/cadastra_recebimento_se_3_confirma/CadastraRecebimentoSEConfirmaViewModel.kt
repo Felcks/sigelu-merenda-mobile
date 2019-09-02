@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemEnvioController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response

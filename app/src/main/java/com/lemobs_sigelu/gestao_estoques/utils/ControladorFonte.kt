@@ -1,6 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.utils
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.DisplayMetrics
 
 class ControladorFonte(val activity: AppCompatActivity) {

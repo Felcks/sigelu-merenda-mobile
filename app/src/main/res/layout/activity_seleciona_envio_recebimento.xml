@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ll_all"
@@ -33,7 +33,7 @@
                 android:textSize="17sp"/>
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ll_titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
              android:id="@+id/ll_loading"
              android:visibility="visible"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_lista"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -88,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_layout_anterior"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -115,7 +115,7 @@
                     android:layout_marginTop="@dimen/espacamento_curto"
                     app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
                     app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
                 android:layout_width="0dp"
@@ -150,7 +150,7 @@
                     android:layout_marginRight="@dimen/espacamento_medio"/>
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_layout_proximo"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -179,7 +179,7 @@
                     android:layout_marginLeft="@dimen/espacamento_maximo_2"
                     app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
                     app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

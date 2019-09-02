@@ -15,7 +15,6 @@ class UsuarioRepository {
 
     fun getUsuario(authorization: String, usuarioID: Int): Observable<Usuario> {
 
-
         return Observable.create { subscriber ->
             val callResponse = api.getUsuario(authorization, usuarioID)
             val response = callResponse.execute()
@@ -24,13 +23,12 @@ class UsuarioRepository {
 
                 if(response.body() == null)
                     subscriber.onError(Throwable(""))
+                else if(response.body()!!.nucleo_id != null && response.body()!!.nucleo != null){
 
-
-                if(response.body()!!.nucleo_id != null && response.body()!!.nucleo != null){
-
-                    val usuario = Usuario(response.body()!!.id, Nucleo(response.body()!!.nucleo_id ?: 0,
-                        response.body()!!.nucleo!!.nome ?: "",
-                        response.body()!!.nucleo!!.sigla ?: "")
+                    val usuario = Usuario(response.body()!!.id,
+                        Nucleo(response.body()!!.nucleo_id ?: 0,
+                            response.body()!!.nucleo!!.nome ?: "",
+                            response.body()!!.nucleo!!.sigla ?: "")
                     )
                     subscriber.onNext(usuario)
                 }

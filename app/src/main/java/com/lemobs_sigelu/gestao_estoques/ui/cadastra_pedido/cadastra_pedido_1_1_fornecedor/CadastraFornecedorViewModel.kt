@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local

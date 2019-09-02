@@ -2,7 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.api.RestApi

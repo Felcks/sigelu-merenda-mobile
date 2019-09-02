@@ -1,8 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoSemPedidoController

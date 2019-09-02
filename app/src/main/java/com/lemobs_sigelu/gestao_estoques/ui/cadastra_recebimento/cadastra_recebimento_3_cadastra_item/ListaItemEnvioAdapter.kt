@@ -1,8 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent

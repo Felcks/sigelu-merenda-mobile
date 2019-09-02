@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_background"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +11,7 @@
         android:focusableInTouchMode="false"
         android:paddingTop="@dimen/espacamento_maximo">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_name"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
             android:layout_width="match_parent"
@@ -62,4 +62,4 @@
             app:layout_constraintTop_toBottomOf="@id/ll_all"
             android:layout_marginTop="15dp"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

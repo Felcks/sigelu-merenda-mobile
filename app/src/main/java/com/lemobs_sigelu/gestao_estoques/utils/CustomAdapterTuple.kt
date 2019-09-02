@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import com.lemobs_sigelu.gestao_estoques.R
 import android.graphics.Color.parseColor
-import android.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.graphics.Color
 import android.widget.BaseAdapter
 

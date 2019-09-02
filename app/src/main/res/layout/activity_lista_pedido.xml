@@ -10,7 +10,7 @@
                 type="com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ll_busca"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_lista"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -153,5 +153,5 @@
 <!--                    app:fab_label="Cadastrar recebimento sem pedido"/>-->
         </com.github.clans.fab.FloatingActionMenu>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

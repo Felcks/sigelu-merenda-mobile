@@ -31,7 +31,7 @@
     <string name="passo3b">Passo 3 de 5</string>
     <string name="passo4b">Passo 4 de 5</string>
     <string name="passo5b">Passo 5 de 5</string>
-    <string name="proxfornecedor">Próximo: Fornecedor</string>
+    <string name="proxfornecedor">Próximo: Fornecedor</string>3
     <string name="proxitens">Próximo: Itens</string>
     <string name="info_pedido">Informações do Pedido</string>
 
@@ -46,6 +46,9 @@
     <string name="cadastra_itens">Próximo: Cadastrar</string>
     <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
 
-
+    <!-- Login activity -->
+    <string name="campos_nao_preenchidos">Preencha os campos.</string>
+    <string name="usuario_nao_encontrado">Usuário não encontrado!</string>
+    <string name="senha_invalida">Senha inválida!</string>
 
 </resources>

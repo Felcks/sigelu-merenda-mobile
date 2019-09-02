@@ -10,7 +10,7 @@
                 type="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/espacamento_medio"
@@ -21,7 +21,7 @@
                  app:isVisible="@{viewModel.loadingSituacoes}"/>
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_lista"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -29,5 +29,5 @@
                 android:layout_height="match_parent"
                 app:isVisible="@{!viewModel.loadingSituacoes}"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

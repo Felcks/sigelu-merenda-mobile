@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.estoque
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EstoqueController
 
 class EstoqueViewModelFactory (val controller: EstoqueController): ViewModelProvider.Factory{

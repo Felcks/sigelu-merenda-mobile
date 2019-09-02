@@ -1,8 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
