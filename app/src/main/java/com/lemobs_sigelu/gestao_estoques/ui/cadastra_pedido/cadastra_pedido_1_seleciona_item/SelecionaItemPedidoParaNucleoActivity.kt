@@ -16,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_seleciona_material_pedido_original.*
@@ -55,8 +56,8 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
                 this.adapter?.itemsParaRemocao as List<ItemEstoque>)
 
-            //val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()

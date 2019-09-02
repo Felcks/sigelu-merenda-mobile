@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
@@ -19,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
 import javax.inject.Inject
@@ -69,6 +72,11 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
         val tipoPedido = viewModel!!.getInicialTipoPedido()
 
         if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
+
+            val origem = Local(7, "Almoxarifado", "a")
+            val destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
+            viewModel!!.confirmaDestinoDePedido(origem, destino)
+
             val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)
         }
