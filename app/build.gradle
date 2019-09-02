@@ -14,6 +14,7 @@ project.ext {
     rxAndroidVersion = "2.1.0"
     timberVersion = "4.6.0"
     androidPluginVersion = "3.3.1"
+    koinVersion = "2.0.1"
 }
 
 android {
@@ -174,12 +175,16 @@ dependencies {
     // Extensions = ViewModel + LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation group: 'androidx.lifecycle', name: 'lifecycle-common-java8', version: '2.2.0-alpha03'
+
     // Room
     implementation 'androidx.room:room-runtime:2.1.0'
     kapt 'androidx.room:room-compiler:2.1.0'
 
 
-    implementation 'org.koin:koin-android:1.0.2'
+    /* Koin */
+    implementation "org.koin:koin-android:$project.koinVersion"
+    implementation "org.koin:koin-androidx-scope:$project.koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$project.koinVersion"
 
     //Android Testing Stuff
     testImplementation "org.robolectric:robolectric:4.3"

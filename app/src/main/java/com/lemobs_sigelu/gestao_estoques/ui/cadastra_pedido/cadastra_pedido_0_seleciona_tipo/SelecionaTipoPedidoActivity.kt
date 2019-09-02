@@ -17,6 +17,8 @@ import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActi
 import com.sigelu.core.lib.DialogUtil
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
 import javax.inject.Inject
@@ -67,7 +69,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
         val tipoPedido = viewModel!!.getInicialTipoPedido()
 
         if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
-            val intent = Intent(this, CadastraFornecedorActivity::class.java)
+            val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)
         }
         else if(tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
