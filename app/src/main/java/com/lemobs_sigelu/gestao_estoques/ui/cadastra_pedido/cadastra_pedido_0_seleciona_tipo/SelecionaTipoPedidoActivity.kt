@@ -45,23 +45,20 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
     }
 
     fun onFornecedorClicked(v: View){
-        rb_obra.isChecked = false
         rb_nucleo.isChecked = false
-        tv_proximo.text = "Próximo: Fornecedor"
+        tv_proximo.text = "Próximo: Materiais"
         viewModel!!.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
     }
 
     fun onNucleoClicked(v: View){
-        rb_obra.isChecked = false
         rb_fornecedor.isChecked = false
-        tv_proximo.text = "Próximo: Núcleo"
-        viewModel!!.selecionaTipoPedido(TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO)
+        tv_proximo.text = "Próximo: Materiais"
+        viewModel!!.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_OBRA)
     }
 
     fun onObraClicked(v: View){
-        rb_nucleo.isChecked = false
         rb_fornecedor.isChecked = false
-        tv_proximo.text = "Próximo: Obra"
+        tv_proximo.text = "Próximo: Materiais"
         viewModel!!.selecionaTipoPedido(TipoPedido.MEU_NUCLEO_PARA_OBRA)
     }
 
@@ -73,14 +70,14 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
             val intent = Intent(this, CadastraFornecedorActivity::class.java)
             startActivity(intent)
         }
-        else if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO){
+        else if(tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
             val intent = Intent(this, CadastraNucleoActivity::class.java)
             startActivity(intent)
         }
-        else if(tipoPedido == TipoPedido.MEU_NUCLEO_PARA_OBRA){
-            val intent = Intent(this, CadastraObraActivity::class.java)
-            startActivity(intent)
-        }
+//        else if(tipoPedido == TipoPedido.MEU_NUCLEO_PARA_OBRA){
+//            val intent = Intent(this, CadastraObraActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

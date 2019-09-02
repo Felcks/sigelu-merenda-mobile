@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Pedir para fornecedor"
+                        android:text="Pedir para estoque do núcleo"
                         android:onClick="onFornecedorClicked"/>
             </androidx.cardview.widget.CardView>
 
@@ -96,27 +96,27 @@
                         android:id="@+id/rb_nucleo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pedir para núcleo"
+                        android:text="Pedir para obra"
                         android:onClick="onNucleoClicked"/>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_obra"
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center_vertical"
-                    app:cardElevation="1dp"
-                    app:contentPadding="20dp"
-                    android:layout_margin="@dimen/espacamento_maximo"
-                    app:layout_constraintTop_toBottomOf="@id/ll_titulo">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                    android:id="@+id/cv_obra"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="75dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    app:cardElevation="1dp"-->
+<!--                    app:contentPadding="20dp"-->
+<!--                    android:layout_margin="@dimen/espacamento_maximo"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/ll_titulo">-->
 
-                <RadioButton
-                        android:id="@+id/rb_obra"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Enviar para obra"
-                        android:onClick="onObraClicked"/>
-            </androidx.cardview.widget.CardView>
+<!--                <RadioButton-->
+<!--                        android:id="@+id/rb_obra"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Enviar para obra"-->
+<!--                        android:onClick="onObraClicked"/>-->
+<!--            </androidx.cardview.widget.CardView>-->
         </RadioGroup>
 
 
@@ -125,9 +125,7 @@
                 android:layout_height="@dimen/bottom_bar_height"
                 android:orientation="horizontal"
                 android:background="@color/layout_bar"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:gravity="center">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,7 +232,6 @@
                         app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
                 />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
 
 
