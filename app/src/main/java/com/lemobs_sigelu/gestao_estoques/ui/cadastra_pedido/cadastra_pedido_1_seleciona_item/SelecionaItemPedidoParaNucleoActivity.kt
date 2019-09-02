@@ -64,16 +64,25 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         }
     }
 
+    override fun onResume() {
+        viewModel.carregaListagemItem()
+        super.onResume()
+    }
+
     fun processResponse(response: Response){
 
         when(response.status){
-            Status.LOADING -> {}
+            Status.LOADING -> {
+                ll_loading.visibility = View.VISIBLE
+                rv_lista.visibility = View.GONE
+            }
             Status.ERROR -> {
                 ll_loading.visibility = View.GONE
-                tv_error.visibility = View.VISIBLE
+                rv_lista.visibility = View.GONE
             }
             Status.SUCCESS -> {
                 ll_loading.visibility = View.GONE
+                rv_lista.visibility = View.VISIBLE
 
                 val layoutManager = LinearLayoutManager(applicationContext)
                 layoutManager.orientation = LinearLayoutManager.VERTICAL
