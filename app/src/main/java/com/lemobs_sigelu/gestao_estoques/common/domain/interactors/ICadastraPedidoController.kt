@@ -13,4 +13,5 @@ interface ICadastraPedidoController {
     fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>>
     fun selecionaItem(id: Int): Boolean
     fun getListaItemJaAdicionados(): List<Int>
+    fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)
 }

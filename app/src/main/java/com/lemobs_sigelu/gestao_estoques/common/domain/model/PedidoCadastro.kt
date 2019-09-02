@@ -47,6 +47,8 @@ data class PedidoCadastro(
 
     val listaItemNucleo: MutableList<ItemNucleo> = mutableListOf()
 
+    val listaItemEstoque: MutableList<ItemEstoque> = mutableListOf()
+
     var isEdicao: Boolean = false
 
     fun getTipoPedido(): TipoPedido{

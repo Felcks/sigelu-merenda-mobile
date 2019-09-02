@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController.Companion.pedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
@@ -12,8 +13,7 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
     }
 
     override fun selecionaItem(id: Int): Boolean {
-        return false
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return pedidoCadastro?.listaItemEstoque?.map { it.id }?.contains(id) != true
     }
 
     override fun selecionaTipoPedido(tipoPedido: TipoPedido) {
@@ -25,6 +25,15 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
     }
 
     override fun getListaItemJaAdicionados(): List<Int> {
-        return  listOf()
+        if(pedidoCadastro?.listaItemEstoque == null)
+            return listOf<Int>()
+
+        return pedidoCadastro?.listaItemEstoque?.map { it.id ?: 0 }!!
+    }
+
+    override fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>) {
+        val idItensParaRemover = listaParaRemover.map { it.id }
+        pedidoCadastro?.listaItemEstoque?.removeAll { idItensParaRemover.contains(it.id) }
+        pedidoCadastro?.listaItemEstoque?.addAll(listaParaAdicionar)
     }
 }
