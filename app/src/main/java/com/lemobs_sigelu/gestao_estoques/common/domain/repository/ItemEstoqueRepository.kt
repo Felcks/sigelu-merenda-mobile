@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
+import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
@@ -48,6 +49,7 @@ class ItemEstoqueRepository {
                         }
                         item
                     }
+                    Log.i("script2", "tudo certo com a resposta size $")
                     subscriber.onNext(list)
                     subscriber.onComplete()
                 }
