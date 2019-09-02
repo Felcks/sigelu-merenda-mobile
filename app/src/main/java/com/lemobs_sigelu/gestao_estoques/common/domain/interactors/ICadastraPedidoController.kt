@@ -20,4 +20,10 @@ interface ICadastraPedidoController {
     fun confirmaCadastroItem(listaValoresRecebidos: List<Double>)
     fun getItensJaCadastrados(): List<ItemEstoque>
     fun removeItem(id: Int)
+
+    fun cancelaPedido()
+    fun enviaPedido(): Observable<Unit>
+    fun salvaRascunho(): Observable<Unit>
+    fun getPedido(): PedidoCadastro?
+    fun salvaPedidoRascunho()
 }

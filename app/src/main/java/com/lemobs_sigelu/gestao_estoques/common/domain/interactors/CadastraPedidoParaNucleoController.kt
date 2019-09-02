@@ -2,13 +2,18 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController.Companion.pedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciaCadastroPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 import java.util.*
 
-class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository): ICadastraPedidoController{
+class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
+                                         private val pedidoRepository: PedidoRepository): ICadastraPedidoController{
 
     override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
         return itemEstoqueRepository.carregaListaEstoque()
@@ -100,8 +105,34 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
             Date(),
             Situacao(2, "Em Análise")
         )
-
-
         pedidoCadastro = pedido
+    }
+
+    override fun cancelaPedido() {
+        pedidoCadastro = null
+    }
+
+    override fun enviaPedido(): Observable<Unit>{
+
+        pedidoCadastro?.situacao = Situacao(SITUACAO_EM_ANALISE_ID, "Em Análise")
+        return pedidoRepository.cadastraPedido(pedidoCadastro!!)
+    }
+
+    override fun salvaRascunho(): Observable<Unit>{
+
+        val pedido = pedidoCadastro
+        pedido?.situacao = Situacao(1, "Rascunho")
+        return pedidoRepository.cadastraPedido(pedido!!)
+    }
+
+    override fun getPedido(): PedidoCadastro?{
+        return pedidoCadastro
+    }
+
+    override fun salvaPedidoRascunho(){
+
+        val pedido = pedidoCadastro?.toPedido()
+        val dao = db.pedidoDAO()
+        dao.insertAll(pedido!!)
     }
 }

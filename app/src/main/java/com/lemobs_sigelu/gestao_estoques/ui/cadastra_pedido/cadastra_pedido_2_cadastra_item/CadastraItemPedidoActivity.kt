@@ -14,6 +14,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_all
@@ -74,10 +75,10 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
     private fun clicouProximo(){
 
         try {
-            //viewModel!!.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+            viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
-            //val intent = Intent(this, ConfirmaCadastraPedidoNucleoActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
+            startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
             Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
