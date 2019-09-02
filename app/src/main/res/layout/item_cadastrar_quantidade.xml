@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/espacamento_grande"
+        android:layout_marginRight="@dimen/espacamento_curto"
         android:layout_marginBottom="@dimen/espacamento_grande"
         android:layout_marginLeft="@dimen/espacamento_curto"
         android:layout_marginTop="@dimen/espacamento_curto"
@@ -23,12 +23,16 @@
             android:background="@android:color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/espacamento_grande"
-                android:layout_margin="@dimen/espacamento_minimo">
+                android:layout_margin="@dimen/espacamento_minimo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                >
 
             <TextView
                     android:id="@+id/tv_nome_material"

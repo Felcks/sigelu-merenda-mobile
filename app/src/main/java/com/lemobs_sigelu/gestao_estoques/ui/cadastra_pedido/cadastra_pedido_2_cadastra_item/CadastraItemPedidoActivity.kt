@@ -47,11 +47,11 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
 
 
         ll_layout_anterior.setOnClickListener {
-            clicouProximo()
+            clicouAnterior()
         }
 
         ll_layout_proximo.setOnClickListener {
-            clicouAnterior()
+            clicouProximo()
         }
     }
 

@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/espacamento_maximo"
+                android:layout_marginTop="@dimen/espacamento_grande"
                 android:scrollbars="vertical"
                 android:fadeScrollbars="false"
                 app:layout_constraintTop_toTopOf="parent"
