@@ -59,7 +59,8 @@
 
         <!-- CADASTRA ITEM -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity"
-                android:label="Selecione as quantidades" />
+                android:label="Selecione as quantidades"
+                android:windowSoftInputMode="adjustPan" />
 
         <!-- CONFIRMA ITEM -->
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity"

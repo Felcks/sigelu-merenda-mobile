@@ -22,14 +22,14 @@
                 android:text="@string/passo2"
                 android:layout_margin="@dimen/espacamento_grande"
                 android:layout_weight="1"
-                android:textSize="17sp"/>
+                android:textSize="18sp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/proxitens"
+                android:text="@string/proximo_quantidades"
                 android:layout_margin="@dimen/espacamento_grande"
-                android:textSize="17sp"/>
+                android:textSize="18sp"/>
 
     </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:id="@+id/tv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Todos os materiais já foram cadastrados."
+            android:text="Erro ao carregar lista de materiais."
             app:layout_constraintTop_toBottomOf="@id/ll_titulo"
             app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
             android:textSize="16sp"

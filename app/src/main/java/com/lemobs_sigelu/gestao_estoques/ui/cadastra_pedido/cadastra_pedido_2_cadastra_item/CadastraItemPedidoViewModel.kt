@@ -8,7 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 class CadastraItemPedidoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
     fun getItensSolicitados(): List<ItemEstoque>{
-        return controller.getItensJaCadastrados()
+        return controller.getItensCadastrados()
     }
 
     fun removeItem(id: Int){

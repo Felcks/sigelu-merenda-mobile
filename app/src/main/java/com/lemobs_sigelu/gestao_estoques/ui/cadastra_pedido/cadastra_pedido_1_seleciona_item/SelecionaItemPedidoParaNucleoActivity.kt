@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_seleciona_material_pedido_origina
 import org.koin.android.ext.android.inject
 
 
-class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParametersClickListener {
+class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParametersClickListener, ActivityDeFluxo {
 
     private val viewModel: SelecionaItemPedidoParaNucleoViewModel by inject()
     private var adapter : ListaItemEstoqueAdapterSimples? = null
@@ -37,20 +38,11 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         viewModel.response.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListagemItem()
 
-        ll_layout_anterior.setOnClickListener {
-            clicouNoAnterior()
-        }
-
-        ll_layout_proximo.setOnClickListener {
-            clicouNoProximo()
-        }
+        ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        ll_layout_proximo.setOnClickListener { clicouProximo() }
     }
 
-    private fun clicouNoAnterior(){
-        onBackPressed()
-    }
-
-    private fun clicouNoProximo(){
+    override fun clicouProximo() {
         try{
             viewModel.confirmaSelecaoItens(
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
@@ -62,6 +54,10 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    override fun clicouAnterior() {
+        this.onBackPressed()
     }
 
     override fun onResume() {
@@ -79,6 +75,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             Status.ERROR -> {
                 ll_loading.visibility = View.GONE
                 rv_lista.visibility = View.GONE
+                tv_error.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
                 ll_loading.visibility = View.GONE
@@ -91,16 +88,15 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                 this.adapter = ListaItemEstoqueAdapterSimples(applicationContext,
                     response.data as List<ItemEstoque>,
                     this,
-                    viewModel!!.getItensAdicionadosNucleo())
+                    viewModel.getIDsDeItemAdicionados())
                 rv_lista.adapter = adapter
-
             }
         }
     }
 
     override fun onClick(id: Int, pos: Int) {
         try{
-            val adicionou = viewModel!!.selecionaItem(id)
+            val adicionou = viewModel.selecionaItem(id)
 
             if(adicionou){
                 adapter?.adicionaItem(pos)
@@ -115,7 +111,6 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         if(item?.itemId == android.R.id.home){
             val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
             DialogUtil.buildAlertDialogSimNao(

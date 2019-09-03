@@ -31,7 +31,7 @@ class ConfirmaCadastroPedidoViewModel(private val controller: ICadastraPedidoCon
     }
 
     fun carregaListaItem(){
-        response.value = Response.success(controller.getItensJaCadastrados())
+        response.value = Response.success(controller.getItensCadastrados())
     }
 
     fun cancelarPedido(){

@@ -49,7 +49,6 @@ class ItemEstoqueRepository {
                         }
                         item
                     }
-                    Log.i("script2", "tudo certo com a resposta size $")
                     subscriber.onNext(list)
                     subscriber.onComplete()
                 }

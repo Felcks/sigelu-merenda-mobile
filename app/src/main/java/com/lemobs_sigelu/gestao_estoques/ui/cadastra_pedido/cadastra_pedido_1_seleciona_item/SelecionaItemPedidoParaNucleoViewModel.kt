@@ -41,11 +41,11 @@ class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPe
         return controller.selecionaItem(id)
     }
 
-    fun getItensAdicionadosNucleo(): List<Int>{
-        return controller.getListaItemJaAdicionados()
+    fun getIDsDeItemAdicionados(): List<Int>{
+        return controller.getIDsDeItemAdicionados()
     }
 
     fun confirmaSelecaoItens(listaAdicao: List<ItemEstoque>, listaRemocao: List<ItemEstoque>){
-        controller.confirmaSelecaoItensNucleo(listaAdicao, listaRemocao)
+        controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
     }
 }

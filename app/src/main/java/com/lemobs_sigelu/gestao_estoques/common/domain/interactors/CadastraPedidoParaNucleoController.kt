@@ -55,33 +55,33 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
     }
 
     override fun selecionaItem(id: Int): Boolean {
-        return pedidoCadastro?.listaItemEstoque?.map { it.id }?.contains(id) != true
+        return pedido?.listaItemEstoque?.map { it.id }?.contains(id) != true
     }
 
     override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
         return itemEstoqueRepository.carregaListaEstoque()
     }
 
-    override fun getListaItemJaAdicionados(): List<Int> {
-        if(pedidoCadastro?.listaItemEstoque == null)
-            return listOf<Int>()
+    override fun getIDsDeItemAdicionados(): List<Int> {
+        if(pedido?.listaItemEstoque == null)
+            return listOf()
 
-        return pedidoCadastro?.listaItemEstoque?.map { it.id ?: 0 }!!
+        return pedido?.listaItemEstoque?.map { it.id }!!
     }
 
-    override fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>) {
+    override fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>) {
         val idItensParaRemover = listaParaRemover.map { it.id }
-        pedidoCadastro?.listaItemEstoque?.removeAll { idItensParaRemover.contains(it.id) }
-        pedidoCadastro?.listaItemEstoque?.addAll(listaParaAdicionar)
+        pedido?.listaItemEstoque?.removeAll { idItensParaRemover.contains(it.id) }
+        pedido?.listaItemEstoque?.addAll(listaParaAdicionar)
     }
 
     override fun confirmaCadastroItem(listaValoresRecebidos: List<Double>){
 
-        if(pedidoCadastro?.listaItemEstoque == null)
+        if(pedido?.listaItemEstoque == null)
             throw Exception()
 
         var count = 0
-        for(item in pedidoCadastro!!.listaItemEstoque){
+        for(item in pedido!!.listaItemEstoque){
 
             val valor = listaValoresRecebidos[count]
 
@@ -94,16 +94,15 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
         }
     }
 
-    override fun getItensJaCadastrados(): List<ItemEstoque>{
-
-        return pedidoCadastro?.listaItemEstoque ?: listOf()
+    override fun getItensCadastrados(): List<ItemEstoque>{
+        return pedido?.listaItemEstoque ?: listOf()
     }
 
     override fun removeItem(id: Int){
 
-        val item = pedidoCadastro?.listaItemEstoque?.find { it.id == id }
+        val item = pedido?.listaItemEstoque?.find { it.id == id }
         if(item != null){
-            pedidoCadastro?.listaItemEstoque?.remove(item)
+            pedido?.listaItemEstoque?.remove(item)
         }
         else{
             throw java.lang.Exception("Erro")
@@ -111,29 +110,28 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
     }
 
     override fun cancelaPedido() {
-        pedidoCadastro = null
+        pedido = null
     }
 
     override fun enviaPedido(): Observable<Unit>{
 
-        pedidoCadastro?.situacao = Situacao(SITUACAO_EM_ANALISE_ID, "Em Análise")
-        return pedidoRepository.cadastraPedido(pedidoCadastro!!)
+        pedido?.situacao = Situacao(SITUACAO_EM_ANALISE_ID, "Em Análise")
+        return pedidoRepository.cadastraPedido(pedido!!)
     }
 
     override fun salvaRascunho(): Observable<Unit>{
 
-        val pedido = pedidoCadastro
         pedido?.situacao = Situacao(1, "Rascunho")
         return pedidoRepository.cadastraPedido(pedido!!)
     }
 
     override fun getPedido(): PedidoCadastro?{
-        return pedidoCadastro
+        return pedido
     }
 
     override fun salvaPedidoRascunho(){
 
-        val pedido = pedidoCadastro?.toPedido()
+        val pedido = pedido?.toPedido()
         val dao = db.pedidoDAO()
         dao.insertAll(pedido!!)
     }

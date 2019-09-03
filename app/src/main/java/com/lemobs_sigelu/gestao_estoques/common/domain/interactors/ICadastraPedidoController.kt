@@ -14,11 +14,11 @@ interface ICadastraPedidoController {
 
     fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>>
     fun selecionaItem(id: Int): Boolean
-    fun getListaItemJaAdicionados(): List<Int>
-    fun confirmaSelecaoItensNucleo(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)
+    fun getIDsDeItemAdicionados(): List<Int>
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)
 
     fun confirmaCadastroItem(listaValoresRecebidos: List<Double>)
-    fun getItensJaCadastrados(): List<ItemEstoque>
+    fun getItensCadastrados(): List<ItemEstoque>
     fun removeItem(id: Int)
 
     fun cancelaPedido()
