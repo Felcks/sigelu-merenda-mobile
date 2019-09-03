@@ -23,25 +23,25 @@ class GerenciaCadastroPedidoRepository {
         }
 
 
-        val pedido = PedidoCadastro(
-            null,
-            "Código gerado",
-            origem.nome,
-            destino.nome,
-            origem.tipo,
-            destino.tipo,
-            origem.id,
-            destino.id,
-            Date(),
-            Date(),
-            Situacao(1, "")
-        )
-
-        if(origem.tipo == "Fornecedor"){
-            pedido.contratoEstoque = contrato
-        }
-
-        pedidoCadastro = pedido
+//        val pedido = PedidoCadastro(
+//            null,
+//            "Código gerado",
+//            origem.nome,
+//            destino.nome,
+//            origem.tipo,
+//            destino.tipo,
+//            origem.id,
+//            destino.id,
+//            Date(),
+//            Date(),
+//            Situacao(1, "")
+//        )
+//
+//        if(origem.tipo == "Fornecedor"){
+//            pedido.contratoEstoque = contrato
+//        }
+//
+//        pedidoCadastro = pedido
         return true
     }
 }

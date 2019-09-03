@@ -15,23 +15,51 @@ import java.util.*
 class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
                                          private val pedidoRepository: PedidoRepository): ICadastraPedidoController{
 
-    override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
-        return itemEstoqueRepository.carregaListaEstoque()
+    private var pedido: PedidoCadastro? = null
+
+    override fun getTipoPedidoSelecionado(): TipoPedido {
+
+        if (pedido?.tipoPedido == null)
+            throw java.lang.Exception("Sem tipo de pedido")
+
+        return pedido?.tipoPedido!!
+    }
+
+    override fun selecionaTipoPedido(tipoPedido: TipoPedido) {
+        pedido = PedidoCadastro(tipoPedido)
+    }
+
+    override fun confirmaDestinoDePedido(origem: Local?, destino: Local?) {
+
+        if(origem == null || destino == null)
+            throw CampoNaoPreenchidoException()
+
+        if(origem.nome == destino.nome){
+            throw Pedido.OrigemEDestinoIguaisException()
+        }
+
+        if(origem.tipo == "Fornecedor" && destino.tipo == "Obra"){
+            throw Pedido.OrigemFornecedorDestinoObraException()
+        }
+
+        pedido?.setInformacoes(
+            origem.nome,
+            destino.nome,
+            origem.tipo,
+            destino.tipo,
+            origem.id,
+            destino.id,
+            Date(),
+            Date()
+        )
     }
 
     override fun selecionaItem(id: Int): Boolean {
         return pedidoCadastro?.listaItemEstoque?.map { it.id }?.contains(id) != true
     }
 
-    override fun selecionaTipoPedido(tipoPedido: TipoPedido) {
-        CadastraPedidoController.tipoPedido = tipoPedido
-    }
-
-    override fun getInicialTipoPedido(): TipoPedido {
-        if (CadastraPedidoController.tipoPedido == null)
-            throw java.lang.Exception("Sem tipo de pedido")
-
-        return CadastraPedidoController.tipoPedido!!
+    override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
+        return itemEstoqueRepository.carregaListaEstoque()
     }
 
     override fun getListaItemJaAdicionados(): List<Int> {
@@ -80,35 +108,6 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
         else{
             throw java.lang.Exception("Erro")
         }
-    }
-
-    override fun confirmaDestinoDePedido(origem: Local?, destino: Local?) {
-
-        if(origem == null || destino == null)
-            throw CampoNaoPreenchidoException()
-
-        if(origem.nome == destino.nome){
-            throw Pedido.OrigemEDestinoIguaisException()
-        }
-
-        if(origem.tipo == "Fornecedor" && destino.tipo == "Obra"){
-            throw Pedido.OrigemFornecedorDestinoObraException()
-        }
-
-        val pedido = PedidoCadastro(
-            null,
-            "XXXX",
-            origem.nome,
-            destino.nome,
-            origem.tipo,
-            destino.tipo,
-            origem.id,
-            destino.id,
-            Date(),
-            Date(),
-            Situacao(2, "Em Análise")
-        )
-        pedidoCadastro = pedido
     }
 
     override fun cancelaPedido() {

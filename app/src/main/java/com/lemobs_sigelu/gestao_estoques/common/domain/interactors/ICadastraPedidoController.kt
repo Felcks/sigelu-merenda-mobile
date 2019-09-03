@@ -9,7 +9,7 @@ import io.reactivex.Observable
 interface ICadastraPedidoController {
 
     fun selecionaTipoPedido(tipoPedido: TipoPedido)
-    fun getInicialTipoPedido(): TipoPedido
+    fun getTipoPedidoSelecionado(): TipoPedido
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?)
 
     fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>>

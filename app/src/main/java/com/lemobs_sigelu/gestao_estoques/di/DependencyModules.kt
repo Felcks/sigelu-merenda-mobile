@@ -14,9 +14,9 @@ import org.koin.dsl.module
 object DependencyModules {
 
     val appModule = module{
-        single { ItemEstoqueRepository() }
-        single { PedidoRepository() }
-        factory { CadastraPedidoParaNucleoController(get(), get()) as ICadastraPedidoController }
+        factory { ItemEstoqueRepository() }
+        factory { PedidoRepository() }
+        single { CadastraPedidoParaNucleoController(get(), get()) as ICadastraPedidoController }
         viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaItemPedidoParaNucleoViewModel(get()) }
         viewModel { CadastraItemPedidoViewModel(get()) }

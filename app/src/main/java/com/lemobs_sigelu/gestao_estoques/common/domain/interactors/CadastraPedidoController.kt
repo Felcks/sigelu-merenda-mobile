@@ -53,25 +53,25 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
             throw Pedido.OrigemFornecedorDestinoObraException()
         }
 
-        val pedido = PedidoCadastro(
-            null,
-            "XXXX",
-            origem.nome,
-            destino.nome,
-            origem.tipo,
-            destino.tipo,
-            origem.id,
-            destino.id,
-            Date(),
-            Date(),
-            Situacao(2, "Em Análise")
-        )
+//        val pedido = PedidoCadastro(
+//            null,
+//            "XXXX",
+//            origem.nome,
+//            destino.nome,
+//            origem.tipo,
+//            destino.tipo,
+//            origem.id,
+//            destino.id,
+//            Date(),
+//            Date(),
+//            Situacao(2, "Em Análise")
+//        )
+//
+//        if(origem.tipo == "Fornecedor"){
+//            pedido.contratoEstoque = contrato
+//        }
 
-        if(origem.tipo == "Fornecedor"){
-            pedido.contratoEstoque = contrato
-        }
-
-        pedidoCadastro = pedido
+//        pedidoCadastro = pedido
     }
 
     fun carregaListaNucleo(): Observable<List<Nucleo>> {
@@ -108,7 +108,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
 
     fun getTipoPedido(): TipoPedido?{
-        return pedidoCadastro?.getTipoPedido()
+        return null
+        //return pedidoCadastro?.getTipoPedido()
     }
 
     fun armazenarListaItemContrato(list: List<ItemContrato>){
