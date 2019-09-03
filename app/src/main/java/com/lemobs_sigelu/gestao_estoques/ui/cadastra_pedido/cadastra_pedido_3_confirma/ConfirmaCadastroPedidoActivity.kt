@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_login.view.*
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
-class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
+class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     private val viewModel: ConfirmaCadastroPedidoViewModel by inject()
 
@@ -51,20 +52,12 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
             btn_salva_rascunho.visibility = View.GONE
         }
 
-        ll_layout_anterior.setOnClickListener {
-            this.clicouAnterior()
-        }
-
-        ll_layout_proximo.setOnClickListener {
-            this.clicouProximo()
-        }
-
-        btn_salva_rascunho.setOnClickListener {
-            this.salvaRascunho()
-        }
+        ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        ll_layout_proximo.setOnClickListener { clicouProximo() }
+        btn_salva_rascunho.setOnClickListener { salvaRascunho() }
     }
 
-    private fun clicouProximo(){
+    override fun clicouProximo(){
 
         try{
             viewModel.enviaPedido()
@@ -74,7 +67,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun clicouAnterior(){
+    override fun clicouAnterior(){
         this.onBackPressed()
     }
 

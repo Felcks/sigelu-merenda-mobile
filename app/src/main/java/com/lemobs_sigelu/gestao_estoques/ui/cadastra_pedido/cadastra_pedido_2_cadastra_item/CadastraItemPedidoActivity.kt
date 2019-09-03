@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_layout_an
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_layout_proximo
 import org.koin.android.ext.android.inject
 
-class CadastraItemPedidoActivity: AppCompatActivity() {
+class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     private val viewModel: CadastraItemPedidoViewModel by inject()
     private var adapter: ListaItemEstoqueAdapter? = null
@@ -31,7 +32,7 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_item_pedido)
 
-        val listaItemEnvio = viewModel!!.getItensSolicitados()
+        val listaItemEnvio = viewModel.getItensSolicitados()
         if(listaItemEnvio.isNotEmpty()) {
             val layoutManager = LinearLayoutManager(applicationContext)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -46,15 +47,10 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
             tv_error.visibility = View.VISIBLE
         }
 
-
-        ll_layout_anterior.setOnClickListener {
-            clicouAnterior()
-        }
-
-        ll_layout_proximo.setOnClickListener {
-            clicouProximo()
-        }
+        ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        ll_layout_proximo.setOnClickListener { clicouProximo() }
     }
+
 
     private val removerItemListener = object: TwoIntParametersClickListener {
         override fun onClick(id: Int, position: Int) {
@@ -72,7 +68,7 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun clicouProximo(){
+    override fun clicouProximo(){
 
         try {
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
@@ -91,7 +87,7 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun clicouAnterior(){
+    override fun clicouAnterior(){
         this.onBackPressed()
     }
 }
