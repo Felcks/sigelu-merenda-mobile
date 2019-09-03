@@ -2,8 +2,11 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_c
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +20,8 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoExcept
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_all
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_layout_anterior
@@ -92,5 +97,33 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if(item?.itemId == android.R.id.home){
+            val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+            DialogUtil.buildAlertDialogSimNao(
+                this,
+                "Cancelar pedido ",
+                "Deseja sair e cancelar o pedido?",
+                {
+                    finish()
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                },
+                {}).show()
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
     }
 }
