@@ -12,7 +12,7 @@ import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import java.util.*
 
-class PedidoRepository {
+open class PedidoRepository {
 
     val api = RestApi()
 

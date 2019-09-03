@@ -9,7 +9,7 @@ import io.reactivex.Observable
 /**
  * Created by felcks on Jul, 2019
  */
-class ItemEstoqueRepository {
+open class ItemEstoqueRepository {
 
     val api = RestApi()
 

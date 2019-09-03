@@ -70,7 +70,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             try{
                 viewModel.removeItem(id)
                 adapter?.removeItem(position)
-                tv_total_material.text = "(${viewModel!!.getItensSolicitados().size})"
+                tv_total_material.text = "(${viewModel.getItensSolicitados().size})"
 
                 if(viewModel.getItensSolicitados().isEmpty())
                     tv_error.visibility = View.VISIBLE

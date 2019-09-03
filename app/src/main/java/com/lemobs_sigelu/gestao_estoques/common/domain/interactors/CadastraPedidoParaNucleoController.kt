@@ -13,9 +13,9 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 import java.util.*
 
-class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
-                                         private val pedidoRepository: PedidoRepository,
-                                         private val obraRepository: ObraRepository): ICadastraPedidoController{
+open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
+                                              private val pedidoRepository: PedidoRepository,
+                                              private val obraRepository: ObraRepository): ICadastraPedidoController{
 
     private var pedido: PedidoCadastro? = null
 

@@ -5,7 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import io.reactivex.Observable
 
 
-class ObraRepository {
+open class ObraRepository {
 
     val api = RestApiObras()
 

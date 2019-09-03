@@ -12,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
+open class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -20,6 +20,8 @@ class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPe
     override fun onCleared() {
         disposables.clear()
     }
+
+    fun response() = response
 
     fun carregaListagemItem() {
 

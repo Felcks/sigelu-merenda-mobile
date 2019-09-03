@@ -35,7 +35,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_material_pedido_original)
 
-        viewModel.response.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListagemItem()
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
