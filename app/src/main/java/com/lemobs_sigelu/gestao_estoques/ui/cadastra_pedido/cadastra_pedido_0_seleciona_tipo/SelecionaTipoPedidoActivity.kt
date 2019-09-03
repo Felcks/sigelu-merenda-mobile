@@ -22,23 +22,18 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class SelecionaTipoPedidoActivity: AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
-    var viewModel: SelecionaTipoPedidoViewModel? = null
+    private val viewModel: SelecionaTipoPedidoViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_tipo_pedido)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaTipoPedidoViewModel::class.java)
-        viewModel!!.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+        viewModel.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
         ll_layout_anterior.setOnClickListener {
             onBackPressed()

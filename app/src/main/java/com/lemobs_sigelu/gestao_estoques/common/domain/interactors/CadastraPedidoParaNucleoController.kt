@@ -24,11 +24,14 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
     }
 
     override fun selecionaTipoPedido(tipoPedido: TipoPedido) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        CadastraPedidoController.tipoPedido = tipoPedido
     }
 
     override fun getInicialTipoPedido(): TipoPedido {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (CadastraPedidoController.tipoPedido == null)
+            throw java.lang.Exception("Sem tipo de pedido")
+
+        return CadastraPedidoController.tipoPedido!!
     }
 
     override fun getListaItemJaAdicionados(): List<Int> {

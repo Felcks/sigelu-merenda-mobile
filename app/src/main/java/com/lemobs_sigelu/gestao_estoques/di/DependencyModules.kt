@@ -4,6 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedid
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoViewModel
@@ -16,6 +17,7 @@ object DependencyModules {
         single { ItemEstoqueRepository() }
         single { PedidoRepository() }
         factory { CadastraPedidoParaNucleoController(get(), get()) as ICadastraPedidoController }
+        viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaItemPedidoParaNucleoViewModel(get()) }
         viewModel { CadastraItemPedidoViewModel(get()) }
         viewModel { ConfirmaCadastroPedidoViewModel(get()) }

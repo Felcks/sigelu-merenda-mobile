@@ -18,9 +18,9 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_
 class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SelecionaTipoPedidoViewModel::class.java!!)) {
-            return SelecionaTipoPedidoViewModel(controller) as T
-        }
+//        if (modelClass.isAssignableFrom(SelecionaTipoPedidoViewModel::class.java!!)) {
+//            return SelecionaTipoPedidoViewModel(controller) as T
+//        }
         if (modelClass.isAssignableFrom(CadastraFornecedorViewModel::class.java!!)) {
             return CadastraFornecedorViewModel(controller) as T
         }
