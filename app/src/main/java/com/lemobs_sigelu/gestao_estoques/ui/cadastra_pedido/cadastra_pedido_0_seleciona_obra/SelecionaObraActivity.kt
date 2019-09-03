@@ -1,66 +1,58 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.sigelu.core.lib.DialogUtil
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_obra.*
+import org.koin.android.ext.android.inject
 import java.lang.Exception
-import javax.inject.Inject
 
-class CadastraObraActivity:  AppCompatActivity() {
+class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
-    @Inject
-    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
-    var viewModel: CadastraObraViewModel? = null
+    val viewModel: SelecionaObraViewModel by inject()
 
     private var listaObra = mutableListOf<Obra>()
     private var obraSelecionada: Int? =  null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_pedido_obra)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraObraViewModel::class.java)
-        viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregaListaObra()
+        viewModel.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel.carregaListaObra()
 
-        ll_layout_anterior.setOnClickListener {
-            clicouNoAnterior()
-        }
-
-        ll_layout_proximo.setOnClickListener {
-            clicouNoProximo()
-        }
+        ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        ll_layout_proximo.setOnClickListener { clicouProximo() }
     }
 
-    private fun clicouNoAnterior(){
+    override fun clicouAnterior() {
         this.onBackPressed()
     }
 
-    private fun clicouNoProximo(){
+    override fun clicouProximo(){
+
         try{
             if(obraSelecionada == null)
                 throw Exception("Obra não selecionada.")
@@ -68,11 +60,13 @@ class CadastraObraActivity:  AppCompatActivity() {
             val obraDestino = this.listaObra[this.obraSelecionada!!]
 
             val destino = Local(obraDestino.id, "Obra", obraDestino.getTitulo())
-            val origem = Local(8, "Almoxarifado", "Almoxarifado")
+            val origem = Local(
+                AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(
+                    App.instance))
 
-            viewModel!!.confirmaPedido(origem, destino)
+            viewModel.confirmaPedido(origem, destino)
 
-            val intent = Intent(this, SelecionaItemNucleoActivity::class.java)
+            val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)
         }
         catch(e: Exception){
@@ -102,7 +96,7 @@ class CadastraObraActivity:  AppCompatActivity() {
         this.listaObra.addAll(list)
 
         val listaTextoOrigem = list.map { it.getTitulo() }
-        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
         spinner_obra.adapter = adapter
 
         spinner_obra.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -142,5 +136,4 @@ class CadastraObraActivity:  AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

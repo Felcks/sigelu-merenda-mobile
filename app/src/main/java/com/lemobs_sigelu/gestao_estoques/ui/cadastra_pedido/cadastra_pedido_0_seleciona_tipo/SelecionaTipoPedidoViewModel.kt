@@ -6,7 +6,10 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import java.lang.Exception
@@ -36,8 +39,7 @@ class SelecionaTipoPedidoViewModel (private val controller: ICadastraPedidoContr
         }
         else if(tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
 
-            //TODO
-            return Intent(App.instance, CadastraNucleoActivity::class.java)
+            return Intent(App.instance, SelecionaObraActivity::class.java)
         }
 
 

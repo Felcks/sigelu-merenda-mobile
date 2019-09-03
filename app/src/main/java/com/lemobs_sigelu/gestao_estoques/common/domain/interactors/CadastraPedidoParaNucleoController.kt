@@ -4,6 +4,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedid
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.GerenciaCadastroPedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
@@ -13,7 +14,8 @@ import io.reactivex.Observable
 import java.util.*
 
 class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
-                                         private val pedidoRepository: PedidoRepository): ICadastraPedidoController{
+                                         private val pedidoRepository: PedidoRepository,
+                                         private val obraRepository: ObraRepository): ICadastraPedidoController{
 
     private var pedido: PedidoCadastro? = null
 
@@ -52,6 +54,10 @@ class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: Item
             Date(),
             Date()
         )
+    }
+
+    override fun carregaListagemObra(): Observable<List<Obra>> {
+        return obraRepository.carregaListaObra()
     }
 
     override fun selecionaItem(id: Int): Boolean {

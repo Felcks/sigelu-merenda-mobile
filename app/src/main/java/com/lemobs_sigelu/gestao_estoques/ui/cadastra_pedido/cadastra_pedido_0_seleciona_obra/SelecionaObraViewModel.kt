@@ -1,22 +1,22 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraObraViewModel(val controller: CadastraPedidoController): ViewModel(){
+class SelecionaObraViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
     private val disposables = CompositeDisposable()
     val responseNucleos = MutableLiveData<Response>()
 
     fun carregaListaObra(){
 
-        disposables.add(controller.carregaListaObra()
+        disposables.add(controller.carregaListagemObra()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
@@ -32,6 +32,6 @@ class CadastraObraViewModel(val controller: CadastraPedidoController): ViewModel
     }
 
     fun confirmaPedido(origem: Local?, destino: Local?){
-        return controller.confirmaDestinoDePedido(origem, destino, null, false)
+        return controller.confirmaDestinoDePedido(origem, destino)
     }
 }
