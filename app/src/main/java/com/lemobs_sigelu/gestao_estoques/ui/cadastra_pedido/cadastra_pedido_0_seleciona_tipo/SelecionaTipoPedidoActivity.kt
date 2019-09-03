@@ -48,12 +48,14 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     fun clickPrimeiroRadioButton(v: View){
         rb_nucleo.isChecked = false
         tv_proximo.text = "Próximo: Materiais"
+        tv_passos.text = "Passo 1 de 4"
         viewModel.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
     }
 
     fun clickSegundoRadioButton(v: View){
         rb_fornecedor.isChecked = false
         tv_proximo.text = "Próximo: Obras"
+        tv_passos.text = "Passo 1 de 5"
         viewModel.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_OBRA)
     }
 

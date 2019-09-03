@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_c
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 
 class CadastraItemPedidoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
@@ -27,5 +28,9 @@ class CadastraItemPedidoViewModel(private val controller: ICadastraPedidoControl
 
     fun confirmaCadastroItem(listaValoresRecebidos: List<Double>){
         return controller.confirmaCadastroItem(listaValoresRecebidos)
+    }
+
+    fun getPedido(): PedidoCadastro?{
+        return controller.getPedido()
     }
 }

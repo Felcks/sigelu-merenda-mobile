@@ -19,6 +19,7 @@
             android:background="@color/layout_bar">
 
         <TextView
+                android:id="@+id/tv_passos"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/passo3"

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoParaNucleoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -47,5 +48,9 @@ class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPe
 
     fun confirmaSelecaoItens(listaAdicao: List<ItemEstoque>, listaRemocao: List<ItemEstoque>){
         controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
+    }
+
+    fun getPedido(): PedidoCadastro?{
+        return controller.getPedido()
     }
 }

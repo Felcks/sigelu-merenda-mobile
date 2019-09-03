@@ -16,6 +16,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/layout_bar">
         <TextView
+                android:id="@+id/tv_passos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/passo4"

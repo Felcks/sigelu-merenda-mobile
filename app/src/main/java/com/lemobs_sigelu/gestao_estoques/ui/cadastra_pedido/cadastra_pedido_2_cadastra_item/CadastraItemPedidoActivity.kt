@@ -54,6 +54,11 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             tv_error.visibility = View.VISIBLE
         }
 
+        val pedido = viewModel.getPedido()
+        if(pedido != null && pedido.destinoTipo == "Obra"){
+            tv_passos.text = "Passo 4 de 5"
+        }
+
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_add.setOnClickListener { clicouAnterior() }

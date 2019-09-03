@@ -40,6 +40,11 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
+
+        val pedido = viewModel.getPedido()
+        if(pedido != null && pedido.destinoTipo == "Obra"){
+            tv_passos.text = "Passo 3 de 5"
+        }
     }
 
     override fun clicouProximo() {

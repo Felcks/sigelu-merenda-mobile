@@ -52,6 +52,10 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             btn_salva_rascunho.visibility = View.GONE
         }
 
+        if(pedido != null && pedido.destinoTipo == "Obra"){
+            tv_passos.text = "Passo 5 de 5"
+        }
+
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
