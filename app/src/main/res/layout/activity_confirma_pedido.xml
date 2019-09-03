@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/passo4"
                 android:layout_margin="@dimen/espacamento_grande"
-                android:textSize="17sp"/>
+                android:textSize="18sp"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView

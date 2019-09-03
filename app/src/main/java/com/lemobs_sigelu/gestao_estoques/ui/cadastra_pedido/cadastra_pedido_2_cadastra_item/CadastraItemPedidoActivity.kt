@@ -42,6 +42,8 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
             this.adapter = ListaItemEstoqueAdapter(App.instance, listaItemEnvio, removerItemListener)
             rv_lista_material.adapter = adapter
+
+            tv_total_material.text = "(${listaItemEnvio.size})"
         }
         else{
             tv_error.visibility = View.VISIBLE
@@ -49,6 +51,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
+        btn_add.setOnClickListener { clicouAnterior() }
     }
 
 
