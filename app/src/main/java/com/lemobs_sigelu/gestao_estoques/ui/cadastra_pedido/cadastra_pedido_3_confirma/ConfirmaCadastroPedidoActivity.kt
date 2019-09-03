@@ -33,13 +33,14 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirma_pedido)
 
-        viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
-        viewModel!!.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
+        viewModel.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
+        viewModel.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
+        viewModel.carregaListaItem()
 
         val pedido = viewModel.getPedido()
         tv_origem.text = pedido?.origem?.tracoSeVazio()
-        tv_destino.text = pedido?.destino?.tracoSeVazio()
+        tv_destino.text = "${pedido?.destinoTipo} ${pedido?.destino?.tracoSeVazio()}"
         if(pedido?.origemTipo == "Fornecedor"){
             tv_contrato.visibility = View.VISIBLE
             tv_contrato_layout.visibility = View.VISIBLE

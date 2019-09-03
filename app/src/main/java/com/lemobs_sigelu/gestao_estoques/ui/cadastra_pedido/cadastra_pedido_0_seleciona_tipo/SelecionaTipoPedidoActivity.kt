@@ -73,7 +73,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
 
         if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
 
-            val origem = Local(7, "Almoxarifado", "a")
+            val origem = Local(7, "Almoxarifado", "Almoxarifado")
             val destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
             viewModel!!.confirmaDestinoDePedido(origem, destino)
 

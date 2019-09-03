@@ -26,4 +26,5 @@ interface ICadastraPedidoController {
     fun salvaRascunho(): Observable<Unit>
     fun getPedido(): PedidoCadastro?
     fun salvaPedidoRascunho()
+
 }
