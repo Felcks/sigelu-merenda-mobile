@@ -10,6 +10,7 @@ interface ICadastraPedidoController {
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?)
 
     fun carregaListagemObra(): Observable<List<Obra>>
+    suspend fun carregaListagemObra2(): List<Obra>?
 
     fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>>
     fun selecionaItem(id: Int): Boolean

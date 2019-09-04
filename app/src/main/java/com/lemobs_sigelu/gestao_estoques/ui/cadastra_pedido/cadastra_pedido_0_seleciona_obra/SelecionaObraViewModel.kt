@@ -8,6 +8,10 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SelecionaObraViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
@@ -16,19 +20,23 @@ class SelecionaObraViewModel(private val controller: ICadastraPedidoController):
 
     fun carregaListaObra(){
 
-        disposables.add(controller.carregaListagemObra()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
-            .subscribe(
-                { result ->
-                    responseNucleos.value = Response.success(result)
-                },
-                { throwable ->
-                    responseNucleos.value = Response.error(throwable)
-                }
-            )
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+
+            responseNucleos.postValue(Response.success(controller.carregaListagemObra2() ?: listOf()))
+        }
+//        disposables.add(controller.carregaListagemObra()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    responseNucleos.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    responseNucleos.value = Response.error(throwable)
+//                }
+//            )
+//        )
     }
 
     fun confirmaPedido(origem: Local?, destino: Local?){

@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido
 
+import com.lemobs_sigelu.gestao_estoques.api.RestApiObras
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import dagger.Module
@@ -26,7 +27,7 @@ class CadastraPedidoModule {
 
     @Provides
     fun carregaListaObraRepository(): ObraRepository {
-        return ObraRepository()
+        return ObraRepository(RestApiObras())
     }
 
     @Provides

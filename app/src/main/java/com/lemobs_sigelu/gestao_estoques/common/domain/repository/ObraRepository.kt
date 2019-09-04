@@ -5,13 +5,9 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import io.reactivex.Observable
 
 
-open class ObraRepository {
+open class ObraRepository(private val api: RestApiObras): BaseRepository(), IObraRepository {
 
-    val api by lazy {
-        RestApiObras()
-    }
-
-    fun carregaListaObra(): Observable<List<Obra>> {
+    override fun carregaListaObra(): Observable<List<Obra>> {
 
         return Observable.create { subscriber ->
 
@@ -34,6 +30,27 @@ open class ObraRepository {
             else{
                 subscriber.onError(Throwable(response.message()))
             }
+        }
+    }
+
+    override suspend fun carregaListaObra2(): List<Obra>? {
+
+        val response = safeApiCall(
+            call = {
+                api.getObras2().await()
+            },
+            errorMessage = "Não foi possível carregar"
+        )
+
+        return response?.map {
+            Obra(it.id,
+                it.ordem_servico.codigo,
+                "",
+                "",
+                "",
+                it.ordem_servico.local_formatado,
+                ""
+            )
         }
     }
 }

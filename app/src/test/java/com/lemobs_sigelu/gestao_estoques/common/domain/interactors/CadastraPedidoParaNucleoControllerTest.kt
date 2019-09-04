@@ -17,6 +17,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subscribers.TestSubscriber
+import kotlinx.coroutines.*
 import org.hamcrest.CoreMatchers.hasItem
 import org.hamcrest.Matchers.array
 import org.junit.Test
@@ -26,40 +27,29 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doReturn
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.stubbing.OngoingStubbing
 
-@RunWith(MockitoJUnitRunner::class)
 class CadastraPedidoParaNucleoControllerTest {
 
-    @get:Rule
-    val rule2 = InstantTaskExecutorRule()
+    @Rule
+    @JvmField
+    val rule = InstantTaskExecutorRule()
 
-    @get:Rule
-    val rule = MockitoJUnit.rule()!!
+    private val itemEstoqueRepository = mock<ItemEstoqueRepository>()
+    private val pedidoRepository: PedidoRepository = mock<PedidoRepository>()
+    private val obraRepository: ObraRepository = mock<ObraRepository>()
 
     private lateinit var controller: CadastraPedidoParaNucleoController
-
-    @Mock
-    private lateinit var itemEstoqueRepository: ItemEstoqueRepository
-
-    @Mock
-    private lateinit var pedidoRepository: PedidoRepository
-
-    @Mock
-    private lateinit var obraRepository: ObraRepository
 
     @Before
     fun setup(){
 //        itemEstoqueRepository = mock<ItemEstoqueRepository>()
 //        pedidoRepository = mock<PedidoRepository>()
 //        obraRepository = mock<ObraRepository>()
-
-        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setComputationSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setNewThreadSchedulerHandler { Schedulers.trampoline() }
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
     }
 
     @Test(expected = PedidoSemTipoException::class)
@@ -139,25 +129,32 @@ class CadastraPedidoParaNucleoControllerTest {
         assertEquals(destino.tipo, controller.getPedido()?.destinoTipo)
         assertEquals(destino.id, controller.getPedido()?.destinoID)
     }
-
     @Test
     fun carregaListagemObra() {
+
         val listaObra =  listOf<Obra>(
             Obra(0, "", "", "", "", "", "")
         )
 
+        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+
+        runBlocking {
+            whenever(obraRepository.carregaListaObra2()).thenReturn(emptyList())
+
+            assertEquals(controller.carregaListagemObra2(), emptyList<Obra>())
+        }
 
 
         //val listaObra = listOf(mock<Obra>())
 
-        whenever(obraRepository.carregaListaObra()).thenReturn(Observable.just(listaObra))
-
-        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-
-        val test = TestObserver<List<Obra>>()
-        controller.carregaListagemObra().subscribe(test)
-
-        test.assertComplete()
+//        whenever(obraRepository.carregaListaObra()).thenReturn(Observable.just(listaObra))
+//
+//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//
+//        val test = TestObserver<List<Obra>>()
+//        controller.carregaListagemObra().subscribe(test)
+//
+//        test.assertComplete()
 
 
 
