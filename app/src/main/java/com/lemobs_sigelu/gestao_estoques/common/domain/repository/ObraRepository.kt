@@ -7,7 +7,9 @@ import io.reactivex.Observable
 
 open class ObraRepository {
 
-    val api = RestApiObras()
+    val api by lazy {
+        RestApiObras()
+    }
 
     fun carregaListaObra(): Observable<List<Obra>> {
 

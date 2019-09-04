@@ -7,6 +7,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRep
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.PedidoSemOrigemOuDestinoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.PedidoSemTipoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
@@ -22,7 +24,7 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
     override fun getTipoPedidoSelecionado(): TipoPedido {
 
         if (pedido?.tipoPedido == null)
-            throw java.lang.Exception("Sem tipo de pedido")
+            throw PedidoSemTipoException()
 
         return pedido?.tipoPedido!!
     }
@@ -34,14 +36,10 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
     override fun confirmaDestinoDePedido(origem: Local?, destino: Local?) {
 
         if(origem == null || destino == null)
-            throw CampoNaoPreenchidoException()
+            throw PedidoSemOrigemOuDestinoException()
 
         if(origem.nome == destino.nome){
             throw Pedido.OrigemEDestinoIguaisException()
-        }
-
-        if(origem.tipo == "Fornecedor" && destino.tipo == "Obra"){
-            throw Pedido.OrigemFornecedorDestinoObraException()
         }
 
         pedido?.setInformacoes(

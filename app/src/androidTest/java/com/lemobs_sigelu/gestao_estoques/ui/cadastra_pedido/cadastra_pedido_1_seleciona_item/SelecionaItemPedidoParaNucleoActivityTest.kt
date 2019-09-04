@@ -24,14 +24,12 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRep
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.mock
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoViewModel
-import com.lemobs_sigelu.gestao_estoques.whenever
 import dagger.android.AndroidInjection.inject
 import org.hamcrest.Matcher
 import org.junit.After

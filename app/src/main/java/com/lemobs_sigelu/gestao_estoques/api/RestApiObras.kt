@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by felcks on Jun, 2019
  */
-class RestApiObras {
+open class RestApiObras {
 
     private val api : IRestApiObras
     companion object {
