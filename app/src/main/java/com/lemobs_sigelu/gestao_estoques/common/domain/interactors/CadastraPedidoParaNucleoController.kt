@@ -3,10 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController.Companion.pedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
-import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.PedidoSemOrigemOuDestinoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.PedidoSemTipoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
@@ -60,12 +57,20 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         return obraRepository.carregaListaObra2()
     }
 
-    override fun selecionaItem(id: Int): Boolean {
+    override fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
+
+        if(pedido == null)
+            throw PedidoNaoCriadoException()
+
         return pedido?.listaItemEstoque?.map { it.id }?.contains(id) != true
     }
 
     override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
         return itemEstoqueRepository.carregaListaEstoque()
+    }
+
+    override suspend fun carregaListagemItemEstoque2(): List<ItemEstoque>? {
+        return itemEstoqueRepository.carregaListaEstoque2()
     }
 
     override fun getIDsDeItemAdicionados(): List<Int> {
@@ -75,7 +80,9 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         return pedido?.listaItemEstoque?.map { it.id }!!
     }
 
-    override fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>) {
+    override fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>,
+                                      listaParaRemover: List<ItemEstoque>) {
+
         val idItensParaRemover = listaParaRemover.map { it.id }
         pedido?.listaItemEstoque?.removeAll { idItensParaRemover.contains(it.id) }
         pedido?.listaItemEstoque?.addAll(listaParaAdicionar)
@@ -83,8 +90,14 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
 
     override fun confirmaCadastroItem(listaValoresRecebidos: List<Double>){
 
+        if(pedido == null)
+            throw PedidoNaoCriadoException()
+
         if(pedido?.listaItemEstoque == null)
             throw Exception()
+
+        if(listaValoresRecebidos.size != pedido?.listaItemEstoque?.size)
+            throw java.lang.Exception()
 
         var count = 0
         for(item in pedido!!.listaItemEstoque){

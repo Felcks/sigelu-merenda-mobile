@@ -13,7 +13,8 @@ interface ICadastraPedidoController {
     suspend fun carregaListagemObra2(): List<Obra>?
 
     fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>>
-    fun selecionaItem(id: Int): Boolean
+    suspend fun carregaListagemItemEstoque2(): List<ItemEstoque>?
+    fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean
     fun getIDsDeItemAdicionados(): List<Int>
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)
 

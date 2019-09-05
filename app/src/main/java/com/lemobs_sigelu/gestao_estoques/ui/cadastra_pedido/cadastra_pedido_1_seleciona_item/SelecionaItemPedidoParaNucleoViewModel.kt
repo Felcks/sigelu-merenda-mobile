@@ -11,6 +11,10 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
 open class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
@@ -25,23 +29,27 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: ICadas
 
     fun carregaListagemItem() {
 
-        disposables.add(controller.carregaListagemItemEstoque()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { response.setValue(Response.loading()) }
-            .subscribe(
-                { result ->
-                    response.value = Response.success(result)
-                },
-                { throwable ->
-                    response.value = Response.error(throwable)
-                }
-            )
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+            response.postValue(Response.success(controller.carregaListagemItemEstoque2() ?: listOf()))
+        }
+
+//        disposables.add(controller.carregaListagemItemEstoque()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { response.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    response.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    response.value = Response.error(throwable)
+//                }
+//            )
+//        )
     }
 
-    fun selecionaItem(id: Int): Boolean {
-        return controller.selecionaItem(id)
+    fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
+        return controller.veriricaSeItemJaEstaAdicionado(id)
     }
 
     fun getIDsDeItemAdicionados(): List<Int>{

@@ -101,7 +101,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun onClick(id: Int, pos: Int) {
         try{
-            val adicionou = viewModel.selecionaItem(id)
+            val adicionou = viewModel.veriricaSeItemJaEstaAdicionado(id)
 
             if(adicionou){
                 adapter?.adicionaItem(pos)
