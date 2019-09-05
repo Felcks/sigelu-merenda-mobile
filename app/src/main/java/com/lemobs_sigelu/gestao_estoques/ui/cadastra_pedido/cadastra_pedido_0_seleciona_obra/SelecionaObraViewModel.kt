@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -40,6 +41,6 @@ class SelecionaObraViewModel(private val controller: ICadastraPedidoController):
     }
 
     fun confirmaPedido(origem: Local?, destino: Local?){
-        return controller.confirmaDestinoDePedido(origem, destino)
+        return controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
     }
 }

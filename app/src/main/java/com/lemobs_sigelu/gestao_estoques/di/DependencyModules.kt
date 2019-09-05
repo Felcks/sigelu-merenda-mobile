@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.di
 import com.lemobs_sigelu.gestao_estoques.api.RestApiObras
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoParaNucleoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
@@ -19,7 +20,7 @@ object DependencyModules {
     val appModule = module{
         factory { ItemEstoqueRepository() }
         factory { PedidoRepository() }
-        factory { ObraRepository(RestApiObras()) }
+        factory { ObraRepository(RestApiObras()) as IObraRepository }
         single { CadastraPedidoParaNucleoController(get(), get(), get()) as ICadastraPedidoController }
         viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaObraViewModel(get()) }

@@ -32,7 +32,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo() {
 
         try {
-            val proximaTelaIntent = viewModel.confirmaDestinoDePedido()
+            val proximaTelaIntent = viewModel.confirmaDestinoDePedidoERetornaProximaTela()
             startActivity(proximaTelaIntent)
             return
         }
@@ -49,14 +49,14 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         rb_nucleo.isChecked = false
         tv_proximo.text = "Próximo: Materiais"
         tv_passos.text = "Passo 1 de 4"
-        viewModel.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+        viewModel.selecionaTipoPedido(0)
     }
 
     fun clickSegundoRadioButton(v: View){
         rb_fornecedor.isChecked = false
         tv_proximo.text = "Próximo: Obras"
         tv_passos.text = "Passo 1 de 5"
-        viewModel.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+        viewModel.selecionaTipoPedido(1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

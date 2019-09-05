@@ -56,6 +56,7 @@ class CadastraPedidoParaNucleoControllerTest {
         controller.getTipoPedidoSelecionado()
     }
 
+
     @Test
     fun `seleciona todos os tipos e faz get no tipo`(){
 
@@ -71,13 +72,15 @@ class CadastraPedidoParaNucleoControllerTest {
         catch (e: java.lang.Exception){
             assertFalse(true)
         }
+
+
     }
 
     @Test(expected = PedidoSemOrigemOuDestinoException::class)
     fun `confirma destino de pedido sem origem e destino`() {
 
         controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-        controller.confirmaDestinoDePedido(null, null)
+        controller.confirmaDestinoDePedido()
     }
 
     @Test(expected = PedidoSemOrigemOuDestinoException::class)

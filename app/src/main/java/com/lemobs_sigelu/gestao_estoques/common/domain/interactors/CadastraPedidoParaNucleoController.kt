@@ -1,18 +1,18 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController.Companion.pedidoCadastro
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import io.reactivex.Observable
 import java.util.*
 
 open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
                                               private val pedidoRepository: PedidoRepository,
-                                              private val obraRepository: IObraRepository
-): ICadastraPedidoController{
+                                              private val obraRepository: IObraRepository): ICadastraPedidoController{
 
     private var pedido: PedidoCadastro? = null
 
@@ -24,11 +24,22 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         return pedido?.tipoPedido!!
     }
 
-    override fun selecionaTipoPedido(tipoPedido: TipoPedido) {
-        pedido = PedidoCadastro(tipoPedido)
-    }
+    override fun confirmaDestinoDePedido(tipoPedido: TipoPedido) {
 
-    override fun confirmaDestinoDePedido(origem: Local?, destino: Local?) {
+        pedido = PedidoCadastro(tipoPedido)
+
+        var origem: Local? = null
+        var destino: Local? = null
+
+        when(tipoPedido){
+            TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> {
+                origem  = Local(8, "Almoxarifado", "Almoxarifado")
+                destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
+            }
+            TipoPedido.FORNECEDOR_PARA_OBRA -> {
+                origem  = Local(8, "Almoxarifado", "Almoxarifado")
+            }
+        }
 
         if(origem == null || destino == null)
             throw PedidoSemOrigemOuDestinoException()

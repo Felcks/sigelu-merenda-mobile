@@ -16,25 +16,21 @@ import java.lang.Exception
 
 class SelecionaTipoPedidoViewModel (private val controller: ICadastraPedidoController): ViewModel() {
 
-    init {
-        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+    private var tipoPedido: TipoPedido = TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
+
+    fun selecionaTipoPedido(pos: Int){
+
+        tipoPedido = if(pos == 0)
+            TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO
+        else
+            TipoPedido.FORNECEDOR_PARA_OBRA
     }
 
-    fun selecionaTipoPedido(tipoPedido: TipoPedido){
-        controller.selecionaTipoPedido(tipoPedido)
-    }
-
-    fun confirmaDestinoDePedido(): Intent {
-
-        val tipoPedido = controller.getTipoPedidoSelecionado()
+    fun confirmaDestinoDePedidoERetornaProximaTela(): Intent {
 
         if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
 
-            /* O id do local de origem não foi definido ainda */
-            val origem = Local(8, "Almoxarifado", "Almoxarifado")
-            val destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
-            controller.confirmaDestinoDePedido(origem, destino)
-
+            controller.confirmaDestinoDePedido(tipoPedido)
             return Intent(App.instance, SelecionaItemPedidoParaNucleoActivity::class.java)
         }
         else if(tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
