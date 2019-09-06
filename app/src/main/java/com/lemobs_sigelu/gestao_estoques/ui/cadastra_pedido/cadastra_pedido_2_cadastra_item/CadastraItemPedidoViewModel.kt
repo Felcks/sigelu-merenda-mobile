@@ -8,7 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 
 class CadastraItemPedidoViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
-    fun getItensSolicitados(): List<ItemEstoque>{
+    fun getItensCadastrados(): List<ItemEstoque>{
         return controller.getItensCadastrados()
     }
 
@@ -24,10 +24,6 @@ class CadastraItemPedidoViewModel(private val controller: ICadastraPedidoControl
         else{
             throw NenhumItemSelecionadoException()
         }
-    }
-
-    fun confirmaCadastroItem(listaValoresRecebidos: List<Double>){
-        return controller.confirmaCadastroItem(listaValoresRecebidos)
     }
 
     fun getPedido(): PedidoCadastro?{

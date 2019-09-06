@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
@@ -37,17 +38,10 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_item_pedido)
 
-        val listaItemEnvio = viewModel.getItensSolicitados()
+        val listaItemEnvio = viewModel.getItensCadastrados()
         if(listaItemEnvio.isNotEmpty()) {
-            val layoutManager = LinearLayoutManager(applicationContext)
-            layoutManager.orientation = LinearLayoutManager.VERTICAL
-            rv_lista_material.layoutManager = layoutManager
-            rv_lista_material.setItemViewCacheSize(listaItemEnvio.size)
-            rv_lista_material.setHasFixedSize(true)
 
-            this.adapter = ListaItemEstoqueAdapter(App.instance, listaItemEnvio, removerItemListener)
-            rv_lista_material.adapter = adapter
-
+            iniciaListaAdapter(listaItemEnvio)
             tv_total_material.text = "(${listaItemEnvio.size})"
         }
         else{
@@ -64,15 +58,27 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         btn_add.setOnClickListener { clicouAnterior() }
     }
 
+    private fun iniciaListaAdapter(lista: List<ItemEstoque>){
+
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista_material.layoutManager = layoutManager
+        rv_lista_material.setItemViewCacheSize(lista.size)
+        rv_lista_material.setHasFixedSize(true)
+
+        this.adapter = ListaItemEstoqueAdapter(App.instance, lista, removerItemListener)
+        rv_lista_material.adapter = adapter
+    }
+
 
     private val removerItemListener = object: TwoIntParametersClickListener {
         override fun onClick(id: Int, position: Int) {
             try{
                 viewModel.removeItem(id)
                 adapter?.removeItem(position)
-                tv_total_material.text = "(${viewModel.getItensSolicitados().size})"
+                tv_total_material.text = "(${viewModel.getItensCadastrados().size})"
 
-                if(viewModel.getItensSolicitados().isEmpty())
+                if(viewModel.getItensCadastrados().isEmpty())
                     tv_error.visibility = View.VISIBLE
             }
             catch (e: Exception){
@@ -90,7 +96,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
-            Snackbar.make(ll_all, "Selecione pelo menos um item.", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(ll_all, "Cadastre pelo menos um item.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: CampoNaoPreenchidoException){
             Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()

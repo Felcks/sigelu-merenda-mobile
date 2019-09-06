@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -35,14 +36,14 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_material_pedido_original)
 
-        viewModel.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListagemItem()
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
 
         val pedido = viewModel.getPedido()
-        if(pedido != null && pedido.destinoTipo == "Obra"){
+        if(pedido != null && pedido.tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
             tv_passos.text = "Passo 3 de 5"
         }
     }
@@ -91,7 +92,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                 rv_lista.layoutManager = layoutManager
 
                 this.adapter = ListaItemEstoqueAdapterSimples(applicationContext,
-                    response.data as List<ItemEstoque>,
+                    response.data as? List<ItemEstoque> ?: listOf(),
                     this,
                     viewModel.getIDsDeItemAdicionados())
                 rv_lista.adapter = adapter
@@ -103,12 +104,8 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         try{
             val adicionou = viewModel.veriricaSeItemJaEstaAdicionado(id)
 
-            if(adicionou){
-                adapter?.adicionaItem(pos)
-            }
-            else{
-                adapter?.removeItem(pos)
-            }
+            if(adicionou){ adapter?.adicionaItem(pos) }
+            else{ adapter?.removeItem(pos) }
         }
         catch (e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()

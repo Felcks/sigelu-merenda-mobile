@@ -80,11 +80,7 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         return pedido?.listaItemEstoque?.map { it.id }?.contains(id) != true
     }
 
-    override fun carregaListagemItemEstoque(): Observable<List<ItemEstoque>> {
-        return itemEstoqueRepository.carregaListaEstoque()
-    }
-
-    override suspend fun carregaListagemItemEstoque2(): List<ItemEstoque>? {
+    override suspend fun carregaListagemItemEstoque(): List<ItemEstoque>? {
         return itemEstoqueRepository.carregaListaEstoque2()
     }
 
