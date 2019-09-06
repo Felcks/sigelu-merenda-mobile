@@ -1,7 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
@@ -10,6 +9,9 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoReposito
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
+import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
 import org.junit.Before
@@ -23,7 +25,6 @@ import org.koin.test.AutoCloseKoinTest
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-@RunWith(AndroidJUnit4::class)
 class CadastraPedidoParaNucleoControllerTest: KoinTest {
 
     @Rule
@@ -35,7 +36,8 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     private val obraRepository: IObraRepository = mockk()
     private val nucleoModel: NucleoModel = mockk()
 
-    private val controller: CadastraPedidoParaNucleoController = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
+    private fun defaultController(): CadastraPedidoParaNucleoController = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
+    private var controller = defaultController()
 
     @Before
     fun setup(){
@@ -58,8 +60,6 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test(expected = TipoPedidoNaoPermitido::class)
     fun `confirma destino para tipos nao permitidos`() {
 
-        //controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
-
         for(value in TipoPedido.values()){
 
             if(value != TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO && value != TipoPedido.FORNECEDOR_PARA_OBRA)
@@ -70,172 +70,149 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test(expected = TipoPedidoNaoPermitido::class)
     fun `confirma destino para tipo fornecedor-obra sem obra`() {
 
-        //controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
         controller.confirmaDestinoDePedido(TipoPedido.MEU_NUCLEO_PARA_OBRA)
-
     }
 
     @Test
     fun `confirma destino para tipo fornecedor-nucleo`() {
 
-        //controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
-
         every { nucleoModel.getNucleoID() } returns 1
         every { nucleoModel.getNucleoNome() } returns "Núcleo nome"
-
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
     }
 
+    @Test
+    fun `confirma destino para obra corretamente`() {
 
-//    @Test(expected = Pedido.OrigemEDestinoIguaisException::class)
-//    fun `confirma destino com origem e destino iguais`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//
-//        val origem: Local = mock<Local>()
-//        val destino = origem
-//
-//        controller.confirmaDestinoDePedido(origem, destino)
-//    }
-//
-//    @Test
-//    fun `confirma destino com informacoes validas`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        val origem: Local = Local(0, "a", "a")
-//        val destino: Local = Local(1, "b", "b")
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//        controller.confirmaDestinoDePedido(origem, destino)
-//        assertEquals(origem.nome, controller.getPedido()?.origem)
-//        assertEquals(origem.tipo, controller.getPedido()?.origemTipo)
-//        assertEquals(origem.id, controller.getPedido()?.origemID)
-//
-//        assertEquals(destino.nome,controller.getPedido()?.destino)
-//        assertEquals(destino.tipo, controller.getPedido()?.destinoTipo)
-//        assertEquals(destino.id, controller.getPedido()?.destinoID)
-//    }
-//    @Test
-//    fun `carrega listagem de obra vazia`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//
-//        runBlocking {
-//            every { runBlocking { obraRepository.carregaListaObra2() } } returns emptyList()
-//
-//            assertEquals(emptyList<Obra>(), controller.carregaListagemObra2())
-//        }
-//    }
-//
-//    @Test
-//    fun `carrega listagem obra com obra de diferentes tipos`(){
-//
-//        val obraAndamento = mockk<Obra>()
-//        val obraPlanejada = mockk<Obra>()
-//        val obraParalisada = mockk<Obra>()
-//        val obraCancelada = mockk<Obra>()
-//        val obraConcluida = mockk<Obra>()
-//
-//        val listaObra = listOf<Obra>(
-//            obraAndamento,
-//            obraPlanejada,
-//            obraParalisada,
-//            obraCancelada,
-//            obraConcluida
-//        )
-//
-//        every { obraAndamento.situacao } returns "Em Andamento"
-//        every { obraPlanejada.situacao } returns "Planejada"
-//        every { obraParalisada.situacao } returns "Paralisada"
-//        every { obraCancelada.situacao } returns "Cancelada"
-//        every { obraConcluida.situacao } returns "Concluida"
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//
-//        runBlocking {
-//            every { runBlocking { obraRepository.carregaListaObra2() } } returns listaObra
-//
-//            assertEquals(listaObra.size, controller.carregaListagemObra2()?.size)
-//        }
-//    }
-//
-//    @Test(expected = PedidoNaoCriadoException::class)
-//    fun `seleciona item para pedido nao criado`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.veriricaSeItemJaEstaAdicionado(1)
-//    }
-//
-//    @Test
-//    fun `seleciona 1 item para pedido criado`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
-//    }
-//
-//    @Test
-//    fun `seleciona 2 itens diferentes para pedido criado`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
-//        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(2))
-//    }
-//
-//    @Test
-//    fun `carrega listagem item estoque`() {
-//
-//        val listaItemEstoque = listOf<ItemEstoque>(
-//            mockk<ItemEstoque>(),
-//            mockk<ItemEstoque>()
-//        )
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//
-//        runBlocking {
-//            every { runBlocking { itemEstoqueRepository.carregaListaEstoque2() } } returns listaItemEstoque
-//
-//            assertEquals(listaItemEstoque, controller.carregaListagemItemEstoque2())
-//        }
-//    }
-//
-//    @Test
-//    fun `get id de itens ja adicionados vazio`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        assertEquals(0, controller.getIDsDeItemAdicionados().size)
-//    }
-//
-//    @Test
-//    fun `confirma selecao nenhum item e resgata lista fazia`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//        assertEquals(0, controller.getIDsDeItemAdicionados().size)
-//        controller.confirmaSelecaoItens(listOf(), listOf())
-//        assertEquals(0, controller.getIDsDeItemAdicionados().size)
-//    }
-//
-//    @Test
-//    fun `confirma selecao item 1 item`() {
-//
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
-//        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
-//
-//        val itemEstoqueID1 = mockk<ItemEstoque>()
-//        every { itemEstoqueID1.id } returns 1
-//
-//        assertEquals(0, controller.getIDsDeItemAdicionados().size)
-//        controller.confirmaSelecaoItens(listOf(itemEstoqueID1), listOf())
-//        assertEquals(1, controller.getIDsDeItemAdicionados().size)
-//    }
-//
+        val local = spyk(mockk<Local>()).apply { id = 1; nome = "n"; tipo = "t"  }
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA, local)
+    }
+
+
+
+    @Test
+    fun `carrega listagem de obra vazia`() {
+
+        controller = defaultController()
+
+        runBlocking {
+            every { runBlocking { obraRepository.carregaListaObra() } } returns emptyList()
+
+            assertEquals(emptyList<Obra>(), controller.carregaListagemObra())
+        }
+    }
+
+    @Test
+    fun `carrega listagem obra com obra de diferentes tipos`(){
+
+        val obraAndamento = mockk<Obra>()
+        val obraPlanejada = mockk<Obra>()
+        val obraParalisada = mockk<Obra>()
+        val obraCancelada = mockk<Obra>()
+        val obraConcluida = mockk<Obra>()
+
+        val listaObra = listOf<Obra>(
+            obraAndamento,
+            obraPlanejada,
+            obraParalisada,
+            obraCancelada,
+            obraConcluida
+        )
+
+        every { obraAndamento.situacao } returns "Em Andamento"
+        every { obraPlanejada.situacao } returns "Planejada"
+        every { obraParalisada.situacao } returns "Paralisada"
+        every { obraCancelada.situacao } returns "Cancelada"
+        every { obraConcluida.situacao } returns "Concluida"
+
+        controller = defaultController()
+
+        runBlocking {
+            every { runBlocking { obraRepository.carregaListaObra() } } returns listaObra
+
+            assertEquals(listaObra.size, controller.carregaListagemObra()?.size)
+        }
+    }
+
+    @Test(expected = PedidoNaoCriadoException::class)
+    fun `seleciona item para pedido nao criado`() {
+
+        controller = defaultController()
+        controller.veriricaSeItemJaEstaAdicionado(1)
+    }
+
+    @Test
+    fun `seleciona 1 item para pedido criado`() {
+
+        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+
+        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
+    }
+
+    @Test
+    fun `seleciona 2 itens diferentes para pedido criado`() {
+
+        controller = defaultController()
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+
+        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
+        assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(2))
+    }
+
+    @Test
+    fun `carrega listagem item estoque`() {
+
+        val listaItemEstoque = listOf<ItemEstoque>(
+            mockk<ItemEstoque>(),
+            mockk<ItemEstoque>()
+        )
+
+        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+
+
+        runBlocking {
+            every { runBlocking { itemEstoqueRepository.carregaListaEstoque2() } } returns listaItemEstoque
+
+            assertEquals(listaItemEstoque, controller.carregaListagemItemEstoque())
+        }
+    }
+
+    @Test
+    fun `get id de itens ja adicionados vazio`() {
+
+        controller = defaultController()
+        assertEquals(0, controller.getIDsDeItemAdicionados().size)
+    }
+
+
+    @Test
+    fun `confirma selecao nenhum item e resgata lista fazia`() {
+
+        controller = defaultController()
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+
+        assertEquals(0, controller.getIDsDeItemAdicionados().size)
+        controller.confirmaSelecaoItens(listOf(), listOf())
+        assertEquals(0, controller.getIDsDeItemAdicionados().size)
+    }
+
+    @Test
+    fun `confirma selecao item 1 item`() {
+
+        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+
+        val itemEstoqueID1 = mockk<ItemEstoque>()
+        every { itemEstoqueID1.id } returns 1
+
+        assertEquals(0, controller.getIDsDeItemAdicionados().size)
+        controller.confirmaSelecaoItens(listOf(itemEstoqueID1), listOf())
+        assertEquals(1, controller.getIDsDeItemAdicionados().size)
+    }
+
+
 //    @Test
 //    fun `confirma selecao de item remove 1 item inexistente`(){
 //

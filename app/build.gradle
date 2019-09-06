@@ -205,10 +205,10 @@ dependencies {
 
     //Android Testing Stuff
     testImplementation "org.robolectric:robolectric:4.3"
-    allTestsConfigs "androidx.test:core:1.2.0"
-    allTestsConfigs 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
-    allTestsConfigs 'androidx.test.ext:junit:1.1.1'
-    allTestsConfigs 'androidx.test.ext:junit-ktx:1.1.1'
+    androidTestImplementation "androidx.test:core:1.2.0"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.1'
 
     /* Kotlin Coroutines */
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$project.kotlinCoroutineVersion"
