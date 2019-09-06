@@ -10,20 +10,14 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_pedido_obra.*
 import org.koin.android.ext.android.inject
@@ -32,9 +26,6 @@ import java.lang.Exception
 class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
     val viewModel: SelecionaObraViewModel by inject()
-
-    private var listaObra = mutableListOf<Obra>()
-    private var obraSelecionada: Int? =  null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +45,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo(){
 
         try{
-            if(obraSelecionada == null)
-                throw Exception("Obra não selecionada.")
-
-            val obra = this.listaObra[this.obraSelecionada!!]
-            viewModel.confirmaPedido(Local(obra.id, obra.tipo, obra.codigo))
+            viewModel.confirmaPedido()
 
             val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)
@@ -75,19 +62,17 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
                 if(response.data is List<*>){
 
-                    if(response.data[0] is Obra)
-                        renderDataObra(response.data)
+                    if(response.data.isNotEmpty()) {
+                        if (response.data[0] is Obra)
+                            renderDataObra(response.data as List<Obra>)
+                    }
                 }
-
             }
             Status.ERROR -> {}
         }
     }
 
-    fun renderDataObra(result: Any?){
-
-        val list = result as List<Obra>
-        this.listaObra.addAll(list)
+    private fun renderDataObra(list: List<Obra>){
 
         val listaTextoOrigem = list.map { it.getTitulo() }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
@@ -96,9 +81,8 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         spinner_obra.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                obraSelecionada = position
+                viewModel.setPosObraSelecionada(position)
             }
-
             override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
 
