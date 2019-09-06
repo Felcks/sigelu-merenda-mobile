@@ -40,7 +40,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_pedido_obra)
 
-        viewModel.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
@@ -57,14 +57,8 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
             if(obraSelecionada == null)
                 throw Exception("Obra não selecionada.")
 
-            val obraDestino = this.listaObra[this.obraSelecionada!!]
-
-            val destino = Local(obraDestino.id, "Obra", obraDestino.getTitulo())
-            val origem = Local(
-                AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(
-                    App.instance))
-
-            viewModel.confirmaPedido(origem, destino)
+            val obra = this.listaObra[this.obraSelecionada!!]
+            viewModel.confirmaPedido(Local(obra.id, obra.tipo, obra.codigo))
 
             val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)

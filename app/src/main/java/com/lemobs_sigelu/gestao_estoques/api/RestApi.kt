@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import android.util.Log
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
@@ -55,6 +56,7 @@ class RestApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(Versao.getURL())
             .addConverterFactory(MoshiConverterFactory.create().asLenient())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(client)
             .build()
 

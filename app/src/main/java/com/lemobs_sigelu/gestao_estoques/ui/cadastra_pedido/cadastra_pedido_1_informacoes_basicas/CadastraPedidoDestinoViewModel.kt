@@ -88,19 +88,19 @@ class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): 
 
     fun carregaListaObra() {
 
-        disposables.add(controller.carregaListaObra()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { responseObras.setValue(Response.loading()) }
-            .subscribe(
-                { result ->
-                    responseObras.value = Response.success(result)
-                },
-                { throwable ->
-                    responseObras.value = Response.error(throwable)
-                }
-            )
-        )
+//        disposables.add(controller.carregaListaObra()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { responseObras.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    responseObras.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    responseObras.value = Response.error(throwable)
+//                }
+//            )
+//        )
     }
 
     fun carregaListaContrato() {

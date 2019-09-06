@@ -16,19 +16,19 @@ class CadastraObraViewModel(val controller: CadastraPedidoController): ViewModel
 
     fun carregaListaObra(){
 
-        disposables.add(controller.carregaListaObra()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
-            .subscribe(
-                { result ->
-                    responseNucleos.value = Response.success(result)
-                },
-                { throwable ->
-                    responseNucleos.value = Response.error(throwable)
-                }
-            )
-        )
+//        disposables.add(controller.carregaListaObra()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
+//            .subscribe(
+//                { result ->
+//                    responseNucleos.value = Response.success(result)
+//                },
+//                { throwable ->
+//                    responseNucleos.value = Response.error(throwable)
+//                }
+//            )
+//        )
     }
 
     fun confirmaPedido(origem: Local?, destino: Local?){

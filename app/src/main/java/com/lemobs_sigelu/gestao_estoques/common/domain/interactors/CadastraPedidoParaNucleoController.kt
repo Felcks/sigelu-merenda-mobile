@@ -24,12 +24,16 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         return pedido?.tipoPedido!!
     }
 
-    override fun confirmaDestinoDePedido(tipoPedido: TipoPedido) {
+    override fun confirmaDestinoDePedido(obraDestino: Local?){
+        confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA, obraDestino)
+    }
+
+    override fun confirmaDestinoDePedido(tipoPedido: TipoPedido, obraDestino: Local?) {
 
         pedido = PedidoCadastro(tipoPedido)
 
-        var origem: Local? = null
-        var destino: Local? = null
+        val origem: Local?
+        val destino: Local?
 
         when(tipoPedido){
             TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> {
@@ -37,12 +41,16 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
                 destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
             }
             TipoPedido.FORNECEDOR_PARA_OBRA -> {
+                if(obraDestino == null){
+                    throw PedidoSemObraDeDestinoException()
+                }
                 origem  = Local(8, "Almoxarifado", "Almoxarifado")
+                destino = obraDestino
+            }
+            else -> {
+                throw TipoPedidoNaoPermitido()
             }
         }
-
-        if(origem == null || destino == null)
-            throw PedidoSemOrigemOuDestinoException()
 
         if(origem.nome == destino.nome){
             throw Pedido.OrigemEDestinoIguaisException()
@@ -60,12 +68,8 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         )
     }
 
-    override fun carregaListagemObra(): Observable<List<Obra>> {
+    override suspend fun carregaListagemObra(): List<Obra>? {
         return obraRepository.carregaListaObra()
-    }
-
-    override suspend fun carregaListagemObra2(): List<Obra>? {
-        return obraRepository.carregaListaObra2()
     }
 
     override fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {

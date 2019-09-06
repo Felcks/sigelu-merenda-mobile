@@ -5,6 +5,5 @@ import io.reactivex.Observable
 
 interface IObraRepository {
 
-    fun carregaListaObra(): Observable<List<Obra>>
-    suspend fun carregaListaObra2(): List<Obra>?
+    suspend fun carregaListaObra(): List<Obra>?
 }

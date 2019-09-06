@@ -16,31 +16,16 @@ import kotlinx.coroutines.launch
 
 class SelecionaObraViewModel(private val controller: ICadastraPedidoController): ViewModel() {
 
-    private val disposables = CompositeDisposable()
-    val responseNucleos = MutableLiveData<Response>()
+    val listaObra = MutableLiveData<Response>()
 
     fun carregaListaObra(){
 
         CoroutineScope(Dispatchers.IO).launch {
-
-            responseNucleos.postValue(Response.success(controller.carregaListagemObra2() ?: listOf()))
+            listaObra.postValue(Response.success(controller.carregaListagemObra() ?: listOf()))
         }
-//        disposables.add(controller.carregaListagemObra()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnSubscribe { responseNucleos.setValue(Response.loading()) }
-//            .subscribe(
-//                { result ->
-//                    responseNucleos.value = Response.success(result)
-//                },
-//                { throwable ->
-//                    responseNucleos.value = Response.error(throwable)
-//                }
-//            )
-//        )
     }
 
-    fun confirmaPedido(origem: Local?, destino: Local?){
-        return controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+    fun confirmaPedido(obraDestino: Local?){
+        return controller.confirmaDestinoDePedido(obraDestino)
     }
 }

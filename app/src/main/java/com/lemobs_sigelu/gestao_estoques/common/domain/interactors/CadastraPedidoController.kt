@@ -25,16 +25,6 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
     var itensContrato = mutableListOf<ItemContrato>()
 
-    fun selecionaTipoPedido(tipoPedido: TipoPedido){
-        Companion.tipoPedido = tipoPedido
-    }
-
-    fun getInicialTipoPedido(): TipoPedido{
-        if (Companion.tipoPedido == null)
-            throw Exception("Sem tipo de pedido")
-
-        return Companion.tipoPedido!!
-    }
 
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?, contratoObrigatorio: Boolean = true) {
 
@@ -82,9 +72,9 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return fornecedorRepository.carregaListaFornecedor()
     }
 
-    fun carregaListaObra(): Observable<List<Obra>> {
-        return obraRepository.carregaListaObra()
-    }
+//    fun carregaListaObra(): Observable<List<Obra>> {
+//        return obraRepository.carregaListaObra()
+//    }
 
     fun carregaListaContrato(): Observable<List<ContratoEstoque>> {
         return contratoRepository.carregaListaContratosVigentes()
@@ -151,7 +141,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         if(pedidoCadastro?.listaItemNucleo == null)
             return listOf<Int>()
 
-        return pedidoCadastro?.listaItemNucleo?.map { it.id ?: 0 }!!
+        return pedidoCadastro?.listaItemNucleo?.map { it.id }!!
     }
 
     fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
