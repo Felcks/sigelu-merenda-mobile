@@ -10,9 +10,9 @@ import java.util.*
 
 @Entity(tableName = "pedido_cadastro")
 data class PedidoCadastro(
-    @ColumnInfo(name = "tipo_pedido")
     var tipoPedido: TipoPedido?
-) {
+)
+{
 
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

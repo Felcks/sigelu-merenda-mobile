@@ -12,7 +12,8 @@ import java.util.*
 
 open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository: ItemEstoqueRepository,
                                               private val pedidoRepository: PedidoRepository,
-                                              private val obraRepository: IObraRepository): ICadastraPedidoController{
+                                              private val obraRepository: IObraRepository,
+                                              private val nucleoModel: NucleoModel): ICadastraPedidoController{
 
     private var pedido: PedidoCadastro? = null
 
@@ -38,7 +39,7 @@ open class CadastraPedidoParaNucleoController(private val itemEstoqueRepository:
         when(tipoPedido){
             TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> {
                 origem  = Local(8, "Almoxarifado", "Almoxarifado")
-                destino = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
+                destino = Local(nucleoModel.getNucleoID(), "Núcleo", nucleoModel.getNucleoNome())
             }
             TipoPedido.FORNECEDOR_PARA_OBRA -> {
                 if(obraDestino == null){
