@@ -4,16 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): ViewModel(){
 
@@ -257,7 +254,7 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
 //        pedidoCadastro.isEdicao = true
 //        //pedidoCadastro.listaItemContrato.addAll(listItemContrato) ja estava comentada antes
-//        CadastraPedidoController.pedidoCadastro = pedidoCadastro
+//        CadastraPedidoController2.pedidoCadastro = pedidoCadastro
     }
 
     fun getSituacaoDePedido(): Situacao{

@@ -1,8 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApiObras
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoParaNucleoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ICadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoControllerImpl
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.NucleoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
@@ -23,7 +23,7 @@ object DependencyModules {
         single { PedidoRepository() }
         single { ObraRepository(RestApiObras()) as IObraRepository }
         single { NucleoModel() }
-        single { CadastraPedidoParaNucleoController(get(), get(), get(), get()) as ICadastraPedidoController }
+        single { CadastraPedidoControllerImpl(get(), get(), get(), get()) as CadastraPedidoController }
         viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaObraViewModel(get()) }
         viewModel { SelecionaItemPedidoParaNucleoViewModel(get()) }

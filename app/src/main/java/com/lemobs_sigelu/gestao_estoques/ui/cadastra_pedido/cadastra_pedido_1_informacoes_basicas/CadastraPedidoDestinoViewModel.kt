@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController): ViewModel() {
+class CadastraPedidoDestinoViewModel(val controller: CadastraPedidoController2): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var responseFluxo = MutableLiveData<Response>()

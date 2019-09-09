@@ -2,8 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController2
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel
@@ -15,7 +14,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_2_
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_1_confirma.ConfirmaCadastroPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoViewModel
 
-class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController): ViewModelProvider.Factory{
+class CadastraPedidoViewModelFactory (val controller: CadastraPedidoController2): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 //        if (modelClass.isAssignableFrom(SelecionaTipoPedidoViewModel::class.java!!)) {

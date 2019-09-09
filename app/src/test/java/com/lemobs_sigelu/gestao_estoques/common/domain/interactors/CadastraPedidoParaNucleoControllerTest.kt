@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import io.mockk.every
@@ -16,14 +15,8 @@ import org.junit.After
 import org.junit.Test
 import org.junit.Before
 import org.junit.Rule
-import org.junit.runner.RunWith
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.android.ext.android.inject
 import org.koin.core.context.stopKoin
-import org.koin.test.AutoCloseKoinTest
 import org.koin.test.KoinTest
-import org.koin.test.inject
 
 class CadastraPedidoParaNucleoControllerTest: KoinTest {
 
@@ -36,7 +29,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     private val obraRepository: IObraRepository = mockk()
     private val nucleoModel: NucleoModel = mockk()
 
-    private fun defaultController(): CadastraPedidoParaNucleoController = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
+    private fun defaultController(): CadastraPedidoControllerImpl = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository, nucleoModel)
     private var controller = defaultController()
 
     @Before
@@ -144,7 +137,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test
     fun `seleciona 1 item para pedido criado`() {
 
-        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
 
         assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
@@ -168,7 +161,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
             mockk<ItemEstoque>()
         )
 
-        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
 
@@ -201,7 +194,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test
     fun `confirma selecao item 1 item`() {
 
-        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
         val itemEstoqueID1 = mockk<ItemEstoque>()
@@ -216,7 +209,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `confirma selecao de item remove 1 item inexistente`(){
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val itemEstoqueID1 = mockk<ItemEstoque>()
@@ -230,7 +223,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `confirma selecao de item adiciona 1 item e remove esse item`(){
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val itemEstoqueID1 = mockk<ItemEstoque>()
@@ -246,7 +239,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `adiciona 2 item e remove 1 deles`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val itemEstoqueID1 = spyk(mockk<ItemEstoque>()).apply { id = 1 }
@@ -267,7 +260,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test(expected = PedidoNaoCriadoException::class)
 //    fun `confirma cadastro com pedido nulo`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //
 //        controller.confirmaCadastroItem(listOf())
 //    }
@@ -275,7 +268,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `confirma cadastro com lista vazia`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        controller.confirmaCadastroItem(listOf())
@@ -286,7 +279,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test(expected = Exception::class)
 //    fun `confirma cadastro com 1 numero sem item`(){
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        controller.confirmaCadastroItem(listOf(0.0))
@@ -295,7 +288,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `confirma cadastro com 1 numero com item e valor valido`(){
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val itemEstoque = spyk(mockk<ItemEstoque>())
@@ -309,7 +302,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test(expected = ValorMenorQueZeroException::class)
 //    fun `confirma cadastro com 1 numero com item e valor zerado`(){
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        controller.confirmaSelecaoItens(listOf(mockk<ItemEstoque>()), listOf())
@@ -320,7 +313,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `get itens cadastrados sem nenhum item`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        assertEquals(0, controller.getItensCadastrados().size)
@@ -329,7 +322,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `get itens cadastrados com um item cadastrado`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val itemEstoque = spyk(mockk<ItemEstoque>()).apply { id = 33; codigo = "codigo"; nomeAlternativo = "nome"  }
@@ -345,7 +338,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test(expected = Exception::class)
 //    fun `remove item inexistente`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        controller.removeItem(0)
@@ -354,7 +347,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `remove item existente`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        val item = spyk(mockk<ItemEstoque>()).apply { id = 1 }
@@ -369,7 +362,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
 //    @Test
 //    fun `cancela pedido`() {
 //
-//        controller = CadastraPedidoParaNucleoController(itemEstoqueRepository, pedidoRepository, obraRepository)
+//        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
 //        controller.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 //
 //        assertNotNull(controller.getPedido())

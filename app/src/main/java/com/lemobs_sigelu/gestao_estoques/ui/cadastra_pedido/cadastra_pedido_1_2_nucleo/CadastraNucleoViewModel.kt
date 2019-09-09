@@ -2,15 +2,14 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ContratoEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CadastraNucleoViewModel(val controller: CadastraPedidoController): ViewModel(){
+class CadastraNucleoViewModel(val controller: CadastraPedidoController2): ViewModel(){
 
     private val disposables = CompositeDisposable()
 

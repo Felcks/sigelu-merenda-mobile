@@ -1,7 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApiObras
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController2
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -51,7 +51,7 @@ class CadastraPedidoModule {
     }
 
     @Provides
-    fun provideListaPedidoViewModelFactory(cadastraPedidoController: CadastraPedidoController): CadastraPedidoViewModelFactory {
+    fun provideListaPedidoViewModelFactory(cadastraPedidoController: CadastraPedidoController2): CadastraPedidoViewModelFactory {
         return CadastraPedidoViewModelFactory(
             cadastraPedidoController
         )

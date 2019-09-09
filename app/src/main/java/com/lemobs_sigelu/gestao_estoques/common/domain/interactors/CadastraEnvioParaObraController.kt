@@ -1,15 +1,14 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import io.reactivex.Observable
 
-interface ICadastraPedidoController {
-
-    fun getTipoPedidoSelecionado(): TipoPedido
-    fun confirmaDestinoDePedido(tipoPedido: TipoPedido, obraDestino: Local? = null)
-    fun confirmaDestinoDePedido(obraDestino: Local?)
+interface CadastraEnvioParaObraController {
 
     suspend fun carregaListagemObra(): List<Obra>?
+    fun selecionaObra(id: Int)
 
     suspend fun carregaListagemItemEstoque(): List<ItemEstoque>?
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean
@@ -20,10 +19,7 @@ interface ICadastraPedidoController {
     fun getItensCadastrados(): List<ItemEstoque>
     fun removeItem(id: Int)
 
-    fun cancelaPedido()
-    fun enviaPedido(): Observable<Unit>
-    fun salvaRascunho(): Observable<Unit>
-    fun getPedido(): PedidoCadastro?
-    fun salvaPedidoRascunho()
-
+    fun cancelaEnvio()
+    fun registraEnvio()
+    fun getEnvio(): Envio?
 }
