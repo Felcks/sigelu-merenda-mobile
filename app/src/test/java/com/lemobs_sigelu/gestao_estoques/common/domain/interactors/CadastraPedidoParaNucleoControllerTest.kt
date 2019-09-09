@@ -137,8 +137,8 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test
     fun `seleciona 1 item para pedido criado`() {
 
-        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
-        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+        controller = defaultController()
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
         assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
     }
@@ -147,7 +147,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     fun `seleciona 2 itens diferentes para pedido criado`() {
 
         controller = defaultController()
-        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_OBRA)
+        controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
         assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(1))
         assertEquals(true, controller.veriricaSeItemJaEstaAdicionado(2))
@@ -161,7 +161,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
             mockk<ItemEstoque>()
         )
 
-        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller = defaultController()
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
 
@@ -194,7 +194,7 @@ class CadastraPedidoParaNucleoControllerTest: KoinTest {
     @Test
     fun `confirma selecao item 1 item`() {
 
-        controller = CadastraPedidoControllerImpl(itemEstoqueRepository, pedidoRepository, obraRepository)
+        controller = defaultController()
         controller.confirmaDestinoDePedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
 
         val itemEstoqueID1 = mockk<ItemEstoque>()

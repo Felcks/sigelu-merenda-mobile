@@ -4,8 +4,8 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDate
 import java.util.*
 
-open class Obra(val id: Int,
-                val codigo: String,
+open class Obra(var id: Int,
+                var codigo: String,
                 val distancia: String,
                 val conclusaoPrevista: String,
                 var situacao: String,

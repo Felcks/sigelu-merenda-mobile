@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import io.reactivex.Observable
@@ -21,5 +22,5 @@ interface CadastraEnvioParaObraController {
 
     fun cancelaEnvio()
     fun registraEnvio()
-    fun getEnvio(): Envio?
+    fun getEnvio(): Envio2?
 }
