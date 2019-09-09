@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@android:color/white"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_bar_height"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/layout_bar">
+        <TextView
+                android:id="@+id/tv_passos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/passo4"
+                android:layout_margin="@dimen/espacamento_grande"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ll_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            android:text="Informações do pedido"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/espacamento_maximo"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacamento_medio"
+            android:layout_marginRight="@dimen/espacamento_maximo"
+            app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_titulo">
+
+        <TextView android:id="@+id/tv_origem_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Origem: "
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_origem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toTopOf="@id/tv_origem_layout"
+                app:layout_constraintLeft_toRightOf="@+id/tv_origem_layout"/>
+
+        <TextView android:id="@+id/tv_destino_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destino: "
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                app:layout_constraintTop_toBottomOf="@id/tv_origem"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_destino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/primary_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_destino_layout"
+                app:layout_constraintLeft_toRightOf="@+id/tv_destino_layout"/>
+
+        <TextView android:id="@+id/tv_contrato_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contrato: "
+                android:visibility="gone"
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="@dimen/espacamento_medio"
+                app:layout_constraintTop_toBottomOf="@id/tv_destino"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView android:id="@+id/tv_contrato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                android:textColor="@color/primary_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_contrato_layout"
+                app:layout_constraintLeft_toRightOf="@+id/tv_contrato_layout"/>
+
+        <TextView android:id="@+id/tv_observacao_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Observação: "
+                android:visibility="visible"
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                app:layout_constraintTop_toBottomOf="@id/tv_destino"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                android:id="@+id/edt_observacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:gravity="top"
+                android:maxLength="255"
+                android:imeOptions="actionDone"
+                android:hint="Escreva a observação aqui, se houver."
+                android:paddingRight="@dimen/espacamento_maximo_2"
+                android:paddingBottom="@dimen/espacamento_minimo"
+                android:background="@drawable/edittext_default_no_padding_states"
+                android:textColor="@color/primary_text"
+                android:textSize="14sp"
+                android:maxLines="3"
+                android:inputType="textMultiLine|textCapSentences|textCapSentences"
+                app:layout_constraintTop_toBottomOf="@id/tv_observacao_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="@dimen/espacamento_medio" />
+
+
+        <View   android:id="@+id/view_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="@color/divider"
+                android:layout_marginTop="@dimen/espacamento_grande"
+                app:layout_constraintTop_toBottomOf="@id/edt_observacao"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_lista"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/espacamento_maximo"
+            android:layout_marginLeft="@dimen/espacamento_grande"
+            android:layout_marginRight="@dimen/espacamento_grande"
+            tools:listitem="@layout/item_material_pedido_cadastrado"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/ll_info"
+            app:layout_constraintBottom_toTopOf="@+id/btn_salva_rascunho"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+            android:id="@+id/btn_salva_rascunho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_states"
+            android:padding="5dp"
+            android:text="Salvar como rascunho"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/espacamento_medio"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/ll_bar_anterior_proximo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    <LinearLayout
+            android:id="@+id/ll_bar_anterior_proximo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:orientation="horizontal"
+            android:background="@color/layout_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_layout_anterior"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <ImageView
+                    android:id="@+id/iv_seta_esquerda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_arrow_left"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anterior"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/espacamento_curto"
+                android:layout_marginLeft="@dimen/espacamento_minimo"
+                android:layout_marginRight="@dimen/espacamento_minimo">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_flow_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_flow_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_flow_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_flow_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_filled_circle"
+                    android:layout_marginRight="@dimen/espacamento_medio"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_layout_proximo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <ImageView
+                    android:id="@+id/iv_seta_direita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_arrow_right"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginRight="@dimen/espacamento_curto"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONFIRMAR"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    android:layout_marginLeft="@dimen/espacamento_maximo_2"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
+                    app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

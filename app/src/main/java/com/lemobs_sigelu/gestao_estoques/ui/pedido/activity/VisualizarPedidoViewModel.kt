@@ -220,23 +220,23 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 
     fun editaPedido(){
 
-        val pedidoCadastro = PedidoCadastro(
-            pedido!!.id,
-            pedido!!.codigo,
-            pedido!!.origemNome,
-            pedido!!.destinoNome,
-            pedido!!.origem,
-            pedido!!.destino,
-            pedido!!.origemID,
-            pedido!!.destinoID,
-            Date(),
-            Date(),
-            pedido!!.situacao
-        )
-
-        if(pedido!!.origem == "Fornecedor"){
-            pedidoCadastro.contratoEstoque = pedido!!.contrato
-        }
+//        val pedidoCadastro = PedidoCadastro(
+//            pedido!!.id,
+//            pedido!!.codigo,
+//            pedido!!.origemNome,
+//            pedido!!.destinoNome,
+//            pedido!!.origem,
+//            pedido!!.destino,
+//            pedido!!.origemID,
+//            pedido!!.destinoID,
+//            Date(),
+//            Date(),
+//            pedido!!.situacao
+//        )
+//
+//        if(pedido!!.origem == "Fornecedor"){
+//            pedidoCadastro.contratoEstoque = pedido!!.contrato
+//        }
 
 //        val listItemContrato = pedido?.materiais?.map {
 //            val item = ItemContrato(
@@ -255,9 +255,9 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
 //            item
 //        } ?: listOf()
 
-        pedidoCadastro.isEdicao = true
-        //pedidoCadastro.listaItemContrato.addAll(listItemContrato)
-        CadastraPedidoController.pedidoCadastro = pedidoCadastro
+//        pedidoCadastro.isEdicao = true
+//        //pedidoCadastro.listaItemContrato.addAll(listItemContrato) ja estava comentada antes
+//        CadastraPedidoController.pedidoCadastro = pedidoCadastro
     }
 
     fun getSituacaoDePedido(): Situacao{

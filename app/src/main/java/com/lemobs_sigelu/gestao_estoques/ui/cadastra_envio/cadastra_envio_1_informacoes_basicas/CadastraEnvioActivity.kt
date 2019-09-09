@@ -61,8 +61,6 @@ class CadastraEnvioActivity: AppCompatActivity() {
         ll_layout_proximo.setOnClickListener {
             this.clicouProximo()
         }
-
-
     }
 
     private fun adicionarListenerEdtMotorista(){

@@ -68,7 +68,7 @@ class CadastraObraActivity:  AppCompatActivity() {
             val obraDestino = this.listaObra[this.obraSelecionada!!]
 
             val destino = Local(obraDestino.id, "Obra", obraDestino.getTitulo())
-            val origem = Local(AppSharedPreferences.getNucleoID(App.instance), "Núcleo", AppSharedPreferences.getNucleoNome(App.instance))
+            val origem = Local(8, "Almoxarifado", "Almoxarifado")
 
             viewModel!!.confirmaPedido(origem, destino)
 

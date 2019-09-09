@@ -4,13 +4,13 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.toDate
 import java.util.*
 
-class Obra(val id: Int,
-           val codigo: String,
-           val distancia: String,
-           val conclusaoPrevista: String,
-           val situacao: String,
-           val endereco: String,
-           val tipo: String){
+open class Obra(val id: Int,
+                val codigo: String,
+                val distancia: String,
+                val conclusaoPrevista: String,
+                var situacao: String,
+                val endereco: String,
+                val tipo: String){
 
 
     fun getTitulo(): String{

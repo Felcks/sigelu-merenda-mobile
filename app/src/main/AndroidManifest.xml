@@ -53,6 +53,24 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity"
                   android:label="Tipo de transação" />
 
+        <!-- SELECIONA OBRA ACTIVITY -->
+        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraActivity"
+                android:label="Selecione a obra" />
+
+        <!-- SELECIONA ITEM -->
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity"
+                android:label="Selecione os itens" />
+
+        <!-- CADASTRA ITEM -->
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity"
+                android:label="Selecione as quantidades"
+                android:windowSoftInputMode="adjustPan" />
+
+        <!-- CONFIRMA ITEM -->
+        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity"
+                android:label="Confirme as informações"
+                android:windowSoftInputMode="adjustPan"/>
+
         <!-- CADASTRA FORNECEDOR ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity"
                   android:label="Selecione o fornecedor" />

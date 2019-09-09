@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
@@ -8,79 +7,56 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import java.lang.Exception
 
-class SelecionaTipoPedidoActivity: AppCompatActivity() {
+class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
-    @Inject
-    lateinit var viewModelFactory: CadastraPedidoViewModelFactory
-    var viewModel: SelecionaTipoPedidoViewModel? = null
+    private val viewModel: SelecionaTipoPedidoViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_tipo_pedido)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SelecionaTipoPedidoViewModel::class.java)
-        viewModel!!.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+        ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        ll_layout_proximo.setOnClickListener { clicouProximo() }
+    }
 
-        ll_layout_anterior.setOnClickListener {
-            onBackPressed()
+    override fun clicouProximo() {
+
+        try {
+            val proximaTelaIntent = viewModel.confirmaDestinoDePedidoERetornaProximaTela()
+            startActivity(proximaTelaIntent)
+            return
         }
-
-        ll_layout_proximo.setOnClickListener {
-            clicouNoProximo()
+        catch (e: Exception){
+            Snackbar.make(ll_all, e.message ?: "Ocorreu um erro inesperado.", Snackbar.LENGTH_SHORT).show()
         }
     }
 
-    fun onFornecedorClicked(v: View){
-        rb_obra.isChecked = false
+    override fun clicouAnterior() {
+        this.onBackPressed()
+    }
+
+    fun clickPrimeiroRadioButton(v: View){
         rb_nucleo.isChecked = false
-        tv_proximo.text = "Próximo: Fornecedor"
-        viewModel!!.selecionaTipoPedido(TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO)
+        tv_proximo.text = "Próximo: Materiais"
+        tv_passos.text = "Passo 1 de 4"
+        viewModel.selecionaTipoPedido(0)
     }
 
-    fun onNucleoClicked(v: View){
-        rb_obra.isChecked = false
+    fun clickSegundoRadioButton(v: View){
         rb_fornecedor.isChecked = false
-        tv_proximo.text = "Próximo: Núcleo"
-        viewModel!!.selecionaTipoPedido(TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO)
-    }
-
-    fun onObraClicked(v: View){
-        rb_nucleo.isChecked = false
-        rb_fornecedor.isChecked = false
-        tv_proximo.text = "Próximo: Obra"
-        viewModel!!.selecionaTipoPedido(TipoPedido.MEU_NUCLEO_PARA_OBRA)
-    }
-
-    fun clicouNoProximo(){
-
-        val tipoPedido = viewModel!!.getInicialTipoPedido()
-
-        if(tipoPedido == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO){
-            val intent = Intent(this, CadastraFornecedorActivity::class.java)
-            startActivity(intent)
-        }
-        else if(tipoPedido == TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO){
-            val intent = Intent(this, CadastraNucleoActivity::class.java)
-            startActivity(intent)
-        }
-        else if(tipoPedido == TipoPedido.MEU_NUCLEO_PARA_OBRA){
-            val intent = Intent(this, CadastraObraActivity::class.java)
-            startActivity(intent)
-        }
+        tv_proximo.text = "Próximo: Obras"
+        tv_passos.text = "Passo 1 de 5"
+        viewModel.selecionaTipoPedido(1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,7 +72,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
+                    "Cancelar pedido",
                     "Deseja sair e cancelar o pedido?",
                     {
                         finish()

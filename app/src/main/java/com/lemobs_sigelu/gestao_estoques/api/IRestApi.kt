@@ -23,7 +23,9 @@ import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.Recebim
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface IRestApi {
@@ -92,6 +94,9 @@ interface IRestApi {
 
     @GET("estoque/item")
     fun getItensEstoque(@Header("Authorization") auth: String) : Call<List<ItemEstoqueDataResponse>>
+
+    @GET("estoque/item")
+    fun getListagemItemEstoque(@Header("Authorization") auth: String): Deferred<Response<List<ItemEstoqueDataResponse>>>
 
     @GET("estoque/item/{item_estoque_id}/nucleo")
     fun getListaNucleoQuantidadeDeItemEstoque(@Header("Authorization") auth: String,

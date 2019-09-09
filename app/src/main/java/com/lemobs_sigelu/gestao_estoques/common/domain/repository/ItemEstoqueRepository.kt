@@ -8,7 +8,7 @@ import io.reactivex.Observable
 /**
  * Created by felcks on Jul, 2019
  */
-class ItemEstoqueRepository {
+open class ItemEstoqueRepository: BaseRepository() {
 
     val api = RestApi()
 
@@ -55,6 +55,38 @@ class ItemEstoqueRepository {
             else{
                 subscriber.onError(Throwable(response.message()))
             }
+        }
+    }
+
+    suspend fun carregaListaEstoque2(): List<ItemEstoque>? {
+
+        val response = safeApiCall(
+            call = {
+                api.getListagemItemEstoque().await()
+            },
+            errorMessage = "Não foi possível carregar"
+        )
+
+        return response?.map {
+            val item = ItemEstoque(
+                it.id,
+                it.codigo ?: "",
+                it.descricao ?: "",
+                it.nome_alternativo ?: "",
+                with(it.unidade_medida){
+                    UnidadeMedida(
+                        id,
+                        nome ?: "",
+                        sigla ?: ""
+                    )
+                }
+            )
+
+            item.apply {
+                saldoContrato = it.saldo_contrato
+                quantidadeDisponivel = it.quantidade_disponivel
+            }
+            item
         }
     }
 }

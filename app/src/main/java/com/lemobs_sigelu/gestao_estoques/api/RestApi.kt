@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.api
 
 import android.util.Log
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.contrato.OrcamentoDataResponse
@@ -27,8 +28,10 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.IOException
@@ -53,6 +56,7 @@ class RestApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(Versao.getURL())
             .addConverterFactory(MoshiConverterFactory.create().asLenient())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(client)
             .build()
 
@@ -152,6 +156,10 @@ class RestApi {
 
     fun getItensEstoque(): Call<List<ItemEstoqueDataResponse>>{
         return api.getItensEstoque(auth)
+    }
+
+    fun getListagemItemEstoque(): Deferred<Response<List<ItemEstoqueDataResponse>>> {
+        return api.getListagemItemEstoque(auth)
     }
 
     fun getListaNucleoQuantidadeDeItemEstoque(itemEstoqueID: Int): Call<List<NucleoQuantidadeDeItemEstoqueDataResponse>>{

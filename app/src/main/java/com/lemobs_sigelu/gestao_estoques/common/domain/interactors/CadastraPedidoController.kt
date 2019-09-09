@@ -25,16 +25,6 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
     var itensContrato = mutableListOf<ItemContrato>()
 
-    fun selecionaTipoPedido(tipoPedido: TipoPedido){
-        Companion.tipoPedido = tipoPedido
-    }
-
-    fun getInicialTipoPedido(): TipoPedido{
-        if (Companion.tipoPedido == null)
-            throw Exception("Sem tipo de pedido")
-
-        return Companion.tipoPedido!!
-    }
 
     fun confirmaDestinoDePedido(origem: Local?, destino: Local?, contrato: ContratoEstoque?, contratoObrigatorio: Boolean = true) {
 
@@ -53,25 +43,25 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
             throw Pedido.OrigemFornecedorDestinoObraException()
         }
 
-        val pedido = PedidoCadastro(
-            null,
-            "XXXX",
-            origem.nome,
-            destino.nome,
-            origem.tipo,
-            destino.tipo,
-            origem.id,
-            destino.id,
-            Date(),
-            Date(),
-            Situacao(2, "Em Análise")
-        )
+//        val pedido = PedidoCadastro(
+//            null,
+//            "XXXX",
+//            origem.nome,
+//            destino.nome,
+//            origem.tipo,
+//            destino.tipo,
+//            origem.id,
+//            destino.id,
+//            Date(),
+//            Date(),
+//            Situacao(2, "Em Análise")
+//        )
+//
+//        if(origem.tipo == "Fornecedor"){
+//            pedido.contratoEstoque = contrato
+//        }
 
-        if(origem.tipo == "Fornecedor"){
-            pedido.contratoEstoque = contrato
-        }
-
-        pedidoCadastro = pedido
+//        pedidoCadastro = pedido
     }
 
     fun carregaListaNucleo(): Observable<List<Nucleo>> {
@@ -82,9 +72,9 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         return fornecedorRepository.carregaListaFornecedor()
     }
 
-    fun carregaListaObra(): Observable<List<Obra>> {
-        return obraRepository.carregaListaObra()
-    }
+//    fun carregaListaObra(): Observable<List<Obra>> {
+//        return obraRepository.carregaListaObra()
+//    }
 
     fun carregaListaContrato(): Observable<List<ContratoEstoque>> {
         return contratoRepository.carregaListaContratosVigentes()
@@ -108,7 +98,8 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
     }
 
     fun getTipoPedido(): TipoPedido?{
-        return pedidoCadastro?.getTipoPedido()
+        return null
+        //return pedidoCadastro?.getTipoPedido()
     }
 
     fun armazenarListaItemContrato(list: List<ItemContrato>){
@@ -150,7 +141,7 @@ class CadastraPedidoController @Inject constructor(private val nucleoRepository:
         if(pedidoCadastro?.listaItemNucleo == null)
             return listOf<Int>()
 
-        return pedidoCadastro?.listaItemNucleo?.map { it.id ?: 0 }!!
+        return pedidoCadastro?.listaItemNucleo?.map { it.id }!!
     }
 
     fun confirmaCadastroMaterial(listaValoresRecebidos: List<Double>){
