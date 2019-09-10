@@ -6,7 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvio
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CadastraItemEnvioViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioViewModel
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioViewModel
 
 /**
  * Created by felcks on Jun, 2019

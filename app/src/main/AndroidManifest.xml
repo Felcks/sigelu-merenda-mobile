@@ -138,13 +138,15 @@
                   android:label="Confirme Informações"
                   android:screenOrientation="portrait" />
 
-        <!-- CADASTRA PARA OBRA NOVO -->
+        <!-- CADASTRA PARA ENVIO PARA OBRA NOVO -->
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity"
-                android:label="Nome do motorista"
+                android:label="@string/cadastra_envio_nome_activity_1"
                 android:windowSoftInputMode="stateAlwaysVisible" />
 
-
+        <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity"
+                android:label="@string/cadastra_envio_nome_activity_2"
+                android:windowSoftInputMode="stateAlwaysVisible" />
 
 
         <!-- CADASTRA ENVIO -->
@@ -156,7 +158,7 @@
                  />
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity"
+        <activity android:name=".ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioActivity"
                   android:label="Selecione os itens"
                   />
 

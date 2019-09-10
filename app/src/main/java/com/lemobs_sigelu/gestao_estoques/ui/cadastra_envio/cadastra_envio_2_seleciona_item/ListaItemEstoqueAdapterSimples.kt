@@ -1,35 +1,38 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item
 
 import android.content.Context
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Build
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
-import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.OneIntParameterClickListener
 import kotlinx.android.synthetic.main.item_adicao_generico.view.*
+import kotlinx.android.synthetic.main.item_adicao_generico.view.btn_add
+import kotlinx.android.synthetic.main.item_adicao_generico.view.tv_name
+import kotlinx.android.synthetic.main.item_envio.view.*
+import kotlinx.android.synthetic.main.item_material_adicao.view.*
 
-/**
- * Created by felcks on Jul, 2019
- */
-class ListaItemSelecionavelSimplesAdapter (private val context: Context,
-                                           private val list: List<ItemPedido>,
-                                           private val itemClickListener: TwoIntParametersClickListener,
-                                           private val itensJaCadastrados: List<Int>):
-    RecyclerView.Adapter<ListaItemSelecionavelSimplesAdapter.MyViewHolder>() {
+class ListaItemEstoqueAdapterSimples (val context: Context,
+                                      val list: List<ItemEstoque>,
+                                      private val itemClickListener: TwoIntParametersClickListener,
+                                      private val itensJaCadastrados: List<Int>): RecyclerView.Adapter<ListaItemEstoqueAdapterSimples.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
     private var colorAdicionarItem: Int? = null
     private var colorRemoverItem: Int? = null
     private var colorBranco: Int? = null
     private var colorSecundaryText: Int? = null
 
-    val itemsParaAdicao = mutableListOf<ItemPedido>()
-    val itemsParaRemocao = mutableListOf<ItemPedido>()
-
+    val itemsParaAdicao = mutableListOf<ItemEstoque>()
+    val itemsParaRemocao = mutableListOf<ItemEstoque>()
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
@@ -46,11 +49,14 @@ class ListaItemSelecionavelSimplesAdapter (private val context: Context,
         return list.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return 0
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val item = this.list[position]
-
-        holder.itemView.tv_name.text = item.itemEstoque?.nomeAlternativo
+        val item = list[position]
+        holder.itemView.tv_name.text = item.nomeAlternativo
         holder.itemView.ll_background.setOnClickListener {
             itemClickListener.onClick(item.id, position)
         }
@@ -78,7 +84,7 @@ class ListaItemSelecionavelSimplesAdapter (private val context: Context,
         }
     }
 
-    fun adicionarItem(position: Int){
+    fun adicionaItem(position: Int){
 
         val item = this.list[position]
         if(itemsParaAdicao.contains(item)){
@@ -91,7 +97,7 @@ class ListaItemSelecionavelSimplesAdapter (private val context: Context,
         }
     }
 
-    fun removerItem(position: Int){
+    fun removeItem(position: Int){
 
         val item = this.list[position]
 
@@ -104,7 +110,6 @@ class ListaItemSelecionavelSimplesAdapter (private val context: Context,
             notifyItemChanged(position)
         }
     }
-
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

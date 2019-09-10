@@ -12,6 +12,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRep
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
@@ -38,5 +39,6 @@ object DependencyModules {
 
         single { CadastraEnvioParaObraControllerImpl(get(), get(), get(), get()) as CadastraEnvioParaObraController }
         viewModel { CESelecionaObraViewModel(get()) }
+        viewModel { CESelecionaItemViewModel(get()) }
     }
 }

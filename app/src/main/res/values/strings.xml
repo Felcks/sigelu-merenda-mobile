@@ -53,6 +53,10 @@
     <string name="senha_invalida">Senha inválida!</string>
 
     <!-- Novo cadastra envio activity -->
+    <string name="cadastra_envio_nome_activity_1">Selecione a Obra</string>
+    <string name="cadastra_envio_nome_activity_2">Selecione os Itens</string>
+    <string name="cadastra_envio_nome_activity_3">Selecione as Quantidades</string>
+    <string name="cadastra_envio_nome_activity_4">Confirme as Informações</string>
     <string name="cadastra_envio_passo_1">Passo 1 de 4</string>
     <string name="cadastra_envio_passo_2">Passo 2 de 4</string>
     <string name="cadastra_envio_passo_3">Passo 3 de 4</string>

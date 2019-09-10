@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_envio_seleciona_obra.*
@@ -45,8 +46,8 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
         try{
             viewModel.confirmaPedido()
 
-//            val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CESelecionaItemActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
