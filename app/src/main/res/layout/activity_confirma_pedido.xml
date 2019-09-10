@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/linearLayout"
             app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            android:text="Informações do pedido"
+            android:text="@string/info_pedido"
             android:textColor="@color/primary_text"
             android:textSize="24sp"
             android:textStyle="bold"

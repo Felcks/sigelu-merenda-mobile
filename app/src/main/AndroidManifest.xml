@@ -138,6 +138,13 @@
                   android:label="Confirme Informações"
                   android:screenOrientation="portrait" />
 
+        <!-- CADASTRA PARA OBRA NOVO -->
+        <!-- CADASTRA ENVIO ACTIVITY -->
+        <activity android:name=".ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity"
+                android:label="Nome do motorista"
+                android:windowSoftInputMode="stateAlwaysVisible" />
+
+
 
 
         <!-- CADASTRA ENVIO -->

@@ -52,7 +52,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Informações do pedido"
+                android:text="@string/info_pedido"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
                 android:textStyle="bold"

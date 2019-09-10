@@ -34,7 +34,7 @@
     <string name="proxfornecedor">Próximo: Fornecedor</string>3
     <string name="proxitens">Próximo: Itens</string>
     <string name="prox_materiais">Próximo: Materiais</string>
-    <string name="info_pedido">Informações do Pedido</string>
+    <string name="info_pedido">Informações da RM</string>
 
     <!-- Cadastrar pedido -->
     <string name="pedido_fornecedor">Pedir para fornecedor</string>
@@ -51,5 +51,16 @@
     <string name="campos_nao_preenchidos">Preencha os campos.</string>
     <string name="usuario_nao_encontrado">Usuário não encontrado!</string>
     <string name="senha_invalida">Senha inválida!</string>
+
+    <!-- Novo cadastra envio activity -->
+    <string name="cadastra_envio_passo_1">Passo 1 de 4</string>
+    <string name="cadastra_envio_passo_2">Passo 2 de 4</string>
+    <string name="cadastra_envio_passo_3">Passo 3 de 4</string>
+    <string name="cadastra_envio_passo_4">Passo 4 de 4</string>
+    <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
+    <string name="cadastra_envio_proximo_1">Próximo: Materiais</string>
+    <string name="cadastra_envio_proximo_2">Próximo: Cadastro</string>
+    <string name="cadastra_envio_proximo_3">Próximo: Confirmação</string>
+    <string name="cadastra_envio_proximo_4"> </string>
 
 </resources>
