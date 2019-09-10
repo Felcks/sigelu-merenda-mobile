@@ -11,6 +11,9 @@ class Movimento (val id: Int?,
             TipoMovimento.ALMOXARIFADO_PARA_NUCLEO -> {
                 origem.tipo == TipoLocal.ALMOXARIFADO && destino.tipo == TipoLocal.NUCLEO
             }
+            TipoMovimento.ALMOXARIFADO_PARA_OBRA -> {
+                origem.tipo == TipoLocal.ALMOXARIFADO && destino.tipo == TipoLocal.OBRA
+            }
             else -> false
         }
     }

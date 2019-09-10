@@ -1,10 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.di
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApiObras
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioParaObraController
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioParaObraControllerImpl
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoControllerImpl
-import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.NucleoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UsuarioModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
@@ -32,7 +29,6 @@ object DependencyModules {
         single { NucleoModel() }
         single { UsuarioModel() }
         single { CadastraPedidoControllerImpl(get(), get(), get(), get()) as CadastraPedidoController }
-        viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaObraViewModel(get()) }
         viewModel { SelecionaItemPedidoParaNucleoViewModel(get()) }
         viewModel { CadastraItemPedidoViewModel(get()) }
@@ -44,5 +40,9 @@ object DependencyModules {
         viewModel { CESelecionaItemViewModel(get()) }
         viewModel { CECadastraItemViewModel(get()) }
         viewModel { CEConfirmaViewModel(get()) }
+
+
+        single { CadastraPedidoModelImpl(get(), get(), get(), get(), get()) as CadastraPedidoModel }
+        viewModel { SelecionaTipoPedidoViewModel(get()) }
     }
 }

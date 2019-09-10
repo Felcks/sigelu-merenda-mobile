@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
@@ -10,11 +11,12 @@ class CadastraPedidoModelImpl(
     private val usuarioModel: UsuarioModel,
     private val nucleoModel: NucleoModel,
     private val itemEstoqueRepository: ItemEstoqueRepository,
-    private val obraRepository: ObraRepository,
+    private val obraRepository: IObraRepository,
     private val pedidoRepository: PedidoRepository): CadastraPedidoModel{
 
     private var pedido: Pedido2? = null
     private var listaTodosItemEstoque: List<ItemEstoque>? = null
+    private var listaTodasObra: List<Obra>? = null
     private var passoAtual = 0
     private var quantidadePasso = 0
 
@@ -38,8 +40,30 @@ class CadastraPedidoModelImpl(
         this.pedido = Pedido2(null, usuario, movimento)
     }
 
-    override fun iniciaRMParaObra() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun iniciaRMParaObra(obraID: Int) {
+
+        val nucleo = nucleoModel.getNucleo()
+        val usuario = usuarioModel.getUsuario(nucleo)
+
+        if(!usuario.temPermissao(PermissaoModel.PERMISSAO_CADASTRA_PEDIDO)){
+            throw UsuarioSemPermissaoException()
+        }
+
+        if(this.listaTodasObra == null){
+            throw Exception("Lista obra não carregada.")
+        }
+
+        val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
+
+        val localOrigem = Local2(null, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
+        val localDestino = Local2(null, obra.codigo, TipoLocal.OBRA)
+        val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_NUCLEO, localOrigem, localDestino)
+
+        if(!movimento.validaMovimento()){
+            throw MovimentoInvalidoException()
+        }
+
+        this.pedido = Pedido2(null, usuario, movimento)
     }
 
     override fun selecionaListaMaterial(listaIDAdicao: List<Int>, listaIDRemocao: List<Int>) {

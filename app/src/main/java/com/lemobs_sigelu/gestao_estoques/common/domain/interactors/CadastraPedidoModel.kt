@@ -6,7 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 interface CadastraPedidoModel {
 
     fun iniciaRMParaEstoque()
-    fun iniciaRMParaObra()
+    fun iniciaRMParaObra(obraID: Int)
 
     fun selecionaListaMaterial(listaIDAdicao: List<Int>, listaIDRemocao: List<Int>)
 

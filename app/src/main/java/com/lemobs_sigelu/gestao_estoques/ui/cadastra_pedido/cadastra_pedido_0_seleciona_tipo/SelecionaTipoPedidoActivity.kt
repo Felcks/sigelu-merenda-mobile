@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
@@ -25,6 +27,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_tipo_pedido)
 
+        viewModel.proximaTela().observe(this, Observer<Response> { response -> observarMudancaDeTela(response) })
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
     }
@@ -32,9 +35,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo() {
 
         try {
-            val proximaTelaIntent = viewModel.confirmaDestinoDePedidoERetornaProximaTela()
-            startActivity(proximaTelaIntent)
-            return
+            viewModel.confirmaDestinoPedido()
         }
         catch (e: Exception){
             Snackbar.make(ll_all, e.message ?: "Ocorreu um erro inesperado.", Snackbar.LENGTH_SHORT).show()
@@ -43,6 +44,15 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior() {
         this.onBackPressed()
+    }
+
+    private fun observarMudancaDeTela(response: Response?){
+
+        if(response != null){
+            if(response.data is Intent){
+                startActivity(response.data)
+            }
+        }
     }
 
     fun clickPrimeiroRadioButton(v: View){

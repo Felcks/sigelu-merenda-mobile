@@ -11,6 +11,9 @@ class Usuario (val id: Int,
 
     var nome: String = ""
 
+    /* Deletar isso assim que as permissoes começarem a valer */
+    val permissoesNaoImplementadas = true
+
     constructor(id: Int,
                 nucleo: Nucleo,
                 nome: String): this(id, nucleo){
@@ -20,7 +23,7 @@ class Usuario (val id: Int,
     fun temPermissao(permissao: String): Boolean{
 
         val minhasPermissoes = AppSharedPreferences.getUserPermissoes(App.instance)
-        return minhasPermissoes.contains(permissao)
+        return minhasPermissoes.contains(permissao) || permissoesNaoImplementadas
     }
 
 
