@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
@@ -63,8 +62,8 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
                 if(response.data is List<*>){
 
                     if(response.data.isNotEmpty()) {
-                        if (response.data[0] is Obra)
-                            renderDataObra(response.data as List<Obra>)
+                        if (response.data[0] is ObraDTO)
+                            renderDataObra(response.data as List<ObraDTO>)
                     }
                 }
             }
@@ -72,9 +71,9 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         }
     }
 
-    private fun renderDataObra(list: List<Obra>){
+    private fun renderDataObra(list: List<ObraDTO>){
 
-        val listaTextoOrigem = list.map { it.getTitulo() }
+        val listaTextoOrigem = list.map { it.nome }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
         spinner_obra.adapter = adapter
 

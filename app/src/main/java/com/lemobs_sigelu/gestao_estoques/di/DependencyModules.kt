@@ -29,7 +29,6 @@ object DependencyModules {
         single { NucleoModel() }
         single { UsuarioModel() }
         single { CadastraPedidoControllerImpl(get(), get(), get(), get()) as CadastraPedidoController }
-        viewModel { SelecionaObraViewModel(get()) }
         viewModel { SelecionaItemPedidoParaNucleoViewModel(get()) }
         viewModel { CadastraItemPedidoViewModel(get()) }
         viewModel { ConfirmaCadastroPedidoViewModel(get()) }
@@ -44,5 +43,6 @@ object DependencyModules {
 
         single { CadastraPedidoModelImpl(get(), get(), get(), get(), get()) as CadastraPedidoModel }
         viewModel { SelecionaTipoPedidoViewModel(get()) }
+        viewModel { SelecionaObraViewModel(get()) }
     }
 }

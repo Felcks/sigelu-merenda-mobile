@@ -57,7 +57,7 @@ class CadastraPedidoModelImpl(
 
         val localOrigem = Local2(null, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
         val localDestino = Local2(null, obra.codigo, TipoLocal.OBRA)
-        val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_NUCLEO, localOrigem, localDestino)
+        val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
             throw MovimentoInvalidoException()
@@ -123,11 +123,13 @@ class CadastraPedidoModelImpl(
     }
 
     override suspend fun getListaItemEstoque(): List<ItemEstoque>? {
-        return itemEstoqueRepository.carregaListaEstoque2()
+        listaTodosItemEstoque = itemEstoqueRepository.carregaListaEstoque2()
+        return listaTodosItemEstoque
     }
 
     override suspend fun getListaObra(): List<Obra>? {
-        return obraRepository.carregaListaObra()
+        listaTodasObra = obraRepository.carregaListaObra()
+        return listaTodasObra
     }
 
     override fun getTextoPassoAtual(): String {
