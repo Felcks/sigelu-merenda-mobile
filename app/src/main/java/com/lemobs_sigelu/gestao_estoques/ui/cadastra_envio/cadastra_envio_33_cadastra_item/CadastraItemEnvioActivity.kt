@@ -24,7 +24,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_44_confirma.ConfirmaCadastroEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection

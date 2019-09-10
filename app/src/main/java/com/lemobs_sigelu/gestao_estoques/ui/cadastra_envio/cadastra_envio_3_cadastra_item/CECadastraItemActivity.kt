@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_envio_cadastra_item.*
@@ -81,8 +82,8 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         try {
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
-//            val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CEConfirmaActivity::class.java)
+            startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
             Snackbar.make(ll_all, "Cadastre pelo menos um item.", Snackbar.LENGTH_SHORT).show()

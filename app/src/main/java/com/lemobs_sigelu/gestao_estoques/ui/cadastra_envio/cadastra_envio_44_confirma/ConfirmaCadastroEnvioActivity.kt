@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_44_confirma
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
@@ -18,7 +18,6 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastro_envio.*

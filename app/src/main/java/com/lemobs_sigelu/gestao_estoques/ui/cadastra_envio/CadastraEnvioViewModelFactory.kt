@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioController
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_33_cadastra_item.CadastraItemEnvioViewModel
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.ConfirmaCadastroEnvioViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_44_confirma.ConfirmaCadastroEnvioViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioViewModel
 
 /**
