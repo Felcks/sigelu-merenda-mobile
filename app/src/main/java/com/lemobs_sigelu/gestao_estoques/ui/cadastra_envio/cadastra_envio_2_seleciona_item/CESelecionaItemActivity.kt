@@ -17,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_envio_seleciona_item.*
@@ -44,8 +45,8 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
                 this.adapter?.itemsParaRemocao as List<ItemEstoque>)
 
-//            val intent = Intent(this, CadastraItemPedidoActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, CECadastraItemActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
