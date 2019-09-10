@@ -61,12 +61,8 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.selecionaTipoPedido(1)
     }
 
-    fun clickTerceiroRadioButton(v: View){
-        rb_opcao_1.isChecked = false
-        rb_opcao_2.isChecked = false
-        tv_proximo.text = "Próximo: Obras"
-        tv_passos.text = "Passo 1 de 5"
-        viewModel.selecionaTipoPedido(2)
+    fun clickTerceiroRadioButton(v: View) {
+        //Botão inexistente
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

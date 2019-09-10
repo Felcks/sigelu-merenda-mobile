@@ -24,6 +24,7 @@ import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.reiniciarActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
@@ -75,6 +76,12 @@ class ListaPedidoActivity: AppCompatActivity() {
         /* Float button Cadastra pedido */
         menu_item_cadastrar_pedido.setOnClickListener {
             val intent = Intent(this, SelecionaTipoPedidoActivity::class.java)
+            startActivity(intent)
+        }
+
+        /* FloatButton Cadastra Envio */
+        menu_item_cadastra_envio.setOnClickListener {
+            val intent = Intent(this, CESelecionaObraActivity::class.java)
             startActivity(intent)
         }
 
