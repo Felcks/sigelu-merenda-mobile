@@ -12,4 +12,8 @@ class UsuarioModel {
     fun getUsuarioNome(): String{
         return AppSharedPreferences.getUserName(App.instance)
     }
+
+    fun getUsuario(nucleo: Nucleo): Usuario{
+        return Usuario(getUsuarioID(), nucleo, getUsuarioNome())
+    }
 }

@@ -12,4 +12,8 @@ class NucleoModel {
     fun getNucleoNome(): String{
         return AppSharedPreferences.getNucleoNome(App.instance)
     }
+
+    fun getNucleo(): Nucleo{
+        return Nucleo(getNucleoID(), getNucleoNome(), "")
+    }
 }

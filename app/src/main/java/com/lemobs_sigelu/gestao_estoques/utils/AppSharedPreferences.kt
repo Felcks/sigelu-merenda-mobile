@@ -17,6 +17,7 @@ class AppSharedPreferences {
         private val KEY_PRIMEIRA_VEZ = "${BuildConfig.APPLICATION_ID}.primeira_vez"
         private val KEY_NUCLEO_ID = "${BuildConfig.APPLICATION_ID}.nucleo_id"
         private val KEY_NUCLEO_NOME = "${BuildConfig.APPLICATION_ID}.nucleo_nome"
+        private val KEY_USER_PERMISSIONS = "${BuildConfig.APPLICATION_ID}.permissoes"
 
         fun getPrimeiraVez(context: Context): Boolean {
             val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
@@ -117,6 +118,25 @@ class AppSharedPreferences {
             val editor: SharedPreferences.Editor = prefs.edit()
             editor.putString(KEY_NUCLEO_NOME, token)
             editor.apply()
+        }
+
+
+
+
+        fun setUserPermissoes(context: Context, permissoes: List<String>){
+
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putStringSet(KEY_USER_PERMISSIONS, permissoes.toSet())
+            editor.apply()
+        }
+
+        fun getUserPermissoes(context: Context): List<String>{
+
+            val prefs: SharedPreferences = context.getSharedPreferences(SESSION, Context.MODE_PRIVATE)
+            val conjunto = prefs.getStringSet(KEY_USER_PERMISSIONS, setOf())
+            return conjunto.toList()
         }
     }
 
