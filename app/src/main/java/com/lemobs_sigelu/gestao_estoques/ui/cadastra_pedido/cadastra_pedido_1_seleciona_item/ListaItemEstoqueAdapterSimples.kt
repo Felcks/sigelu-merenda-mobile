@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.item_envio.view.*
 import kotlinx.android.synthetic.main.item_material_adicao.view.*
 
 class ListaItemEstoqueAdapterSimples (val context: Context,
-                                      val list: List<ItemEstoque>,
+                                      val list: List<ItemEstoqueDTO>,
                                       private val itemClickListener: TwoIntParametersClickListener,
                                       private val itensJaCadastrados: List<Int>): RecyclerView.Adapter<ListaItemEstoqueAdapterSimples.MyViewHolder>() {
 
@@ -31,8 +31,8 @@ class ListaItemEstoqueAdapterSimples (val context: Context,
     private var colorBranco: Int? = null
     private var colorSecundaryText: Int? = null
 
-    val itemsParaAdicao = mutableListOf<ItemEstoque>()
-    val itemsParaRemocao = mutableListOf<ItemEstoque>()
+    val itemsParaAdicao = mutableListOf<ItemEstoqueDTO>()
+    val itemsParaRemocao = mutableListOf<ItemEstoqueDTO>()
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
@@ -56,7 +56,7 @@ class ListaItemEstoqueAdapterSimples (val context: Context,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val item = list[position]
-        holder.itemView.tv_name.text = item.nomeAlternativo
+        holder.itemView.tv_name.text = item.nome
         holder.itemView.ll_background.setOnClickListener {
             itemClickListener.onClick(item.id, position)
         }

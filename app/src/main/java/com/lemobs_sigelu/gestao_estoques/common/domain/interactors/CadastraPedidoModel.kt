@@ -9,6 +9,8 @@ interface CadastraPedidoModel {
     fun iniciaRMParaObra(obraID: Int)
 
     fun selecionaListaMaterial(listaIDAdicao: List<Int>, listaIDRemocao: List<Int>)
+    fun verificaSeItemJaAdicionado(id: Int): Boolean
+    fun getIdItensAdicionados(): List<Int>
 
     fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>)
 

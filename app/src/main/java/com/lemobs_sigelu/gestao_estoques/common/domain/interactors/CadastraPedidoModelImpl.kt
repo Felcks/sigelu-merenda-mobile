@@ -84,6 +84,26 @@ class CadastraPedidoModelImpl(
         }
     }
 
+    override fun verificaSeItemJaAdicionado(id: Int): Boolean {
+
+        if(pedido == null)
+            throw PedidoNaoCriadoException()
+
+        if(pedido!!.listaMaterial.isNotEmpty()){
+            return pedido!!.listaMaterial.map { it.id }.contains(id)
+        }
+
+        return false
+    }
+
+    override fun getIdItensAdicionados(): List<Int> {
+
+        if(pedido?.listaMaterial == null)
+            return listOf()
+
+        return pedido?.listaMaterial?.map { it.itemEstoque.id }!!
+    }
+
     override fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>) {
 
         if(pedido == null)

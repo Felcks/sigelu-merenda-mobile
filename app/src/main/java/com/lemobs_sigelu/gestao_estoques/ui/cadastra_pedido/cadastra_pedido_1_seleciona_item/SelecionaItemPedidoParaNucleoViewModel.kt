@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_s
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -11,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-open class SelecionaItemPedidoParaNucleoViewModel(private val controller: CadastraPedidoController): ViewModel() {
+open class SelecionaItemPedidoParaNucleoViewModel(private val controller: CadastraPedidoModel): ViewModel() {
 
     private val disposables = CompositeDisposable()
     var listaItemEstoque = MutableLiveData<Response>()
@@ -25,23 +26,23 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
     fun carregaListagemItem() {
 
         CoroutineScope(Dispatchers.IO).launch {
-            listaItemEstoque.postValue(Response.success(controller.carregaListagemItemEstoque() ?: listOf()))
+
+            listaItemEstoque.postValue(Response.success(
+                controller.getListaItemEstoque()?.map {
+                    ItemEstoqueDTO(it.id, it.nomeAlternativo)
+                } ?: listOf()))
         }
     }
 
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
-        return controller.veriricaSeItemJaEstaAdicionado(id)
+        return controller.verificaSeItemJaAdicionado(id)
     }
 
     fun getIDsDeItemAdicionados(): List<Int>{
-        return controller.getIDsDeItemAdicionados()
+        return controller.getIdItensAdicionados()
     }
 
-    fun confirmaSelecaoItens(listaAdicao: List<ItemEstoque>, listaRemocao: List<ItemEstoque>){
-        controller.confirmaSelecaoItens(listaAdicao, listaRemocao)
-    }
-
-    fun getPedido(): PedidoCadastro?{
-        return controller.getPedido()
+    fun confirmaSelecaoItens(listaAdicao: List<Int>, listaRemocao: List<Int>){
+        controller.selecionaListaMaterial(listaAdicao, listaRemocao)
     }
 }

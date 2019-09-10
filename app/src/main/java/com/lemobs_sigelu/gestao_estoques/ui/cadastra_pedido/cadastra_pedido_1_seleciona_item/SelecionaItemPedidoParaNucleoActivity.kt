@@ -41,18 +41,13 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
-
-        val pedido = viewModel.getPedido()
-        if(pedido != null && pedido.tipoPedido == TipoPedido.FORNECEDOR_PARA_OBRA){
-            tv_passos.text = "Passo 3 de 5"
-        }
     }
 
     override fun clicouProximo() {
         try{
             viewModel.confirmaSelecaoItens(
-                this.adapter?.itemsParaAdicao as List<ItemEstoque>,
-                this.adapter?.itemsParaRemocao as List<ItemEstoque>)
+                this.adapter?.itemsParaAdicao?.map { it.id } ?: listOf(),
+                this.adapter?.itemsParaRemocao?.map { it.id } ?: listOf())
 
             val intent = Intent(this, CadastraItemPedidoActivity::class.java)
             startActivity(intent)
@@ -92,7 +87,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                 rv_lista.layoutManager = layoutManager
 
                 this.adapter = ListaItemEstoqueAdapterSimples(applicationContext,
-                    response.data as? List<ItemEstoque> ?: listOf(),
+                    response.data as? List<ItemEstoqueDTO> ?: listOf(),
                     this,
                     viewModel.getIDsDeItemAdicionados())
                 rv_lista.adapter = adapter
