@@ -13,6 +13,9 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -89,6 +92,13 @@ class ListaPedidoActivity: AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel!!.carregaListaPedido()
+        }
+
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro.text = resources.getString(R.string.erro_carrega_pedido)
+
         this.controladorFonte = ControladorFonte(this)
         this.controladorLogout = ControladorLogout(this)
         this.iniciaCampoBusca()
@@ -161,7 +171,6 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     private fun renderErrorState(throwable: Throwable?) {
 
-        viewModel!!.isError.set(true)
         if(throwable is ListaVaziaException){
             viewModel!!.errorMessage.set("Nenhum item encontrado.")
         }

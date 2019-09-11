@@ -67,7 +67,11 @@
     <string name="cadastra_envio_proximo_3">Próximo: Confirmação</string>
     <string name="cadastra_envio_proximo_4"> </string>
 
+    <!-- Formatações -->
     <string name="numero_em_parenteses">(%d)</string>
     <string name="layout_destino">%s $s</string>
+
+    <!-- Erros -->
+    <string name="erro_carrega_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
 
 </resources>

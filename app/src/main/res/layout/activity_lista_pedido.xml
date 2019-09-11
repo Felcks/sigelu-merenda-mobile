@@ -62,19 +62,28 @@
                 android:paddingTop="20dp"
                 android:paddingLeft="15dp"
                 android:textColor="@color/secondary_text"
-                android:text="@{viewModel.errorMessage}"
-                app:isVisible="@{viewModel.isError}"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/ll_busca"
                 app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <include
+                layout="@layout/layout_error_with_refresh"
+                android:id="@+id/ll_erro"
+                android:visibility="visible"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                app:isVisible="@{viewModel.isError}"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_lista"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:isVisible="@{!viewModel.loading}"
+                android:layout_height="wrap_content"
+                app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}"
                 android:layout_marginTop="@dimen/espacamento_grande"
                 android:scrollbars="vertical"
                 android:fadeScrollbars="false"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintTop_toBottomOf="@+id/ll_busca"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -41,6 +41,7 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
             .subscribe(
                 { result ->
                     loading.set(false)
+                    isError.set(false)
                     if(result.isNotEmpty()) {
                         response.setValue(Response.success(result))
                     }
@@ -50,6 +51,7 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
                 },
                 { throwable ->
                     loading.set(false)
+                    isError.set(true)
                     response.value = Response.error(throwable)
                 }
             )
