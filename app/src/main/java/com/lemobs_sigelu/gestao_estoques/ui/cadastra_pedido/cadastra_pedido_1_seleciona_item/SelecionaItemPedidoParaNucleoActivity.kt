@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -97,9 +95,9 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun onClick(id: Int, pos: Int) {
         try{
-            val adicionou = viewModel.veriricaSeItemJaEstaAdicionado(id)
+            val isItemAdicionado = viewModel.veriricaSeItemJaEstaAdicionado(id)
 
-            if(adicionou){ adapter?.adicionaItem(pos) }
+            if(!isItemAdicionado){ adapter?.adicionaItem(pos) }
             else{ adapter?.removeItem(pos) }
         }
         catch (e: Exception){

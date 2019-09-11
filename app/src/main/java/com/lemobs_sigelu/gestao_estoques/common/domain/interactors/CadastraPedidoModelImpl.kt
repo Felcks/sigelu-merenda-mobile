@@ -3,7 +3,6 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 
@@ -71,10 +70,7 @@ class CadastraPedidoModelImpl(
         if(pedido == null)
             throw PedidoNaoCriadoException()
 
-        if(pedido!!.listaMaterial.isEmpty())
-            throw NenhumItemDisponivelException()
-
-        pedido!!.listaMaterial.removeAll { listaIDAdicao.contains(it.id) }
+        pedido!!.listaMaterial.removeAll { listaIDRemocao.contains(it.itemEstoque.id) }
 
         for(id in listaIDAdicao) {
             val item = listaTodosItemEstoque?.first { it.id == id }
@@ -108,9 +104,6 @@ class CadastraPedidoModelImpl(
 
         if(pedido == null)
             throw PedidoNaoCriadoException()
-
-        if(pedido!!.listaMaterial.isEmpty())
-            throw NenhumItemDisponivelException()
 
         if(listaID.size != listaValor.size || listaValor.size != pedido!!.listaMaterial.size)
             throw Exception()
