@@ -4,13 +4,15 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoController): ViewModel() {
+class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraPedidoModel): ViewModel() {
 
 
     private val disposables = CompositeDisposable()
@@ -30,40 +32,35 @@ class ConfirmaCadastroPedidoViewModel(private val controller: CadastraPedidoCont
     }
 
     fun carregaListaItem(){
-        response.value = Response.success(controller.getItensCadastrados())
+        response.value = Response.success(
+            cadastraPedidoModel.getListaItensAdicionados().map {
+                MaterialDTO(
+                    it.id,
+                    with(it.itemEstoque){
+                        ItemEstoqueDTO(
+                            this.id,
+                            this.nomeAlternativo,
+                            this.quantidadeDisponivel ?: 0.0,
+                            this.unidadeMedida?.nome ?: "",
+                            this.unidadeMedida?.sigla ?: "",
+                            this.descricao
+                        )
+                    },
+                    it.quantidadeRecebida
+                )
+            }
+        )
     }
 
     fun cancelarPedido(){
-        controller.cancelaPedido()
+        cadastraPedidoModel.cancelaPedido()
     }
 
-    fun enviaPedido(){
+    fun enviaPedido(){}
 
-        disposables.add(controller.enviaPedido()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { envioPedidoResponse.setValue(Response.loading()) }
-            .subscribe(
-                { result -> envioPedidoResponse.setValue(Response.success(result)) },
-                { throwable -> envioPedidoResponse.setValue(Response.error(throwable)) }
-            )
-        )
-    }
+    fun salvaRascunho(){}
 
-    fun salvaRascunho(){
-
-        disposables.add(controller.salvaRascunho()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { rascunhoPedidoResponse.setValue(Response.loading()) }
-            .subscribe(
-                { result -> rascunhoPedidoResponse.setValue(Response.success(result)) },
-                { throwable -> rascunhoPedidoResponse.setValue(Response.error(throwable)) }
-            )
-        )
-    }
-
-    fun getPedido(): PedidoCadastro?{
-        return controller.getPedido()
+    fun getPedido(): Pedido2{
+        return cadastraPedidoModel.getPedido()
     }
 }

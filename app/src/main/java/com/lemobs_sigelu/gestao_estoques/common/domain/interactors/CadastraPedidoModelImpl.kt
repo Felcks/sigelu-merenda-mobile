@@ -156,6 +156,15 @@ class CadastraPedidoModelImpl(
         //TODO
     }
 
+
+    override fun cancelaPedido() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getPedido(): Pedido2 {
+        return this.pedido ?: throw PedidoNaoCriadoException()
+    }
+
     override suspend fun getListaItemEstoque(): List<ItemEstoque>? {
         listaTodosItemEstoque = itemEstoqueRepository.carregaListaEstoque2()
         return listaTodosItemEstoque

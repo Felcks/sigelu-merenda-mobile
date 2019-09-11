@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 
 interface CadastraPedidoModel {
 
@@ -17,6 +18,8 @@ interface CadastraPedidoModel {
     fun getListaItensAdicionados(): List<Material>
     fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>)
 
+    fun cancelaPedido()
+    fun getPedido(): Pedido2
     fun confirmaPedido(observacao: String)
     suspend fun enviaPedido()
 
@@ -25,4 +28,5 @@ interface CadastraPedidoModel {
 
     suspend fun getListaItemEstoque(): List<ItemEstoque>?
     suspend fun getListaObra(): List<Obra>?
+
 }

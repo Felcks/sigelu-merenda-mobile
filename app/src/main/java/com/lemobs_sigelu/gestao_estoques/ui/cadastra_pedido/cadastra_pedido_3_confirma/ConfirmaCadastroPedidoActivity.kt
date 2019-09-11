@@ -40,21 +40,17 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.carregaListaItem()
 
         val pedido = viewModel.getPedido()
-        tv_origem.text = pedido?.origem?.tracoSeVazio()
-        tv_destino.text = "${pedido?.destinoTipo} ${pedido?.destino?.tracoSeVazio()}"
-        if(pedido?.origemTipo == "Fornecedor"){
-            tv_contrato.visibility = View.VISIBLE
-            tv_contrato_layout.visibility = View.VISIBLE
-            tv_contrato.text = pedido.contratoEstoque?.numeroContrato
-        }
-
-        if(pedido?.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
-            btn_salva_rascunho.visibility = View.GONE
-        }
-
-        if(pedido != null && pedido.destinoTipo == "Obra"){
-            tv_passos.text = "Passo 5 de 5"
-        }
+        tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
+        tv_destino.text = String.format(getString(R.string.layout_destino), pedido.movimento.destino.tipo.name, pedido.movimento.destino.nome)
+//        if(pedido?.origemTipo == "Fornecedor"){
+//            tv_contrato.visibility = View.VISIBLE
+//            tv_contrato_layout.visibility = View.VISIBLE
+//            tv_contrato.text = pedido.contratoEstoque?.numeroContrato
+//        }
+//
+//        if(pedido?.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
+//            btn_salva_rascunho.visibility = View.GONE
+//        }
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
@@ -96,7 +92,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderDataState(result: Any?) {
 
         if(result is List<*>){
-            this.iniciarAdapter(result as List<ItemEstoque>)
+            this.iniciarAdapter(result as List<MaterialDTO>)
         }
     }
 
@@ -199,7 +195,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         this.errorDialog?.show()
     }
 
-    private fun iniciarAdapter(list: List<ItemEstoque>){
+    private fun iniciarAdapter(list: List<MaterialDTO>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
@@ -224,7 +220,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
                     "Cancelar pedido ",
                     "Deseja sair e cancelar o pedido?",
                     {
-                        this.viewModel!!.cancelarPedido()
+                        this.viewModel.cancelarPedido()
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)

@@ -11,7 +11,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import kotlinx.android.synthetic.main.item_material_cadastrado.view.*
 
 class ListaItemEstoqueAdapter (val context: Context,
-                               val list: List<ItemEstoque>):
+                               val list: List<MaterialDTO>):
     RecyclerView.Adapter<ListaItemEstoqueAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -30,9 +30,9 @@ class ListaItemEstoqueAdapter (val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_1.text = item.nomeAlternativo
-        holder.itemView.tv_2.text = item.descricao
-        holder.itemView.tv_3.text = item.unidadeMedida?.getNomeESiglaPorExtenso()
+        holder.itemView.tv_1.text = item.itemEstoqueDTO.nome
+        holder.itemView.tv_2.text = item.itemEstoqueDTO.descricao
+        holder.itemView.tv_3.text = item.itemEstoqueDTO.getUnidadeMedidaNomeSiglaPorExtenso()
         holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
     }
 
