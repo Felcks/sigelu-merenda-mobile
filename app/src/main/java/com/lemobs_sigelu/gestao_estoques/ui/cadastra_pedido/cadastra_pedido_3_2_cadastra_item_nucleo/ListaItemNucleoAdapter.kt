@@ -15,7 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemNucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
-import kotlinx.android.synthetic.main.item_cadastrar_quantidade.view.*
+import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.view.*
 import java.text.NumberFormat
 import java.util.*
 
@@ -36,7 +36,7 @@ class ListaItemNucleoAdapter (private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_cadastrar_quantidade, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_cp_cadastrar_quantidade, parent, false)
         return MyViewHolder(view)
     }
 

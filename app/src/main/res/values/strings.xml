@@ -67,4 +67,6 @@
     <string name="cadastra_envio_proximo_3">Próximo: Confirmação</string>
     <string name="cadastra_envio_proximo_4"> </string>
 
+    <string name="numero_em_parenteses">(%d)</string>
+
 </resources>

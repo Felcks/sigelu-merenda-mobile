@@ -100,10 +100,31 @@ class CadastraPedidoModelImpl(
         return pedido?.listaMaterial?.map { it.itemEstoque.id }!!
     }
 
+    override fun getListaItensAdicionados(): List<Material>{
+        return pedido?.listaMaterial as List<Material>
+    }
+
+    override fun removeItem(itemEstoqueID: Int) {
+
+        if(pedido == null)
+            throw PedidoNaoCriadoException()
+
+        val item = pedido?.listaMaterial?.first { it.itemEstoque.id == itemEstoqueID }
+        if(item != null){
+            pedido?.listaMaterial?.remove(item)
+        }
+        else{
+            throw java.lang.Exception("Erro")
+        }
+    }
+
     override fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>) {
 
         if(pedido == null)
             throw PedidoNaoCriadoException()
+
+        if(listaID.isEmpty() || listaValor.isEmpty())
+            throw NenhumItemSelecionadoException()
 
         if(listaID.size != listaValor.size || listaValor.size != pedido!!.listaMaterial.size)
             throw Exception()
@@ -117,7 +138,7 @@ class CadastraPedidoModelImpl(
                 throw ValorMenorQueZeroException()
             }
 
-            val item = pedido!!.listaMaterial.first { it.id == id }
+            val item = pedido!!.listaMaterial.first { it.itemEstoque.id == id }
             item.quantidadeRecebida = valor
             count += 1
         }

@@ -13,14 +13,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMaiorQuePermitidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
@@ -42,15 +39,10 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         if(listaItemEnvio.isNotEmpty()) {
 
             iniciaListaAdapter(listaItemEnvio)
-            tv_total_material.text = "(${listaItemEnvio.size})"
+            tv_total_material.text = String.format(resources.getString(R.string.numero_em_parenteses), viewModel.getItensCadastrados().size)
         }
         else{
             tv_error.visibility = View.VISIBLE
-        }
-
-        val pedido = viewModel.getPedido()
-        if(pedido != null && pedido.destinoTipo == "Obra"){
-            tv_passos.text = "Passo 4 de 5"
         }
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
@@ -58,7 +50,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         btn_add.setOnClickListener { clicouAnterior() }
     }
 
-    private fun iniciaListaAdapter(lista: List<ItemEstoque>){
+    private fun iniciaListaAdapter(lista: List<MaterialDTO>){
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -66,17 +58,17 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         rv_lista_material.setItemViewCacheSize(lista.size)
         rv_lista_material.setHasFixedSize(true)
 
-        this.adapter = ListaItemEstoqueAdapter(App.instance, lista, removerItemListener)
+        this.adapter = ListaItemEstoqueAdapter(App.instance, lista as MutableList<MaterialDTO>, removerItemListener)
         rv_lista_material.adapter = adapter
     }
 
 
     private val removerItemListener = object: TwoIntParametersClickListener {
-        override fun onClick(id: Int, position: Int) {
+        override fun onClick(id: Int, pos: Int) {
             try{
                 viewModel.removeItem(id)
-                adapter?.removeItem(position)
-                tv_total_material.text = "(${viewModel.getItensCadastrados().size})"
+                adapter?.removeItem(pos)
+                tv_total_material.text = String.format(resources.getString(R.string.numero_em_parenteses), viewModel.getItensCadastrados().size)
 
                 if(viewModel.getItensCadastrados().isEmpty())
                     tv_error.visibility = View.VISIBLE
@@ -90,7 +82,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo(){
 
         try {
-            viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+            viewModel.confirmaCadastroMaterial(this.adapter?.getListaMateriaisPreenchidos() ?: listOf())
 
             val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
             startActivity(intent)
@@ -103,6 +95,9 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         }
         catch(e: ValorMenorQueZeroException){
             Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+        }
+        catch(erro: java.lang.Exception){
+            Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_LONG).show()
         }
     }
 

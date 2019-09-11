@@ -12,15 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
-import kotlinx.android.synthetic.main.item_cadastrar_quantidade.view.*
+import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.view.*
 import java.text.NumberFormat
 import java.util.*
 
 class ListaItemEstoqueAdapter (private val context: Context,
-                               private val list: List<ItemEstoque>,
+                               private val list: MutableList<MaterialDTO>,
                                private val remocaoItemClickListener: TwoIntParametersClickListener): RecyclerView.Adapter<ListaItemEstoqueAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -36,7 +35,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_cadastrar_quantidade, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_cp_cadastrar_quantidade, parent, false)
         return MyViewHolder(view)
     }
 
@@ -48,10 +47,12 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_nome_material.text = item.nomeAlternativo
-        holder.itemView.tv_quantidade_disponivel.text = item.quantidadeDisponivel.toString() ?: "0.0"
-        holder.itemView.edt_quantidade_fornecida_unidade.text = item.unidadeMedida?.nome
-        holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
+        holder.itemView.tv_nome_material.text = item.itemEstoqueDTO.nome
+        holder.itemView.tv_quantidade_disponivel.text = item.itemEstoqueDTO.quantidadeDisponivel.toString() ?: "0.0"
+        holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoqueDTO.unidadeMedida
+        holder.itemView.btn_cancel.setOnClickListener {
+            remocaoItemClickListener.onClick(item.itemEstoqueDTO.id, position)
+        }
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
@@ -66,7 +67,8 @@ class ListaItemEstoqueAdapter (private val context: Context,
         if(item.quantidadeRecebida ?: 0.0 == 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
         }
-        else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeDisponivel ?: 0.0){
+        else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
+            //ONDE TEM ZERO NESSE IF TINHA QUANTIDADE DISPONIVEL
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
         }
         else
@@ -79,7 +81,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
         this.adicionarMascaras(item, holder, position)
     }
 
-    private fun adicionarMascaras(item: ItemEstoque, holder: MyViewHolder, position: Int){
+    private fun adicionarMascaras(item: MaterialDTO, holder: MyViewHolder, position: Int){
 
         val mascara = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -99,7 +101,8 @@ class ListaItemEstoqueAdapter (private val context: Context,
                 if(item.quantidadeRecebida ?: 0.0 == 0.0){
                     holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
                 }
-                else if(item.quantidadeRecebida ?: 0.0 > item.quantidadeDisponivel ?: 0.0){
+                else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
+                    //ONDE TEM ZERO NESSE IF TINHA QUANTIDADE DISPONIVEL
                     holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
                 }
                 else
@@ -145,13 +148,13 @@ class ListaItemEstoqueAdapter (private val context: Context,
     }
 
     fun removeItem(position: Int){
-        ultimaPosicao = 0
-        notifyItemRemoved(position)
+        ultimaPosicao -= 1
+        list.removeAt(position)
+        notifyDataSetChanged()
     }
 
-    fun getListaValoresItemEnvio(): List<Double>{
-
-        return list.map { it.quantidadeRecebida ?: 0.0 }
+    fun getListaMateriaisPreenchidos(): List<MaterialDTO>{
+        return list
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

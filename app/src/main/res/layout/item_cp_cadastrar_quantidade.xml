@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
-                    android:text="Quantidade fornecida"
+                    android:text="Quantidade requisitada"
                     android:textColor="@color/divider"/>
 
             <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
