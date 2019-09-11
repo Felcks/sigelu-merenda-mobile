@@ -35,7 +35,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         setContentView(R.layout.activity_seleciona_material_pedido_original)
 
         viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel.carregaListagemItem()
+        //viewModel.carregaListagemItem()
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
@@ -62,7 +62,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
     override fun onResume() {
         ll_loading.visibility = View.VISIBLE
         rv_lista.visibility = View.GONE
-        viewModel.carregaListagemItem()
+        //viewModel.carregaListagemItem()
         super.onResume()
     }
 

@@ -158,7 +158,7 @@ class RestApi {
         return api.getItensEstoque(auth)
     }
 
-    fun getListagemItemEstoque(): Deferred<Response<List<ItemEstoqueDataResponse>>> {
+    suspend fun getListagemItemEstoque(): Response<List<ItemEstoqueDataResponse>> {
         return api.getListagemItemEstoque(auth)
     }
 

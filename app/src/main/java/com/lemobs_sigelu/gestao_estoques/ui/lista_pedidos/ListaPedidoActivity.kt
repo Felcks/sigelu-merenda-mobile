@@ -91,7 +91,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 //            val intent = Intent(this, CadastraInformacoesActivity::class.java)
 //            startActivity(intent)
 //        }
-        
+
         val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
         tvErro.text = resources.getString(R.string.erro_carrega_lista_pedido)
 

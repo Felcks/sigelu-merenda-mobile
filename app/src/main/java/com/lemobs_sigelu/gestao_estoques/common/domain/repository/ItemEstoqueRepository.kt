@@ -62,7 +62,7 @@ open class ItemEstoqueRepository: BaseRepository() {
 
         val response = safeApiCall(
             call = {
-                api.getListagemItemEstoque().await()
+                api.getListagemItemEstoque()
             },
             errorMessage = "Não foi possível carregar"
         )

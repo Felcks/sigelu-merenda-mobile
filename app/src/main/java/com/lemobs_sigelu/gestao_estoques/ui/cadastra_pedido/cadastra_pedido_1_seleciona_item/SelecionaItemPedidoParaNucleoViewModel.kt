@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
@@ -15,7 +16,12 @@ import kotlinx.coroutines.launch
 open class SelecionaItemPedidoParaNucleoViewModel(private val controller: CadastraPedidoModel): ViewModel() {
 
     private val disposables = CompositeDisposable()
+
     var listaItemEstoque = MutableLiveData<Response>()
+//    val listaItemEstoque = liveData<List<ItemEstoque>> {
+//
+//        emit()
+//    }
 
     override fun onCleared() {
         disposables.clear()
@@ -23,16 +29,19 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
 
     fun listaItemEstoque() = listaItemEstoque
 
-    fun carregaListagemItem() {
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            listaItemEstoque.postValue(Response.success(
-                controller.getListaItemEstoque()?.map {
-                    ItemEstoqueDTO(it.id, it.nomeAlternativo)
-                } ?: listOf()))
-        }
-    }
+//    fun carregaListagemItem() {
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//
+//            listaItemEstoque.postValue(
+//                Response.success(
+//                    controller.getListaItemEstoque()?.map {
+//                        ItemEstoqueDTO(it.id, it.nomeAlternativo)
+//                    } ?: listOf()
+//                )
+//            )
+//        }
+//    }
 
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
         return controller.verificaSeItemJaAdicionado(id)

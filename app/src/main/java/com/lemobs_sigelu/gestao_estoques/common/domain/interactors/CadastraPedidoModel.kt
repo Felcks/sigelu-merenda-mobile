@@ -26,7 +26,7 @@ interface CadastraPedidoModel {
     fun getTextoPassoAtual(): String
     fun getTextoProximoPasso(): String
 
-    suspend fun getListaItemEstoque(): List<ItemEstoque>?
+    suspend fun getListaItemEstoque(): List<ItemEstoque>
     suspend fun getListaObra(): List<Obra>?
 
 }

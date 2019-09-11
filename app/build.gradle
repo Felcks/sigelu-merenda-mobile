@@ -18,6 +18,7 @@ project.ext {
     kotlinCoroutineVersion = "1.0.1"
     coroutineAdapterVersion = "0.9.2"
     mockkVersion = "1.9.3"
+    retrofitVersion = "2.6.0"
 }
 
 android {
@@ -148,8 +149,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
 
     /* Retrofit e moshi */
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$project.retrofitVersion"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$project.coroutineAdapterVersion"
 
     /* CardView */

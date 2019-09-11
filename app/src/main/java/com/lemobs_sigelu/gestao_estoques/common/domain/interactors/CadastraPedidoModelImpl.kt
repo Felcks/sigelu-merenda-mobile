@@ -165,9 +165,9 @@ class CadastraPedidoModelImpl(
         return this.pedido ?: throw PedidoNaoCriadoException()
     }
 
-    override suspend fun getListaItemEstoque(): List<ItemEstoque>? {
-        listaTodosItemEstoque = itemEstoqueRepository.carregaListaEstoque2()
-        return listaTodosItemEstoque
+    override suspend fun getListaItemEstoque(): List<ItemEstoque> {
+        listaTodosItemEstoque = itemEstoqueRepository.carregaListaEstoque2() ?: listOf()
+        return listaTodosItemEstoque!!
     }
 
     override suspend fun getListaObra(): List<Obra>? {

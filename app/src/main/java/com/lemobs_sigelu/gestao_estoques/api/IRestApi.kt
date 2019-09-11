@@ -96,7 +96,7 @@ interface IRestApi {
     fun getItensEstoque(@Header("Authorization") auth: String) : Call<List<ItemEstoqueDataResponse>>
 
     @GET("estoque/item")
-    fun getListagemItemEstoque(@Header("Authorization") auth: String): Deferred<Response<List<ItemEstoqueDataResponse>>>
+    suspend fun getListagemItemEstoque(@Header("Authorization") auth: String): Response<List<ItemEstoqueDataResponse>>
 
     @GET("estoque/item/{item_estoque_id}/nucleo")
     fun getListaNucleoQuantidadeDeItemEstoque(@Header("Authorization") auth: String,
