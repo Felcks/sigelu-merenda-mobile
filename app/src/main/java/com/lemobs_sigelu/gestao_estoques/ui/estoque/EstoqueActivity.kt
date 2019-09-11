@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.View
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizaEstoqueBinding
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_adiciona_materiais.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,7 +38,19 @@ class EstoqueActivity: AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EstoqueViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.responseNucleoQuantidade.observe(this, Observer<Response> { response -> processResponseNucleoQuantidade(response) })
+
+        val binding: ActivityVisualizaEstoqueBinding = DataBindingUtil.setContentView(this, R.layout.activity_visualiza_estoque)
+        binding.viewModel = viewModel!!
+        binding.executePendingBindings()
+
         viewModel!!.carregaListaItemEstoque()
+
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro.text = resources.getString(R.string.erro_carrega_estoque)
+
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel!!.carregaListaItemEstoque()
+        }
     }
 
     private fun processResponse(response: Response?) {

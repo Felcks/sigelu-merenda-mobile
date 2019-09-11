@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/espacamento_medio"
-        android:background="@android:color/white"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-        <TextView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/tv_erro"
+        <data>
+                <variable
+                        name="viewModel"
+                        type="com.lemobs_sigelu.gestao_estoques.ui.estoque.EstoqueViewModel"/>
+        </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/primary_text"
-                android:textSize="14sp"
-                android:text="Nenhum material disponível."
-                android:visibility="gone"/>
+                android:padding="@dimen/espacamento_medio"
+                android:background="@android:color/white"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <include layout="@layout/progressbar_carregamento"
-                 android:id="@+id/ll_loading"/>
+                <include
+                        layout="@layout/layout_error_with_refresh"
+                        android:id="@+id/ll_erro"
+                        android:visibility="visible"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
+                        app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_lista"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                android:fadeScrollbars="false"/>
+                <include layout="@layout/progressbar_carregamento"
+                         android:id="@+id/ll_loading"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_lista"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -72,6 +72,7 @@
     <string name="layout_destino">%s $s</string>
 
     <!-- Erros -->
-    <string name="erro_carrega_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_lista_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_estoque">Erro ao carregar estoque.\nAperte para tentar novamente.</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.estoque
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EstoqueController
@@ -15,6 +16,9 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
     var response = MutableLiveData<Response>()
     var responseNucleoQuantidade = MutableLiveData<Response>()
 
+    var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
+
     var quantidadeItemEstoque = 0
     var quantidadeItemEstoqueTotalmenteCarregado = 0
     var listaItemEstoque = mutableListOf<ItemEstoque>()
@@ -29,17 +33,24 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
 
     fun carregaListaItemEstoque(){
 
+        loading.set(true)
+
         disposables.add(controller.getListaItemEstoque()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { response.setValue(Response.loading()) }
             .subscribe(
                 { result ->
+                    loading.set(false)
+                    isError.set(false)
+
                     this.quantidadeItemEstoque = result.size
                     listaItemEstoque.addAll(result)
                     response.setValue(Response.success(result))
                 },
                 { throwable ->
+                    loading.set(false)
+                    isError.set(true)
                     response.setValue(Response.error(throwable))
                 }
             )

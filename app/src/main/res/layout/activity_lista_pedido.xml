@@ -73,7 +73,7 @@
                 android:paddingRight="8dp"
                 android:paddingLeft="8dp"
                 android:paddingTop="8dp"
-                app:isVisible="@{viewModel.isError}"/>
+                app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_lista"

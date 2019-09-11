@@ -91,13 +91,13 @@ class ListaPedidoActivity: AppCompatActivity() {
 //            val intent = Intent(this, CadastraInformacoesActivity::class.java)
 //            startActivity(intent)
 //        }
+        
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro.text = resources.getString(R.string.erro_carrega_lista_pedido)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaPedido()
         }
-
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro.text = resources.getString(R.string.erro_carrega_pedido)
 
         this.controladorFonte = ControladorFonte(this)
         this.controladorLogout = ControladorLogout(this)
