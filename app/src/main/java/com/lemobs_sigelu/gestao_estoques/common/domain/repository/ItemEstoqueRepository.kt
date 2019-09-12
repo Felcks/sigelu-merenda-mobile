@@ -60,14 +60,9 @@ open class ItemEstoqueRepository: BaseRepository() {
 
     suspend fun carregaListaEstoque2(): List<ItemEstoque>? {
 
-        val response = safeApiCall(
-            call = {
-                api.getListagemItemEstoque()
-            },
-            errorMessage = "Não foi possível carregar"
-        )
+        val response = api.getListagemItemEstoque()
 
-        return response?.map {
+        return response.body()?.map {
             val item = ItemEstoque(
                 it.id,
                 it.codigo ?: "",

@@ -15,7 +15,7 @@ project.ext {
     timberVersion = "4.6.0"
     androidPluginVersion = "3.3.1"
     koinVersion = "2.0.1"
-    kotlinCoroutineVersion = "1.0.1"
+    kotlinCoroutineVersion = "1.1.0"
     coroutineAdapterVersion = "0.9.2"
     mockkVersion = "1.9.3"
     retrofitVersion = "2.6.0"
@@ -186,6 +186,7 @@ dependencies {
 
     //kapt 'com.android.databinding:compiler:3.3.1'
     // Extensions = ViewModel + LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation group: 'androidx.lifecycle', name: 'lifecycle-common-java8', version: '2.2.0-alpha03'
 

@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_s
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
@@ -12,36 +13,22 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 open class SelecionaItemPedidoParaNucleoViewModel(private val controller: CadastraPedidoModel): ViewModel() {
 
-    private val disposables = CompositeDisposable()
+    val  listaItemEstoque: LiveData<Response> = liveData(Dispatchers.IO) {
+        emit(Response.loading())
 
-    var listaItemEstoque = MutableLiveData<Response>()
-//    val listaItemEstoque = liveData<List<ItemEstoque>> {
-//
-//        emit()
-//    }
-
-    override fun onCleared() {
-        disposables.clear()
+        try {
+            val retrived = controller.getListaItemEstoque()
+            val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
+            emit(Response.success(mapped))
+        }
+        catch (e: Exception){
+            emit(Response.error(Throwable("Falha na conexão")))
+        }
     }
-
-    fun listaItemEstoque() = listaItemEstoque
-
-//    fun carregaListagemItem() {
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//
-//            listaItemEstoque.postValue(
-//                Response.success(
-//                    controller.getListaItemEstoque()?.map {
-//                        ItemEstoqueDTO(it.id, it.nomeAlternativo)
-//                    } ?: listOf()
-//                )
-//            )
-//        }
-//    }
 
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
         return controller.verificaSeItemJaAdicionado(id)
