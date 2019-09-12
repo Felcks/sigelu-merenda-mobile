@@ -21,9 +21,37 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
 
     var loading = ObservableField<Boolean>(false)
     var isError = ObservableField<Boolean>(false)
-    var errorMessage = ObservableField<String>("")
 
-    var listaItemEstoque: LiveData<Response> = liveData(Dispatchers.IO) {
+    var listaItemEstoque: MutableLiveData<Response> = MutableLiveData<Response>()
+
+    init{
+        refreshListaItemEstoque()
+    }
+
+    fun refreshListaItemEstoque(){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            loading.set(true)
+            isError.set(false)
+
+            try {
+                val retrived = controller.getListaItemEstoque()
+                loading.set(false)
+                isError.set(false)
+
+                val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
+                listaItemEstoque.postValue(Response.success(mapped))
+            }
+            catch (e: Exception){
+                loading.set(false)
+                isError.set(true)
+                listaItemEstoque.postValue(Response.error(Throwable("")))
+            }
+        }
+    }
+    //var listaItemEstoque: LiveData<Response> = getItemEstoque()
+
+    private fun getItemEstoque(): LiveData<Response> = liveData(Dispatchers.IO) {
         loading.set(true)
         isError.set(false)
 
@@ -39,27 +67,6 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
             loading.set(false)
             isError.set(true)
             emit(Response.error(Throwable("")))
-        }
-    }
-
-    fun recarregaLiveData(){
-        listaItemEstoque = liveData(Dispatchers.IO) {
-            loading.set(true)
-            isError.set(false)
-
-            try {
-                val retrived = controller.getListaItemEstoque()
-                loading.set(false)
-                isError.set(false)
-
-                val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
-                emit(Response.success(mapped))
-            }
-            catch (e: Exception){
-                loading.set(false)
-                isError.set(true)
-                emit(Response.error(Throwable("")))
-            }
         }
     }
 

@@ -52,7 +52,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         tvErro.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
-            viewModel.recarregaLiveData()
+            viewModel.refreshListaItemEstoque()
         }
     }
 
