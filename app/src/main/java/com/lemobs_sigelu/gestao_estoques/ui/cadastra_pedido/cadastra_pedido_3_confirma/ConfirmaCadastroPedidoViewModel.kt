@@ -21,6 +21,8 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
     var rascunhoPedidoResponse = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
 
+    var observacao: ObservableField<String> = ObservableField("")
+
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
 
     override fun onCleared() {

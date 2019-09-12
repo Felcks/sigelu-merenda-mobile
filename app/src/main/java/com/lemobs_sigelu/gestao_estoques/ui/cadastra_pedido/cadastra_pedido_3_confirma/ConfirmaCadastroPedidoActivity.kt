@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lemobs_sigelu.gestao_estoques.R
@@ -17,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityConfirmaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
@@ -38,6 +40,10 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
         viewModel.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
         viewModel.carregaListaItem()
+
+        val mainBinding: ActivityConfirmaPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_confirma_pedido)
+        mainBinding.viewModel = viewModel
+        mainBinding.executePendingBindings()
 
         val pedido = viewModel.getPedido()
         tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
