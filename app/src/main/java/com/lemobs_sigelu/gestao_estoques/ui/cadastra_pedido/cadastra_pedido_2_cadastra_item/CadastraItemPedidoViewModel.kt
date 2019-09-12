@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
@@ -8,6 +9,9 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 
 class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedidoModel): ViewModel() {
+
+    private var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
 
     fun getItensCadastrados(): List<MaterialDTO>{
         return cadastraPedidoModel.getListaItensAdicionados().map {

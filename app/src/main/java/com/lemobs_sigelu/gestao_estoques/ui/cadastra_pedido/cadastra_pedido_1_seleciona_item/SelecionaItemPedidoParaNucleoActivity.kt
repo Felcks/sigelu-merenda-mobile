@@ -81,9 +81,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
     }
 
     override fun onResume() {
-        ll_loading.visibility = View.VISIBLE
-        rv_lista.visibility = View.GONE
-        //viewModel.carregaListagemItem()
+        viewModel.refreshListaItemEstoque()
         super.onResume()
     }
 

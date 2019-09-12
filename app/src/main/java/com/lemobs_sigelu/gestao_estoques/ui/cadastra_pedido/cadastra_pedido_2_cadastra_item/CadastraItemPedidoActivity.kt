@@ -8,12 +8,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
@@ -34,6 +36,10 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastra_item_pedido)
+
+        val binding: ActivityCadastraItemPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_item_pedido)
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
 
         val listaItemEnvio = viewModel.getItensCadastrados()
         if(listaItemEnvio.isNotEmpty()) {

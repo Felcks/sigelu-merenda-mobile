@@ -64,6 +64,7 @@
                 app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
                 android:layout_marginLeft="@dimen/espacamento_maximo"
                 android:layout_marginRight="@dimen/espacamento_maximo"
+                app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}"
                 android:layout_marginTop="@dimen/espacamento_maximo_2"/>
 
 

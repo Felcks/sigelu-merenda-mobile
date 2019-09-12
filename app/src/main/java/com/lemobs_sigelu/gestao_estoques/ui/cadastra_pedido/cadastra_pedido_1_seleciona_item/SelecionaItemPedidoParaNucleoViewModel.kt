@@ -49,26 +49,6 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
             }
         }
     }
-    //var listaItemEstoque: LiveData<Response> = getItemEstoque()
-
-    private fun getItemEstoque(): LiveData<Response> = liveData(Dispatchers.IO) {
-        loading.set(true)
-        isError.set(false)
-
-        try {
-            val retrived = controller.getListaItemEstoque()
-            loading.set(false)
-            isError.set(false)
-
-            val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
-            emit(Response.success(mapped))
-        }
-        catch (e: Exception){
-            loading.set(false)
-            isError.set(true)
-            emit(Response.error(Throwable("")))
-        }
-    }
 
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
         return controller.verificaSeItemJaAdicionado(id)

@@ -86,7 +86,7 @@ class CadastraPedidoModelImpl(
             throw PedidoNaoCriadoException()
 
         if(pedido!!.listaMaterial.isNotEmpty()){
-            return pedido!!.listaMaterial.map { it.id }.contains(id)
+            return pedido!!.listaMaterial.map { it.itemEstoque.id }.contains(id)
         }
 
         return false
