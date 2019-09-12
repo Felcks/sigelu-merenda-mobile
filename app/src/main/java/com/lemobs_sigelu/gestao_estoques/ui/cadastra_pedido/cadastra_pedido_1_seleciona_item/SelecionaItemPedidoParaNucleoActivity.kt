@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivitySelecionaMaterialPedidoOriginalBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -34,10 +38,22 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seleciona_material_pedido_original)
 
+        val binding: ActivitySelecionaMaterialPedidoOriginalBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_seleciona_material_pedido_original)
+        binding.viewModel = viewModel!!
+        binding.executePendingBindings()
+
         carregaListaItemEstoque()
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
+
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
+
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel.recarregaLiveData()
+        }
     }
 
     private fun carregaListaItemEstoque(){
@@ -81,7 +97,6 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             Status.ERROR -> {
                 ll_loading.visibility = View.GONE
                 rv_lista.visibility = View.GONE
-                tv_error.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
                 ll_loading.visibility = View.GONE

@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,16 +18,48 @@ import java.lang.Exception
 
 open class SelecionaItemPedidoParaNucleoViewModel(private val controller: CadastraPedidoModel): ViewModel() {
 
-    val  listaItemEstoque: LiveData<Response> = liveData(Dispatchers.IO) {
-        emit(Response.loading())
+
+    var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
+    var errorMessage = ObservableField<String>("")
+
+    var listaItemEstoque: LiveData<Response> = liveData(Dispatchers.IO) {
+        loading.set(true)
+        isError.set(false)
 
         try {
             val retrived = controller.getListaItemEstoque()
+            loading.set(false)
+            isError.set(false)
+
             val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
             emit(Response.success(mapped))
         }
         catch (e: Exception){
-            emit(Response.error(Throwable("Falha na conexão")))
+            loading.set(false)
+            isError.set(true)
+            emit(Response.error(Throwable("")))
+        }
+    }
+
+    fun recarregaLiveData(){
+        listaItemEstoque = liveData(Dispatchers.IO) {
+            loading.set(true)
+            isError.set(false)
+
+            try {
+                val retrived = controller.getListaItemEstoque()
+                loading.set(false)
+                isError.set(false)
+
+                val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
+                emit(Response.success(mapped))
+            }
+            catch (e: Exception){
+                loading.set(false)
+                isError.set(true)
+                emit(Response.error(Throwable("")))
+            }
         }
     }
 
