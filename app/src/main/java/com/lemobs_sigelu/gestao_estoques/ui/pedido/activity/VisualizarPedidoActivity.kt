@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
@@ -27,8 +28,10 @@ import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
+import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -157,7 +160,25 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuInflater.inflate(R.menu.menu_pedido_visualizacao, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        
+        when(item?.itemId){
+            R.id.btn_cancela -> {
+                DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
+                    "Cancelar Pedido",
+                    "Tem certeza que deseja cancelar esse pedido?",
+                    {},
+                    {}
+                ).show()
+            }
+        }
+        
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
