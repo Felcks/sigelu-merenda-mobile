@@ -101,6 +101,10 @@ class CadastraPedidoModelImpl(
     }
 
     override fun getListaItensAdicionados(): List<Material>{
+
+        if(pedido?.listaMaterial == null)
+            return listOf()
+
         return pedido?.listaMaterial as List<Material>
     }
 
@@ -157,9 +161,7 @@ class CadastraPedidoModelImpl(
     }
 
 
-    override fun cancelaPedido() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun cancelaPedido() {}
 
     override fun getPedido(): Pedido2 {
         return this.pedido ?: throw PedidoNaoCriadoException()

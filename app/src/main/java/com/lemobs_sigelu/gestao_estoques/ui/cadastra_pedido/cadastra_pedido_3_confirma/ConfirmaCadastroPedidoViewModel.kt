@@ -54,7 +54,7 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
         )
     }
 
-    fun cancelarPedido(){
+    fun cancelaPedido(){
         cadastraPedidoModel.cancelaPedido()
     }
 

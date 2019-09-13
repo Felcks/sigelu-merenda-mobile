@@ -226,7 +226,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
                     "Cancelar pedido ",
                     "Deseja sair e cancelar o pedido?",
                     {
-                        this.viewModel.cancelarPedido()
+                        this.viewModel.cancelaPedido()
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
