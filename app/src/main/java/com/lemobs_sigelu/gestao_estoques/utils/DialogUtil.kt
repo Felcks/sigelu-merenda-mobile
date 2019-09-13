@@ -57,10 +57,10 @@ class DialogUtil {
             view.findViewById<TextView>(R.id.tv_mensagem).setText(mensagemId)
 
             alertDialogBuilder.setView(view)
-            if(positiveButtonTextId != null)
-                alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
-            if(negativeButtonTextId != null)
-                alertDialogBuilder.setNegativeButton(negativeButtonTextId, negativeButtonClickListener)
+//            if(positiveButtonTextId != null)
+//                alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
+//            if(negativeButtonTextId != null)
+//                alertDialogBuilder.setNegativeButton(negativeButtonTextId, negativeButtonClickListener)
 
             alertDialogBuilder.setCancelable(cancelavel)
 
@@ -74,9 +74,9 @@ class DialogUtil {
          * @param activity onde o diálogo sera plotado
          * @param titulo texto de título
          * @param mensagem texto da mensagem
-         * @param positiveButtonText texto do botão positivo (a direita)
+         * @param positiveButtonTextId texto do botão positivo (a direita)
          * @param positiveButtonAcao função chamada caso o usuário aperte positivo
-         * @param negativeButtonText texto do botão negativo (a esquerda)
+         * @param negativeButtonTextId texto do botão negativo (a esquerda)
          * @param negativeButtonAcao função chamada caso o usuário aperte negativo
          * @param cancelavel torna a caixa cancelável ou não
          */
@@ -100,6 +100,11 @@ class DialogUtil {
             view.findViewById<TextView>(R.id.tv_mensagem).text = mensagem
 
             alertDialogBuilder.setView(view)
+
+            view.findViewById<View>(R.id.btn_close).setOnClickListener {
+                negativeButtonAcao()
+            }
+
             if(positiveButtonTextId != null)
                 alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
             if(negativeButtonTextId != null)
