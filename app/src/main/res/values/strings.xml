@@ -69,7 +69,7 @@
 
     <!-- Formatações -->
     <string name="numero_em_parenteses">(%d)</string>
-    <string name="layout_destino">%s $s</string>
+    <string name="layout_destino">%s %s</string>
 
     <!-- Erros -->
     <string name="erro_carrega_lista_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
