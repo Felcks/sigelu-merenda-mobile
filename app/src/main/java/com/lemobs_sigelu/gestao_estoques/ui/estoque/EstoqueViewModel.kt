@@ -42,11 +42,19 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
             .subscribe(
                 { result ->
                     loading.set(false)
-                    isError.set(false)
 
-                    this.quantidadeItemEstoque = result.size
-                    listaItemEstoque.addAll(result)
-                    response.setValue(Response.success(result))
+                    if(result.isNotEmpty()){
+                        isError.set(false)
+
+                        this.quantidadeItemEstoque = result.size
+                        listaItemEstoque.addAll(result)
+                        response.setValue(Response.success(result))
+                    }
+                    else{
+                        isError.set(true)
+                        response.setValue(Response.empty())
+                    }
+
                 },
                 { throwable ->
                     loading.set(false)

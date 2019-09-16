@@ -27,7 +27,9 @@
                         app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
 
                 <include layout="@layout/progressbar_carregamento"
-                         android:id="@+id/ll_loading"/>
+                         android:id="@+id/ll_loading"
+                        app:isVisible="@{viewModel.loading}"
+                        />
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_lista"

@@ -30,6 +30,8 @@ class EstoqueActivity: AppCompatActivity() {
 
     var quantidadeCarregamentoNucleoQuantidade = 0
 
+    var tvErro: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -45,8 +47,8 @@ class EstoqueActivity: AppCompatActivity() {
 
         viewModel!!.carregaListaItemEstoque()
 
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro.text = resources.getString(R.string.erro_carrega_estoque)
+        tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_estoque)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaItemEstoque()
@@ -55,9 +57,7 @@ class EstoqueActivity: AppCompatActivity() {
 
     private fun processResponse(response: Response?) {
         when (response?.status) {
-            Status.LOADING -> {
-                pgb_carregamento.visibility = View.VISIBLE
-            }
+            Status.LOADING -> { }
             Status.SUCCESS -> {
 
                 if(response.data is ItemEstoque){
@@ -72,7 +72,9 @@ class EstoqueActivity: AppCompatActivity() {
 
             }
             Status.ERROR -> {
-                pgb_carregamento.visibility = View.GONE
+            }
+            Status.EMPTY_RESPONSE -> {
+                tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
             }
         }
     }
