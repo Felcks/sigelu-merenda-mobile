@@ -22,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.databinding.ActivityConfirmaPedidoBindi
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_confirma_pedido.*
 import kotlinx.android.synthetic.main.activity_login.view.*
@@ -166,7 +167,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             "Por favor, espere...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvio(result: Any?){
 
         progressDialog?.dismiss()
@@ -185,7 +186,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvio(error: Throwable?){
 
         progressDialog?.dismiss()

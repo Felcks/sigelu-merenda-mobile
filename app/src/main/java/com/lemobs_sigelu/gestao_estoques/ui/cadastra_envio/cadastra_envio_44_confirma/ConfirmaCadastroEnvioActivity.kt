@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.CadastraEnvioViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastro_envio.*
@@ -98,7 +99,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
             "Por favor, aguarde...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvio(result: Any?){
 
         progressDialog?.dismiss()
@@ -117,7 +118,7 @@ class ConfirmaCadastroEnvioActivity: AppCompatActivity() {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvio(error: Throwable?){
 
         progressDialog?.dismiss()

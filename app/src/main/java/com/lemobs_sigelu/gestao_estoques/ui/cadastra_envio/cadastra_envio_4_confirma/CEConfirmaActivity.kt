@@ -22,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -168,7 +169,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
             "Por favor, espere...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvio(result: Any?){
 
         progressDialog?.dismiss()
@@ -187,7 +188,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvio(error: Throwable?){
 
         progressDialog?.dismiss()

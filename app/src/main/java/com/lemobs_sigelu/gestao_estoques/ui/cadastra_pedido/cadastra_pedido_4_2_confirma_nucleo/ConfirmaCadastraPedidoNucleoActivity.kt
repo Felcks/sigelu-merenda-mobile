@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_cadastra_pedido_nucleo.*
@@ -165,7 +166,7 @@ class ConfirmaCadastraPedidoNucleoActivity: AppCompatActivity() {
             "Por favor, espere...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvio(result: Any?){
 
         progressDialog?.dismiss()
@@ -184,7 +185,7 @@ class ConfirmaCadastraPedidoNucleoActivity: AppCompatActivity() {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvio(error: Throwable?){
 
         progressDialog?.dismiss()

@@ -35,12 +35,14 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadas
 import com.lemobs_sigelu.gestao_estoques.ui.estoque.EstoqueActivity
 import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.ControladorFonte
 import com.lemobs_sigelu.gestao_estoques.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
+import kotlinx.android.synthetic.main.dialogo_padrao.*
 import javax.inject.Inject
 
 class ListaPedidoActivity: AppCompatActivity() {
@@ -281,7 +283,7 @@ class ListaPedidoActivity: AppCompatActivity() {
     }
 
     private fun showDuvidaDeslogarUsuario(){
-        DialogUtil.buildAlertDialogOkCancel(this,
+        val alertDialogView = DialogUtil.buildAlertDialogOkCancel(this,
             "Sair do aplicativo",
             "Tem certeza que deseja sair do aplicativo?",
             {
@@ -297,10 +299,16 @@ class ListaPedidoActivity: AppCompatActivity() {
             {
 
             },
-            cancelavel = false).show()
+            cancelavel = false)
+
+        alertDialogView.view.findViewById<View>(R.id.btn_close).setOnClickListener {
+            alertDialogView.alertDialog.dismiss()
+        }
+
+        alertDialogView.show()
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun showSucessoDeslogouUsuario(){
 
         progressDialog?.dismiss()
@@ -318,7 +326,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun showFalhaDeslogouUsuario(mensagem: String){
 
         progressDialog?.dismiss()

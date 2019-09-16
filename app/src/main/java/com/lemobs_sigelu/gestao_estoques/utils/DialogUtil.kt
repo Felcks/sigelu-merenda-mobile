@@ -11,6 +11,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.widget.ProgressBar
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 
 
 class DialogUtil {
@@ -88,7 +89,7 @@ class DialogUtil {
                 positiveButtonAcao: () -> Unit,
                 negativeButtonTextId: Int? = null,
                 negativeButtonAcao: () -> Unit,
-                cancelavel: Boolean = false): AlertDialog {
+                cancelavel: Boolean = false): AlertDialogView {
 
             val positiveButtonOnClickListener = DialogInterface.OnClickListener { _, _ -> positiveButtonAcao() }
             val negativeButtonClickListener = DialogInterface.OnClickListener { _, _ ->  negativeButtonAcao() }
@@ -101,10 +102,6 @@ class DialogUtil {
 
             alertDialogBuilder.setView(view)
 
-            view.findViewById<View>(R.id.btn_close).setOnClickListener {
-                negativeButtonAcao()
-            }
-
             if(positiveButtonTextId != null)
                 alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
             if(negativeButtonTextId != null)
@@ -112,7 +109,7 @@ class DialogUtil {
 
             alertDialogBuilder.setCancelable(cancelavel)
 
-            return alertDialogBuilder.create()
+            return AlertDialogView(alertDialogBuilder.create(), view)
         }
 
         fun buildAlertDialogOkCancel(
@@ -121,7 +118,7 @@ class DialogUtil {
                 mensagem: String,
                 positiveButtonAcao: () -> Unit,
                 negativeButtonAcao: () -> Unit,
-                cancelavel: Boolean = true): AlertDialog {
+                cancelavel: Boolean = true): AlertDialogView {
 
             return buildAlertDialog(activity, titulo, mensagem, R.string.dialogo_button_ok, positiveButtonAcao, R.string.dialogo_button_cancel, negativeButtonAcao, cancelavel)
         }
@@ -132,7 +129,7 @@ class DialogUtil {
             mensagem: String,
             positiveButtonAcao: () -> Unit,
             negativeButtonAcao: () -> Unit,
-            cancelavel: Boolean = true): AlertDialog {
+            cancelavel: Boolean = true): AlertDialogView {
 
             return buildAlertDialog(activity, titulo, mensagem, R.string.dialogo_button_sim, positiveButtonAcao, R.string.dialogo_button_nao, negativeButtonAcao, cancelavel)
         }
@@ -142,7 +139,7 @@ class DialogUtil {
                 titulo: String,
                 mensagem: String,
                 positiveButtonAcao: () -> Unit,
-                cancelavel: Boolean = true): AlertDialog {
+                cancelavel: Boolean = true): AlertDialogView {
 
             return buildAlertDialog(activity, titulo, mensagem, R.string.dialogo_button_ok,  positiveButtonAcao, null, {}, cancelavel)
         }

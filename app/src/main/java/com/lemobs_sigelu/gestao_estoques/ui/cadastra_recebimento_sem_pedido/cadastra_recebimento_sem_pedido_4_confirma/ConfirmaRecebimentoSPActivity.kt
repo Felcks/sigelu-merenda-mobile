@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_pedido.CadastraRecebimentoSemPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_confirma_recebimento_sp.*
@@ -109,7 +110,7 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
             "Por favor, espere...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvioRecebimento(result: Any?){
 
         progressDialog?.dismiss()
@@ -127,7 +128,7 @@ class ConfirmaRecebimentoSPActivity: AppCompatActivity() {
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvioRecebimento(error: Throwable?){
 
         progressDialog?.dismiss()

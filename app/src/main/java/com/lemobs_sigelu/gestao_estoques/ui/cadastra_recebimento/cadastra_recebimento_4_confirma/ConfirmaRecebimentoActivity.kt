@@ -20,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.CadastraRecebim
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualiza_materiais_cadastrados.*
@@ -105,7 +106,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
             "Por favor, espere...")
     }
 
-    var sucessDialog: AlertDialog? = null
+    var sucessDialog: AlertDialogView? = null
     private fun renderSucessoEnvioRecebimento(result: Any?){
 
         progressDialog?.dismiss()
@@ -123,7 +124,7 @@ class ConfirmaRecebimentoActivity: AppCompatActivity(){
         this.sucessDialog?.show()
     }
 
-    var errorDialog: AlertDialog? = null
+    var errorDialog: AlertDialogView? = null
     private fun renderErrorEnvioRecebimento(error: Throwable?){
 
         progressDialog?.dismiss()
