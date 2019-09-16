@@ -71,8 +71,7 @@
         <include layout="@layout/progressbar_carregamento"
                 android:id="@+id/ll_loading"
                 android:visibility="visible"
-                app:isVisible="@{viewModel.loading}"
-                />
+                app:isVisible="@{viewModel.loading}" />
 
         <include
                 layout="@layout/layout_error_with_refresh"

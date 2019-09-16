@@ -41,12 +41,14 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
             .subscribe(
                 { result ->
                     loading.set(false)
-                    isError.set(false)
+
                     if(result.isNotEmpty()) {
+                        isError.set(false)
                         response.setValue(Response.success(result))
                     }
                     else{
-                        response.setValue(Response.error(ListaVaziaException()))
+                        isError.set(true)
+                        response.setValue(Response.empty())
                     }
                 },
                 { throwable ->

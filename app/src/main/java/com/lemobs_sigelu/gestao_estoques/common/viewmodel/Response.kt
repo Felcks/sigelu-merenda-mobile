@@ -18,6 +18,10 @@ class Response(val status: Status,
         fun error(error: Throwable): Response {
             return Response(Status.ERROR, null, error)
         }
+
+        fun empty(): Response {
+            return Response(Status.EMPTY_RESPONSE, null, null)
+        }
     }
 
 

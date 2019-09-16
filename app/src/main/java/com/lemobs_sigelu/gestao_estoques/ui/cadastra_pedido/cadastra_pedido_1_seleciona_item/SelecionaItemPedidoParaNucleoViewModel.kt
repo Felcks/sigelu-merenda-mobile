@@ -36,11 +36,20 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
 
             try {
                 val retrived = controller.getListaItemEstoque()
-                loading.set(false)
-                isError.set(false)
 
-                val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
-                listaItemEstoque.postValue(Response.success(mapped))
+                loading.set(false)
+
+                if(retrived.isNotEmpty()) {
+
+                    isError.set(false)
+                    val mapped = retrived.map { ItemEstoqueDTO(it.id, it.nomeAlternativo) }
+                    listaItemEstoque.postValue(Response.success(mapped))
+                }
+                else{
+
+                    isError.set(true)
+                    listaItemEstoque.postValue(Response.empty())
+                }
             }
             catch (e: Exception){
                 loading.set(false)

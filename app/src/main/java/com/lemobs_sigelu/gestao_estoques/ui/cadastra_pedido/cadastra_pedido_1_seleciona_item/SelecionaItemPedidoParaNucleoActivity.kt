@@ -33,6 +33,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     private val viewModel: SelecionaItemPedidoParaNucleoViewModel by inject()
     private var adapter : ListaItemEstoqueAdapterSimples? = null
+    private var tvErro: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         val binding: ActivitySelecionaMaterialPedidoOriginalBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_seleciona_material_pedido_original)
-        binding.viewModel = viewModel!!
+        binding.viewModel = viewModel
         binding.executePendingBindings()
 
         carregaListaItemEstoque()
@@ -48,8 +49,8 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
 
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
+        tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.refreshListaItemEstoque()
@@ -88,17 +89,11 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
     fun processResponse(response: Response){
 
         when(response.status){
-            Status.LOADING -> {
-                ll_loading.visibility = View.VISIBLE
-                rv_lista.visibility = View.GONE
-            }
+            Status.LOADING -> { }
             Status.ERROR -> {
-                ll_loading.visibility = View.GONE
-                rv_lista.visibility = View.GONE
+                tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
             }
             Status.SUCCESS -> {
-                ll_loading.visibility = View.GONE
-                rv_lista.visibility = View.VISIBLE
 
                 val layoutManager = LinearLayoutManager(applicationContext)
                 layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -109,6 +104,9 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                     this,
                     viewModel.getIDsDeItemAdicionados())
                 rv_lista.adapter = adapter
+            }
+            Status.EMPTY_RESPONSE -> {
+                tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
             }
         }
     }

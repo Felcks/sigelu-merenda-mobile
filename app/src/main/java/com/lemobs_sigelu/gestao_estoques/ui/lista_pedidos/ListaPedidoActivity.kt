@@ -61,6 +61,8 @@ class ListaPedidoActivity: AppCompatActivity() {
     /* Menu */
     private var menu: Menu? = null
 
+    var tvErro: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -94,8 +96,8 @@ class ListaPedidoActivity: AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro.text = resources.getString(R.string.erro_carrega_lista_pedido)
+        tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_lista_pedido)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaPedido()
@@ -158,6 +160,7 @@ class ListaPedidoActivity: AppCompatActivity() {
             Status.LOADING -> renderLoadingState()
             Status.SUCCESS -> renderDataState(response.data)
             Status.ERROR -> renderErrorState(response.error)
+            Status.EMPTY_RESPONSE -> tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
         }
     }
 
