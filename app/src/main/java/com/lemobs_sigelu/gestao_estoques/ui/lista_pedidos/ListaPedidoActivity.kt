@@ -301,10 +301,6 @@ class ListaPedidoActivity: AppCompatActivity() {
             },
             cancelavel = false)
 
-        alertDialogView.view.findViewById<View>(R.id.btn_close).setOnClickListener {
-            alertDialogView.alertDialog.dismiss()
-        }
-
         alertDialogView.show()
     }
 

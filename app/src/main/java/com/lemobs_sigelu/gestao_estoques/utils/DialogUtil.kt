@@ -102,14 +102,14 @@ class DialogUtil {
 
             alertDialogBuilder.setView(view)
 
-            if(positiveButtonTextId != null)
-                alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
-            if(negativeButtonTextId != null)
-                alertDialogBuilder.setNegativeButton(negativeButtonTextId, negativeButtonClickListener)
+//            if(positiveButtonTextId != null)
+//                alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
+//            if(negativeButtonTextId != null)
+//                alertDialogBuilder.setNegativeButton(negativeButtonTextId, negativeButtonClickListener)
 
             alertDialogBuilder.setCancelable(cancelavel)
 
-            return AlertDialogView(alertDialogBuilder.create(), view)
+            return AlertDialogView(alertDialogBuilder.create(), view, positiveButtonAcao, negativeButtonAcao)
         }
 
         fun buildAlertDialogOkCancel(
