@@ -102,13 +102,31 @@ class DialogUtil {
 
             alertDialogBuilder.setView(view)
 
+            val positiveText = view.findViewById<TextView>(R.id.tv_ok)
+            val positiveButton = view.findViewById<View>(R.id.btn_ok)
+
+            val negativeText = view.findViewById<TextView>(R.id.tv_cancel)
+            val negativeButton = view.findViewById<View>(R.id.btn_cancel)
+
+            if(positiveButtonTextId != null)
+                positiveText.setText(positiveButtonTextId)
+            else
+                positiveButton.visibility = View.GONE
+
+            if(negativeButtonTextId != null)
+                negativeText.setText(negativeButtonTextId)
+            else
+                negativeButton.visibility = View.GONE
+
+            if(!cancelavel)
+                view.findViewById<View>(R.id.btn_close).visibility = View.GONE
+
 //            if(positiveButtonTextId != null)
 //                alertDialogBuilder.setPositiveButton(positiveButtonTextId, positiveButtonOnClickListener)
 //            if(negativeButtonTextId != null)
 //                alertDialogBuilder.setNegativeButton(negativeButtonTextId, negativeButtonClickListener)
 
             alertDialogBuilder.setCancelable(cancelavel)
-
             return AlertDialogView(alertDialogBuilder.create(), view, positiveButtonAcao, negativeButtonAcao)
         }
 
