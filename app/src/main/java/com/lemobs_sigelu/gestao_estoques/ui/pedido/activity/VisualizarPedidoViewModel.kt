@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
@@ -11,8 +12,12 @@ import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): ViewModel(){
+class VisualizarPedidoViewModel(private val controller: VisualizaPedidoController): ViewModel(){
 
     private val disposables = CompositeDisposable()
     var response = MutableLiveData<Response>()
@@ -213,6 +218,19 @@ class VisualizarPedidoViewModel(val controller: VisualizaPedidoController): View
             return false
 
         return pedido!!.isPedidoEditavel()
+    }
+
+    fun cancelaPedido(){
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            try{
+                controller.cancelaPedido()
+            }
+            catch (e: Exception){
+                Toast.makeText(App.instance, "Erro ao cancelar pedido", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun editaPedido(){

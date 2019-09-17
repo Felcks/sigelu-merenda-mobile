@@ -148,4 +148,8 @@ interface IRestApi {
     @GET("estoque/nucleo/{nucleo_id}/item")
     fun getListaItemEstoqueDeNucleo(@Header("Authorization") auth: String,
                                     @Path("nucleo_id") nucleo_id: Int): Call<List<ItemEstoqueDataResponse>>
+
+    @PATCH("pedido-estoque/{pedido_estoque_id}/cancelar")
+    suspend fun cancelaPedido(@Header("Authorization") auth: String,
+                              @Path("pedido_estoque_id") pedido_estoque_id: Int): Unit
 }

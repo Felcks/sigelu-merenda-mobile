@@ -213,4 +213,8 @@ class RestApi {
     fun getListaItemEstoqueDeNucleo(nucleoID: Int): Call<List<ItemEstoqueDataResponse>>{
         return api.getListaItemEstoqueDeNucleo(auth, nucleoID)
     }
+
+    suspend fun cancelaPedido(pedidoEstoqueID: Int){
+        return api.cancelaPedido(auth, pedidoEstoqueID)
+    }
 }

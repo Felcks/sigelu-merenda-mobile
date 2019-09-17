@@ -172,7 +172,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
                     "Cancelar Pedido",
                     "Tem certeza que deseja cancelar esse pedido?",
-                    {},
+                    {
+                        viewModel!!.cancelaPedido()
+                    },
                     {}
                 ).show()
             }
@@ -180,6 +182,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         
         return super.onOptionsItemSelected(item)
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

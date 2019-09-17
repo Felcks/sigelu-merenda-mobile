@@ -332,4 +332,8 @@ open class PedidoRepository {
 //            pedido.movimento.origem.tipo.id
 //        )
     }
+
+    suspend fun cancelaPedido(pedidoEstoqueID: Int){
+        return api.cancelaPedido(pedidoEstoqueID)
+    }
 }

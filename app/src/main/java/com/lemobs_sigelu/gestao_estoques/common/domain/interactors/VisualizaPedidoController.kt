@@ -78,4 +78,9 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
     fun getListaItemRecebimento(recebimentoID: Int): Observable<List<ItemRecebimento>>{
         return itemRecebimentoRepository2.getListaItemRecebimento(recebimentoID)
     }
+
+    suspend fun cancelaPedido() {
+        val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
+        return pedidoRepository.cancelaPedido(pedidoEstoqueID)
+    }
 }
