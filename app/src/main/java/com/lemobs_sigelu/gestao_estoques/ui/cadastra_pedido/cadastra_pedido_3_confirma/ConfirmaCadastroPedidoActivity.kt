@@ -49,15 +49,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         val pedido = viewModel.getPedido()
         tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
         tv_destino.text = String.format(getString(R.string.layout_destino), pedido.movimento.destino.tipo.name, pedido.movimento.destino.nome)
-//        if(pedido?.origemTipo == "Fornecedor"){
-//            tv_contrato.visibility = View.VISIBLE
-//            tv_contrato_layout.visibility = View.VISIBLE
-//            tv_contrato.text = pedido.contratoEstoque?.numeroContrato
-//        }
-//
-//        if(pedido?.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
-//            btn_salva_rascunho.visibility = View.GONE
-//        }
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
@@ -93,6 +84,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             Status.LOADING -> {}
             Status.SUCCESS -> renderDataState(response.data)
             Status.ERROR -> {}
+            else -> {}
         }
     }
 
@@ -108,6 +100,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             Status.LOADING -> renderLoadingStateRascunho()
             Status.SUCCESS -> renderSucessoRascunho(response.data)
             Status.ERROR ->renderErroRascunho(response.error)
+            else -> {}
         }
     }
 

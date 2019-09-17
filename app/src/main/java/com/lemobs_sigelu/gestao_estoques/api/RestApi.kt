@@ -20,15 +20,14 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedid
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
-import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Response
@@ -164,6 +163,10 @@ class RestApi {
 
     fun getListaNucleoQuantidadeDeItemEstoque(itemEstoqueID: Int): Call<List<NucleoQuantidadeDeItemEstoqueDataResponse>>{
         return api.getListaNucleoQuantidadeDeItemEstoque(auth, itemEstoqueID)
+    }
+
+    suspend fun postPedido(pedidoDataRequest: PedidoDataRequest): Unit{
+        return api.postPedidoNucleoObra2(auth, pedidoDataRequest)
     }
 
     /* Pedido fornecedor-nucleo */

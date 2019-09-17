@@ -2,10 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.ItemPedidoCadastroDataRequest
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
@@ -319,5 +316,12 @@ open class PedidoRepository {
             }
 
         }
+    }
+
+    suspend fun enviaPedido(pedido: Pedido2){
+
+//        val pedidoDataRequest = PedidoDataRequest(
+//            pedido.movimento.origem.tipo.id
+//        )
     }
 }

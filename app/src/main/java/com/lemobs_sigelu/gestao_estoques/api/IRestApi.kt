@@ -18,12 +18,11 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedid
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
-import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -123,6 +122,10 @@ interface IRestApi {
     @POST("pedido-estoque")
     fun postPedidoNucleoObra(@Header("Authorization") auth: String,
                              @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>
+
+    @POST("pedido-estoque")
+    suspend fun postPedidoNucleoObra2(@Header("Authorization") auth: String,
+                                      @Body pedidoRequest: PedidoDataRequest): Unit
 
     @PUT("pedido-estoque/{pedido_estoque_id}")
     fun putPedidoNucleoObra(@Header("Authorization") auth: String,

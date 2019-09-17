@@ -11,6 +11,11 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExecutorCoroutineDispatcher
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraPedidoModel): ViewModel() {
 
@@ -58,7 +63,18 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
         cadastraPedidoModel.cancelaPedido()
     }
 
-    fun enviaPedido(){}
+    fun enviaPedido(){
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            try {
+                cadastraPedidoModel.enviaPedido()
+            }
+            catch (e: Exception){
+
+            }
+        }
+    }
 
     fun salvaRascunho(){}
 
