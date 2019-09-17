@@ -43,6 +43,8 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     private var quantidadeEnviosCarregando = 0
     private var quantidadeDeEnvios = 0
 
+    private var cancelamentoPedidoResponse = MutableLiveData<Response>()
+
     override fun onCleared() {
         disposables.clear()
     }
@@ -50,6 +52,8 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     fun response(): MutableLiveData<Response> {
         return response
     }
+
+    fun cancelamentoPedidoResponse() = cancelamentoPedidoResponse
 
     fun envios(): MutableList<Envio> {
         return envios
@@ -222,13 +226,17 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
 
     fun cancelaPedido(){
 
+        cancelamentoPedidoResponse.postValue(Response.loading())
+
         CoroutineScope(Dispatchers.IO).launch {
 
             try{
                 controller.cancelaPedido()
+                cancelamentoPedidoResponse.postValue(Response.success(""))
+
             }
             catch (e: Exception){
-                Toast.makeText(App.instance, "Erro ao cancelar pedido", Toast.LENGTH_SHORT).show()
+                cancelamentoPedidoResponse.postValue(Response.error(Throwable()))
             }
         }
     }

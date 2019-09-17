@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
+import android.app.ProgressDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -28,6 +29,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_material_fragment.ListaMaterialFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
+import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
@@ -48,6 +50,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
+        viewModel!!.cancelamentoPedidoResponse().observe(this, Observer<Response> { response -> processResponseCancelamentoPedido(response) })
         viewModel!!.carregarPedido()
 
         val mainBinding: ActivityVisualizarPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_visualizar_pedido)
@@ -157,6 +160,58 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         }
     }
 
+    fun processResponseCancelamentoPedido(response: Response?) {
+        when (response?.status) {
+            Status.LOADING -> renderLoadingStateCancelamentoPedido()
+            Status.SUCCESS -> renderSucessoCancelamentoPedido(response.data)
+            Status.ERROR -> renderErrorCancelamentoPedido(response.error)
+            else -> { }
+        }
+    }
+
+    var progressDialog: ProgressDialog? = null
+    private fun renderLoadingStateCancelamentoPedido() {
+
+        progressDialog = DialogUtil.buildDialogCarregamento(this,
+            "Cancelando pedido",
+            "Por favor, espere...")
+    }
+
+    var sucessDialog: AlertDialogView? = null
+    private fun renderSucessoCancelamentoPedido(result: Any?){
+
+        progressDialog?.dismiss()
+
+        val activity = this
+        this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
+            "Sucesso",
+            "Pedido cancelado com sucesso!",
+            {
+                val intent = Intent(activity, VisualizarPedidoActivity::class.java)
+                startActivity(intent)
+                this.finish()
+            },
+            false)
+
+        this.sucessDialog?.show()
+    }
+
+    var errorDialog: AlertDialogView? = null
+    private fun renderErrorCancelamentoPedido(error: Throwable?){
+
+        progressDialog?.dismiss()
+
+        this.errorDialog = DialogUtil.buildAlertDialogOk(this,
+            "Erro",
+            "Ocorreu um erro ao cancelar o Pedido. Contate o administrador do sistema.",
+            {
+
+            },
+            true)
+
+        this.errorDialog?.show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -182,8 +237,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         
         return super.onOptionsItemSelected(item)
     }
-
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
