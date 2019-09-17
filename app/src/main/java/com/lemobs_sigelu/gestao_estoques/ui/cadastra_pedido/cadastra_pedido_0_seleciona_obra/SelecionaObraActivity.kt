@@ -35,10 +35,15 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
+
+        layout_passos.setFluxo(viewModel.getFluxo())
+        viewModel.getFluxo().incrimentaPassoAtual()
+        layout_passos.atualiza()
     }
 
     override fun clicouAnterior() {
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun clicouProximo(){
@@ -84,7 +89,6 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
             }
             override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -16,41 +16,22 @@
             android:id="@+id/ll_all"
             android:background="@android:color/white">
 
-        <LinearLayout
-                android:id="@+id/linear_layout_passos"
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.PassosConstraintLayout
+                android:id="@+id/layout_passos"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/top_bar_height"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/layout_bar">
+                app:layout_constraintLeft_toLeftOf="parent" />
 
-            <TextView
-                    android:id="@+id/tv_passos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/passo3"
-                    android:layout_margin="12dp"
-                    android:layout_weight="1"
-                    android:textSize="18sp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/proximo_confirmar"
-                    android:layout_margin="12dp"
-                    android:textSize="18sp"/>
-        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/espacamento_medio"
                 android:padding="@dimen/espacamento_grande"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout_passos"
+                app:layout_constraintTop_toBottomOf="@+id/layout_passos"
                 app:layout_constraintBottom_toTopOf="@+id/ll_bottom_bar"
-                app:layout_constraintLeft_toLeftOf="@+id/linear_layout_passos"
+                app:layout_constraintLeft_toLeftOf="@+id/layout_passos"
                 app:layout_constraintRight_toRightOf="parent"
                 >
 

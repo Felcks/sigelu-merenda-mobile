@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoMovimento
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -41,5 +42,9 @@ class SelecionaTipoPedidoViewModel (private val controller: CadastraPedidoModel)
             //Não inicia RM pois a obra ainda não foi definida
             proximaTela.value = Response.success(Intent(App.instance, SelecionaObraActivity::class.java))
         }
+    }
+
+    fun getFluxo(): Fluxo {
+        return controller
     }
 }

@@ -42,4 +42,6 @@ class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedid
             listaMaterialRecebido.map { it.quantidadeRecebida })
 
     }
+
+    fun getFluxo() = cadastraPedidoModel
 }

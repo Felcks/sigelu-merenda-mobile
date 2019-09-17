@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -70,4 +71,6 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
     fun confirmaSelecaoItens(listaAdicao: List<Int>, listaRemocao: List<Int>){
         controller.selecionaListaMaterial(listaAdicao, listaRemocao)
     }
+
+    fun getFluxo(): Fluxo = controller
 }

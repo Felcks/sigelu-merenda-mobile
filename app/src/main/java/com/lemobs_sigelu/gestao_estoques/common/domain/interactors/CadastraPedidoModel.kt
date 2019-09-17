@@ -5,7 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Material
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 
-interface CadastraPedidoModel {
+interface CadastraPedidoModel: Fluxo {
 
     fun iniciaRMParaEstoque()
     fun iniciaRMParaObra(obraID: Int)
@@ -22,9 +22,6 @@ interface CadastraPedidoModel {
     fun getPedido(): Pedido2
     fun confirmaPedido(observacao: String)
     suspend fun enviaPedido()
-
-    fun getTextoPassoAtual(): String
-    fun getTextoProximoPasso(): String
 
     suspend fun getListaItemEstoque(): List<ItemEstoque>
     suspend fun getListaObra(): List<Obra>?

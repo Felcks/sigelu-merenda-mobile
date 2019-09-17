@@ -39,4 +39,6 @@ class SelecionaObraViewModel(private val controller: CadastraPedidoModel): ViewM
     fun setPosObraSelecionada(pos: Int){
         posObraSelecionada = pos
     }
+
+    fun getFluxo() = controller
 }

@@ -54,6 +54,10 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_add.setOnClickListener { clicouAnterior() }
+
+        layout_passos.setFluxo(viewModel.getFluxo())
+        viewModel.getFluxo().incrimentaPassoAtual()
+        layout_passos.atualiza()
     }
 
     private fun iniciaListaAdapter(lista: List<MaterialDTO>){
@@ -109,6 +113,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -30,6 +30,11 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.proximaTela().observe(this, Observer<Response> { response -> observarMudancaDeTela(response) })
         ll_layout_anterior.setOnClickListener { clicouAnterior() }
         ll_layout_proximo.setOnClickListener { clicouProximo() }
+
+        layout_passos.setFluxo(viewModel.getFluxo())
+        viewModel.getFluxo().setPassoAtual(1)
+        viewModel.getFluxo().setMaximoPasso(5)
+        layout_passos.atualiza()
     }
 
     override fun clicouProximo() {
@@ -58,16 +63,16 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     fun clickPrimeiroRadioButton(v: View){
         rb_opcao_2.isChecked = false
         rb_opcao_3.isChecked = false
-        tv_proximo.text = "Próximo: Materiais"
-        tv_passos.text = "Passo 1 de 4"
+        viewModel.getFluxo().setMaximoPasso(5)
+        layout_passos.atualiza()
         viewModel.selecionaTipoPedido(0)
     }
 
     fun clickSegundoRadioButton(v: View){
         rb_opcao_1.isChecked = false
         rb_opcao_3.isChecked = false
-        tv_proximo.text = "Próximo: Obras"
-        tv_passos.text = "Passo 1 de 5"
+        viewModel.getFluxo().setMaximoPasso(4)
+        layout_passos.atualiza()
         viewModel.selecionaTipoPedido(1)
     }
 

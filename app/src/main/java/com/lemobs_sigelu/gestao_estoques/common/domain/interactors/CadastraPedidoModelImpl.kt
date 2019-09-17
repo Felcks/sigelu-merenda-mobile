@@ -16,7 +16,7 @@ class CadastraPedidoModelImpl(
     private var pedido: Pedido2? = null
     private var listaTodosItemEstoque: List<ItemEstoque>? = null
     private var listaTodasObra: List<Obra>? = null
-    private var passoAtual = 0
+    private var passoCorrente = 0
     private var quantidadePasso = 0
 
     override fun iniciaRMParaEstoque() {
@@ -160,7 +160,6 @@ class CadastraPedidoModelImpl(
         //TODO
     }
 
-
     override fun cancelaPedido() {}
 
     override fun getPedido(): Pedido2 {
@@ -177,23 +176,38 @@ class CadastraPedidoModelImpl(
         return listaTodasObra
     }
 
-    override fun getTextoPassoAtual(): String {
-
-        if(quantidadePasso == 0){
-            return "Passo $passoAtual de ?"
-        }
-
-        return "Passo $passoAtual de $quantidadePasso"
-    }
-
     override fun getTextoProximoPasso(): String {
 
-        return when(passoAtual){
-            0 -> "Próximo: ?"
-            1 -> "Materais"
-            2 -> "Quantidades"
-            3 -> "Confirmar"
+        return when(passoCorrente){
+            1 -> if(quantidadePasso != 4) "Materiais" else "Obras"
+            2 -> if(quantidadePasso != 4) "Quantidade" else "Materiais"
+            3 -> if(quantidadePasso != 4) "Confirmar" else "Quantidades"
+            4 -> if(quantidadePasso != 4) "" else "Confirmar"
             else -> ""
         }
+    }
+
+    override fun getPassoAtual(): Int {
+        return passoCorrente
+    }
+
+    override fun setPassoAtual(value: Int) {
+        this.passoCorrente  = value
+    }
+
+    override fun getMaximoPasso(): Int {
+        return quantidadePasso
+    }
+
+    override fun setMaximoPasso(value: Int) {
+        this.quantidadePasso = value
+    }
+
+    override fun incrimentaPassoAtual() {
+        this.passoCorrente += 1
+    }
+
+    override fun decrementaPassoAtual() {
+        this.passoCorrente -= 1
     }
 }

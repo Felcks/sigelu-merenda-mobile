@@ -55,6 +55,10 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.refreshListaItemEstoque()
         }
+
+        layout_passos.setFluxo(viewModel.getFluxo())
+        viewModel.getFluxo().incrimentaPassoAtual()
+        layout_passos.atualiza()
     }
 
     private fun carregaListaItemEstoque(){
@@ -79,6 +83,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun clicouAnterior() {
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onResume() {

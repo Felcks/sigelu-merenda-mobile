@@ -17,39 +17,20 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:background="@android:color/white">
 
-        <LinearLayout
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.PassosConstraintLayout
+                android:id="@+id/layout_passos"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/top_bar_height"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/layout_bar"
-                android:id="@+id/linearLayout">
-            <TextView
-                    android:id="@+id/tv_passos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/passo2"
-                    android:layout_margin="@dimen/espacamento_grande"
-                    android:layout_weight="1"
-                    android:textSize="18sp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/proximo_quantidades"
-                    android:layout_margin="@dimen/espacamento_grande"
-                    android:textSize="18sp"/>
-
-        </LinearLayout>
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ll_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout"
+                app:layout_constraintLeft_toLeftOf="@id/layout_passos"
+                app:layout_constraintTop_toBottomOf="@id/layout_passos"
                 android:text="@string/info_pedido"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
