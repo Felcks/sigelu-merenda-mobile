@@ -29,3 +29,19 @@ const val SITUACAO_ENTREGUE_ID = 7
 /* Formato Mascara */
 const val MASCARA_HORARIO = "##:##"
 const val MASCARA_DATA = "##/##/####"
+
+/* Tipo Origem */
+const val TIPO_LOCAL_ALMOXARIFADO = 1
+const val TIPO_LOCAL_NUCLEO = 2
+const val TIPO_LOCAL_OBRA = 3
+
+
+/* Tipo Estoque */
+const val TIPO_ESTOQUE_ALMOXARIFADO = 1
+const val TIPO_ESTOQUE_NUCLEO = 2
+const val TIPO_ESTOQUE_OBRA = 3
+
+/* Nomes */
+const val NOME_ALMOXARIFADO = "Almoxarifado"
+const val NOME_NUCLEO = "Núcleo"
+const val NOME_OBRA = "Obra"

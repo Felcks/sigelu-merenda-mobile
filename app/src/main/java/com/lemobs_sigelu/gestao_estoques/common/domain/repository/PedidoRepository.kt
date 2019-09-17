@@ -2,11 +2,13 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import retrofit2.Call
 import java.util.*
 
 open class PedidoRepository {
@@ -25,7 +27,7 @@ open class PedidoRepository {
 
         return Observable.create { subscribe ->
 
-            val callResponse = api.getPedido(pedidoEstoqueID)
+            val callResponse: Call<PedidoDataResponse> = api.getPedido(pedidoEstoqueID)
             val response = callResponse.execute()
 
             if(response.isSuccessful){
@@ -34,15 +36,19 @@ open class PedidoRepository {
 
                     data class Tupla(val id: Int?, val nome: String?)
 
-                    val (origemID, origemNome) = when(tipo_origem){
-                        "Fornecedor" -> Tupla(origem_fornecedor_id, origem_fornecedor?.nome)
-                        "Núcleo" -> Tupla(origem_nucleo_id, origem_nucleo?.nome)
+                    val (origemID, origemNome) = when(tipo_origem_id){
+
+
+                        TIPO_LOCAL_ALMOXARIFADO -> Tupla(origem_estoque_id, NOME_ALMOXARIFADO)
+                        TIPO_LOCAL_NUCLEO -> Tupla(origem_estoque_id, NOME_NUCLEO)
+                        TIPO_LOCAL_OBRA -> Tupla(origem_estoque_id, NOME_OBRA)
                         else -> Tupla(null, null)
                     }
 
-                    val (destinoID, destinoNome) = when(tipo_destino){
-                        "Núcleo" -> Tupla(destino_nucleo_id, destino_nucleo?.nome)
-                        "Obra" -> Tupla(destino_obra_direta_id, destino_obra_direta?.ordem_servico?.codigo)
+                    val (destinoID, destinoNome) = when(tipo_destino_id){
+
+                        TIPO_LOCAL_NUCLEO -> Tupla(destino_estoque_id, NOME_NUCLEO)
+                        TIPO_LOCAL_OBRA-> Tupla(destino_estoque_id, NOME_OBRA)
                         else -> Tupla(null, null)
                     }
 
@@ -56,8 +62,8 @@ open class PedidoRepository {
                     Pedido(
                         this.id,
                         this.codigo ?: "",
-                        this.tipo_origem ?: "",
-                        this.tipo_destino ?: "",
+                        origemNome ?: "",
+                        destinoNome ?: "",
                         origemID,
                         destinoID,
                         origemNome,
@@ -93,8 +99,6 @@ open class PedidoRepository {
                 pedido.contrato = contrato
 
                 this.salvaPedidoBD(pedido)
-//                val pedidoBD = this.getPedidoBD(pedidoEstoqueID)!!
-//                pedidoBD.contrato = contrato
                 subscribe.onNext(pedido)
                 subscribe.onComplete()
             }
@@ -132,15 +136,19 @@ open class PedidoRepository {
 
                     data class Tupla(val id: Int?, val nome: String?)
 
-                    val (origemID, origemNome) = when(it.tipo_origem){
-                        "Fornecedor" -> Tupla(it.origem_fornecedor_id, it.origem_fornecedor?.nome)
-                        "Núcleo" -> Tupla(it.origem_nucleo_id, it.origem_nucleo.nome)
+                    val (origemID, origemNome) = when(it.tipo_origem_id){
+
+
+                        TIPO_LOCAL_ALMOXARIFADO -> Tupla(it.origem_estoque_id, NOME_ALMOXARIFADO)
+                        TIPO_LOCAL_NUCLEO -> Tupla(it.origem_estoque_id, NOME_NUCLEO)
+                        TIPO_LOCAL_OBRA -> Tupla(it.origem_estoque_id, NOME_OBRA)
                         else -> Tupla(null, null)
                     }
 
-                    val (destinoID, destinoNome) = when(it.tipo_destino){
-                        "Núcleo" -> Tupla(it.destino_nucleo_id, it.destino_nucleo?.nome)
-                        "Obra" -> Tupla(it.destino_obra_direta_id, it.destino_obra_direta?.ordem_servico?.codigo)
+                    val (destinoID, destinoNome) = when(it.tipo_destino_id){
+
+                        TIPO_LOCAL_NUCLEO -> Tupla(it.destino_estoque_id, NOME_NUCLEO)
+                        TIPO_LOCAL_OBRA-> Tupla(it.destino_estoque_id, NOME_OBRA)
                         else -> Tupla(null, null)
                     }
 
@@ -154,8 +162,8 @@ open class PedidoRepository {
                     Pedido(
                         it.id,
                         it.codigo ?: "",
-                        it.tipo_origem ?: "",
-                        it.tipo_destino ?: "",
+                        origemNome ?: "",
+                        destinoNome ?: "",
                         origemID,
                         destinoID,
                         origemNome,

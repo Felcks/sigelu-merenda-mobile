@@ -2,9 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
 import androidx.room.*
 import com.lemobs_sigelu.gestao_estoques.App
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_RASCUNHO
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.getDataFormatada
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import java.lang.Exception
 import java.util.*
@@ -88,14 +86,14 @@ data class Pedido(
     }
 
     fun getOrigemFormatado() = when(origem){
-        "Núcleo" -> "${origem?.toUpperCase()} $origemNome"
-        "Fornecedor" -> "${origem?.toUpperCase()} $origemNome"
+        NOME_NUCLEO -> "$origemNome"
+        NOME_ALMOXARIFADO -> "$origemNome"
         else -> ""
     }
 
     fun getDestinoFormatado() = when(destino){
-        "Núcleo" -> "$destino $destinoNome"
-        "Obra" -> "OS - $destinoNome"
+        NOME_NUCLEO -> "$destinoNome"
+        NOME_OBRA -> "OS - $destinoNome"
         else -> ""
     }
 
