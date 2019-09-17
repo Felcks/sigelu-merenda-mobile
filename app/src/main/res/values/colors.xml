@@ -29,13 +29,13 @@
     <color name="layout_bar">#f5f5f5</color>
 
     <!-- Cores situação de pedido -->
-    <color name="pedido_em_analise">#d84315</color>
-    <color name="pedido_aprovado">#237a85</color>
-    <color name="pedido_entregue">#43a047</color>
-    <color name="pedido_reprovado">#990000</color>
-    <color name="pedido_parcial">#FFC107</color>
-    <color name="pedido_correcao_solicitada">#673AB7</color>
-    <color name="pedido_rascunho">#858585</color>
+    <color name="pedido_em_analise">#F68F18</color>
+    <color name="pedido_aprovado">#F68F18</color>
+    <color name="pedido_entregue">#009E4F</color>
+    <color name="pedido_reprovado">#AD120E</color>
+    <color name="pedido_parcial">#F68F18</color>
+    <color name="pedido_correcao_solicitada">#F68F18</color>
+    <color name="pedido_rascunho">#004F9E</color>
 
     <!-- Cores situação do material de pedido -->
     <color name="quantidade_aceita">#43a047</color>
