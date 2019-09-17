@@ -6,26 +6,22 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.lemobs_sigelu.gestao_estoques.R
 import android.util.AttributeSet
 import android.view.View
-import android.widget.TextView
-import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintSet
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
-import kotlinx.android.synthetic.main.layout_passos.view.*
+import kotlinx.android.synthetic.main.stepper_top.view.*
 
 
-class PassosConstraintLayout: ConstraintLayout {
+class TopStepper: ConstraintLayout {
 
     private var fluxo: Fluxo? = null
 
     init{
-        val view = LayoutInflater.from(context).inflate(R.layout.layout_passos, this, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.stepper_top, this, false)
         val set = ConstraintSet()
         addView(view)
 
         set.clone(this)
         set.match(view, this)
-
-
     }
 
     fun setFluxo(fluxo: Fluxo){

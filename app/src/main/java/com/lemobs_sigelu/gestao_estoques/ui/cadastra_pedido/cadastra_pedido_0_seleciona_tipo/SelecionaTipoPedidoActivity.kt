@@ -13,6 +13,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
@@ -28,13 +29,16 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         setContentView(R.layout.activity_seleciona_tipo_pedido)
 
         viewModel.proximaTela().observe(this, Observer<Response> { response -> observarMudancaDeTela(response) })
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
+        //ll_layout_anterior.setOnClickListener { clicouAnterior() }
+        //ll_layout_proximo.setOnClickListener { clicouProximo() }
 
         layout_passos.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
         viewModel.getFluxo().setPassoAtual(1)
-        viewModel.getFluxo().setMaximoPasso(5)
+        viewModel.getFluxo().setMaximoPasso(FluxoInfo.NUCLEO.maximoPassos)
         layout_passos.atualiza()
+        bottom_stepper.atualiza()
     }
 
     override fun clicouProximo() {
@@ -63,16 +67,18 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     fun clickPrimeiroRadioButton(v: View){
         rb_opcao_2.isChecked = false
         rb_opcao_3.isChecked = false
-        viewModel.getFluxo().setMaximoPasso(5)
+        viewModel.getFluxo().setMaximoPasso(FluxoInfo.NUCLEO.maximoPassos)
         layout_passos.atualiza()
+        bottom_stepper.atualiza()
         viewModel.selecionaTipoPedido(0)
     }
 
     fun clickSegundoRadioButton(v: View){
         rb_opcao_1.isChecked = false
         rb_opcao_3.isChecked = false
-        viewModel.getFluxo().setMaximoPasso(4)
+        viewModel.getFluxo().setMaximoPasso(FluxoInfo.OBRA.maximoPassos)
         layout_passos.atualiza()
+        bottom_stepper.atualiza()
         viewModel.selecionaTipoPedido(1)
     }
 

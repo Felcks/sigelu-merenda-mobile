@@ -5,6 +5,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepositor
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraPedidoModelImpl(
     private val usuarioModel: UsuarioModel,
@@ -179,10 +180,10 @@ class CadastraPedidoModelImpl(
     override fun getTextoProximoPasso(): String {
 
         return when(passoCorrente){
-            1 -> if(quantidadePasso != 4) "Materiais" else "Obras"
-            2 -> if(quantidadePasso != 4) "Quantidade" else "Materiais"
-            3 -> if(quantidadePasso != 4) "Confirmar" else "Quantidades"
-            4 -> if(quantidadePasso != 4) "" else "Confirmar"
+            1 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Materiais" else "Obras"
+            2 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Quantidade" else "Materiais"
+            3 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Confirmar" else "Quantidades"
+            4 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "" else "Confirmar"
             else -> ""
         }
     }
