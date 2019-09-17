@@ -47,13 +47,13 @@ class CadastraObraActivity:  AppCompatActivity() {
         viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.carregaListaObra()
 
-        ll_layout_anterior.setOnClickListener {
-            clicouNoAnterior()
-        }
-
-        ll_layout_proximo.setOnClickListener {
-            clicouNoProximo()
-        }
+//        ll_layout_anterior.setOnClickListener {
+//            clicouNoAnterior()
+//        }
+//
+//        ll_layout_proximo.setOnClickListener {
+//            clicouNoProximo()
+//        }
     }
 
     private fun clicouNoAnterior(){

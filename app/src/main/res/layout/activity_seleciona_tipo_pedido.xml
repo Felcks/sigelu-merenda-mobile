@@ -43,8 +43,8 @@
                     android:textSize="18sp"/>
         </LinearLayout>
 
-        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.TopStepper
-                android:id="@+id/layout_passos"
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.TopStepper
+                android:id="@+id/top_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@id/layout_passos"
+                app:layout_constraintTop_toBottomOf="@id/top_stepper"
                 android:text="@string/info_pedido"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
@@ -146,7 +146,7 @@
 <!--            </androidx.cardview.widget.CardView>-->
         </RadioGroup>
 
-        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.BottomStepper
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper
                 android:id="@+id/bottom_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -33,12 +33,19 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
-
-        layout_passos.setFluxo(viewModel.getFluxo())
         viewModel.getFluxo().incrimentaPassoAtual()
-        layout_passos.atualiza()
+        this.iniciaStepper()
+    }
+
+    fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouAnterior() {

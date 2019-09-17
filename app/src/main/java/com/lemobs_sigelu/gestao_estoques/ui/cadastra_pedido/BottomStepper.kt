@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo
+package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido
 
 import android.content.Context
 import android.util.AttributeSet
@@ -59,6 +59,14 @@ class BottomStepper: ConstraintLayout {
         else{
             tv_proximo.text = "PRÓXIMO"
         }
+    }
+
+    fun setProximoOnClickListener(func: () -> Unit){
+        ll_layout_proximo.setOnClickListener{ func() }
+    }
+
+    fun setAnteriorOnClickListener(func: () -> Unit){
+        ll_layout_anterior.setOnClickListener{ func() }
     }
 
     constructor(context: Context): super(context)

@@ -11,12 +11,13 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
+import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.bottom_stepper
+import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.ll_all
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
@@ -29,16 +30,22 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         setContentView(R.layout.activity_seleciona_tipo_pedido)
 
         viewModel.proximaTela().observe(this, Observer<Response> { response -> observarMudancaDeTela(response) })
-        //ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        //ll_layout_proximo.setOnClickListener { clicouProximo() }
-
-        layout_passos.setFluxo(viewModel.getFluxo())
-        bottom_stepper.setFluxo(viewModel.getFluxo())
 
         viewModel.getFluxo().setPassoAtual(1)
         viewModel.getFluxo().setMaximoPasso(FluxoInfo.NUCLEO.maximoPassos)
-        layout_passos.atualiza()
+
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
         bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouProximo() {
@@ -68,7 +75,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         rb_opcao_2.isChecked = false
         rb_opcao_3.isChecked = false
         viewModel.getFluxo().setMaximoPasso(FluxoInfo.NUCLEO.maximoPassos)
-        layout_passos.atualiza()
+        top_stepper.atualiza()
         bottom_stepper.atualiza()
         viewModel.selecionaTipoPedido(0)
     }
@@ -77,7 +84,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         rb_opcao_1.isChecked = false
         rb_opcao_3.isChecked = false
         viewModel.getFluxo().setMaximoPasso(FluxoInfo.OBRA.maximoPassos)
-        layout_passos.atualiza()
+        top_stepper.atualiza()
         bottom_stepper.atualiza()
         viewModel.selecionaTipoPedido(1)
     }

@@ -15,19 +15,19 @@
             android:background="@android:color/white"
             android:id="@+id/ll_all">
 
-        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.TopStepper
-                android:id="@+id/layout_passos"
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.TopStepper
+                android:id="@+id/top_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                />
+                app:layout_constraintLeft_toLeftOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ll_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/layout_passos"
-                app:layout_constraintTop_toBottomOf="@id/layout_passos"
+                app:layout_constraintLeft_toLeftOf="@id/top_stepper"
+                app:layout_constraintTop_toBottomOf="@id/top_stepper"
                 android:text="@string/info_pedido"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
@@ -69,122 +69,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper
+                android:id="@+id/bottom_stepper"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_bar_height"
-                android:orientation="horizontal"
-                android:background="@color/layout_bar"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:gravity="center"
-        >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ll_layout_anterior"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                <ImageView
-                        android:id="@+id/iv_seta_esquerda"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_left"
-                        android:layout_marginTop="@dimen/espacamento_curto"
-                        android:layout_marginLeft="@dimen/espacamento_curto"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/anterior"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
-                        android:layout_marginTop="@dimen/espacamento_curto"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_seta_esquerda"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_seta_esquerda"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/espacamento_curto"
-                    android:layout_marginLeft="@dimen/espacamento_minimo"
-                    android:layout_marginRight="@dimen/espacamento_minimo" >
-
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_flow_circle"
-                        android:layout_marginRight="@dimen/espacamento_medio"
-                />
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_filled_circle"
-                        android:layout_marginRight="@dimen/espacamento_medio"
-                />
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_flow_circle"
-                        android:layout_marginRight="@dimen/espacamento_medio"
-                />
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_flow_circle"
-                        android:layout_marginRight="@dimen/espacamento_medio"/>
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_flow_circle"
-                        android:layout_marginRight="@dimen/espacamento_medio"/>
-
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ll_layout_proximo"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                <ImageView
-                        android:id="@+id/iv_seta_direita"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_right"
-                        android:layout_marginTop="@dimen/espacamento_curto"
-                        android:layout_marginRight="@dimen/espacamento_curto"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/proximo"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
-                        android:layout_marginTop="@dimen/espacamento_curto"
-                        android:layout_marginLeft="@dimen/espacamento_maximo_2"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_seta_direita"
-                        app:layout_constraintRight_toLeftOf="@id/iv_seta_direita"
-                />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
