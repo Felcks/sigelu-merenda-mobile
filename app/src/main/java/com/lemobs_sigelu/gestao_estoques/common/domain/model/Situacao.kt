@@ -16,6 +16,7 @@ data class Situacao (
             SITUACAO_ENTREGUE_ID -> R.color.pedido_entregue
             SITUACAO_REPROVADO_ID -> R.color.pedido_reprovado
             SITUACAO_PARCIAL_ID -> R.color.pedido_parcial
+            SITUACAO_CANCELADO_ID -> R.color.pedido_cancelado
             else -> R.color.pedido_aprovado
         }
     }
