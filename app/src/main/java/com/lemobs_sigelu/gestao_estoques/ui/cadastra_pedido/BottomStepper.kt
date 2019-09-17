@@ -42,12 +42,18 @@ class BottomStepper: ConstraintLayout {
         if(fluxo?.getMaximoPasso() != null) {
 
             for(i in fluxo!!.getPassoAtual()-1 until 7){
-                bolinhas[i].visibility = View.VISIBLE
-                bolinhas[i].setBackgroundResource(R.drawable.ic_flow_circle)
+
+                if(i in 0..6) {
+                    bolinhas[i].visibility = View.VISIBLE
+                    bolinhas[i].setBackgroundResource(R.drawable.ic_flow_circle)
+                }
             }
 
             for (i in fluxo!!.getMaximoPasso() until 7){
-                bolinhas[i].visibility = View.GONE
+
+                if(i in 0..6) {
+                    bolinhas[i].visibility = View.GONE
+                }
             }
         }
 
