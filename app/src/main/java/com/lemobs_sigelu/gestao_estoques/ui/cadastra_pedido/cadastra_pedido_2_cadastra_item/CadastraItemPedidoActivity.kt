@@ -24,8 +24,6 @@ import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_all
-import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_layout_anterior
-import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_layout_proximo
 import org.koin.android.ext.android.inject
 
 class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
@@ -51,13 +49,21 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             tv_error.visibility = View.VISIBLE
         }
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_add.setOnClickListener { clicouAnterior() }
 
-        layout_passos.setFluxo(viewModel.getFluxo())
-        viewModel.getFluxo().incrimentaPassoAtual()
-        layout_passos.atualiza()
+        viewModel.getFluxo().incrementaPassoAtual()
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     private fun iniciaListaAdapter(lista: List<MaterialDTO>){

@@ -46,9 +46,6 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         carregaListaItemEstoque()
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
-
         tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
         tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
 
@@ -56,9 +53,19 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             viewModel.refreshListaItemEstoque()
         }
 
-        layout_passos.setFluxo(viewModel.getFluxo())
-        viewModel.getFluxo().incrimentaPassoAtual()
-        layout_passos.atualiza()
+        viewModel.getFluxo().incrementaPassoAtual()
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     private fun carregaListaItemEstoque(){

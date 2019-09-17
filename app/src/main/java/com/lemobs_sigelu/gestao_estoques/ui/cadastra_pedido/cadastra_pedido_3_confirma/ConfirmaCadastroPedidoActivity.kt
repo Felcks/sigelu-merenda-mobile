@@ -50,9 +50,21 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
         tv_destino.text = String.format(getString(R.string.layout_destino), pedido.movimento.destino.tipo.name, pedido.movimento.destino.nome)
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
+
+        viewModel.getFluxo().incrementaPassoAtual()
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouProximo(){
@@ -67,6 +79,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     private fun salvaRascunho(){

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -81,4 +82,6 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
     fun getPedido(): Pedido2{
         return cadastraPedidoModel.getPedido()
     }
+
+    fun getFluxo() = cadastraPedidoModel
 }

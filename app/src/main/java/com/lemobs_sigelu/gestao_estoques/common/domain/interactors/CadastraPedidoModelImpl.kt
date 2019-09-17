@@ -184,8 +184,8 @@ class CadastraPedidoModelImpl(
             1 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Materiais" else "Obras"
             2 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Quantidade" else "Materiais"
             3 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "Confirmar" else "Quantidades"
-            4 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) "" else "Confirmar"
-            else -> ""
+            4 -> if(quantidadePasso == FluxoInfo.NUCLEO.maximoPassos) " " else "Confirmar"
+            else -> " "
         }
     }
 
@@ -205,7 +205,7 @@ class CadastraPedidoModelImpl(
         this.quantidadePasso = value
     }
 
-    override fun incrimentaPassoAtual() {
+    override fun incrementaPassoAtual() {
         this.passoCorrente += 1
     }
 

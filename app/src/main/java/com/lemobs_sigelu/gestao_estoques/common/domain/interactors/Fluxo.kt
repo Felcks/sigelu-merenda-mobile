@@ -5,7 +5,7 @@ interface Fluxo {
     fun getPassoAtual(): Int
     fun setPassoAtual(value: Int)
 
-    fun incrimentaPassoAtual()
+    fun incrementaPassoAtual()
     fun decrementaPassoAtual()
 
     fun getMaximoPasso(): Int

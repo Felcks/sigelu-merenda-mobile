@@ -59,12 +59,12 @@
     <!-- CORES TELA DE LOGIN -->
 
     <!-- CORES ITENS -->
-    <color name="fundo_item_adicionado">#43a047</color>
-    <color name="fundo_item_removido">#CD2626</color>
+    <color name="fundo_item_adicionado">#009E4F</color>
+    <color name="fundo_item_removido">#AD120E</color>
 
 
     <!-- CORES ITENS APROVAÇÃO -->
-    <color name="fundo_item_aprovado">#43a047</color>
-    <color name="fundo_item_reprovado">#CD2626</color>
+    <color name="fundo_item_aprovado">#009E4F</color>
+    <color name="fundo_item_reprovado">#AD120E</color>
 
 </resources>

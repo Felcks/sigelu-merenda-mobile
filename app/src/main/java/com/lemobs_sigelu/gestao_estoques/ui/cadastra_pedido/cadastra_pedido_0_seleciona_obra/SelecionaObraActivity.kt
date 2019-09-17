@@ -33,7 +33,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
 
-        viewModel.getFluxo().incrimentaPassoAtual()
+        viewModel.getFluxo().incrementaPassoAtual()
         this.iniciaStepper()
     }
 

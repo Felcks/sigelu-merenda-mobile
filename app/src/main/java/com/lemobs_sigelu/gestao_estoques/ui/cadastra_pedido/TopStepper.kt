@@ -33,6 +33,8 @@ class TopStepper: ConstraintLayout {
 
         if(fluxo?.getMaximoPasso() != fluxo?.getPassoAtual())
             tv_proximo.text = "Próximo: ${fluxo?.getTextoProximoPasso()}"
+        else
+            tv_proximo.text = ""
     }
 
     constructor(context: Context): super(context)
