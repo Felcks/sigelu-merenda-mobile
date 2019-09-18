@@ -1,12 +1,15 @@
 package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
@@ -49,7 +52,15 @@ class ListaPedidoAdapter(private val context: Context,
         holder.itemView.tv_data_entrega.text = item.getDataEnvioFormatada().tracoSeVazio()
         holder.itemView.tv_data_ultima_entrega.text = item.getDataRecebimentoFormatada().tracoSeVazio()
         holder.itemView.tv_situacao.text = item.situacao?.situacao_nome
-        holder.itemView.rl_situacao.background = context.resources.getDrawable(item.situacao!!.getColor())
+
+        val unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.rounded_button)
+        val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
+        DrawableCompat.setTint(
+            wrappedDrawable,
+            ContextCompat.getColor(context, item.situacao!!.getColor())
+        )
+        holder.itemView.rl_situacao.background = wrappedDrawable
+        //holder.itemView.rl_situacao.setBackgroundColor(item.situacao!!.getColor())
 
         if(item.situacao!!.situacao_id == SITUACAO_APROVADO_ID || item.situacao!!.situacao_id == SITUACAO_PARCIAL_ID) {
 

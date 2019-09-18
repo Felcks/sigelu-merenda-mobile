@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/ll_obra"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content"
-                                             android:orientation="vertical"
-                                             android:clickable="true"
-                                             android:focusable="true"
-                                             android:layout_marginBottom="@dimen/espacamento_medio">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ll_obra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginBottom="@dimen/espacamento_medio">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_titulo"
@@ -179,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/espacamento_curto"
-                android:background="@drawable/rounded_button_states"
+                android:background="@drawable/rounded_button"
                 android:gravity="center"
                 android:padding="@dimen/espacamento_medio"
                 app:layout_constraintTop_toBottomOf="@id/layout_data_ultima_entrega">
