@@ -4,6 +4,5 @@ class Pedido2 (val id: Int?,
                val usuario: Usuario,
                val movimento: Movimento){
 
-    val listaMaterial = mutableListOf<Material>()
-    var observacao = ""
+    var listaMaterial = mutableListOf<Material>()
 }

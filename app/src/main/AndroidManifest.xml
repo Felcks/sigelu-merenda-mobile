@@ -114,7 +114,8 @@
                   android:windowSoftInputMode="adjustPan"/>
 
         <activity android:name=".ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity"
-                  android:label="Confirme informações"/>
+                  android:label="Confirme informações"
+                android:windowSoftInputMode="stateHidden"/>
 
 
 

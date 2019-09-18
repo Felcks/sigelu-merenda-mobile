@@ -1,16 +1,21 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoResponseOfRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
-import com.lemobs_sigelu.gestao_estoques.exceptions.EnvioNaoCriadoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ObraNaoPermitidaException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.exceptions.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 
 class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
                                           val itemEstoqueRepository: ItemEstoqueRepository,
                                           val nucleoModel: NucleoModel,
-                                          val usuarioModel: UsuarioModel): CadastraEnvioParaObraController {
+                                          val pedidoRepository: PedidoRepository,
+                                          val usuarioModel: UsuarioModel,
+                                          val envioRepository: EnvioRepository): CadastraEnvioParaObraController {
 
     private var listaObra: List<Obra>? = null
     private var listaItemEstoque: List<ItemEstoque>? = null
@@ -24,24 +29,30 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         return listaObra
     }
 
-    override fun selecionaObra(id: Int) {
+    override fun selecionaObra(obraID: Int) {
 
-        if(listaObra == null)
-            throw Exception("Obras não carregadas")
+        val nucleo = nucleoModel.getNucleo()
+        val usuario = usuarioModel.getUsuario(nucleo)
 
-        if(!listaObra!!.map { it.id }.contains(id))
-            throw ObraNaoPermitidaException()
+        if(!usuario.temPermissao(PermissaoModel.PERMISSAO_CADASTRA_PEDIDO)){
+            throw UsuarioSemPermissaoException()
+        }
 
-        val obra = listaObra!!.first { it.id == id }
-        val destino = Local(obra.id, "Obra", obra.codigo)
+        if(this.listaObra == null){
+            throw Exception("Lista obra não carregada.")
+        }
 
-        val origem = Local(nucleoModel.getNucleoID(), "Núcleo", nucleoModel.getNucleoNome())
+        val obra = listaObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        this.envio = Envio2(
-            origem,
-            destino,
-            usuarioModel.getUsuarioNome()
-        )
+        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
+        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, TipoLocal.OBRA)
+        val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
+
+        if(!movimento.validaMovimento()){
+            throw MovimentoInvalidoException()
+        }
+
+        this.envio = Envio2(null, usuario, movimento)
     }
 
     override suspend fun carregaListagemItemEstoque(): List<ItemEstoque>? {
@@ -54,7 +65,7 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         if(envio == null)
             throw EnvioNaoCriadoException()
 
-        return envio!!.listaItemEstoque.map { it.id }.contains(id) != true
+        return !envio!!.listaItemEstoque.map { it.id }.contains(id)
     }
 
     override fun getIDsDeItemAdicionados(): List<Int> {
@@ -119,8 +130,40 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         envio = null
     }
 
-    override fun registraEnvio() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun registraEnvio(observacoes: List<String>) {
+
+        if(envio == null)
+            throw EnvioNaoCriadoException()
+
+        val pedidoResponse = enviaPedido(observacoes)
+        envioRepository.postEnvio2(pedidoResponse.id, envio!!)
+    }
+
+    private suspend fun enviaPedido(observacoes: List<String>): PedidoResponseOfRequest {
+
+        if(envio == null)
+            throw EnvioNaoCriadoException()
+
+
+        val pedido = Pedido2(
+            null,
+            envio!!.usuario,
+            envio!!.movimento
+        )
+        pedido.listaMaterial = envio!!.listaItemEstoque.map {
+            Material(
+                null,
+                it,
+                it.quantidadeRecebida ?: 0.0)
+        } as MutableList<Material>
+
+        for(i in 0 until observacoes.size){
+
+            if(i < pedido.listaMaterial!!.size)
+                (pedido.listaMaterial)[i].observacao = observacoes.get(i)
+        }
+
+        return pedidoRepository.enviaPedido(pedido)
     }
 
     override fun getEnvio(): Envio2? {

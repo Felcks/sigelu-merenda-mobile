@@ -325,7 +325,7 @@ open class PedidoRepository {
         }
     }
 
-    suspend fun enviaPedido(pedido: Pedido2){
+    suspend fun enviaPedido(pedido: Pedido2): PedidoResponseOfRequest{
 
         val pedidoDataRequest = PedidoDataRequest(
             pedido.movimento.origem.id,
@@ -344,7 +344,7 @@ open class PedidoRepository {
             }
         )
 
-        api.postPedido(pedidoDataRequest)
+        return api.postPedido(pedidoDataRequest)
     }
 
     suspend fun cancelaPedido(pedidoEstoqueID: Int){

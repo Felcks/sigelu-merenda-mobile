@@ -3,9 +3,9 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.model
 import java.util.*
 
 class Envio2(
-    val origem: Local,
-    val destino: Local,
-    val responsavel: String
+    val id: Int?,
+    val usuario: Usuario,
+    val movimento: Movimento
 ){
 
     var envioID: Int? = null

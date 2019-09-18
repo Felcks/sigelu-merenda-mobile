@@ -34,6 +34,7 @@ import com.sigelu.core.lib.DialogUtil.Companion as DialogUtil1
 class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
     private val viewModel: CEConfirmaViewModel by inject()
+    private var adapter: ListaItemEstoqueAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +80,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo(){
 
         try{
-            viewModel.enviaPedido()
+            viewModel.enviaPedido(adapter?.getListaObservacoes() ?: listOf())
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
@@ -127,7 +128,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderLoadingStateRascunho() {
 
         progressDialog = DialogUtil1.buildDialogCarregamento(this,
-            "Salvando pedido como rascunho",
+            "Salvando Envio como rascunho",
             "Por favor, espere...")
     }
 
@@ -138,7 +139,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil1.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido salvo com sucesso!",
+            "Envio salvo com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
@@ -155,7 +156,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
         this.errorDialog = DialogUtil1.buildAlertDialogOk(this,
             "Erro",
-            "Ocorreu um erro ao salvar como rascunho. Contate o administrador do sistema.",
+            "Ocorreu um erro ao envio como rascunho. Contate o administrador do sistema.",
             {
 
             },
@@ -176,7 +177,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderLoadingStateEnvio() {
 
         progressDialog = DialogUtil1.buildDialogCarregamento(this,
-            "Cadastrando pedido",
+            "Cadastrando envio",
             "Por favor, espere...")
     }
 
@@ -188,7 +189,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil1.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido cadastrado com sucesso!",
+            "Envio cadastrado com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
@@ -206,7 +207,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
         this.errorDialog = DialogUtil1.buildAlertDialogOk(this,
             "Erro",
-            "Ocorreu um erro ao incluir o Pedido. Contate o administrador do sistema.",
+            "Ocorreu um erro ao incluir o Envio. Contate o administrador do sistema.",
             {
 
             },
@@ -220,7 +221,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemEstoqueAdapter(applicationContext, list)
+        adapter = ListaItemEstoqueAdapter(applicationContext, list)
         rv_lista.adapter = adapter
     }
 

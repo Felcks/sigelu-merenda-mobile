@@ -9,7 +9,7 @@ import io.reactivex.Observable
 interface CadastraEnvioParaObraController: Fluxo {
 
     suspend fun carregaListagemObra(): List<Obra>?
-    fun selecionaObra(id: Int)
+    fun selecionaObra(obraID: Int)
 
     suspend fun carregaListagemItemEstoque(): List<ItemEstoque>?
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean
@@ -21,6 +21,6 @@ interface CadastraEnvioParaObraController: Fluxo {
     fun removeItem(id: Int)
 
     fun cancelaEnvio()
-    fun registraEnvio()
+    suspend fun registraEnvio(observacoes: List<String>)
     fun getEnvio(): Envio2?
 }

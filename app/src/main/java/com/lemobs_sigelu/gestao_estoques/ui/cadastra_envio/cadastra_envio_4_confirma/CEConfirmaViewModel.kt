@@ -7,6 +7,10 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio2
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): ViewModel() {
 
@@ -34,7 +38,19 @@ class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): View
         controller.cancelaEnvio()
     }
 
-    fun enviaPedido(){
+    fun enviaPedido(observacoes: List<String>){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            envioPedidoResponse.postValue(Response.loading())
+
+            try{
+                controller.registraEnvio(observacoes)
+                envioPedidoResponse.postValue(Response.success(""))
+            }
+            catch (e: Exception){
+                envioPedidoResponse.postValue(Response.error(Throwable()))
+            }
+        }
 
 //        disposables.add(controller.registraEnvio()
 //            .subscribeOn(Schedulers.io())

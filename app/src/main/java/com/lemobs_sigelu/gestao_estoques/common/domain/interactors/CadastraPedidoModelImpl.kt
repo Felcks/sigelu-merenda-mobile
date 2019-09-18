@@ -58,7 +58,7 @@ class CadastraPedidoModelImpl(
 
         val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
         val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, TipoLocal.OBRA)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 

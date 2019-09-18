@@ -121,6 +121,23 @@ class EnvioRepository {
         }
     }
 
+    suspend fun postEnvio2(pedidoEstoqueID: Int, envio: Envio2) {
+
+        val envioDataRequest = EnvioDataRequest(
+            envio.motorista ?: "",
+            envio.dataSaida?.toHoraMinuto() ?: "",
+            envio.dataSaida?.toAnoMesDiaComTracos() ?: "",
+            envio.listaItemEstoque.map {
+                ItemEnvioDataRequest(
+                    it.id,
+                    it.quantidadeRecebida ?: 0.0
+                )
+            }
+        )
+
+        api.postEnvio2(pedidoEstoqueID, envioDataRequest)
+    }
+
     fun salvaEnvio(envio: Envio){
 
         val dao = db.envioDAO()

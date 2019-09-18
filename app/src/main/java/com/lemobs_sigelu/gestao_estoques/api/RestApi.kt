@@ -17,10 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
@@ -165,7 +162,7 @@ class RestApi {
         return api.getListaNucleoQuantidadeDeItemEstoque(auth, itemEstoqueID)
     }
 
-    suspend fun postPedido(pedidoDataRequest: PedidoDataRequest): Unit{
+    suspend fun postPedido(pedidoDataRequest: PedidoDataRequest): PedidoResponseOfRequest {
         return api.postPedidoNucleoObra2(auth, pedidoDataRequest)
     }
 
@@ -199,6 +196,10 @@ class RestApi {
 
     fun postEnvio(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest): Call<Unit>{
         return api.postEnvio(auth, pedidoEstoqueID, envioDataRequest)
+    }
+
+    suspend fun postEnvio2(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest): Unit {
+        return api.postEnvio2(auth, pedidoEstoqueID, envioDataRequest)
     }
 
 

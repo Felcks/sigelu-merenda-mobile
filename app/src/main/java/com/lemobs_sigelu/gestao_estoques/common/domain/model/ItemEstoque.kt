@@ -29,4 +29,7 @@ open class ItemEstoque(
 
     @Ignore
     var quantidadeRecebida: Double? = null
+
+    @Ignore
+    var observacao: String = ""
 }

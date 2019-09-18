@@ -15,10 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_envio.EnvioDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestFornecedorNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoNucleo
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequestNucleoObra
-import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
@@ -125,7 +122,7 @@ interface IRestApi {
 
     @POST("pedido-estoque")
     suspend fun postPedidoNucleoObra2(@Header("Authorization") auth: String,
-                                      @Body pedidoRequest: PedidoDataRequest): Unit
+                                      @Body pedidoRequest: PedidoDataRequest): PedidoResponseOfRequest
 
     @PUT("pedido-estoque/{pedido_estoque_id}")
     fun putPedidoNucleoObra(@Header("Authorization") auth: String,
@@ -136,6 +133,11 @@ interface IRestApi {
     fun postEnvio(@Header("Authorization") auth: String,
                   @Path("pedido_estoque_id") pedido_estoque_id: Int,
                   @Body envioRequest: EnvioDataRequest): Call<Unit>
+
+    @POST("pedido-estoque/{pedido_estoque_id}/envio")
+    suspend fun postEnvio2(@Header("Authorization") auth: String,
+                  @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                  @Body envioRequest: EnvioDataRequest): Unit
 
     @GET("recebimento-estoque/{recebimento_estoque_id}/item")
     fun getListaItemRecebimento(@Header("Authorization") auth: String,
