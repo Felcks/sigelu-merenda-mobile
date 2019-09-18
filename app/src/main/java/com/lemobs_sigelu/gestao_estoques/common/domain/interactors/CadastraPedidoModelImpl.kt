@@ -5,6 +5,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepositor
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_ALMOXARIFADO
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraPedidoModelImpl(
@@ -29,8 +31,8 @@ class CadastraPedidoModelImpl(
             throw UsuarioSemPermissaoException()
         }
 
-        val localOrigem = Local2(1, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
-        val localDestino = Local2(2, nucleo.nome, TipoLocal.NUCLEO)
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
+        val localDestino = Local2(TIPO_ESTOQUE_NUCLEO, nucleo.nome, TipoLocal.NUCLEO)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_NUCLEO, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
@@ -149,16 +151,19 @@ class CadastraPedidoModelImpl(
         }
     }
 
-    override fun confirmaPedido(observacao: String) {
+    override fun confirmaPedido() {
 
         if(pedido == null)
             throw PedidoNaoCriadoException()
-
-        pedido!!.observacao = observacao
     }
 
-    override suspend fun enviaPedido() {
+    override suspend fun enviaPedido(observacoes: List<String>) {
 
+        for(i in 0 until observacoes.size){
+
+            if(i < pedido?.listaMaterial!!.size)
+                (pedido?.listaMaterial as List<Material>)[i].observacao = observacoes.get(i)
+        }
         pedidoRepository.enviaPedido(pedido!!)
     }
 

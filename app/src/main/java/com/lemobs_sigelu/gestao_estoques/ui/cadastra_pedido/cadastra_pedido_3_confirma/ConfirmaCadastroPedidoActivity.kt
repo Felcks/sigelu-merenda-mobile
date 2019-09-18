@@ -70,7 +70,8 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun clicouProximo(){
 
         try{
-            viewModel.enviaPedido()
+            val observacoes = adapter?.getListaObservacoes() ?: listOf()
+            viewModel.enviaPedido(observacoes)
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
@@ -208,12 +209,13 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         this.errorDialog?.show()
     }
 
+    private var adapter: ListaItemEstoqueAdapter? = null
     private fun iniciarAdapter(list: List<MaterialDTO>){
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_lista.layoutManager = layoutManager
 
-        val adapter = ListaItemEstoqueAdapter(applicationContext, list)
+        adapter = ListaItemEstoqueAdapter(applicationContext, list)
         rv_lista.adapter = adapter
     }
 

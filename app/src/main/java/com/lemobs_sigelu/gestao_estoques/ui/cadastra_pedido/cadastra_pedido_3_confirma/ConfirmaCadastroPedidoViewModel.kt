@@ -27,8 +27,6 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
     var rascunhoPedidoResponse = MutableLiveData<Response>()
     var loading = ObservableField<Boolean>()
 
-    var observacao: ObservableField<String> = ObservableField("")
-
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
 
     override fun onCleared() {
@@ -64,15 +62,17 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
         cadastraPedidoModel.cancelaPedido()
     }
 
-    fun enviaPedido(){
+    fun enviaPedido(observacoes: List<String>){
 
+        envioPedidoResponse.postValue(Response.loading())
         CoroutineScope(Dispatchers.IO).launch {
 
             try {
-                cadastraPedidoModel.enviaPedido()
+                cadastraPedidoModel.enviaPedido(observacoes)
+                envioPedidoResponse.postValue(Response.success(""))
             }
             catch (e: Exception){
-
+                envioPedidoResponse.postValue(Response.error(Throwable()))
             }
         }
     }

@@ -2,4 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_c
 
 class MaterialDTO (val id: Int?,
                    val itemEstoqueDTO: ItemEstoqueDTO,
-                   var quantidadeRecebida: Double)
+                   var quantidadeRecebida: Double){
+
+    public var observacao = ""
+}

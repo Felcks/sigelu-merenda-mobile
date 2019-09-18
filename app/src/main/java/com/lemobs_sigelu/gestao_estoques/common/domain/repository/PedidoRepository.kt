@@ -244,13 +244,15 @@ open class PedidoRepository {
                 "Fornecedor" -> pedidoCadastro.listaItemContrato.map {
                     ItemPedidoCadastroDataRequest(
                         it.itemEstoqueID ?: 0,
-                        it.quantidadeRecebida ?: 0.0
+                        it.quantidadeRecebida ?: 0.0,
+                        ""
                     )
                 }
                 else -> pedidoCadastro.listaItemNucleo.map {
                     ItemPedidoCadastroDataRequest(
                         it.id,
-                        it.quantidadeRecebida ?: 0.0
+                        it.quantidadeRecebida ?: 0.0,
+                        ""
                     )
                 }
             }
@@ -328,9 +330,24 @@ open class PedidoRepository {
 
     suspend fun enviaPedido(pedido: Pedido2){
 
-//        val pedidoDataRequest = PedidoDataRequest(
-//            pedido.movimento.origem.tipo.id
-//        )
+        val pedidoDataRequest = PedidoDataRequest(
+            pedido.movimento.origem.id,
+            pedido.movimento.destino.id,
+            1, //estoque_id da origem é sempre 1 pois é o almoxarifado
+            2, //estoque_id do núcleo que o usuário está - Preciso pegar no login
+            null,
+            null,
+            false,
+            pedido.listaMaterial.map {
+                ItemPedidoCadastroDataRequest(
+                    it.itemEstoque.id,
+                    it.quantidadeRecebida,
+                    it.observacao
+                )
+            }
+        )
+
+        api.postPedido(pedidoDataRequest)
     }
 
     suspend fun cancelaPedido(pedidoEstoqueID: Int){
