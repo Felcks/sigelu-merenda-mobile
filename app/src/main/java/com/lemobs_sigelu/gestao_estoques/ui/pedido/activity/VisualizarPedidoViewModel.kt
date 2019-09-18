@@ -8,6 +8,7 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CANCELADO_ID
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -289,5 +290,9 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
 
     fun apagaListaItemRecebimentoAnteriores(){
         controller.apagaListaItemRecebimentoAnteriores()
+    }
+
+    fun podeCancelarPedido(): Boolean{
+        return pedido?.situacao?.situacao_id != SITUACAO_CANCELADO_ID
     }
 }

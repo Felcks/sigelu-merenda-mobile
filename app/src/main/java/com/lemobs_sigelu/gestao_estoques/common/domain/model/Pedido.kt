@@ -118,6 +118,10 @@ data class Pedido(
         return(this.situacao?.situacao_id == SITUACAO_RASCUNHO || this.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA)
     }
 
+    fun isPedidoCancelavel(): Boolean{
+        return (this.situacao?.situacao_id != SITUACAO_CANCELADO_ID)
+    }
+
     class SemContratoException: Exception("Pedido sem contrato.")
     class OrigemEDestinoIguaisException: Exception("Origem e destino não podem ser iguais.")
     class OrigemFornecedorDestinoObraException: Exception("Não é possível realizar pedido direto do fornecedor para uma obra.")

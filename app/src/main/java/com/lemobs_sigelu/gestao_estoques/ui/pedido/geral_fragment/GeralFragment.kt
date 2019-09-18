@@ -76,6 +76,7 @@ class GeralFragment: Fragment() {
             tv_data_pedido.text = result.getDataPedidoFormatada().tracoSeVazio()
             tv_data_envio.text = result.getDataEnvioFormatada().tracoSeVazio()
             tv_data_recebimento.text =  result.getDataRecebimentoFormatada().tracoSeVazio()
+            tv_situacao.text =  result.situacao?.situacao_nome?.tracoSeVazio() ?: " - "
         }
 
         viewModel!!.loading.set(false)

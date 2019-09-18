@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
@@ -215,8 +217,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val actionBar : ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
         menuInflater.inflate(R.menu.menu_pedido_visualizacao, menu)
+
         return true
     }
 
@@ -224,14 +226,20 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         
         when(item?.itemId){
             R.id.btn_cancela -> {
-                DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
-                    "Cancelar Pedido",
-                    "Tem certeza que deseja cancelar esse pedido?",
-                    {
-                        viewModel!!.cancelaPedido()
-                    },
-                    {}
-                ).show()
+
+                if (viewModel!!.podeCancelarPedido()) {
+                    DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
+                        "Cancelar Pedido",
+                        "Tem certeza que deseja cancelar esse pedido?",
+                        {
+                            viewModel!!.cancelaPedido()
+                        },
+                        {}
+                    ).show()
+                }
+                else{
+                    Snackbar.make(ll_all, "Não é possível cancelar esse pedido.", Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
         
