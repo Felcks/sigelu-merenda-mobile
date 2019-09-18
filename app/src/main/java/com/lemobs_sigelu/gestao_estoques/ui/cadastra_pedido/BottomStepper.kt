@@ -57,7 +57,10 @@ class BottomStepper: ConstraintLayout {
             }
         }
 
-        bolinhas[(fluxo?.getPassoAtual() ?: 1) - 1].setBackgroundResource(R.drawable.ic_filled_circle)
+        val indexBolaPintada = fluxo?.getPassoAtual()?.minus(1) ?: -1
+        if(indexBolaPintada >= 0 && indexBolaPintada < bolinhas.size) {
+            bolinhas[indexBolaPintada].setBackgroundResource(R.drawable.ic_filled_circle)
+        }
 
         if(fluxo?.getPassoAtual() == fluxo?.getMaximoPasso()){
             tv_proximo.text = "CONCLUIR"

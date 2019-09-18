@@ -33,8 +33,21 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
         viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
+        viewModel.getFluxo().setPassoAtual(1)
+        viewModel.getFluxo().setMaximoPasso(4)
+
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouAnterior() {
@@ -46,6 +59,7 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
         try{
             viewModel.confirmaPedido()
 
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, CESelecionaItemActivity::class.java)
             startActivity(intent)
         }

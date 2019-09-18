@@ -43,9 +43,19 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
             tv_error.visibility = View.VISIBLE
         }
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
         btn_add.setOnClickListener { clicouAnterior() }
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     private fun iniciaListaAdapter(lista: List<ItemEstoque>){
@@ -82,6 +92,7 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         try {
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, CEConfirmaActivity::class.java)
             startActivity(intent)
         }
@@ -98,6 +109,7 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

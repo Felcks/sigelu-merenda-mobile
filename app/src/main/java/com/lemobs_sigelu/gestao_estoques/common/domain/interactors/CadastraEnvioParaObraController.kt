@@ -6,7 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import io.reactivex.Observable
 
-interface CadastraEnvioParaObraController {
+interface CadastraEnvioParaObraController: Fluxo {
 
     suspend fun carregaListagemObra(): List<Obra>?
     fun selecionaObra(id: Int)

@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_0_sel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioParaObraController
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,5 +33,9 @@ class CESelecionaObraViewModel(val controller: CadastraEnvioParaObraController):
 
     fun setPosObraSelecionada(pos: Int){
         posObraSelecionada = pos
+    }
+
+    fun getFluxo(): Fluxo {
+        return controller
     }
 }

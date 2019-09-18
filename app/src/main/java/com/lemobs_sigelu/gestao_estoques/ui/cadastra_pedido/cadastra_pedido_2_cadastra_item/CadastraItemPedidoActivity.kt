@@ -51,7 +51,6 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         btn_add.setOnClickListener { clicouAnterior() }
 
-        viewModel.getFluxo().incrementaPassoAtual()
         this.iniciaStepper()
     }
 
@@ -100,6 +99,7 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         try {
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaMateriaisPreenchidos() ?: listOf())
 
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, ConfirmaCadastroPedidoActivity::class.java)
             startActivity(intent)
         }

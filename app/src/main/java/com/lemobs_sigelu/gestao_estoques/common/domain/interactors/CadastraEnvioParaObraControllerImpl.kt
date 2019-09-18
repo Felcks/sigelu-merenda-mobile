@@ -16,6 +16,9 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
     private var listaItemEstoque: List<ItemEstoque>? = null
     private var envio: Envio2? = null
 
+    private var passoCorrente = 0
+    private var quantidadePasso = 0
+
     override suspend fun carregaListagemObra(): List<Obra>? {
         listaObra = obraRepository.carregaListaObra()
         return listaObra
@@ -122,5 +125,39 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
 
     override fun getEnvio(): Envio2? {
         return envio
+    }
+
+    override fun getPassoAtual(): Int {
+        return passoCorrente
+    }
+
+    override fun setPassoAtual(value: Int) {
+        this.passoCorrente  = value
+    }
+
+    override fun getMaximoPasso(): Int {
+        return quantidadePasso
+    }
+
+    override fun setMaximoPasso(value: Int) {
+        this.quantidadePasso = value
+    }
+
+    override fun incrementaPassoAtual() {
+        this.passoCorrente += 1
+    }
+
+    override fun decrementaPassoAtual() {
+        this.passoCorrente -= 1
+    }
+
+    override fun getTextoProximoPasso(): String {
+
+        return when(passoCorrente){
+            1 -> "Materiais"
+            2 -> "Quantidade"
+            3 -> "Confirmar"
+            else -> " "
+        }
     }
 }

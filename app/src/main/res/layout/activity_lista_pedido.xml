@@ -142,7 +142,7 @@
                     android:id="@+id/menu_item_cadastra_envio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_shopping_cart"
+                    android:src="@drawable/ic_truck_right"
                     fab:fab_size="mini"
                     app:fab_colorNormal="@color/colorAccentDark"
                     app:fab_colorPressed="@color/colorAccent"

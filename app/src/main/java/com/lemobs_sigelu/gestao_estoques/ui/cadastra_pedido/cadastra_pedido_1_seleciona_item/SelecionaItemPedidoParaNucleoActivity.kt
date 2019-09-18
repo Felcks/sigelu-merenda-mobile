@@ -53,7 +53,6 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             viewModel.refreshListaItemEstoque()
         }
 
-        viewModel.getFluxo().incrementaPassoAtual()
         this.iniciaStepper()
     }
 
@@ -80,6 +79,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
                 this.adapter?.itemsParaAdicao?.map { it.id } ?: listOf(),
                 this.adapter?.itemsParaRemocao?.map { it.id } ?: listOf())
 
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, CadastraItemPedidoActivity::class.java)
             startActivity(intent)
         }

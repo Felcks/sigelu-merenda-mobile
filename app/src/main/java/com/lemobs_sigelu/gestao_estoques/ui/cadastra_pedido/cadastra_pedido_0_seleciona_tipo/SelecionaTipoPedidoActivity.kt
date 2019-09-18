@@ -52,6 +52,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         try {
             viewModel.confirmaDestinoPedido()
+            viewModel.getFluxo().incrementaPassoAtual()
         }
         catch (e: Exception){
             Snackbar.make(ll_all, e.message ?: "Ocorreu um erro inesperado.", Snackbar.LENGTH_SHORT).show()

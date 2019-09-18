@@ -35,8 +35,18 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListagemItem()
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
+        this.iniciaStepper()
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouProximo() {
@@ -45,6 +55,8 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
                 this.adapter?.itemsParaRemocao as List<ItemEstoque>)
 
+
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, CECadastraItemActivity::class.java)
             startActivity(intent)
         }
@@ -55,6 +67,7 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
     override fun clicouAnterior() {
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onResume() {

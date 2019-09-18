@@ -33,7 +33,6 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
 
-        viewModel.getFluxo().incrementaPassoAtual()
         this.iniciaStepper()
     }
 
@@ -58,6 +57,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         try{
             viewModel.confirmaPedido()
 
+            viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
             startActivity(intent)
         }

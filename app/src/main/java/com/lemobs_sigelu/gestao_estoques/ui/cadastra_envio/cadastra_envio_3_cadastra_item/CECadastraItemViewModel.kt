@@ -29,4 +29,6 @@ class CECadastraItemViewModel(private val controller: CadastraEnvioParaObraContr
     fun getEnvio(): Envio2?{
         return controller.getEnvio()
     }
+
+    fun getFluxo() = controller
 }

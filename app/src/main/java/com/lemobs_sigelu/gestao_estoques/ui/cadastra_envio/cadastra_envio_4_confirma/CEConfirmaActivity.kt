@@ -61,9 +61,19 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 //            tv_passos.text = "Passo 5 de 5"
 //        }
 
-        ll_layout_anterior.setOnClickListener { clicouAnterior() }
-        ll_layout_proximo.setOnClickListener { clicouProximo() }
+        this.iniciaStepper()
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
+    }
+
+    private fun iniciaStepper(){
+        top_stepper.setFluxo(viewModel.getFluxo())
+        bottom_stepper.setFluxo(viewModel.getFluxo())
+
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
+
+        bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
+        bottom_stepper.setProximoOnClickListener { clicouProximo() }
     }
 
     override fun clicouProximo(){
@@ -78,6 +88,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
+        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     private fun salvaRascunho(){

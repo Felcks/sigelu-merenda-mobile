@@ -63,4 +63,6 @@ class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): View
     fun getEnvio(): Envio2?{
         return controller.getEnvio()
     }
+
+    fun getFluxo() = controller
 }

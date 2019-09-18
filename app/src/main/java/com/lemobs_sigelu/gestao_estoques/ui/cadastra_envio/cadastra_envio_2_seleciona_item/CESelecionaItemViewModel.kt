@@ -44,4 +44,6 @@ class CESelecionaItemViewModel(val controller: CadastraEnvioParaObraController):
     fun getEnvio(): Envio2?{
         return controller.getEnvio()
     }
+
+    fun getFluxo() = controller
 }

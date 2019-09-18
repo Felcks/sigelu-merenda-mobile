@@ -52,7 +52,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
 
-        viewModel.getFluxo().incrementaPassoAtual()
         this.iniciaStepper()
     }
 
