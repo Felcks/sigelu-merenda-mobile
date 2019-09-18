@@ -77,7 +77,6 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
                 .subscribe(
                     { result ->
                         this.pedido = result
-                        controller.salvaPedido(result)
                         response.setValue(Response.success(this.pedido!!))
                     },
                     { throwable ->
@@ -107,7 +106,6 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
             .doOnSubscribe { responseMateriais.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    controller.salvaListaItemPedido(result)
                     pedido?.materiais = result
                     responseMateriais.setValue(Response.success(result))
                 },

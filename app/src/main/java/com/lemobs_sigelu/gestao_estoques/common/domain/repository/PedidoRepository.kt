@@ -97,8 +97,6 @@ open class PedidoRepository {
                     null
                 }
                 pedido.contrato = contrato
-
-                this.salvaPedidoBD(pedido)
                 subscribe.onNext(pedido)
                 subscribe.onComplete()
             }
@@ -175,7 +173,6 @@ open class PedidoRepository {
                     )
                 }
 
-                this.salvaListaPedidoBD(list ?: listOf())
                 subscriber.onNext(list ?: listOf())
                 subscriber.onComplete()
             }

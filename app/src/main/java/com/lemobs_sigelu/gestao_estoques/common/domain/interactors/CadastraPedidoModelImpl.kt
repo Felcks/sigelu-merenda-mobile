@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoReposito
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_ALMOXARIFADO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraPedidoModelImpl(
@@ -57,8 +58,8 @@ class CadastraPedidoModelImpl(
 
         val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(1, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
-        val localDestino = Local2(3, obra.codigo, TipoLocal.OBRA)
+        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
+        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, TipoLocal.OBRA)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
