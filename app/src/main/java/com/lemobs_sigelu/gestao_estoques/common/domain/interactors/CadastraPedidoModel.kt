@@ -21,7 +21,7 @@ interface CadastraPedidoModel: Fluxo {
     fun cancelaPedido()
     fun getPedido(): Pedido2
     fun confirmaPedido()
-    suspend fun enviaPedido(observacoes: List<String>)
+    suspend fun enviaPedido(observacoes: List<String>, isRascunho: Boolean)
 
     suspend fun getListaItemEstoque(): List<ItemEstoque>
     suspend fun getListaObra(): List<Obra>?

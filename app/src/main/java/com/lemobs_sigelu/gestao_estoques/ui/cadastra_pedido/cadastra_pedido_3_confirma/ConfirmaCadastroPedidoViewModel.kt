@@ -62,13 +62,13 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
         cadastraPedidoModel.cancelaPedido()
     }
 
-    fun enviaPedido(observacoes: List<String>){
+    fun enviaPedido(observacoes: List<String>, isRascunho: Boolean){
 
         envioPedidoResponse.postValue(Response.loading())
         CoroutineScope(Dispatchers.IO).launch {
 
             try {
-                cadastraPedidoModel.enviaPedido(observacoes)
+                cadastraPedidoModel.enviaPedido(observacoes, isRascunho)
                 envioPedidoResponse.postValue(Response.success(""))
             }
             catch (e: Exception){
@@ -77,7 +77,6 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
         }
     }
 
-    fun salvaRascunho(){}
 
     fun getPedido(): Pedido2{
         return cadastraPedidoModel.getPedido()

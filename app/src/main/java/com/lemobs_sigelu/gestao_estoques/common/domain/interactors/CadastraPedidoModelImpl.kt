@@ -190,14 +190,14 @@ class CadastraPedidoModelImpl(
             throw PedidoNaoCriadoException()
     }
 
-    override suspend fun enviaPedido(observacoes: List<String>) {
+    override suspend fun enviaPedido(observacoes: List<String>, isRascunho: Boolean) {
 
         for(i in 0 until observacoes.size){
 
             if(i < pedido?.listaMaterial!!.size)
                 (pedido?.listaMaterial as List<Material>)[i].observacao = observacoes.get(i)
         }
-        pedidoRepository.enviaPedido(pedido!!)
+        pedidoRepository.enviaPedido(pedido!!, isRascunho)
     }
 
     override fun cancelaPedido() {}

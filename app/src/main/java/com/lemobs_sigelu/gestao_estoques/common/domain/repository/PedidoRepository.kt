@@ -325,7 +325,7 @@ open class PedidoRepository {
         }
     }
 
-    suspend fun enviaPedido(pedido: Pedido2): PedidoResponseOfRequest{
+    suspend fun enviaPedido(pedido: Pedido2, isRascunho: Boolean = false): PedidoResponseOfRequest{
 
         val pedidoDataRequest = PedidoDataRequest(
             pedido.movimento.origem.tipo_id,
@@ -334,7 +334,7 @@ open class PedidoRepository {
             pedido.movimento.destino.estoque_id,
             null,
             null,
-            false,
+            isRascunho,
             pedido.listaMaterial.map {
                 ItemPedidoCadastroDataRequest(
                     it.itemEstoque.id,

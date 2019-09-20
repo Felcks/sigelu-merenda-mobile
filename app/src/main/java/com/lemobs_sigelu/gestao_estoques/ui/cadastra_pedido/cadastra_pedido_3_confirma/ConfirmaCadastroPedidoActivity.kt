@@ -70,7 +70,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         try{
             val observacoes = adapter?.getListaObservacoes() ?: listOf()
-            viewModel.enviaPedido(observacoes)
+            viewModel.enviaPedido(observacoes, false)
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
@@ -85,7 +85,8 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun salvaRascunho(){
 
         try{
-            viewModel.salvaRascunho()
+            val observacoes = adapter?.getListaObservacoes() ?: listOf()
+            viewModel.enviaPedido(observacoes, true)
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
