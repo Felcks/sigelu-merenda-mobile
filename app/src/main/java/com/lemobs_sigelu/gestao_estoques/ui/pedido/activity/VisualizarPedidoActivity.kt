@@ -84,12 +84,12 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
             if(result.situacao?.situacao_id == SITUACAO_APROVADO_ID || result.situacao?.situacao_id == SITUACAO_PARCIAL_ID) {
 
-                when(result.getTipoPedido()){
-                    TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> btn_cadastra_envio.visibility = View.VISIBLE
-                    TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
-                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento_sem_envio.visibility = View.VISIBLE
-                    TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
-                }
+//                when(result.getTipoPedido()){
+//                    TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> btn_cadastra_envio.visibility = View.VISIBLE
+//                    TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
+//                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento_sem_envio.visibility = View.VISIBLE
+//                    TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+//                }
             }
             else if(result.situacao?.situacao_id == SITUACAO_RASCUNHO || result.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
                 btn_edita_pedido.visibility = View.VISIBLE

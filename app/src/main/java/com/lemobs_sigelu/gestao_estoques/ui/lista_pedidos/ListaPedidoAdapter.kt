@@ -64,7 +64,7 @@ class ListaPedidoAdapter(private val context: Context,
 
         if(item.situacao!!.situacao_id == SITUACAO_APROVADO_ID || item.situacao!!.situacao_id == SITUACAO_PARCIAL_ID) {
 
-            holder.itemView.iv_entrega.visibility = View.VISIBLE
+            //holder.itemView.iv_entrega.visibility = View.VISIBLE
             holder.itemView.iv_entrega.setOnClickListener {
                 envioOuRecebimentoClickListener.onClick(item.id)
             }

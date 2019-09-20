@@ -33,7 +33,7 @@ object DependencyModules {
         viewModel { ConfirmaCadastroPedidoViewModel(get()) }
 
 
-        single { CadastraEnvioParaObraControllerImpl(get(), get(), get(), get(), get(), get()) as CadastraEnvioParaObraController }
+        single { CadastraEnvioParaObraControllerImpl(get(), get(), get(), get(), get(), get(), get()) as CadastraEnvioParaObraController }
         viewModel { CESelecionaObraViewModel(get()) }
         viewModel { CESelecionaItemViewModel(get()) }
         viewModel { CECadastraItemViewModel(get()) }

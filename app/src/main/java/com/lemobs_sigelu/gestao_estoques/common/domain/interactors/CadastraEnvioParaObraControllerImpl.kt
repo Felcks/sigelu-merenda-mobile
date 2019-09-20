@@ -3,20 +3,22 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoResponseOfRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
-import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
                                           val itemEstoqueRepository: ItemEstoqueRepository,
                                           val nucleoModel: NucleoModel,
                                           val pedidoRepository: PedidoRepository,
                                           val usuarioModel: UsuarioModel,
-                                          val envioRepository: EnvioRepository): CadastraEnvioParaObraController {
+                                          val envioRepository: EnvioRepository,
+                                          val estoqueRepository: EstoqueRepository): CadastraEnvioParaObraController {
 
     private var listaObra: List<Obra>? = null
     private var listaItemEstoque: List<ItemEstoque>? = null
@@ -39,15 +41,25 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
             throw UsuarioSemPermissaoException()
         }
 
+        var nucleoEstoqueID: Int = 0
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleo.id) }
+
+            nucleoEstoqueID = a.await()
+        }
+
+        while(!job.isCompleted){}
+
         if(this.listaObra == null){
             throw Exception("Lista obra não carregada.")
         }
 
         val obra = listaObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.NUCLEO.name,1)
-        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, 1)
-        val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
+        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.NUCLEO.name,nucleoEstoqueID)
+        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, obra.estoqueID)
+        val movimento = Movimento(null, TipoMovimento.NUCLEO_PARA_OBRA, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
             throw MovimentoInvalidoException()
