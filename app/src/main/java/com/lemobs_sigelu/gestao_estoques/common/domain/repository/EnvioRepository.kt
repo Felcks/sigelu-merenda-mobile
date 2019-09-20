@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
+import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.cadastra_envio.EnvioDataRequest
@@ -97,9 +98,6 @@ class EnvioRepository {
         return Observable.create { subscriber ->
 
             val envioDataRequest = EnvioDataRequest(
-                envio.motorista ?: "",
-                envio.dataSaida?.toHoraMinuto() ?: "",
-                envio.dataSaida?.toAnoMesDiaComTracos() ?: "",
                 envio.itens.map {
                     ItemEnvioDataRequest(
                         it.itemEstoqueID ?: 0,
@@ -124,9 +122,6 @@ class EnvioRepository {
     suspend fun postEnvio2(pedidoEstoqueID: Int, envio: Envio2) {
 
         val envioDataRequest = EnvioDataRequest(
-            envio.motorista ?: "",
-            envio.dataSaida?.toHoraMinuto() ?: "",
-            envio.dataSaida?.toAnoMesDiaComTracos() ?: "",
             envio.listaItemEstoque.map {
                 ItemEnvioDataRequest(
                     it.id,
@@ -135,7 +130,7 @@ class EnvioRepository {
             }
         )
 
-        api.postEnvio2(pedidoEstoqueID, envioDataRequest)
+        return api.postEnvio2(pedidoEstoqueID, envioDataRequest)
     }
 
     fun salvaEnvio(envio: Envio){

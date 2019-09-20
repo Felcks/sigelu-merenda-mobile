@@ -52,28 +52,10 @@ class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): View
             }
         }
 
-//        disposables.add(controller.registraEnvio()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnSubscribe { envioPedidoResponse.setValue(Response.loading()) }
-//            .subscribe(
-//                { result -> envioPedidoResponse.setValue(Response.success(result)) },
-//                { throwable -> envioPedidoResponse.setValue(Response.error(throwable)) }
-//            )
-//        )
     }
 
     fun salvaRascunho(){
-
-//        disposables.add(controller.salvaRascunho()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnSubscribe { rascunhoPedidoResponse.setValue(Response.loading()) }
-//            .subscribe(
-//                { result -> rascunhoPedidoResponse.setValue(Response.success(result)) },
-//                { throwable -> rascunhoPedidoResponse.setValue(Response.error(throwable)) }
-//            )
-//        )
+        
     }
 
     fun getEnvio(): Envio2?{

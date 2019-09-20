@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoResponseOfRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
