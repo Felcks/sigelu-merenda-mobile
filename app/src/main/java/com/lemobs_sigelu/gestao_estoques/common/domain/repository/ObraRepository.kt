@@ -23,7 +23,8 @@ open class ObraRepository(private val api: RestApiObras): BaseRepository(), IObr
                 "",
                 "",
                 it.ordem_servico.local_formatado,
-                ""
+                "",
+                it.estoque_id ?: 0
             )
         }
     }

@@ -26,4 +26,7 @@ interface CadastraPedidoModel: Fluxo {
     suspend fun getListaItemEstoque(): List<ItemEstoque>
     suspend fun getListaObra(): List<Obra>?
 
+    suspend fun getEstoqueIDNucleo(nucleoID: Int): Int
+    suspend fun getEstoqueIDAlmoxarifado(): Int
+
 }

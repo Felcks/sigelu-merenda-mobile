@@ -10,7 +10,8 @@ open class Obra(var id: Int,
                 val conclusaoPrevista: String,
                 var situacao: String,
                 val endereco: String,
-                val tipo: String){
+                val tipo: String,
+                val estoqueID: Int){
 
 
     fun getTitulo(): String{

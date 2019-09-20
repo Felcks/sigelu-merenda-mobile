@@ -86,13 +86,13 @@ data class Pedido(
     }
 
     fun getOrigemFormatado() = when(origem){
-        NOME_NUCLEO -> "$origemNome"
+        NOME_NUCLEO -> "Núcleo $origemNome"
         NOME_ALMOXARIFADO -> "$origemNome"
         else -> ""
     }
 
     fun getDestinoFormatado() = when(destino){
-        NOME_NUCLEO -> "$destinoNome"
+        NOME_NUCLEO -> "Núcleo $destinoNome"
         NOME_OBRA -> "OS - $destinoNome"
         else -> ""
     }

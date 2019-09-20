@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
@@ -38,7 +39,6 @@ open class PedidoRepository {
 
                     val (origemID, origemNome) = when(tipo_origem_id){
 
-
                         TIPO_LOCAL_ALMOXARIFADO -> Tupla(origem_estoque_id, NOME_ALMOXARIFADO)
                         TIPO_LOCAL_NUCLEO -> Tupla(origem_estoque_id, NOME_NUCLEO)
                         TIPO_LOCAL_OBRA -> Tupla(origem_estoque_id, NOME_OBRA)
@@ -48,7 +48,7 @@ open class PedidoRepository {
                     val (destinoID, destinoNome) = when(tipo_destino_id){
 
                         TIPO_LOCAL_NUCLEO -> Tupla(destino_estoque_id, NOME_NUCLEO)
-                        TIPO_LOCAL_OBRA-> Tupla(destino_estoque_id, NOME_OBRA)
+                        TIPO_LOCAL_OBRA -> Tupla(destino_estoque_id, NOME_OBRA)
                         else -> Tupla(null, null)
                     }
 
@@ -124,7 +124,7 @@ open class PedidoRepository {
 
         return Observable.create { subscriber ->
 
-            val callResponse = api.getListaPedido()
+            val callResponse: Call<List<PedidoListagemDataResponse>> = api.getListaPedido()
             val response = callResponse.execute()
 
             if(response.isSuccessful){
@@ -136,17 +136,17 @@ open class PedidoRepository {
 
                     val (origemID, origemNome) = when(it.tipo_origem_id){
 
-
-                        TIPO_LOCAL_ALMOXARIFADO -> Tupla(it.origem_estoque_id, NOME_ALMOXARIFADO)
-                        TIPO_LOCAL_NUCLEO -> Tupla(it.origem_estoque_id, NOME_NUCLEO)
-                        TIPO_LOCAL_OBRA -> Tupla(it.origem_estoque_id, NOME_OBRA)
+                        TIPO_LOCAL_ALMOXARIFADO -> Tupla(it.origem_estoque_id, it.origem_estoque?.almoxarifado?.nome)
+                        TIPO_LOCAL_NUCLEO -> Tupla(it.origem_estoque_id,   it.origem_estoque?.nucleo?.nome)
+                        TIPO_LOCAL_OBRA -> Tupla(it.origem_estoque_id,  it.origem_estoque?.obra_direta?.codigo)
                         else -> Tupla(null, null)
                     }
 
                     val (destinoID, destinoNome) = when(it.tipo_destino_id){
 
-                        TIPO_LOCAL_NUCLEO -> Tupla(it.destino_estoque_id, NOME_NUCLEO)
-                        TIPO_LOCAL_OBRA-> Tupla(it.destino_estoque_id, NOME_OBRA)
+                        TIPO_LOCAL_ALMOXARIFADO -> Tupla(it.destino_estoque_id, it.destino_estoque?.almoxarifado?.nome)
+                        TIPO_LOCAL_NUCLEO -> Tupla(it.destino_estoque_id,   it.destino_estoque?.nucleo?.nome)
+                        TIPO_LOCAL_OBRA -> Tupla(it.destino_estoque_id,  it.destino_estoque?.obra_direta?.codigo)
                         else -> Tupla(null, null)
                     }
 
@@ -160,8 +160,8 @@ open class PedidoRepository {
                     Pedido(
                         it.id,
                         it.codigo ?: "",
-                        origemNome ?: "",
-                        destinoNome ?: "",
+                        it.origem_estoque?.tipo_estoque?.nome ?: "",
+                        it.destino_estoque?.tipo_estoque?.nome ?: "",
                         origemID,
                         destinoID,
                         origemNome,
@@ -328,10 +328,10 @@ open class PedidoRepository {
     suspend fun enviaPedido(pedido: Pedido2): PedidoResponseOfRequest{
 
         val pedidoDataRequest = PedidoDataRequest(
-            pedido.movimento.origem.id,
-            pedido.movimento.destino.id,
-            1, //estoque_id da origem é sempre 1 pois é o almoxarifado
-            2, //estoque_id do núcleo que o usuário está - Preciso pegar no login
+            pedido.movimento.origem.tipo_id,
+            pedido.movimento.destino.tipo_id,
+            pedido.movimento.origem.estoque_id,
+            pedido.movimento.destino.estoque_id,
             null,
             null,
             false,

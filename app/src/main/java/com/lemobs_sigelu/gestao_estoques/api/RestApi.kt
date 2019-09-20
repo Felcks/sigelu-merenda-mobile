@@ -11,6 +11,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.item_nucleo.ItemNucleoDataRes
 import com.lemobs_sigelu.gestao_estoques.api_model.item_recebimento.ItemRecebimentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo_quantidade_item_estoque.NucleoQuantidadeDeItemEstoqueDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.AlmoxarifadoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
@@ -211,11 +212,19 @@ class RestApi {
         return api.getListaItemNucleo(auth, nucleoID)
     }
 
+    suspend fun getNucleo(nucleoID: Int): NucleoDataResponse{
+        return api.getNucleo(auth, nucleoID)
+    }
+
     fun getListaItemEstoqueDeNucleo(nucleoID: Int): Call<List<ItemEstoqueDataResponse>>{
         return api.getListaItemEstoqueDeNucleo(auth, nucleoID)
     }
 
     suspend fun cancelaPedido(pedidoEstoqueID: Int){
         return api.cancelaPedido(auth, pedidoEstoqueID)
+    }
+
+    suspend fun getListagemAlmoxarifado(): List<AlmoxarifadoDataResponse>{
+        return api.getListagemAlmoxarifado(auth)
     }
 }

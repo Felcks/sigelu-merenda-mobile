@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.item_nucleo.ItemNucleoDataRes
 import com.lemobs_sigelu.gestao_estoques.api_model.item_recebimento.ItemRecebimentoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo.NucleoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.nucleo_quantidade_item_estoque.NucleoQuantidadeDeItemEstoqueDataResponse
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido.AlmoxarifadoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.ContratoEstoqueDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResponse
@@ -80,6 +81,10 @@ interface IRestApi {
 
     @GET("nucleo")
     fun getNucleos(@Header("Authorization") auth: String): Call<List<NucleoDataResponse>>
+
+    @GET("nucleo/{nucleo_id}")
+    suspend fun getNucleo(@Header("Authorization") auth: String,
+                          @Path("nucleo_id") nucleo_id: Int): NucleoDataResponse
 
     @GET("contrato-estoque")
     fun getContratos(@Header("Authorization") auth: String): Call<List<ContratoEstoqueDataResponse>>
@@ -154,4 +159,7 @@ interface IRestApi {
     @PATCH("pedido-estoque/{pedido_estoque_id}/cancelar")
     suspend fun cancelaPedido(@Header("Authorization") auth: String,
                               @Path("pedido_estoque_id") pedido_estoque_id: Int): Unit
+
+    @GET("almoxarifado")
+    suspend fun getListagemAlmoxarifado(@Header("Authorization") auth: String): List<AlmoxarifadoDataResponse>
 }

@@ -45,8 +45,8 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
 
         val obra = listaObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
-        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, TipoLocal.OBRA)
+        val localOrigem = Local2(TIPO_ESTOQUE_NUCLEO, TipoLocal.NUCLEO.name,1)
+        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, 1)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){

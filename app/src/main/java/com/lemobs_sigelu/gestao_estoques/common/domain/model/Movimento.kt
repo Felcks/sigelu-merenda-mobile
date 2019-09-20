@@ -1,5 +1,9 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_LOCAL_ALMOXARIFADO
+
 class Movimento (val id: Int?,
                  val tipo: TipoMovimento,
                  val origem: Local2,
@@ -9,10 +13,10 @@ class Movimento (val id: Int?,
 
         return when(tipo){
             TipoMovimento.ALMOXARIFADO_PARA_NUCLEO -> {
-                origem.tipo == TipoLocal.ALMOXARIFADO && destino.tipo == TipoLocal.NUCLEO
+                origem.tipo_id == TIPO_LOCAL_ALMOXARIFADO && destino.tipo_id == TIPO_ESTOQUE_NUCLEO
             }
             TipoMovimento.ALMOXARIFADO_PARA_OBRA -> {
-                origem.tipo == TipoLocal.ALMOXARIFADO && destino.tipo == TipoLocal.OBRA
+                origem.tipo_id == TIPO_LOCAL_ALMOXARIFADO && destino.tipo_id == TIPO_ESTOQUE_OBRA
             }
             else -> false
         }

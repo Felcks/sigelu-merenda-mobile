@@ -1,6 +1,8 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
+import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
@@ -9,13 +11,19 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_ALMOX
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
 class CadastraPedidoModelImpl(
     private val usuarioModel: UsuarioModel,
     private val nucleoModel: NucleoModel,
     private val itemEstoqueRepository: ItemEstoqueRepository,
     private val obraRepository: IObraRepository,
-    private val pedidoRepository: PedidoRepository): CadastraPedidoModel{
+    private val pedidoRepository: PedidoRepository,
+    private val estoqueRepository: EstoqueRepository): CadastraPedidoModel{
 
     private var pedido: Pedido2? = null
     private var listaTodosItemEstoque: List<ItemEstoque>? = null
@@ -32,15 +40,29 @@ class CadastraPedidoModelImpl(
             throw UsuarioSemPermissaoException()
         }
 
-        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
-        val localDestino = Local2(TIPO_ESTOQUE_NUCLEO, nucleo.nome, TipoLocal.NUCLEO)
+        var nucleoEstoqueID: Int = 0
+        var almoxarifadoEstoqueID: Int = 0
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleo.id) }
+            val b = async { estoqueRepository.getEstoqueIDAlmoxarifado() }
+
+            nucleoEstoqueID = a.await()
+            almoxarifadoEstoqueID = b.await()
+        }
+
+        while(!job.isCompleted){}
+
+
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, almoxarifadoEstoqueID)
+        val localDestino = Local2(TIPO_ESTOQUE_NUCLEO, nucleo.nome, nucleoEstoqueID)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_NUCLEO, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
             throw MovimentoInvalidoException()
         }
 
-        this.pedido = Pedido2(null, usuario, movimento)
+        pedido = Pedido2(null, usuario, movimento)
     }
 
     override fun iniciaRMParaObra(obraID: Int) {
@@ -52,14 +74,24 @@ class CadastraPedidoModelImpl(
             throw UsuarioSemPermissaoException()
         }
 
+        var almoxarifadoEstoqueID: Int = 0
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val b = async { estoqueRepository.getEstoqueIDAlmoxarifado() }
+
+            almoxarifadoEstoqueID = b.await()
+        }
+
+        while(!job.isCompleted){}
+
         if(this.listaTodasObra == null){
             throw Exception("Lista obra não carregada.")
         }
 
         val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, TipoLocal.ALMOXARIFADO)
-        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, TipoLocal.OBRA)
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, almoxarifadoEstoqueID)
+        val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, obra.estoqueID)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 
         if(!movimento.validaMovimento()){
@@ -217,5 +249,13 @@ class CadastraPedidoModelImpl(
 
     override fun decrementaPassoAtual() {
         this.passoCorrente -= 1
+    }
+
+    override suspend fun getEstoqueIDNucleo(nucleoID: Int): Int {
+        return estoqueRepository.getEstoqueIDNucleo(nucleoID)
+    }
+
+    override suspend fun getEstoqueIDAlmoxarifado(): Int {
+        return estoqueRepository.getEstoqueIDAlmoxarifado()
     }
 }

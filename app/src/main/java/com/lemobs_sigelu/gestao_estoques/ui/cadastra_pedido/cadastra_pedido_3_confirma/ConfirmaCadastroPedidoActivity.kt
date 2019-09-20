@@ -48,7 +48,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         val pedido = viewModel.getPedido()
         tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
-        tv_destino.text = String.format(getString(R.string.layout_destino), pedido.movimento.destino.tipo.name, pedido.movimento.destino.nome)
+        tv_destino.text = String.format(getString(R.string.layout_destino), "aa", pedido.movimento.destino.nome)
 
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
 

@@ -1,5 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.model
 
-class Local2 (val id: Int?,
+class Local2 (val tipo_id: Int?,
               val nome: String,
-              val tipo: TipoLocal)
+              val estoque_id: Int)
