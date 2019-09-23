@@ -50,7 +50,12 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
     }
 
     override fun clicouProximo() {
+
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.confirmaSelecaoItens(
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
                 this.adapter?.itemsParaRemocao as List<ItemEstoque>)
@@ -63,6 +68,9 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
+        }
     }
 
     override fun clicouAnterior() {
@@ -72,6 +80,7 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
     override fun onResume() {
         viewModel.carregaListagemItem()
+        viewModel.carregandoProximaTela.value = Response.empty()
         super.onResume()
     }
 

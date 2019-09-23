@@ -22,6 +22,7 @@ class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): View
     var loading = ObservableField<Boolean>()
 
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
+    var carregandoProximaTela = MutableLiveData<Response>()
 
     override fun onCleared() {
         disposables.clear()

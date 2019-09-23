@@ -14,6 +14,8 @@ class CESelecionaObraViewModel(val controller: CadastraEnvioParaObraController):
     val listaObra =  MutableLiveData<Response>()
     private var posObraSelecionada: Int? =  null
 
+    var carregandoProximaTela = MutableLiveData<Response>()
+
     fun carregaListaObra(){
         CoroutineScope(Dispatchers.IO).launch {
 

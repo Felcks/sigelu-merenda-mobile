@@ -15,6 +15,8 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
@@ -89,7 +91,11 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try {
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
 
             viewModel.getFluxo().incrementaPassoAtual()
@@ -105,11 +111,19 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         catch(e: ValorMenorQueZeroException){
             Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
         }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
+        }
     }
 
     override fun clicouAnterior(){
         this.onBackPressed()
         viewModel.getFluxo().decrementaPassoAtual()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

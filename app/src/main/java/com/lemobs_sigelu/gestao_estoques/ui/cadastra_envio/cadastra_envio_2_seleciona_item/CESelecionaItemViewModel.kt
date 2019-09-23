@@ -16,6 +16,8 @@ class CESelecionaItemViewModel(val controller: CadastraEnvioParaObraController):
     private val disposables = CompositeDisposable()
     var listaItemEstoque = MutableLiveData<Response>()
 
+    var carregandoProximaTela = MutableLiveData<Response>()
+
     override fun onCleared() {
         disposables.clear()
     }

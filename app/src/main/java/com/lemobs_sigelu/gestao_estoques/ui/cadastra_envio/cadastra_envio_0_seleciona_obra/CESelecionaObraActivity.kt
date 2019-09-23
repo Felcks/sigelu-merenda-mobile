@@ -56,7 +56,11 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.confirmaPedido()
 
             viewModel.getFluxo().incrementaPassoAtual()
@@ -65,6 +69,9 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
         }
         catch(e: Exception){
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
         }
     }
 
@@ -98,7 +105,11 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
             }
             override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

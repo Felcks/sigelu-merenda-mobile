@@ -69,11 +69,18 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.enviaPedido(adapter?.getListaObservacoes() ?: listOf())
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
         }
     }
 
@@ -213,6 +220,11 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
 
         adapter = ListaItemEstoqueAdapter(applicationContext, list)
         rv_lista.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
