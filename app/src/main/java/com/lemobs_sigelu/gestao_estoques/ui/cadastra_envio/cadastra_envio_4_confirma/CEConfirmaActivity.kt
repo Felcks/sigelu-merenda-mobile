@@ -15,6 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import kotlinx.android.synthetic.main.activity_cadastra_envio_confirma.*
@@ -35,22 +36,9 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
         viewModel.carregaListaItem()
 
-        val pedido = viewModel.getEnvio()
-//        tv_origem.text = pedido?.origem?.tracoSeVazio()
-//        tv_destino.text = "${pedido?.destinoTipo} ${pedido?.destino?.tracoSeVazio()}"
-//        if(pedido?.origemTipo == "Fornecedor"){
-//            tv_contrato.visibility = View.VISIBLE
-//            tv_contrato_layout.visibility = View.VISIBLE
-//            tv_contrato.text = pedido.contratoEstoque?.numeroContrato
-//        }
-//
-//        if(pedido?.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
-//            btn_salva_rascunho.visibility = View.GONE
-//        }
-//
-//        if(pedido != null && pedido.destinoTipo == "Obra"){
-//            tv_passos.text = "Passo 5 de 5"
-//        }
+        val envio = viewModel.getEnvio()
+        tv_origem.text = "Núcleo ${envio?.movimento?.origem?.nome?.tracoSeVazio()}"
+        tv_destino.text = "OS - ${envio?.movimento?.destino?.nome?.tracoSeVazio()}"
 
         this.iniciaStepper()
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
