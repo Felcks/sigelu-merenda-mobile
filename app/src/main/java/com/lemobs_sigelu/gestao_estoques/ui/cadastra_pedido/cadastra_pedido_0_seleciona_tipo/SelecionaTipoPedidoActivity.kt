@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -50,11 +51,15 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo() {
 
+        if(viewModel.proximaTela().value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try {
             viewModel.confirmaDestinoPedido()
             viewModel.getFluxo().incrementaPassoAtual()
         }
         catch (e: Exception){
+            viewModel.proximaTela().value = Response.empty()
             Snackbar.make(ll_all, e.message ?: "Ocorreu um erro inesperado.", Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -65,8 +70,10 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     private fun observarMudancaDeTela(response: Response?){
 
-        if(response != null){
+        if(response != null && response.status == Status.SUCCESS){
             if(response.data is Intent){
+
+                viewModel.setProximaTelaUndefined()
                 startActivity(response.data)
             }
         }
@@ -92,6 +99,11 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     fun clickTerceiroRadioButton(v: View) {
         //Botão inexistente
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.proximaTela().value = Response.empty()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

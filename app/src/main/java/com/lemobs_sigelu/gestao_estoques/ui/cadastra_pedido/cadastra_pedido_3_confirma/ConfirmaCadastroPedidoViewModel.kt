@@ -29,6 +29,8 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
 
     var quantidadeRecebida: ObservableField<String> = ObservableField("")
 
+    var carregandoProximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
+
     override fun onCleared() {
         disposables.clear()
     }

@@ -74,7 +74,12 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
     }
 
     override fun clicouProximo() {
+
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.confirmaSelecaoItens(
                 this.adapter?.itemsParaAdicao?.map { it.id } ?: listOf(),
                 this.adapter?.itemsParaRemocao?.map { it.id } ?: listOf())
@@ -84,6 +89,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             startActivity(intent)
         }
         catch(e: Exception){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -95,6 +101,7 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun onResume() {
         viewModel.refreshListaItemEstoque()
+        viewModel.carregandoProximaTela.value = Response.empty()
         super.onResume()
     }
 

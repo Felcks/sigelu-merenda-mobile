@@ -24,6 +24,7 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
     var isError = ObservableField<Boolean>(false)
 
     var listaItemEstoque: MutableLiveData<Response> = MutableLiveData<Response>()
+    var carregandoProximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
 
     init{
         refreshListaItemEstoque()

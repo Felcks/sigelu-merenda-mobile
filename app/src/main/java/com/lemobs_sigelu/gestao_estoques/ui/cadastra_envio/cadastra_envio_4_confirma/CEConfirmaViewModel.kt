@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.lang.Exception
 
 class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): ViewModel() {
@@ -47,8 +48,13 @@ class CEConfirmaViewModel(val controller: CadastraEnvioParaObraController): View
                 controller.registraEnvio(observacoes)
                 envioPedidoResponse.postValue(Response.success(""))
             }
+            catch (e: HttpException){
+
+                if(e.code() == 410)
+                    envioPedidoResponse.postValue(Response.error(Throwable("Item indisponível na origem.")))
+            }
             catch (e: Exception){
-                envioPedidoResponse.postValue(Response.error(Throwable()))
+                envioPedidoResponse.postValue(Response.error(e))
             }
         }
 

@@ -54,6 +54,9 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
             viewModel.confirmaPedido()
 
@@ -62,6 +65,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
             startActivity(intent)
         }
         catch(e: Exception){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
@@ -96,6 +100,11 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
             }
             override fun onNothingSelected(parentView: AdapterView<*>) {}
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

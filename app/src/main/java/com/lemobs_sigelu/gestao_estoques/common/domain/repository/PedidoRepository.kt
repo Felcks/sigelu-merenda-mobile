@@ -344,7 +344,9 @@ open class PedidoRepository {
             }
         )
 
-        return api.postPedido(pedidoDataRequest)
+        val a = api.postPedido(pedidoDataRequest)
+
+        return a
     }
 
     suspend fun cancelaPedido(pedidoEstoqueID: Int){

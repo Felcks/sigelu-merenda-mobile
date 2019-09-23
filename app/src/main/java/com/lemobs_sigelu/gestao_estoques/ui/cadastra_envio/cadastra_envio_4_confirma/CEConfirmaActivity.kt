@@ -196,8 +196,8 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         progressDialog?.dismiss()
 
         this.errorDialog = DialogUtil1.buildAlertDialogOk(this,
-            "Erro",
-            "Ocorreu um erro ao incluir o Envio. Contate o administrador do sistema.",
+            "Erro ao incluir envio",
+            error?.message ?: "",
             {
 
             },

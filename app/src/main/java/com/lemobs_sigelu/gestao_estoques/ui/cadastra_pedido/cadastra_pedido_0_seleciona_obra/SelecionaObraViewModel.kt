@@ -17,6 +17,8 @@ class SelecionaObraViewModel(private val controller: CadastraPedidoModel): ViewM
     val listaObra = MutableLiveData<Response>()
     private var posObraSelecionada: Int? =  null
 
+    var carregandoProximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
+
     fun carregaListaObra(){
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -26,6 +28,8 @@ class SelecionaObraViewModel(private val controller: CadastraPedidoModel): ViewM
     }
 
     fun confirmaPedido(){
+
+        carregandoProximaTela.value = Response.loading()
 
         if(posObraSelecionada == null)
             throw Exception("Obra não selecionada.")

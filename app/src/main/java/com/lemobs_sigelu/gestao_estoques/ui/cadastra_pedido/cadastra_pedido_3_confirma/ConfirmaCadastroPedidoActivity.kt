@@ -68,12 +68,19 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try{
+            viewModel.carregandoProximaTela.value = Response.loading()
             val observacoes = adapter?.getListaObservacoes() ?: listOf()
             viewModel.enviaPedido(observacoes, false)
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
+        }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
         }
     }
 

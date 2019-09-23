@@ -15,6 +15,8 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
@@ -25,6 +27,7 @@ import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
 import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_all
 import org.koin.android.ext.android.inject
+import java.util.concurrent.locks.ReentrantLock
 
 class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
@@ -96,7 +99,11 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouProximo(){
 
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
         try {
+            viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.confirmaCadastroMaterial(this.adapter?.getListaMateriaisPreenchidos() ?: listOf())
 
             viewModel.getFluxo().incrementaPassoAtual()
@@ -114,6 +121,9 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         }
         catch(erro: java.lang.Exception){
             Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_LONG).show()
+        }
+        finally {
+            viewModel.carregandoProximaTela.value = Response.empty()
         }
     }
 

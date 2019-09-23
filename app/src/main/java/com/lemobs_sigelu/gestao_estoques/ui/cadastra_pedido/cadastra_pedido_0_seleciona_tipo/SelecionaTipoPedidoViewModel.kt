@@ -18,9 +18,10 @@ import java.lang.Exception
 class SelecionaTipoPedidoViewModel (private val controller: CadastraPedidoModel): ViewModel() {
 
     private var tipoMovimento: TipoMovimento = TipoMovimento.ALMOXARIFADO_PARA_NUCLEO
-    private var proximaTela = MutableLiveData<Response>()
+    private var proximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
 
     fun proximaTela() = proximaTela
+    fun setProximaTelaUndefined() { proximaTela.value  = Response.loading() }
 
     fun selecionaTipoPedido(pos: Int){
 
@@ -31,6 +32,8 @@ class SelecionaTipoPedidoViewModel (private val controller: CadastraPedidoModel)
     }
 
     fun confirmaDestinoPedido() {
+
+        proximaTela.value = Response.loading()
 
         if(tipoMovimento == TipoMovimento.ALMOXARIFADO_PARA_NUCLEO){
 
