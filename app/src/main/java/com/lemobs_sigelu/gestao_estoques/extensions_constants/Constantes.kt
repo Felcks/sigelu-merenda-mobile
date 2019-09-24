@@ -41,8 +41,10 @@ const val TIPO_LOCAL_OBRA = 3
 const val TIPO_ESTOQUE_ALMOXARIFADO = 1
 const val TIPO_ESTOQUE_NUCLEO = 2
 const val TIPO_ESTOQUE_OBRA = 3
+const val TIPO_ESTOQUE_FORNECEDOR = 4
 
 /* Nomes */
 const val NOME_ALMOXARIFADO = "Almoxarifado"
 const val NOME_NUCLEO = "Núcleo"
 const val NOME_OBRA = "Obra"
+const val NOME_FORNECEDOR = "Fornecedor"

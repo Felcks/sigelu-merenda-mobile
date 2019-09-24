@@ -19,4 +19,5 @@ class PedidoDataResponse (val id: Int,
                           val origem_estoque: EstoqueDataResponse?,
                           val destino_estoque: EstoqueDataResponse?,
                           val created_at: String?,
+                          val origem_fornecedor: FornecedorDataResponse?,
                           val contrato_estoque: ContratoEstoqueDataResponse?)
