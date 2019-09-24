@@ -24,7 +24,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     val colorItemAprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_aprovado)
-    val colorItemReprovado = ContextCompat.getColor(App.instance, R.color.colorAccent)
+    val colorItemReprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_aprovado)
     val colorItemNeutro = ContextCompat.getColor(App.instance, android.R.color.white)
 
     private var ultimaPosicao = 0

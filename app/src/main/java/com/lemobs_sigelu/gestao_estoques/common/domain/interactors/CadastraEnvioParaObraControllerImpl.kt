@@ -119,6 +119,10 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
                 throw ValorMenorQueZeroException()
             }
 
+            if(valor >= (item.quantidadeDisponivel ?: 0.0)){
+                throw ItemSemQuantidadeDisponivelException()
+            }
+
             item.quantidadeRecebida = valor
             count += 1
         }

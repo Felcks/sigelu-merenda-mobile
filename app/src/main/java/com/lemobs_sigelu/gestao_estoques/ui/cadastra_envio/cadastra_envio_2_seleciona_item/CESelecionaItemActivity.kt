@@ -33,7 +33,6 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         setContentView(R.layout.activity_cadastra_envio_seleciona_item)
 
         viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel.carregaListagemItem()
 
         this.iniciaStepper()
     }
@@ -77,6 +76,8 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
     }
 
     override fun onResume() {
+        ll_loading.visibility = View.VISIBLE
+        rv_lista.visibility = View.GONE
         viewModel.carregaListagemItem()
         viewModel.carregandoProximaTela.value = Response.empty()
         super.onResume()

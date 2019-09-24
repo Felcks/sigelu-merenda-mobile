@@ -18,6 +18,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
+import com.lemobs_sigelu.gestao_estoques.exceptions.ItemSemQuantidadeDisponivelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity
@@ -113,6 +114,10 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         catch(e: ValorMenorQueZeroException){
             viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+        }
+        catch (e: ItemSemQuantidadeDisponivelException){
+            viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, "Preencha a quantidade com valor disponível.", Snackbar.LENGTH_LONG).show()
         }
         catch (e: java.lang.Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
