@@ -111,25 +111,31 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Cadastre pelo menos um item.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: CampoNaoPreenchidoException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
         }
         catch(e: ValorMenorQueZeroException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
         }
         catch(erro: java.lang.Exception){
-            Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_LONG).show()
-        }
-        finally {
             viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_LONG).show()
         }
     }
 
     override fun clicouAnterior(){
         this.onBackPressed()
         viewModel.getFluxo().decrementaPassoAtual()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

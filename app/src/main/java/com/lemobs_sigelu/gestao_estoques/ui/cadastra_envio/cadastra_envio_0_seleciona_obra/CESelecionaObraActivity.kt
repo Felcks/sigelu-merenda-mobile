@@ -37,6 +37,7 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
         viewModel.getFluxo().setMaximoPasso(4)
 
         this.iniciaStepper()
+        viewModel.carregandoProximaTela.value = Response.empty()
     }
 
     private fun iniciaStepper(){
@@ -68,10 +69,8 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
             startActivity(intent)
         }
         catch(e: Exception){
-            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
-        }
-        finally {
             viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
 

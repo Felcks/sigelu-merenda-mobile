@@ -77,10 +77,8 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             viewModel.enviaPedido(observacoes, false)
         }
         catch(e: Exception){
-            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
-        }
-        finally {
             viewModel.carregandoProximaTela.value = Response.empty()
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -158,7 +156,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             "Erro",
             "Ocorreu um erro ao salvar como rascunho. Contate o administrador do sistema.",
             {
-
+                viewModel.carregandoProximaTela.value = Response.empty()
             },
             true)
 
@@ -209,7 +207,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
             "Erro",
             "Ocorreu um erro ao incluir o Pedido. Contate o administrador do sistema.",
             {
-
+                viewModel.carregandoProximaTela.value = Response.empty()
             },
             true)
 

@@ -65,10 +65,8 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
             viewModel.enviaPedido(adapter?.getListaObservacoes() ?: listOf())
         }
         catch(e: Exception){
-            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
-        }
-        finally {
             viewModel.carregandoProximaTela.value = Response.empty()
+            Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -143,7 +141,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
             "Erro",
             "Ocorreu um erro ao envio como rascunho. Contate o administrador do sistema.",
             {
-
+                viewModel.carregandoProximaTela.value = Response.empty()
             },
             true)
 
@@ -194,7 +192,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
             "Erro ao incluir envio",
             error?.message ?: "",
             {
-
+                viewModel.carregandoProximaTela.value = Response.empty()
             },
             true)
 

@@ -103,16 +103,20 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
             startActivity(intent)
         }
         catch (e: NenhumItemSelecionadoException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Cadastre pelo menos um item.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: CampoNaoPreenchidoException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
         }
         catch(e: ValorMenorQueZeroException){
+            viewModel.carregandoProximaTela.value = Response.empty()
             Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
         }
-        finally {
+        catch (e: java.lang.Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
 

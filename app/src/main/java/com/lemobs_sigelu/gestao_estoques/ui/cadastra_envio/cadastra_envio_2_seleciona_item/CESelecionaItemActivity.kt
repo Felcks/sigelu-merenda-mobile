@@ -66,10 +66,8 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
             startActivity(intent)
         }
         catch(e: Exception){
-            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
-        }
-        finally {
             viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 
