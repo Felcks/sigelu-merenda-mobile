@@ -17,6 +17,8 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoMovimento
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -79,34 +81,24 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     private fun renderDataState(result: Any?) {
         viewModel?.loading?.set(false)
 
-        if(result is Pedido) {
+        if(result is Pedido2) {
 
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
-            if(result.situacao?.situacao_id == SITUACAO_APROVADO_ID || result.situacao?.situacao_id == SITUACAO_PARCIAL_ID) {
+            if(result.getSituacao()?.situacao_id == SITUACAO_APROVADO_ID || result.getSituacao()?.situacao_id == SITUACAO_PARCIAL_ID) {
 
-//                when(result.getTipoPedido()){
-//                    TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> btn_cadastra_envio.visibility = View.VISIBLE
-//                    TipoPedido.MEU_NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
-//                    TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> btn_cadastra_recebimento_sem_envio.visibility = View.VISIBLE
-//                    TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
-//                }
+                when(result.getTipoMovimento()){
+                    TipoMovimento.NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
+                    TipoMovimento.ALMOXARIFADO_PARA_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                }
             }
-            else if(result.situacao?.situacao_id == SITUACAO_RASCUNHO || result.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
+            else if(result.getSituacao()?.situacao_id == SITUACAO_RASCUNHO || result.getSituacao()?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
                 btn_edita_pedido.visibility = View.VISIBLE
                 btn_edita_pedido.setOnClickListener {
                     try{
 
                         if(viewModel!!.validaEdicaoPedido()){
                             viewModel!!.editaPedido()
-
-                            if(result.getTipoPedido() == TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO) {
-                                val intent = Intent(applicationContext, SelecionaItemPedidoActivity::class.java)
-                                startActivity(intent)
-                            }
-                            else{
-                                val intent = Intent(applicationContext, SelecionaItemNucleoActivity::class.java)
-                                startActivity(intent)
-                            }
+                            //TODO cada pedido cai numa tela diferente na hora da edição
                         }
 
                     }

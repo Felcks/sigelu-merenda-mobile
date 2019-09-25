@@ -39,7 +39,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     val errorEnviosText : ObservableField<String> = ObservableField("Nenhuma movimentação registrada.")
     val errorEnvios : ObservableField<Boolean> = ObservableField(false)
 
-    private var pedido: Pedido? = null
+    private var pedido: Pedido2? = null
     private val envios = mutableListOf<Envio>()
     private var quantidadeEnviosCarregando = 0
     private var quantidadeDeEnvios = 0
@@ -80,13 +80,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
                         response.setValue(Response.success(this.pedido!!))
                     },
                     { throwable ->
-
-                        this.pedido = controller.getPedidoBD()
-                        if(pedido != null)
-                            response.setValue(Response.success(this.pedido!!))
-                        else
-                            response.setValue(Response.error(throwable))
-
+                        response.setValue(Response.error(Throwable("")))
                     }
                 )
             )
@@ -106,7 +100,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
             .doOnSubscribe { responseMateriais.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    pedido?.materiais = result
+                    //pedido?.materiais = result
                     responseMateriais.setValue(Response.success(result))
                 },
                 { throwable ->
@@ -283,7 +277,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     }
 
     fun getSituacaoDePedido(): Situacao{
-        return pedido?.situacao ?: Situacao(1, "Em andamento")
+        return pedido?.getSituacao() ?: Situacao(1, "Em andamento")
     }
 
     fun apagaListaItemRecebimentoAnteriores(){
@@ -291,6 +285,6 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     }
 
     fun podeCancelarPedido(): Boolean{
-        return pedido?.situacao?.situacao_id != SITUACAO_CANCELADO_ID
+        return pedido?.isPedidoCancelavel() ?: false
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.FragmentPedidoGeralBinding
@@ -70,13 +71,13 @@ class GeralFragment: Fragment() {
 
     private fun renderDataState(result: Any?) {
 
-        if(result is Pedido){
+        if(result is Pedido2){
             tv_origem.text = result.getOrigemFormatado()
             tv_destino.text = result.getDestinoFormatado()
             tv_data_pedido.text = result.getDataPedidoFormatada().tracoSeVazio()
             tv_data_envio.text = result.getDataEnvioFormatada().tracoSeVazio()
             tv_data_recebimento.text =  result.getDataRecebimentoFormatada().tracoSeVazio()
-            tv_situacao.text =  result.situacao?.situacao_nome?.tracoSeVazio() ?: " - "
+            tv_situacao.text =  result.getSituacao()?.situacao_nome?.tracoSeVazio() ?: " - "
         }
 
         viewModel!!.loading.set(false)

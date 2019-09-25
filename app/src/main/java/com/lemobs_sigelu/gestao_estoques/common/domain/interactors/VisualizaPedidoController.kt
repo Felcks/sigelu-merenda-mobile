@@ -15,7 +15,7 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
                                                     private val itemRecebimentoRepository: ItemRecebimentoRepository,
                                                     private val itemRecebimentoRepository2: ItemRecebimentoRepository2) {
 
-    fun getPedido(): Observable<Pedido> {
+    fun getPedido(): Observable<Pedido2> {
 
         val pedidoEstoqueID = FlowSharedPreferences.getPedidoId(App.instance)
 

@@ -64,5 +64,13 @@ class Pedido2 (val id: Int?,
         return situacao
     }
 
+    fun isPedidoEditavel(): Boolean{
+        return(this.situacao?.situacao_id == SITUACAO_RASCUNHO || this.situacao?.situacao_id == SITUACAO_CORRECAO_SOLICITADA)
+    }
+
+    fun isPedidoCancelavel(): Boolean{
+        return (this.situacao?.situacao_id != SITUACAO_CANCELADO_ID)
+    }
+
     fun getTipoMovimento() = this.movimento.tipo
 }

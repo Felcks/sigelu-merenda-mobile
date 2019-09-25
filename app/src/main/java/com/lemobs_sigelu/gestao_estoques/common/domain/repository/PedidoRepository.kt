@@ -25,7 +25,7 @@ open class PedidoRepository {
         return pedido
     }
 
-    fun getPedido(pedidoEstoqueID: Int): Observable<Pedido> {
+    fun getPedido(pedidoEstoqueID: Int): Observable<Pedido2> {
 
         return Observable.create { subscribe ->
 
@@ -62,44 +62,25 @@ open class PedidoRepository {
                         null
                     }
 
-                    Pedido(
+                    val usuario = Usuario(0, Nucleo(0, "Nucleo", "Nucleo"))
+                    val movimento = Movimento(
+                        0,
+                        TipoMovimento.ALMOXARIFADO_PARA_OBRA,
+                        Local2(this.tipo_origem_id, origemNome ?: "", origemID ?: 0),
+                        Local2(this.tipo_destino_id, destinoNome ?: "", destinoID ?: 0)
+                    )
+
+                    Pedido2(
                         this.id,
+                        usuario,
+                        movimento,
                         this.codigo ?: "",
-                        origemNome ?: "",
-                        destinoNome ?: "",
-                        origemID,
-                        destinoID,
-                        origemNome,
-                        destinoNome,
-                        this.created_at?.createdAtToDate(),
-                        dataUltimoEnvio,
-                        this.data_ultimo_recebimento?.createdAtToDate(),
-                        Situacao(
-                            this.situacao.id,
-                            this.situacao.nome
-                        )
+                        ZonedDateTime.parse(this.created_at),
+                        ZonedDateTime.parse(this.created_at),
+                        ZonedDateTime.parse(this.created_at),
+                        Situacao(this.situacao.id, this.situacao.nome)
                     )
                 }
-
-                val contrato = if(response.body()!!.contrato_estoque != null) {
-                    with(response.body()!!.contrato_estoque!!) {
-
-                        ContratoEstoque(
-                            id ?: 0,
-                            situacao ?: "",
-                            objeto_contrato ?: "",
-                            numero_contrato ?: "",
-                            valor_contratual ?: 0.0,
-                            data_inicio?.anoMesDiaToDate() ?: Date(),
-                            data_conclusao?.anoMesDiaToDate() ?: Date(),
-                            empresa_id
-                        )
-                    }
-                }
-                else{
-                    null
-                }
-                pedido.contrato = contrato
                 subscribe.onNext(pedido)
                 subscribe.onComplete()
             }
