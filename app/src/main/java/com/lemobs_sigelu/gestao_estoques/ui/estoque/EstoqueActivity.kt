@@ -39,7 +39,6 @@ class EstoqueActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EstoqueViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.responseNucleoQuantidade.observe(this, Observer<Response> { response -> processResponseNucleoQuantidade(response) })
 
         val binding: ActivityVisualizaEstoqueBinding = DataBindingUtil.setContentView(this, R.layout.activity_visualiza_estoque)
         binding.viewModel = viewModel!!
@@ -60,14 +59,22 @@ class EstoqueActivity: AppCompatActivity() {
             Status.LOADING -> { }
             Status.SUCCESS -> {
 
-                if(response.data is ItemEstoque){
-                    quantidadeCarregamentoNucleoQuantidade += 1
-                    viewModel!!.carregaListaNucleoQuantidade(response.data as ItemEstoque, quantidadeCarregamentoNucleoQuantidade)
-                }
-
                 if(response.data is List<*>) {
-                     if(response.data.isNotEmpty())
-                        viewModel!!.carregaListaNucleoQuantidade(response.data[0] as ItemEstoque, 0)
+                     if(response.data.isNotEmpty()) {
+                         if (response.data[0] is ItemEstoque) {
+
+                             val layoutManager =
+                                 LinearLayoutManager(applicationContext)
+                             layoutManager.orientation = LinearLayoutManager.VERTICAL
+                             rv_lista.layoutManager = layoutManager
+
+                             val adapter = ListaEstoqueAdapter(
+                                 applicationContext,
+                                 response.data as List<ItemEstoque>
+                             )
+                             rv_lista.adapter = adapter
+                         }
+                     }
                 }
 
             }
@@ -75,33 +82,6 @@ class EstoqueActivity: AppCompatActivity() {
             }
             Status.EMPTY_RESPONSE -> {
                 tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
-            }
-        }
-    }
-
-    fun processResponseNucleoQuantidade(response: Response?) {
-
-        when (response?.status) {
-            Status.LOADING -> {
-                pgb_carregamento.visibility = View.VISIBLE
-            }
-            Status.SUCCESS -> {
-                pgb_carregamento.visibility = View.GONE
-
-
-                if(response.data is List<*>) {
-                    val layoutManager =
-                        LinearLayoutManager(applicationContext)
-                    layoutManager.orientation = LinearLayoutManager.VERTICAL
-                    rv_lista.layoutManager = layoutManager
-
-                    val adapter = ListaEstoqueAdapter(applicationContext, response.data as List<ItemEstoque>)
-                    rv_lista.adapter = adapter
-                }
-
-            }
-            Status.ERROR -> {
-                pgb_carregamento.visibility = View.GONE
             }
         }
     }

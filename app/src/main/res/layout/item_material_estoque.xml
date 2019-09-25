@@ -55,6 +55,7 @@
                 android:id="@+id/tv_contratado_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Contratado:"
                 app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -64,6 +65,7 @@
                 android:id="@+id/tv_contratado"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="0"
                 android:textColor="@color/primary_text"
                 android:layout_marginLeft="@dimen/espacamento_curto"
@@ -78,7 +80,7 @@
                   android:layout_height="wrap_content"
                   android:text="Disponivel:"
                   android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toBottomOf="@id/tv_contratado"
+                  app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
                   app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
