@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.*
@@ -52,6 +53,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizar_pedido)
 
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VisualizarPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel!!.cancelamentoPedidoResponse().observe(this, Observer<Response> { response -> processResponseCancelamentoPedido(response) })
@@ -72,14 +76,17 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
     private fun renderLoadingState() {
         viewModel?.loading?.set(true)
+        viewModel?.isError?.set(false)
     }
 
     private fun renderErrorState(throwable: Throwable?) {
         viewModel?.loading?.set(false)
+        viewModel?.isError?.set(true)
     }
 
     private fun renderDataState(result: Any?) {
         viewModel?.loading?.set(false)
+        viewModel?.isError?.set(false)
 
         if(result is Pedido2) {
 

@@ -8,7 +8,6 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CANCELADO_ID
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,6 +27,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     var responseItensEnvios = MutableLiveData<Response>()
     var responseItensRecebimento = MutableLiveData<Response>()
     val loading : ObservableField<Boolean> = ObservableField(false)
+    var isError = ObservableField<Boolean>(false)
 
     val loadingSituacoes : ObservableField<Boolean> = ObservableField(false)
 
@@ -45,6 +45,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     private var quantidadeDeEnvios = 0
 
     private var cancelamentoPedidoResponse = MutableLiveData<Response>()
+
 
     override fun onCleared() {
         disposables.clear()
