@@ -41,7 +41,7 @@ open class PedidoRepository {
 
                         TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(this.origem_estoque_id, this.origem_estoque?.almoxarifado?.nome)
                         TIPO_ESTOQUE_NUCLEO -> Tupla(this.origem_estoque_id,   this.origem_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(this.origem_estoque_id,  this.origem_estoque?.obra_direta?.codigo)
+                        TIPO_ESTOQUE_OBRA -> Tupla(this.origem_estoque_id,  this.origem_estoque?.obra_direta?.ordem_servico?.codigo)
                         TIPO_ESTOQUE_FORNECEDOR -> Tupla(this.origem_fornecedor_id,  this.origem_fornecedor?.nome)
                         else -> Tupla(null, null)
                     }
@@ -50,7 +50,7 @@ open class PedidoRepository {
 
                         TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(this.destino_estoque_id, this.destino_estoque?.almoxarifado?.nome)
                         TIPO_ESTOQUE_NUCLEO -> Tupla(this.destino_estoque_id,   this.destino_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(this.destino_estoque_id,  this.destino_estoque?.obra_direta?.codigo)
+                        TIPO_ESTOQUE_OBRA -> Tupla(this.destino_estoque_id,  this.destino_estoque?.obra_direta?.ordem_servico?.codigo)
                         else -> Tupla(null, null)
                     }
 
@@ -140,7 +140,7 @@ open class PedidoRepository {
 
                         TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.origem_estoque_id, it.origem_estoque?.almoxarifado?.nome)
                         TIPO_ESTOQUE_NUCLEO -> Tupla(it.origem_estoque_id,   it.origem_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(it.origem_estoque_id,  it.origem_estoque?.obra_direta?.codigo)
+                        TIPO_ESTOQUE_OBRA -> Tupla(it.origem_estoque_id,  it.origem_estoque?.obra_direta?.ordem_servico?.codigo)
                         TIPO_ESTOQUE_FORNECEDOR -> Tupla(it.origem_fornecedor_id,  it.origem_fornecedor?.nome)
                         else -> Tupla(null, null)
                     }
@@ -149,7 +149,7 @@ open class PedidoRepository {
 
                         TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.destino_estoque_id, it.destino_estoque?.almoxarifado?.nome)
                         TIPO_ESTOQUE_NUCLEO -> Tupla(it.destino_estoque_id,   it.destino_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(it.destino_estoque_id,  it.destino_estoque?.obra_direta?.codigo)
+                        TIPO_ESTOQUE_OBRA -> Tupla(it.destino_estoque_id,  it.destino_estoque?.obra_direta?.ordem_servico?.codigo)
                         else -> Tupla(null, null)
                     }
 

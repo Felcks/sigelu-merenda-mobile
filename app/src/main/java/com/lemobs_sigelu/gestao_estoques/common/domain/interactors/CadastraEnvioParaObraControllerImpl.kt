@@ -152,6 +152,12 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         if(envio == null)
             throw EnvioNaoCriadoException()
 
+        for(i in 0 until observacoes.size){
+
+            if(i < envio!!.listaItemEstoque.size)
+                (envio!!.listaItemEstoque)[i].observacao = observacoes[i]
+        }
+
         val pedidoResponse = enviaPedido(observacoes)
         envioRepository.postEnvio2(pedidoResponse.id, envio!!)
     }
@@ -173,12 +179,6 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
                 it,
                 it.quantidadeRecebida ?: 0.0)
         } as MutableList<Material>
-
-        for(i in 0 until observacoes.size){
-
-            if(i < pedido.listaMaterial!!.size)
-                (pedido.listaMaterial)[i].observacao = observacoes.get(i)
-        }
 
         return pedidoRepository.enviaPedido(pedido)
     }

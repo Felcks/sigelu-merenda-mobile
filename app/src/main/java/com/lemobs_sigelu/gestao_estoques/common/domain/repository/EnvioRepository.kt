@@ -101,7 +101,8 @@ class EnvioRepository {
                 envio.itens.map {
                     ItemEnvioDataRequest(
                         it.itemEstoqueID ?: 0,
-                        it.quantidadeRecebida ?: 0.0
+                        it.quantidadeRecebida ?: 0.0,
+                        ""
                     )
                 }
             )
@@ -125,7 +126,8 @@ class EnvioRepository {
             envio.listaItemEstoque.map {
                 ItemEnvioDataRequest(
                     it.id,
-                    it.quantidadeRecebida ?: 0.0
+                    it.quantidadeRecebida ?: 0.0,
+                    it.observacao
                 )
             }
         )
