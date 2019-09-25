@@ -3,6 +3,7 @@ package com.lemobs_sigelu.gestao_estoques
 import android.app.Activity
 import android.app.Application
 import androidx.fragment.app.Fragment
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.lemobs_sigelu.gestao_estoques.di.DaggerAppComponent
 import com.lemobs_sigelu.gestao_estoques.di.DependencyModules
 import dagger.android.AndroidInjector
@@ -23,6 +24,7 @@ class App : Application(), HasActivityInjector, HasSupportFragmentInjector {
 
     override fun onCreate() {
         super.onCreate()
+        AndroidThreeTen.init(this);
 
         DaggerAppComponent
             .builder()

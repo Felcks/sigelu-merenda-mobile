@@ -12,6 +12,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import com.lemobs_sigelu.gestao_estoques.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_APROVADO_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_PARCIAL_ID
@@ -21,12 +22,12 @@ import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import kotlinx.android.synthetic.main.item_pedido.view.*
 
 class ListaPedidoAdapter(private val context: Context,
-                         private var list: List<Pedido>,
+                         private var list: List<Pedido2>,
                          private val envioOuRecebimentoClickListener: OneIntParameterClickListener,
                          private val visualizarPedidoClickListener: OneIntParameterClickListener): RecyclerView.Adapter<ListaPedidoAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val filterList = mutableListOf<Pedido>()
+    private val filterList = mutableListOf<Pedido2>()
 
     private var drawableIconeEnvio: Drawable? = null
     private var drawableIconeRecebimento: Drawable? = null
@@ -51,40 +52,43 @@ class ListaPedidoAdapter(private val context: Context,
         holder.itemView.tv_data_pedido.text = item.getDataPedidoFormatada().tracoSeVazio()
         holder.itemView.tv_data_entrega.text = item.getDataEnvioFormatada().tracoSeVazio()
         holder.itemView.tv_data_ultima_entrega.text = item.getDataRecebimentoFormatada().tracoSeVazio()
-        holder.itemView.tv_situacao.text = item.situacao?.situacao_nome
+        holder.itemView.tv_situacao.text = item.getSituacao()?.situacao_nome
 
-        val unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.rounded_button)
-        val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
-        DrawableCompat.setTint(
-            wrappedDrawable,
-            ContextCompat.getColor(context, item.situacao!!.getColor())
-        )
-        holder.itemView.rl_situacao.background = wrappedDrawable
-        //holder.itemView.rl_situacao.setBackgroundColor(item.situacao!!.getColor())
+        if(item.getSituacao() != null) {
 
-        if(item.situacao!!.situacao_id == SITUACAO_APROVADO_ID || item.situacao!!.situacao_id == SITUACAO_PARCIAL_ID) {
+            val unwrappedDrawable =
+                AppCompatResources.getDrawable(context, R.drawable.rounded_button)
+            val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
+            DrawableCompat.setTint(
+                wrappedDrawable,
+                ContextCompat.getColor(context, item.getSituacao()!!.getColor())
+            )
+            holder.itemView.rl_situacao.background = wrappedDrawable
+            //holder.itemView.rl_situacao.setBackgroundColor(item.situacao!!.getColor())
 
-            //holder.itemView.iv_entrega.visibility = View.VISIBLE
-            holder.itemView.iv_entrega.setOnClickListener {
-                envioOuRecebimentoClickListener.onClick(item.id)
+            if (item.getSituacao()!!.situacao_id == SITUACAO_APROVADO_ID || item.getSituacao()!!.situacao_id == SITUACAO_PARCIAL_ID) {
+
+                //holder.itemView.iv_entrega.visibility = View.VISIBLE
+                holder.itemView.iv_entrega.setOnClickListener {
+                    envioOuRecebimentoClickListener.onClick(item.id ?: 0)
+                }
+            } else {
+                holder.itemView.iv_entrega.visibility = View.GONE
             }
         }
-        else{
-            holder.itemView.iv_entrega.visibility = View.GONE
-        }
 
-        if(item.destino == "Obra" || (item.origem == "Núcleo" && item.origemNome == AppSharedPreferences.getNucleoNome(App.instance))){
-            holder.itemView.iv_entrega.background = drawableIconeEnvio
-        }
-        else{
-            holder.itemView.iv_entrega.background = drawableIconeRecebimento
+//        if(item.destino == "Obra" || (item.origem == "Núcleo" && item.origemNome == AppSharedPreferences.getNucleoNome(App.instance))){
+//            holder.itemView.iv_entrega.background = drawableIconeEnvio
+//        }
+//        else{
+//            holder.itemView.iv_entrega.background = drawableIconeRecebimento
+//
+//        }
 
-        }
-
-        holder.itemView.ll_principal.setOnClickListener{visualizarPedidoClickListener.onClick(item.id)}
+        holder.itemView.ll_principal.setOnClickListener{visualizarPedidoClickListener.onClick(item.id ?: 0)}
     }
 
-    fun updateAllItens(list: List<Pedido>){
+    fun updateAllItens(list: List<Pedido2>){
         filterList.apply {
             clear()
             addAll(list)
@@ -93,7 +97,7 @@ class ListaPedidoAdapter(private val context: Context,
         notifyDataSetChanged()
     }
 
-    fun getPedidoById(id: Int): Pedido?{
+    fun getPedidoById(id: Int): Pedido2?{
         return this.list.first { it.id == id }
     }
 
@@ -102,21 +106,21 @@ class ListaPedidoAdapter(private val context: Context,
         filterList.removeAll { true }
 
         for (item in list) {
-
-            val dataPedido = item.dataPedido?.toDiaMesAno()
-            if (text == "") {
-                filterList.add(item)
-            }
-            else if(item.codigo?.contains(text, ignoreCase = true) == true ||
-                item.origem?.contains(text, ignoreCase = true) == true ||
-                item.origemNome?.contains(text, ignoreCase = true) == true ||
-                item.destino?.contains(text, ignoreCase = true) == true ||
-                item.destinoNome?.contains(text, ignoreCase = true) == true ||
-                item.situacao?.situacao_nome?.contains(text, ignoreCase = true) == true ||
-                dataPedido?.contains(text, ignoreCase = true) == true){
-
-                filterList.add(item)
-            }
+//
+//            val dataPedido = item.dataPedido?.toDiaMesAno()
+//            if (text == "") {
+//                filterList.add(item)
+//            }
+//            else if(item.codigo?.contains(text, ignoreCase = true) == true ||
+//                item.origem?.contains(text, ignoreCase = true) == true ||
+//                item.origemNome?.contains(text, ignoreCase = true) == true ||
+//                item.destino?.contains(text, ignoreCase = true) == true ||
+//                item.destinoNome?.contains(text, ignoreCase = true) == true ||
+//                item.situacao?.situacao_nome?.contains(text, ignoreCase = true) == true ||
+//                dataPedido?.contains(text, ignoreCase = true) == true){
+//
+//                filterList.add(item)
+//            }
         }
 
         notifyDataSetChanged()

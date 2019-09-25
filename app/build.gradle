@@ -43,6 +43,7 @@ android {
         targetSdkVersion 28
         versionCode 9
         versionName "1.2.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         compileOptions {
@@ -221,6 +222,8 @@ dependencies {
 
     /* Mockk */
     testImplementation "io.mockk:mockk:$project.mockkVersion"
+
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 }
 
 android {

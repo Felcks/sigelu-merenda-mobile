@@ -183,7 +183,7 @@
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
                 android:padding="@dimen/espacamento_medio"
-                app:layout_constraintTop_toBottomOf="@id/layout_data_ultima_entrega">
+                app:layout_constraintTop_toBottomOf="@id/tv_data_ultima_entrega">
 
             <TextView
                     android:id="@+id/tv_situacao"

@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import org.threeten.bp.ZonedDateTime
 import retrofit2.Call
 import java.util.*
 
@@ -122,7 +123,7 @@ open class PedidoRepository {
         db.pedidoDAO().insertAll(*lista.toTypedArray())
     }
 
-    fun getListaPedido(): Observable<List<Pedido>> {
+    fun getListaPedido(): Observable<List<Pedido2>> {
 
         return Observable.create { subscriber ->
 
@@ -134,7 +135,6 @@ open class PedidoRepository {
                 data class Tupla(val id: Int?, val nome: String?)
 
                 val list = response.body()?.map {
-
 
                     val (origemID, origemNome) = when(it.tipo_origem_id){
 
@@ -160,18 +160,22 @@ open class PedidoRepository {
                         null
                     }
 
-                    Pedido(
+                    val usuario = Usuario(0, Nucleo(0, "Nucleo", "Nucleo"))
+                    val movimento = Movimento(
+                        0,
+                        TipoMovimento.ALMOXARIFADO_PARA_OBRA,
+                        Local2(it.tipo_origem_id, origemNome ?: "", origemID ?: 0),
+                        Local2(it.tipo_destino_id, destinoNome ?: "", destinoID ?: 0)
+                    )
+
+                    Pedido2(
                         it.id,
+                        usuario,
+                        movimento,
                         it.codigo ?: "",
-                        it.origem_estoque?.tipo_estoque?.nome ?: "",
-                        it.destino_estoque?.tipo_estoque?.nome ?: "",
-                        origemID,
-                        destinoID,
-                        origemNome,
-                        destinoNome,
-                        it.created_at?.createdAtToDate(),
-                        dataUltimoEnvio,
-                        it.data_ultimo_recebimento?.createdAtToDate(),
+                        ZonedDateTime.parse(it.created_at),
+                        ZonedDateTime.parse(it.created_at),
+                        ZonedDateTime.parse(it.created_at),
                         Situacao(it.situacao.id, it.situacao.nome)
                     )
                 }

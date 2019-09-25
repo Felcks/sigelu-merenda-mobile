@@ -19,6 +19,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
@@ -170,7 +171,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     private fun renderDataState(result: Any?) {
         if(result is List<*>){
-            this.iniciarAdapter(result as List<Pedido>)
+            this.iniciarAdapter(result as List<Pedido2>)
         }
     }
 
@@ -184,7 +185,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun iniciarAdapter(list: List<Pedido>){
+    private fun iniciarAdapter(list: List<Pedido2>){
 
         if(this.adapter == null) {
             val layoutManager = LinearLayoutManager(applicationContext)
@@ -219,11 +220,11 @@ class ListaPedidoActivity: AppCompatActivity() {
             val pedido = adapter?.getPedidoById(id)
             viewModel!!.armazenaPedidoNoFluxo(id)
 
-            val intent = when(pedido?.getTipoPedido()){
-                TipoPedido.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> Intent(applicationContext, CadastraEnvioActivity::class.java)
-                TipoPedido.MEU_NUCLEO_PARA_OBRA -> Intent(applicationContext, CadastraEnvioActivity::class.java)
-                TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> Intent(applicationContext, CadastraRecebimentoSESelecionaItemActivity::class.java)
-                TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> Intent(applicationContext, SelecionaEnvioRecebimentoActivity::class.java)
+            val intent = when(pedido?.getTipoMovimento()){
+//                TipoMovi.MEU_NUCLEO_PARA_OUTRO_NUCLEO -> Intent(applicationContext, CadastraEnvioActivity::class.java)
+//                TipoPedido.MEU_NUCLEO_PARA_OBRA -> Intent(applicationContext, CadastraEnvioActivity::class.java)
+//                TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> Intent(applicationContext, CadastraRecebimentoSESelecionaItemActivity::class.java)
+//                TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> Intent(applicationContext, SelecionaEnvioRecebimentoActivity::class.java)
                 else -> Intent(applicationContext, SelecionaItemEnvioActivity::class.java)
             }
 
