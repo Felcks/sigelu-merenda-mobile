@@ -114,10 +114,17 @@ class RestApi {
     fun getEnviosDePedido(pedidoEstoqueID: Int): Call<List<EnvioDataResponse>>{
         return api.getEnviosDePedido(auth, pedidoEstoqueID)
     }
+    suspend fun getListaEnvio(pedidoEstoqueID: Int): Response<List<EnvioDataResponse>>{
+        return api.getListaEnvio(auth, pedidoEstoqueID)
+    }
 
     fun getItensEnvioDePedido(pedidoEstoqueID: Int, envioID: Int): Call<List<ItemPedidoDataResponse>>{
         return api.getItensEnvioDePedido(auth, pedidoEstoqueID, envioID)
     }
+    suspend fun getListaItemEnvio(pedidoEstoqueID: Int, envioID: Int): Response<List<ItemPedidoDataResponse>>{
+        return api.getListaItemEnvio(auth, pedidoEstoqueID, envioID)
+    }
+
 
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)

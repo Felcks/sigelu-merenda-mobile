@@ -63,6 +63,30 @@ class EnvioRepository {
         }
     }
 
+    suspend fun getListaEnvio2(pedidoEstoqueID: Int): List<Envio2>? {
+
+        val response = api.getListaEnvio(pedidoEstoqueID)
+
+        return response.body()?.map {
+            Envio2(
+                it.id,
+                Usuario(0, Nucleo(0, "", "")),
+                Movimento(0,
+                    TipoMovimento.ALMOXARIFADO_PARA_NUCLEO,
+                    Local2(
+                        null,
+                        "",
+                        0
+                    ),
+                    Local2(
+                        null,
+                        "",
+                        0
+                    ))
+            )
+        }
+    }
+
     fun getListaEnvioDePedidoBD(pedidoID: Int): Observable<List<Envio>> {
 
         return Observable.create { subscriber->

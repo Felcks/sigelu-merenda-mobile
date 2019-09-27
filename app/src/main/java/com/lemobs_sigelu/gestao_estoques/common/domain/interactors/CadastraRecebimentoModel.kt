@@ -13,8 +13,8 @@ interface CadastraRecebimentoModel {
     fun cancelaRecebimento()
     fun confirmaRecebimento()
 
-    fun getRecebimento(): Recebimento2
+    fun getRecebimento(): Recebimento2?
 
-    fun getListaEnvio(): List<Envio2>
-    fun getListaItemEnvio(): List<ItemEstoque>
+    suspend fun getListaEnvio(): List<Envio2>
+    suspend fun getListaItemEnvio(): List<ItemEnvio>
 }

@@ -55,10 +55,20 @@ interface IRestApi {
     fun getEnviosDePedido(@Header("Authorization") auth: String,
                          @Path("pedido_estoque_id") pedido_estoque_id: Int): Call<List<EnvioDataResponse>>
 
+    @GET("pedido-estoque/{pedido_estoque_id}/envio")
+    suspend fun getListaEnvio(@Header("Authorization") auth: String,
+                              @Path("pedido_estoque_id") pedido_estoque_id: Int): Response<List<EnvioDataResponse>>
+
+
     @GET("pedido-estoque/{pedido_estoque_id}/envio/{envio_id}/item")
     fun getItensEnvioDePedido(@Header("Authorization") auth: String,
                               @Path("pedido_estoque_id") pedido_estoque_id: Int,
                               @Path("envio_id") envio_id: Int): Call<List<ItemPedidoDataResponse>>
+
+    @GET("pedido-estoque/{pedido_estoque_id}/envio/{envio_id}/item")
+    suspend  fun getListaItemEnvio(@Header("Authorization") auth: String,
+                                   @Path("pedido_estoque_id") pedido_estoque_id: Int,
+                                   @Path("envio_id") envio_id: Int): Response<List<ItemPedidoDataResponse>>
 
     @POST("recebimento-estoque")
     fun postRecebimentoEstoque(@Header("Authorization") auth: String,

@@ -14,6 +14,7 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
                                    val itemEnvioRepository: ItemEnvioRepository): CadastraRecebimentoModel{
 
     private var recebimento: Recebimento2? = null
+    private var pedidoEstoqueEnvioID: Int? = null
 
     override fun iniciaRecebimento(pedidoEstoqueID: Int, pedidoEstoqueEnvioID: Int) {
 
@@ -67,15 +68,16 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getRecebimento(): Recebimento2 {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getRecebimento(): Recebimento2? {
+        return this.recebimento
     }
 
-    override fun getListaEnvio(): List<Envio2> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getListaEnvio(): List<Envio2> {
+        return envioRepository.getListaEnvio2(pedidoEstoqueEnvioID ?: 0) ?: listOf()
     }
 
-    override fun getListaItemEnvio(): List<ItemEstoque> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getListaItemEnvio(): List<ItemEnvio> {
+        return itemEnvioRepository.getListaItemEnvio2(pedidoEstoqueEnvioID ?: 0,
+            recebimento?.pedidoEstoqueEnvioID ?: 0) ?: listOf()
     }
 }

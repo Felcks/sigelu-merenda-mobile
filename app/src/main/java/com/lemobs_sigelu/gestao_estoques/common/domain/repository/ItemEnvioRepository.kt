@@ -72,6 +72,45 @@ class ItemEnvioRepository {
         }
     }
 
+    suspend fun getListaItemEnvio2(pedidoEstoqueID: Int, pedidoEstoqueEnvioID: Int): List<ItemEnvio>?{
+
+        val response = api.getListaItemEnvio(pedidoEstoqueID, pedidoEstoqueEnvioID)
+
+        return response.body()?.map {
+
+            val unidadeMedida = with(it.item_estoque.unidade_medida) {
+                com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida(
+                    this.id,
+                    this.nome ?: "",
+                    this.sigla ?: ""
+                )
+            }
+
+            val itemEstoque = with(it.item_estoque) {
+                com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque(
+                    this.id,
+                    this.codigo ?: "",
+                    this.descricao ?: "",
+                    this.nome_alternativo ?: "",
+                    unidadeMedida
+                )
+            }
+
+            val item = ItemEnvio(
+                it.id,
+                pedidoEstoqueEnvioID,
+                it.quantidade_unidade ?: 0.0,
+                0.0,
+                null,
+                itemEstoque.id,
+                itemEstoque
+            )
+
+            item.quantidadeDisponivel = it.quantidade_disponivel
+            item
+        }
+    }
+
     fun getListaItemEnvioBD(envioID: Int): Observable<List<ItemEnvio>> {
 
         return Observable.create { subscribe ->
