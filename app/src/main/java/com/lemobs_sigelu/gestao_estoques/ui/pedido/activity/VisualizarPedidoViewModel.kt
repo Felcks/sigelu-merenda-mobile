@@ -160,9 +160,12 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
         }
     }
 
+    fun limparListaEnvio(){
+        this.envios.clear()
+    }
+
     fun carregarItensDeEnvio(envio: Envio){
 
-        this.envios.clear()
         disposables.add(controller.getListaItensEnvio(envio)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -172,8 +175,6 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
                     envio.itens = result.toMutableList()
                     envios.add(envio)
                     quantidadeEnviosCarregando -= 1
-                    controller.salvaEnvio(envio)
-                    controller.salvaListaItemEnvio(result)
                     responseItensEnvios.value = Response.success(result)
                 },
                 { throwable ->

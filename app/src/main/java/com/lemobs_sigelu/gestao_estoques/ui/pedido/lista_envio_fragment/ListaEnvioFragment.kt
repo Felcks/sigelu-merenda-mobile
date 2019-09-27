@@ -76,6 +76,7 @@ class ListaEnvioFragment : Fragment() {
 
     private fun renderDataState(result: Any?) {
 
+        viewModel!!.limparListaEnvio()
         if(result is List<*>){
             for(envio in result as List<Envio>){
                 viewModel!!.carregarItensDeEnvio(envio)
