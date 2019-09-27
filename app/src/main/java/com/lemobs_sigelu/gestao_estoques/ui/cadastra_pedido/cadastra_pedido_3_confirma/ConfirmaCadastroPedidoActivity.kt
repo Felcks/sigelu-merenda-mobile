@@ -20,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityConfirmaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.getNomeDoTipo
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
@@ -48,7 +49,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         val pedido = viewModel.getPedido()
         tv_origem.text = pedido.movimento.origem.nome.tracoSeVazio()
-        tv_destino.text = String.format(getString(R.string.layout_destino), "aa", pedido.movimento.destino.nome)
+        tv_destino.text = String.format(getString(R.string.layout_destino), getNomeDoTipo(pedido.movimento.destino.tipo_id ?: 0), pedido.movimento.destino.nome)
 
         btn_salva_rascunho.setOnClickListener { salvaRascunho() }
 

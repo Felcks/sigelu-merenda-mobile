@@ -43,5 +43,9 @@ object DependencyModules {
         single { CadastraPedidoModelImpl(get(), get(), get(), get(), get(), get()) as CadastraPedidoModel }
         viewModel { SelecionaTipoPedidoViewModel(get()) }
         viewModel { SelecionaObraViewModel(get()) }
+
+
+        single { ItemEnvioRepository() }
+        single { CadastraRecebimentoModelImpl(get(), get(), get(), get()) as CadastraRecebimentoModel}
     }
 }

@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepositor
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.PedidoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.NOME_ALMOXARIFADO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_ALMOXARIFADO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
@@ -54,7 +55,7 @@ class CadastraPedidoModelImpl(
         while(!job.isCompleted){}
 
 
-        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, almoxarifadoEstoqueID)
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, NOME_ALMOXARIFADO, almoxarifadoEstoqueID)
         val localDestino = Local2(TIPO_ESTOQUE_NUCLEO, nucleo.nome, nucleoEstoqueID)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_NUCLEO, localOrigem, localDestino)
 
@@ -90,7 +91,7 @@ class CadastraPedidoModelImpl(
 
         val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")
 
-        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, TipoLocal.ALMOXARIFADO.name, almoxarifadoEstoqueID)
+        val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, NOME_ALMOXARIFADO, almoxarifadoEstoqueID)
         val localDestino = Local2(TIPO_ESTOQUE_OBRA, obra.codigo, obra.estoqueID)
         val movimento = Movimento(null, TipoMovimento.ALMOXARIFADO_PARA_OBRA, localOrigem, localDestino)
 

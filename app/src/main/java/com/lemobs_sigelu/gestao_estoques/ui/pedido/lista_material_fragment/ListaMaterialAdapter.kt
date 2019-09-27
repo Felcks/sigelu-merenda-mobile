@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import kotlinx.android.synthetic.main.item_material_de_pedido.view.*
 
 class ListaMaterialAdapter (val context: Context,
@@ -35,7 +36,7 @@ class ListaMaterialAdapter (val context: Context,
         holder.itemView.tv_pedido_total.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
         holder.itemView.tv_material_recebido.text = "${quantidadeEnviada.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
         holder.itemView.tv_material_quantidade.text = "${item.quantidadeDisponivel.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
-        holder.itemView.tv_observacao.text =  item.observacao
+        holder.itemView.tv_observacao.text =  item.observacao.tracoSeVazio()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {}

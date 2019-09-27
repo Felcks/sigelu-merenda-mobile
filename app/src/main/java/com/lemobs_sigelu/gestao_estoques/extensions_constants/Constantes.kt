@@ -48,3 +48,14 @@ const val NOME_ALMOXARIFADO = "Almoxarifado"
 const val NOME_NUCLEO = "Núcleo"
 const val NOME_OBRA = "Obra"
 const val NOME_FORNECEDOR = "Fornecedor"
+
+fun getNomeDoTipo(tipoEstoqueID: Int): String{
+
+    return when(tipoEstoqueID){
+        TIPO_ESTOQUE_ALMOXARIFADO -> NOME_ALMOXARIFADO
+        TIPO_ESTOQUE_NUCLEO -> NOME_NUCLEO
+        TIPO_ESTOQUE_OBRA -> NOME_OBRA
+        TIPO_ESTOQUE_FORNECEDOR -> NOME_FORNECEDOR
+        else -> ""
+    }
+}

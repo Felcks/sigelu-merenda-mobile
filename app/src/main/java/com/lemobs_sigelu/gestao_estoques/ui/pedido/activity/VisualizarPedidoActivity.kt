@@ -93,9 +93,11 @@ class VisualizarPedidoActivity: AppCompatActivity() {
             tv_titulo.text = result.getCodigoFormatado().tracoSeVazio()
             if(result.getSituacao()?.situacao_id == SITUACAO_APROVADO_ID || result.getSituacao()?.situacao_id == SITUACAO_PARCIAL_ID) {
 
-                when(result.getTipoMovimento()){
-                    TipoMovimento.NUCLEO_PARA_OBRA -> btn_cadastra_envio.visibility = View.VISIBLE
-                    TipoMovimento.ALMOXARIFADO_PARA_NUCLEO -> btn_cadastra_recebimento.visibility = View.VISIBLE
+                if(result.movimento.origem.tipo_id == TIPO_ESTOQUE_ALMOXARIFADO && result.movimento.destino.tipo_id == TIPO_ESTOQUE_NUCLEO){
+                    btn_cadastra_recebimento.visibility = View.VISIBLE
+                }
+                else if(result.movimento.origem.tipo_id == TIPO_ESTOQUE_NUCLEO && result.movimento.destino.tipo_id == TIPO_ESTOQUE_OBRA){
+                    btn_cadastra_envio.visibility = View.VISIBLE
                 }
             }
             else if(result.getSituacao()?.situacao_id == SITUACAO_RASCUNHO || result.getSituacao()?.situacao_id == SITUACAO_CORRECAO_SOLICITADA){
@@ -141,9 +143,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
             btn_cadastra_recebimento.setOnClickListener {
 
-                viewModel!!.apagaListaItemRecebimentoAnteriores()
-                val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
-                startActivity(intent)
+//                viewModel!!.apagaListaItemRecebimentoAnteriores()
+//                val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
+//                startActivity(intent)
             }
             btn_cadastra_envio.setOnClickListener {
 
