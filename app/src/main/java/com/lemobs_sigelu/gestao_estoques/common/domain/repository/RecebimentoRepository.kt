@@ -5,12 +5,13 @@ import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDa
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoRequestResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Recebimento2
+import retrofit2.Response
 
 class RecebimentoRepository {
 
     val api = RestApi()
 
-    suspend fun cadastraRecebimento(recebimento: Recebimento2) {
+    suspend fun cadastraRecebimento(recebimento: Recebimento2): RecebimentoRequestResponse {
 
         val listaItemRecebimento = recebimento.listaItemRecebimento?.map {
             ItemRecebimentoDataRequest(

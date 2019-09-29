@@ -58,10 +58,10 @@ class CRConfirmaViewModel(val cadastraRecebimentoModel: CadastraRecebimentoModel
 
             try {
                 cadastraRecebimentoModel.confirmaRecebimento()
-                cadastroRecebimentoResponse.value = Response.success("")
+                cadastroRecebimentoResponse.postValue(Response.success(""))
             }
             catch (e: Exception){
-                cadastroRecebimentoResponse.value = Response.error(Throwable(e.message))
+                cadastroRecebimentoResponse.postValue(Response.error(Throwable(e.message)))
             }
         }
     }

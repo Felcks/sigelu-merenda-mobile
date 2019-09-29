@@ -130,7 +130,8 @@ class RestApi {
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)
     }
-    suspend fun postRecebimentoEstoque2(recebimentoDataRequest: RecebimentoDataRequest): Unit {
+
+    suspend fun postRecebimentoEstoque2(recebimentoDataRequest: RecebimentoDataRequest): RecebimentoRequestResponse {
         return api.postRecebimentoEstoque2(auth, recebimentoDataRequest)
     }
 
@@ -210,7 +211,7 @@ class RestApi {
         return api.postEnvio(auth, pedidoEstoqueID, envioDataRequest)
     }
 
-    suspend fun postEnvio2(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest): Unit {
+    suspend fun postEnvio2(pedidoEstoqueID: Int, envioDataRequest: EnvioDataRequest) {
         return api.postEnvio2(auth, pedidoEstoqueID, envioDataRequest)
     }
 

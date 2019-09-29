@@ -76,8 +76,8 @@ interface IRestApi {
                                @Body recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>
 
     @POST("recebimento-estoque")
-    fun postRecebimentoEstoque2(@Header("Authorization") auth: String,
-                                @Body recebimentoDataRequest: RecebimentoDataRequest): Unit
+    suspend fun postRecebimentoEstoque2(@Header("Authorization") auth: String,
+                                @Body recebimentoDataRequest: RecebimentoDataRequest): RecebimentoRequestResponse
 
 
     @POST("recebimento-estoque")
