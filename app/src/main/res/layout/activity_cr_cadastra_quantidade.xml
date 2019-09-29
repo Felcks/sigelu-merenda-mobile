@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
                 app:layout_constraintLeft_toLeftOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/ll_titulo"
+                android:id="@+id/ll_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/top_stepper"
@@ -35,16 +35,41 @@
                 android:layout_margin="@dimen/espacamento_maximo"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ll_selecione_fornecedor"
+                android:id="@+id/ll_info"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingTop="@dimen/espacamento_grande"
-                android:paddingBottom="@dimen/espacamento_medio"
                 android:background="?android:attr/selectableItemBackground"
-                app:layout_constraintTop_toBottomOf="@id/ll_titulo"
-                app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
+                app:layout_constraintTop_toBottomOf="@id/ll_title"
+                app:layout_constraintLeft_toLeftOf="@id/ll_title"
                 app:layout_constraintBottom_toTopOf="@id/bottom_stepper"
                 android:layout_margin="@dimen/espacamento_maximo">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}" />
+
+            <include layout="@layout/progressbar_carregamento"
+                    android:id="@+id/ll_loading"
+                    android:visibility="visible"
+                    app:isVisible="@{viewModel.loading}" />
+
+            <include
+                    layout="@layout/layout_error_with_refresh"
+                    android:id="@+id/ll_erro"
+                    android:visibility="visible"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper

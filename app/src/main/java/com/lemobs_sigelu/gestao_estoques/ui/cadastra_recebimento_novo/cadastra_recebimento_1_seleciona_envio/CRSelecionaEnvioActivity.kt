@@ -19,6 +19,7 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCrSelecionaEnvioBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cr_seleciona_envio.*
@@ -72,7 +73,9 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntPara
             viewModel.carregandoProximaTela.value = Response.loading()
             viewModel.iniciaRecebimento()
 
-            //vai para a proxima activity
+            viewModel.getFluxo().incrementaPassoAtual()
+            val intent = Intent(this, CRCadastraItemActivity::class.java)
+            startActivity(intent)
         }
         catch (e: Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
