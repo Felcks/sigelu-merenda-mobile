@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:id="@+id/ll_card_view"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/espacamento_curto"
+        android:layout_marginBottom="@dimen/espacamento_grande"
+        android:layout_marginLeft="@dimen/espacamento_curto"
+        android:layout_marginTop="@dimen/espacamento_curto"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="false"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="1dp"
+        android:background="@android:color/white"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/divider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="@dimen/espacamento_grande"
+                android:layout_margin="@dimen/espacamento_minimo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                >
+
+            <TextView
+                    android:id="@+id/tv_nome_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/primary_text"
+                    android:text="Cimento"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_quantidade_fornecida_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="Quantidade Recebida"
+                    android:textColor="@color/divider"/>
+
+            <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                    android:id="@+id/edt_quantidade_fornecida"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:digits="1234567890,"
+                    android:hint="0"
+                    android:textColorHint="@color/divider"
+                    android:maxLength="5"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_quantidade_fornecida_layout"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textColor="@color/secondary_text"/>
+
+            <TextView
+                    android:id="@+id/edt_quantidade_fornecida_unidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/primary_text"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+                    app:layout_constraintVertical_bias="0.7"
+                    app:layout_constraintBottom_toBottomOf="@+id/edt_quantidade_fornecida"
+                    app:layout_constraintTop_toTopOf="@id/edt_quantidade_fornecida"
+                    app:layout_constraintLeft_toRightOf="@+id/edt_quantidade_fornecida"/>
+
+            <TextView
+                    android:id="@+id/tv_observacao_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Observação"
+                    android:layout_marginTop="@dimen/espacamento_curto"
+                    app:layout_constraintTop_toBottomOf="@id/edt_quantidade_fornecida"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+           <EditText
+                   android:id="@+id/edt_observacao"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintTop_toBottomOf="@id/tv_observacao_layout"
+               />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
