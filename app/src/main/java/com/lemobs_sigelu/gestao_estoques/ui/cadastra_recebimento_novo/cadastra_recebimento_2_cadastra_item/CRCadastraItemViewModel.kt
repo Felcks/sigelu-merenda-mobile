@@ -4,6 +4,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento2
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,6 +70,32 @@ class CRCadastraItemViewModel(val cadastraRecebimentoModel: CadastraRecebimentoM
                 listaItemResponse.postValue(Response.error(Throwable("")))
             }
         }
+    }
+
+    fun confirmaCadastroItem(lista: List<ItemRecebimentoDTO>){
+
+        return cadastraRecebimentoModel.cadastraQuantidadeEObservacaoMaterial(
+
+            lista.map {
+                ItemRecebimento2(
+                    it.quantidadeEnviada,
+                    ItemEstoque(
+                        it.itemEstoqueID,
+                        it.itemEstoque.codigo,
+                        it.itemEstoque.descricao,
+                        it.itemEstoque.nomeAlternativo,
+                        UnidadeMedida(
+                            it.itemEstoque.unidadeMedida.unidadeMedidaID,
+                            it.itemEstoque.unidadeMedida.nome,
+                            it.itemEstoque.unidadeMedida.sigla
+                        )
+                    )
+                ).apply {
+                    this.observacao = it.observacaoRecebimento
+                    this.quantidadeRecebida = it.quantidadeRecebida
+                }
+            }
+        )
     }
 
     fun getFluxo() = cadastraRecebimentoModel

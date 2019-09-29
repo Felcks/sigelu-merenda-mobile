@@ -1,16 +1,13 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio2
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Recebimento2
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 
 interface CadastraRecebimentoModel: Fluxo {
 
     fun setPedidoEstoqueID(pedidoEstoqueID: Int)
 
     fun iniciaRecebimento(pedidoEstoqueID: Int, pedidoEstoqueEnvioID: Int)
-    fun cadastraQuantidadeEObservacaoMaterial(listaItemEstoqueID: List<Int>, listaValor: List<Double>, listaObservacao: List<String>)
+    fun cadastraQuantidadeEObservacaoMaterial(listaItemRecebimento: List<ItemRecebimento2>)
 
     fun cancelaRecebimento()
     fun confirmaRecebimento()

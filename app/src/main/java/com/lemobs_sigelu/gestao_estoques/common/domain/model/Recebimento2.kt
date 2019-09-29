@@ -4,5 +4,5 @@ class Recebimento2(val id: Int?,
                    val pedidoEstoqueID: Int,
                    val pedidoEstoqueEnvioID: Int){
 
-    var listaItemRecebimento = mutableListOf<ItemRecebimento2>()
+    var listaItemRecebimento: List<ItemRecebimento2>? = null
 }

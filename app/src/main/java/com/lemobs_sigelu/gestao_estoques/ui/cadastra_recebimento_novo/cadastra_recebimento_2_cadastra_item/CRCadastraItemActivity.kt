@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -21,6 +22,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cr_cadastra_quantidade.*
 import org.koin.android.ext.android.inject
+import java.lang.Exception
 
 class CRCadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
 
@@ -59,7 +61,19 @@ class CRCadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
     }
 
     override fun clicouProximo() {
-        
+
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
+        try{
+            val lista = adapter?.getListaMateriaisPreenchidos()
+            viewModel.confirmaCadastroItem(lista ?: listOf())
+            viewModel.getFluxo().incrementaPassoAtual()
+        }
+        catch(e: Exception){
+            viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     override fun clicouAnterior() {
@@ -82,13 +96,14 @@ class CRCadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         }
     }
 
+    private var adapter: CRCadastraItemAdapter? = null
     private fun iniciaLista(listaItem: List<ItemRecebimentoDTO>){
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_list.layoutManager = layoutManager
 
-        val adapter = CRCadastraItemAdapter(applicationContext,
+        this.adapter = CRCadastraItemAdapter(applicationContext,
             listaItem)
         rv_list.adapter = adapter
     }

@@ -3,10 +3,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEnvioRepository
-import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.RecebimentoNaoCriadoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemPermissaoException
-import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
@@ -42,31 +39,22 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
     }
 
     override fun cadastraQuantidadeEObservacaoMaterial(
-        listaItemEstoqueID: List<Int>,
-        listaValor: List<Double>,
-        listaObservacao: List<String>
+        listaItemRecebimento: List<ItemRecebimento2>
     ) {
 
         if(recebimento == null)
             throw RecebimentoNaoCriadoException()
 
-        if(listaItemEstoqueID.isEmpty() || listaValor.isEmpty())
+        if(listaItemRecebimento.isEmpty() )
             throw NenhumItemSelecionadoException()
 
-        if(listaItemEstoqueID.size != listaValor.size || listaValor.size != recebimento!!.listaItemRecebimento.size)
-            throw Exception()
+        for(item in listaItemRecebimento){
 
-        var count = 0
-        for(id in listaItemEstoqueID){
-
-            val valor = listaValor[count]
-            val observacao = listaObservacao[count]
-
-            val item = recebimento!!.listaItemRecebimento.first { it.itemEstoque.id == id }
-            item.quantidadeRecebida = valor
-            item.observacao = observacao
-            count += 1
+            if(item.quantidadeRecebida > item.quantidadeEnviada)
+                throw ValorMaiorQuePermitidoException()
         }
+
+        this.recebimento?.listaItemRecebimento = listaItemRecebimento
     }
 
     override fun cancelaRecebimento() {
