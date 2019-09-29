@@ -68,7 +68,7 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
         if(recebimento == null)
             throw RecebimentoNaoCriadoException()
 
-        return recebimentoRepository.cadastraRecebimento(recebimento!!)
+        recebimentoRepository.cadastraRecebimento(recebimento!!)
     }
 
     override fun getRecebimento(): Recebimento2? {

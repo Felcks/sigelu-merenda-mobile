@@ -20,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataRes
 import com.lemobs_sigelu.gestao_estoques.api_model.pedido_situacao.SituacaoPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoRequestResponse
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_envio.RecebimentoSEDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento_sem_pedido.RecebimentoSemPedidoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.usuario.UsuarioDataResponse
@@ -129,7 +130,7 @@ class RestApi {
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)
     }
-    suspend fun postRecebimentoEstoque2(recebimentoDataRequest: RecebimentoDataRequest){
+    suspend fun postRecebimentoEstoque2(recebimentoDataRequest: RecebimentoDataRequest): Unit {
         return api.postRecebimentoEstoque2(auth, recebimentoDataRequest)
     }
 

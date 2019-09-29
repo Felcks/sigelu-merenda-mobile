@@ -3,13 +3,14 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.ItemRecebimentoDataRequest
 import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoDataRequest
+import com.lemobs_sigelu.gestao_estoques.api_model.recebimento.RecebimentoRequestResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Recebimento2
 
 class RecebimentoRepository {
 
     val api = RestApi()
 
-    suspend fun cadastraRecebimento(recebimento: Recebimento2){
+    suspend fun cadastraRecebimento(recebimento: Recebimento2) {
 
         val listaItemRecebimento = recebimento.listaItemRecebimento?.map {
             ItemRecebimentoDataRequest(
