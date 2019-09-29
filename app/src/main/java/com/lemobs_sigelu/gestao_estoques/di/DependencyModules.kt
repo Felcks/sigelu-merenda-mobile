@@ -16,6 +16,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_ca
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioViewModel
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -48,8 +49,10 @@ object DependencyModules {
 
 
         single { ItemEnvioRepository() }
-        single { CadastraRecebimentoModelImpl(get(), get(), get(), get()) as CadastraRecebimentoModel}
+        single { RecebimentoRepository() }
+        single { CadastraRecebimentoModelImpl(get(), get(), get(), get(), get()) as CadastraRecebimentoModel}
         viewModel { CRSelecionaEnvioViewModel(get()) }
         viewModel { CRCadastraItemViewModel(get()) }
+        viewModel { CRConfirmaViewModel(get()) }
     }
 }

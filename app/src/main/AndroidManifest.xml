@@ -242,5 +242,9 @@
                 android:label="@string/cadastra_recebimento_nome_activity_2"
                 android:windowSoftInputMode="adjustPan" />
 
+        <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity"
+                android:label="@string/cadastra_recebimento_nome_activity_3"
+                android:windowSoftInputMode="adjustPan" />
+
     </application>
 </manifest>

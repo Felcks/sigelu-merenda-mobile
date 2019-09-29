@@ -6,7 +6,5 @@ package com.lemobs_sigelu.gestao_estoques.api_model.recebimento
 class RecebimentoDataRequest (
     val pedido_estoque_id: Int,
     val pedido_estoque_envio_id: Int,
-    val origem_fornecedor_id: Int,
-    val destino_nucleo_id: Int,
     val items: List<ItemRecebimentoDataRequest>
 )

@@ -129,6 +129,9 @@ class RestApi {
     fun postRecebimentoEstoque(recebimentoDataRequest: RecebimentoDataRequest): Call<Unit>{
         return api.postRecebimentoEstoque(auth, recebimentoDataRequest)
     }
+    suspend fun postRecebimentoEstoque2(recebimentoDataRequest: RecebimentoDataRequest){
+        return api.postRecebimentoEstoque2(auth, recebimentoDataRequest)
+    }
 
     fun postRecebimentoEstoqueSemEnvio(recebimentoDataRequest: RecebimentoSEDataRequest): Call<Unit>{
         return api.postRecebimentoEstoqueSemEnvio(auth, recebimentoDataRequest)

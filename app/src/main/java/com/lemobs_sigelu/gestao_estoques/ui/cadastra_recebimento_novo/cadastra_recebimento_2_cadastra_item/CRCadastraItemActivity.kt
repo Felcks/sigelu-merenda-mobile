@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +17,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCrCadastraQuantidadeBinding
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cr_cadastra_quantidade.*
@@ -69,6 +69,9 @@ class CRCadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
             val lista = adapter?.getListaMateriaisPreenchidos()
             viewModel.confirmaCadastroItem(lista ?: listOf())
             viewModel.getFluxo().incrementaPassoAtual()
+
+            val intent = Intent(this, CRConfirmaActivity::class.java)
+            startActivity(intent)
         }
         catch(e: Exception){
             viewModel.carregandoProximaTela.value = Response.empty()

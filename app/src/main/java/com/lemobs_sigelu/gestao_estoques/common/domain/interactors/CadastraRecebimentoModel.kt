@@ -10,7 +10,7 @@ interface CadastraRecebimentoModel: Fluxo {
     fun cadastraQuantidadeEObservacaoMaterial(listaItemRecebimento: List<ItemRecebimento2>)
 
     fun cancelaRecebimento()
-    fun confirmaRecebimento()
+    suspend fun confirmaRecebimento()
 
     fun getRecebimento(): Recebimento2?
 

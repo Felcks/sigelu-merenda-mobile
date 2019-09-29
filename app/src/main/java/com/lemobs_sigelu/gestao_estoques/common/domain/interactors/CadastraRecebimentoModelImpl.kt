@@ -3,13 +3,15 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EnvioRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEnvioRepository
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.RecebimentoRepository
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
                                    val nucleoModel: NucleoModel,
                                    val envioRepository: EnvioRepository,
-                                   val itemEnvioRepository: ItemEnvioRepository): CadastraRecebimentoModel{
+                                   val itemEnvioRepository: ItemEnvioRepository,
+                                   val recebimentoRepository: RecebimentoRepository): CadastraRecebimentoModel{
 
     private var recebimento: Recebimento2? = null
     private var pedidoEstoqueID: Int? = null
@@ -61,8 +63,12 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun confirmaRecebimento() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun confirmaRecebimento() {
+
+        if(recebimento == null)
+            throw RecebimentoNaoCriadoException()
+
+        return recebimentoRepository.cadastraRecebimento(recebimento!!)
     }
 
     override fun getRecebimento(): Recebimento2? {

@@ -276,15 +276,14 @@ class CadastraRecebimentoController @Inject constructor(private val envioReposit
             val listaItemRecebimento = listaItemEnvio?.map {
                 ItemRecebimentoDataRequest(
                     it.itemEstoqueID ?: 0,
-                    it.quantidadeRecebida ?: 0.0
+                    it.quantidadeRecebida ?: 0.0,
+                    ""
                 )
             }
 
             val recebimentoDataRequest = RecebimentoDataRequest(
                 pedidoID,
                 envioID,
-                origemID!!,
-                destinoID!!,
                 listaItemRecebimento ?: listOf()
             )
 

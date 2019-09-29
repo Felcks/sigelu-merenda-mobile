@@ -5,5 +5,6 @@ package com.lemobs_sigelu.gestao_estoques.api_model.recebimento
  */
 class ItemRecebimentoDataRequest (
     val item_estoque_id: Int,
-    val quantidade_unidade: Double
+    val quantidade_unidade: Double,
+    val observacao: String
 )

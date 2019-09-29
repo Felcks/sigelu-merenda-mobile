@@ -1,5 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item
 
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.ItemEstoqueDTO
+
 class ItemRecebimentoDTO (val itemEnvioID: Int,
                           val pedidoEstoqueID: Int,
                           val pedidoEstoqueEnvioID: Int,

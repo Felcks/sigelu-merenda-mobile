@@ -8,6 +8,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemRecebimento2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.ItemEstoqueDTO
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.UnidadeMedidaDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,25 +39,27 @@ class CRCadastraItemViewModel(val cadastraRecebimentoModel: CadastraRecebimentoM
                 if(retrieved.isNotEmpty()) {
 
                     isError.set(false)
-                    val mapped = retrieved.map { ItemRecebimentoDTO(
-                        it.id,
-                        it.pedidoEstoqueID ?: 0,
-                        it.envio_id ?: 0,
-                        it.itemEstoqueID ?: 0,
-                        ItemEstoqueDTO(
+                    val mapped = retrieved.map {
+                        ItemRecebimentoDTO(
+                            it.id,
+                            it.pedidoEstoqueID ?: 0,
+                            it.envio_id ?: 0,
                             it.itemEstoqueID ?: 0,
-                            it.itemEstoque?.codigo ?: "",
-                            it.itemEstoque?.nomeAlternativo ?: "",
-                            it.itemEstoque?.descricao ?: "",
-                            UnidadeMedidaDTO(
-                                it.itemEstoque?.unidadeMedida?.id ?: 0,
-                                it.itemEstoque?.unidadeMedida?.nome ?: "",
-                                it.itemEstoque?.unidadeMedida?.sigla ?: ""
-                            )
-                        ),
-                        it.observacao,
-                        it.quantidadeUnidade
-                    ) }
+                            ItemEstoqueDTO(
+                                it.itemEstoqueID ?: 0,
+                                it.itemEstoque?.codigo ?: "",
+                                it.itemEstoque?.nomeAlternativo ?: "",
+                                it.itemEstoque?.descricao ?: "",
+                                UnidadeMedidaDTO(
+                                    it.itemEstoque?.unidadeMedida?.id ?: 0,
+                                    it.itemEstoque?.unidadeMedida?.nome ?: "",
+                                    it.itemEstoque?.unidadeMedida?.sigla ?: ""
+                                )
+                            ),
+                            it.observacao,
+                            it.quantidadeUnidade
+                        )
+                    }
                     listaItemResponse.postValue(Response.success(mapped))
                 }
                 else{
