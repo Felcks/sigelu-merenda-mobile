@@ -8,7 +8,6 @@ class Envio2(
     val movimento: Movimento
 ){
 
-    var envioID: Int? = null
     var pedidoID: Int? = null
     var situacao: String?= null
     var codigo: String? = null

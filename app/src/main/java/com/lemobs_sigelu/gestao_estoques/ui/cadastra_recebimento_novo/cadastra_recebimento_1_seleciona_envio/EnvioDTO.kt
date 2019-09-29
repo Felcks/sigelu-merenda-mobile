@@ -2,4 +2,5 @@ package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_
 
 class EnvioDTO(val pedidoEstoqueEnvioID: Int,
                val pedidoEstoqueID: Int,
-               val codigo: String)
+               val codigo: String,
+               val pedidoEstoqueRecebimentoID: Int?)

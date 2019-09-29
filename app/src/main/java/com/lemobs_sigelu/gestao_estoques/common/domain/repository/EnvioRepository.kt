@@ -70,7 +70,10 @@ class EnvioRepository {
         return response.body()?.map {
             Envio2(
                 it.id,
-                Usuario(0, Nucleo(0, "", "")),
+                Usuario(
+                    it.responsavel?.id ?: 0,
+                    Nucleo(0, "", ""),
+                    it.responsavel?.nome ?: ""),
                 Movimento(0,
                     TipoMovimento.ALMOXARIFADO_PARA_NUCLEO,
                     Local2(
@@ -83,7 +86,11 @@ class EnvioRepository {
                         "",
                         0
                     ))
-            )
+            ).apply {
+                this.codigo = it.codigo
+                this.situacao = it.situacao
+                this.recebimentoID = it.recebimento_estoque?.id
+            }
         }
     }
 

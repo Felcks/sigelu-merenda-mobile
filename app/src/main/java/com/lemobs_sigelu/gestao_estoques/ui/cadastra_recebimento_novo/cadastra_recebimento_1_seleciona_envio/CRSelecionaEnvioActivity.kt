@@ -1,22 +1,31 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCrSelecionaEnvioBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
+import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
+import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cr_seleciona_envio.*
 import org.koin.android.ext.android.inject
+import java.lang.Exception
 
-class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo{
+class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParametersClickListener{
 
     val viewModel: CRSelecionaEnvioViewModel by inject()
 
@@ -29,7 +38,7 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo{
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
-        viewModel.listaEnvioResponse().observe(this, Observer<Response> { })
+        viewModel.listaEnvioResponse().observe(this, Observer<Response> { response -> processResponse(response) })
 
         val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
         tvErro?.text = resources.getString(R.string.erro_carrega_lista_envio)
@@ -55,11 +64,24 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo{
     }
 
     override fun clicouProximo() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        if(viewModel.carregandoProximaTela.value?.status != Status.EMPTY_RESPONSE)
+            return
+
+        try{
+            viewModel.carregandoProximaTela.value = Response.loading()
+            viewModel.iniciaRecebimento()
+
+            //vai para a proxima activity
+        }
+        catch (e: Exception){
+            viewModel.carregandoProximaTela.value = Response.empty()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     override fun clicouAnterior() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.onBackPressed()
     }
 
     fun processResponse(response: Response){
@@ -84,15 +106,46 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo{
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_list.layoutManager = layoutManager
 
-//        val adapter = ListaItemEstoqueAdapterSimples(applicationContext,
-//            response.data as? List<ItemEstoqueDTO> ?: listOf(),
-//            this,
-//            viewModel.getIDsDeItemAdicionados())
-//        rv_lista.adapter = adapter
+        val adapter = CRSelecionaEnvioAdapter(applicationContext,
+            listaEnvio,
+            this)
+        rv_list.adapter = adapter
+    }
+
+    override fun onClick(id: Int, pos: Int) {
+        viewModel.selecionaPedidoEstoqueEnvioID(id)
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.carregaListaEnvio()
+        viewModel.carregandoProximaTela.value = Response.empty()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val actionBar : ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setHomeAsUpIndicator(R.drawable.ic_cancel)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+                DialogUtil.buildAlertDialogSimNao(
+                    this,
+                    "Cancelar recebimento",
+                    "Deseja sair e cancelar o recebimento?",
+                    {
+                        finish()
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                    },
+                    {}).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

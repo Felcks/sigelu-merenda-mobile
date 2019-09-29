@@ -7,7 +7,6 @@ import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraRecebimentoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +18,8 @@ class CRSelecionaEnvioViewModel(val cadastraRecebimentoModel: CadastraRecebiment
     var loading = ObservableField<Boolean>(false)
     var isError = ObservableField<Boolean>(false)
     var carregandoProximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
+
+    private var pedidoEstoqueEnvioIDSelecionado: Int? = null
 
     private val listaEnvioResponse = MutableLiveData<Response>()
     fun listaEnvioResponse() = listaEnvioResponse
@@ -46,7 +47,8 @@ class CRSelecionaEnvioViewModel(val cadastraRecebimentoModel: CadastraRecebiment
                     val mapped = retrived.map { EnvioDTO(
                         it.id ?: 0,
                         it.pedidoID ?: 0,
-                        it.codigo ?: "") }
+                        it.codigo ?: "",
+                        it.recebimentoID) }
                     listaEnvioResponse.postValue(Response.success(mapped))
                 }
                 else{
@@ -63,6 +65,24 @@ class CRSelecionaEnvioViewModel(val cadastraRecebimentoModel: CadastraRecebiment
         }
     }
 
+    fun iniciaRecebimento(){
+
+        if(pedidoEstoqueEnvioIDSelecionado == null)
+            throw Exception("Selecione um envio.")
+
+        val envio = (this.listaEnvioResponse.value?.data as? List<EnvioDTO>)?.first{
+            it.pedidoEstoqueEnvioID == this.pedidoEstoqueEnvioIDSelecionado }
+            ?: throw Exception("Selecione um envio.")
+
+        cadastraRecebimentoModel.iniciaRecebimento(
+            envio.pedidoEstoqueEnvioID,
+            envio.pedidoEstoqueID
+        )
+    }
+
+    fun selecionaPedidoEstoqueEnvioID(id: Int){
+        this.pedidoEstoqueEnvioIDSelecionado = id
+    }
 
     fun getFluxo(): Fluxo = cadastraRecebimentoModel
 }
