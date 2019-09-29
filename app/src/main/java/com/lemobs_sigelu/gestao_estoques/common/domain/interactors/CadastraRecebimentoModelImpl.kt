@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoExcepti
 import com.lemobs_sigelu.gestao_estoques.exceptions.RecebimentoNaoCriadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.UsuarioSemPermissaoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 
 class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
                                    val nucleoModel: NucleoModel,
@@ -14,7 +15,15 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
                                    val itemEnvioRepository: ItemEnvioRepository): CadastraRecebimentoModel{
 
     private var recebimento: Recebimento2? = null
+    private var pedidoEstoqueID: Int? = null
     private var pedidoEstoqueEnvioID: Int? = null
+
+    private var passoCorrente = 0
+    private var quantidadePasso = 0
+
+    override fun setPedidoEstoqueID(pedidoEstoqueID: Int) {
+        this.pedidoEstoqueID = pedidoEstoqueID
+    }
 
     override fun iniciaRecebimento(pedidoEstoqueID: Int, pedidoEstoqueEnvioID: Int) {
 
@@ -73,11 +82,44 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
     }
 
     override suspend fun getListaEnvio(): List<Envio2> {
-        return envioRepository.getListaEnvio2(pedidoEstoqueEnvioID ?: 0) ?: listOf()
+        return envioRepository.getListaEnvio2(pedidoEstoqueID ?: 0) ?: listOf()
     }
 
     override suspend fun getListaItemEnvio(): List<ItemEnvio> {
         return itemEnvioRepository.getListaItemEnvio2(pedidoEstoqueEnvioID ?: 0,
             recebimento?.pedidoEstoqueEnvioID ?: 0) ?: listOf()
+    }
+
+    override fun getTextoProximoPasso(): String {
+
+        return when(passoCorrente){
+            1 ->  "Itens"
+            2 ->  "Confirmar"
+            else -> " "
+        }
+    }
+
+    override fun getPassoAtual(): Int {
+        return passoCorrente
+    }
+
+    override fun setPassoAtual(value: Int) {
+        this.passoCorrente  = value
+    }
+
+    override fun getMaximoPasso(): Int {
+        return quantidadePasso
+    }
+
+    override fun setMaximoPasso(value: Int) {
+        this.quantidadePasso = value
+    }
+
+    override fun incrementaPassoAtual() {
+        this.passoCorrente += 1
+    }
+
+    override fun decrementaPassoAtual() {
+        this.passoCorrente -= 1
     }
 }

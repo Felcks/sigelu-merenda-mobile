@@ -232,5 +232,10 @@
                   android:label="Materiais em estoque"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
+                android:label="@string/cadastra_recebimento_nome_activity_1"
+                android:windowSoftInputMode="adjustPan" />
+
     </application>
 </manifest>

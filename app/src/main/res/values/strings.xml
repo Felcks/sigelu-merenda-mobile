@@ -57,15 +57,13 @@
     <string name="cadastra_envio_nome_activity_2">Selecione os Itens</string>
     <string name="cadastra_envio_nome_activity_3">Selecione as Quantidades</string>
     <string name="cadastra_envio_nome_activity_4">Confirme as Informações</string>
-    <string name="cadastra_envio_passo_1">Passo 1 de 4</string>
-    <string name="cadastra_envio_passo_2">Passo 2 de 4</string>
-    <string name="cadastra_envio_passo_3">Passo 3 de 4</string>
-    <string name="cadastra_envio_passo_4">Passo 4 de 4</string>
     <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
-    <string name="cadastra_envio_proximo_1">Próximo: Materiais</string>
-    <string name="cadastra_envio_proximo_2">Próximo: Cadastro</string>
-    <string name="cadastra_envio_proximo_3">Próximo: Confirmação</string>
-    <string name="cadastra_envio_proximo_4"> </string>
+
+    <!-- Novo cadastra recebimento activity -->
+    <string name="cadastra_recebimento_nome_activity_1">Selecione o Envio</string>
+    <string name="cadastra_recebimento_nome_activity_2">Selecione as Quantidades</string>
+    <string name="cadastra_recebimento_nome_activity_3">Confirme as informações</string>
+    <string name="cadastra_recebimento_titulo">Informações do Recebimento</string>
 
     <!-- Formatações -->
     <string name="numero_em_parenteses">(%d)</string>
@@ -77,5 +75,6 @@
     <string name="erro_carrega_lista_item_estoque">Erro ao carregar materiais disponíveis.\nAperte para tentar novamente.</string>
     <string name="erro_nenhum_item_cadastrado">Nenhum item cadastrado.\nAperte para atualizar.</string>
     <string name="erro_carrega_pedido">Erro ao carregar pedido.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_lista_envio">Erro ao carregar envios.\nAperte para tentar novamente.</string>
 
 </resources>

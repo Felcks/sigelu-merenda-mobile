@@ -5,7 +5,9 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Recebimento2
 
-interface CadastraRecebimentoModel {
+interface CadastraRecebimentoModel: Fluxo {
+
+    fun setPedidoEstoqueID(pedidoEstoqueID: Int)
 
     fun iniciaRecebimento(pedidoEstoqueID: Int, pedidoEstoqueEnvioID: Int)
     fun cadastraQuantidadeEObservacaoMaterial(listaItemEstoqueID: List<Int>, listaValor: List<Double>, listaObservacao: List<String>)

@@ -29,6 +29,7 @@ import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_info
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.lista_envio_fragment.ListaEnvioFragment
@@ -143,9 +144,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
             btn_cadastra_recebimento.setOnClickListener {
 
-//                viewModel!!.apagaListaItemRecebimentoAnteriores()
-//                val intent = Intent(this, SelecionaEnvioRecebimentoActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, CRSelecionaEnvioActivity::class.java)
+                startActivity(intent)
             }
             btn_cadastra_envio.setOnClickListener {
 
