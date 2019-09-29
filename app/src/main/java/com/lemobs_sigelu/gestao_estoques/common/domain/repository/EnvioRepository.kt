@@ -90,6 +90,7 @@ class EnvioRepository {
                 this.codigo = it.codigo
                 this.situacao = it.situacao
                 this.recebimentoID = it.recebimento_estoque?.id
+                this.pedidoID = it.pedido_estoque_id
             }
         }
     }

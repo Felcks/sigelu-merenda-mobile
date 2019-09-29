@@ -62,6 +62,9 @@ class CRSelecionaEnvioViewModel(val cadastraRecebimentoModel: CadastraRecebiment
                 isError.set(true)
                 listaEnvioResponse.postValue(Response.error(Throwable("")))
             }
+            finally {
+                pedidoEstoqueEnvioIDSelecionado = null
+            }
         }
     }
 

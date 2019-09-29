@@ -60,4 +60,7 @@ class ItemEnvio (
 
         this.itemEstoque = itemEstoque
     }
+
+    var observacao: String = ""
+    var pedidoEstoqueID: Int = 0
 }

@@ -86,7 +86,8 @@ class CadastraRecebimentoModelImpl(val usuarioModel: UsuarioModel,
     }
 
     override suspend fun getListaItemEnvio(): List<ItemEnvio> {
-        return itemEnvioRepository.getListaItemEnvio2(pedidoEstoqueEnvioID ?: 0,
+        return itemEnvioRepository.getListaItemEnvio2(
+            recebimento?.pedidoEstoqueID ?: 0,
             recebimento?.pedidoEstoqueEnvioID ?: 0) ?: listOf()
     }
 

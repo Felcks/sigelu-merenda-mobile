@@ -104,7 +104,10 @@ class ItemEnvioRepository {
                 null,
                 itemEstoque.id,
                 itemEstoque
-            )
+            ).apply {
+                this.observacao = it.observacao ?: ""
+                this.pedidoEstoqueID = pedidoEstoqueID
+            }
 
             item.quantidadeDisponivel = it.quantidade_disponivel
             item

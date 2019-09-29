@@ -19,8 +19,7 @@ import java.text.NumberFormat
 import java.util.*
 
 class CRCadastraItemAdapter (private val context: Context,
-                             private val list: MutableList<ItemRecebimentoDTO>,
-                             private val remocaoItemClickListener: TwoIntParametersClickListener
+                             private val list: List<ItemRecebimentoDTO>
 ): RecyclerView.Adapter<CRCadastraItemAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -56,16 +55,16 @@ class CRCadastraItemAdapter (private val context: Context,
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
 
-        if((item.quantidadeRecebida ?: 0.0) > 0.0)
+        if(item.quantidadeRecebida > 0.0)
             holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
         else
             holder.itemView.edt_quantidade_fornecida.setText("")
 
 
-        if(item.quantidadeRecebida ?: 0.0 == 0.0){
+        if(item.quantidadeRecebida == 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
         }
-        else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
+        else if(item.quantidadeRecebida > item.quantidadeEnviada ?: 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
         }
         else
@@ -96,11 +95,10 @@ class CRCadastraItemAdapter (private val context: Context,
 
                 }
                 item.quantidadeRecebida = doubleValue
-                if(item.quantidadeRecebida ?: 0.0 == 0.0){
+                if(item.quantidadeRecebida == 0.0){
                     holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
                 }
-                else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
-                    //ONDE TEM ZERO NESSE IF TINHA QUANTIDADE DISPONIVEL
+                else if(item.quantidadeRecebida > item.quantidadeEnviada){
                     holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
                 }
                 else
