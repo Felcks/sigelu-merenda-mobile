@@ -28,8 +28,6 @@ class EstoqueActivity: AppCompatActivity() {
     lateinit var viewModelFactory: EstoqueViewModelFactory
     var viewModel: EstoqueViewModel? = null
 
-    var quantidadeCarregamentoNucleoQuantidade = 0
-
     var tvErro: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +43,7 @@ class EstoqueActivity: AppCompatActivity() {
         binding.executePendingBindings()
 
         viewModel!!.carregaListaItemEstoque()
-
         tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro?.text = resources.getString(R.string.erro_carrega_estoque)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaItemEstoque()
@@ -79,6 +75,7 @@ class EstoqueActivity: AppCompatActivity() {
 
             }
             Status.ERROR -> {
+                tvErro?.text = resources.getString(R.string.erro_carrega_estoque)
             }
             Status.EMPTY_RESPONSE -> {
                 tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)

@@ -113,25 +113,25 @@ open class PedidoRepository {
 
             if(response.isSuccessful){
 
-                data class Tupla(val id: Int?, val nome: String?)
+                data class Tupla(val id: Int?, val nome: String?, val tabelaID: Int?)
 
                 val list = response.body()?.map {
 
-                    val (origemID, origemNome) = when(it.tipo_origem_id){
+                    val (origemID, origemNome, origemTabelaID) = when(it.tipo_origem_id){
 
-                        TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.origem_estoque_id, it.origem_estoque?.almoxarifado?.nome)
-                        TIPO_ESTOQUE_NUCLEO -> Tupla(it.origem_estoque_id,   it.origem_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(it.origem_estoque_id,  it.origem_estoque?.obra_direta?.ordem_servico?.codigo)
-                        TIPO_ESTOQUE_FORNECEDOR -> Tupla(it.origem_fornecedor_id,  it.origem_fornecedor?.nome)
-                        else -> Tupla(null, null)
+                        TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.origem_estoque_id, it.origem_estoque?.almoxarifado?.nome, it.origem_estoque?.almoxarifado?.id)
+                        TIPO_ESTOQUE_NUCLEO -> Tupla(it.origem_estoque_id,   it.origem_estoque?.nucleo?.nome, it.origem_estoque?.nucleo?.id)
+                        TIPO_ESTOQUE_OBRA -> Tupla(it.origem_estoque_id,  it.origem_estoque?.obra_direta?.ordem_servico?.codigo, it.origem_estoque?.obra_direta?.id)
+                        TIPO_ESTOQUE_FORNECEDOR -> Tupla(it.origem_fornecedor_id,  it.origem_fornecedor?.nome, it.origem_fornecedor?.id)
+                        else -> Tupla(null, null, null)
                     }
 
-                    val (destinoID, destinoNome) = when(it.tipo_destino_id){
+                    val (destinoID, destinoNome, destinoTabelaID) = when(it.tipo_destino_id){
 
-                        TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.destino_estoque_id, it.destino_estoque?.almoxarifado?.nome)
-                        TIPO_ESTOQUE_NUCLEO -> Tupla(it.destino_estoque_id,   it.destino_estoque?.nucleo?.nome)
-                        TIPO_ESTOQUE_OBRA -> Tupla(it.destino_estoque_id,  it.destino_estoque?.obra_direta?.ordem_servico?.codigo)
-                        else -> Tupla(null, null)
+                        TIPO_ESTOQUE_ALMOXARIFADO -> Tupla(it.destino_estoque_id, it.destino_estoque?.almoxarifado?.nome, it.destino_estoque?.almoxarifado?.id)
+                        TIPO_ESTOQUE_NUCLEO -> Tupla(it.destino_estoque_id,   it.destino_estoque?.nucleo?.nome, it.destino_estoque?.nucleo?.id)
+                        TIPO_ESTOQUE_OBRA -> Tupla(it.destino_estoque_id,  it.destino_estoque?.obra_direta?.ordem_servico?.codigo, it.destino_estoque?.obra_direta?.id)
+                        else -> Tupla(null, null, null)
                     }
 
                     val dataUltimoEnvio = if(it.data_ultimo_envio != null && it.hora_ultimo_envio != null){
@@ -145,8 +145,8 @@ open class PedidoRepository {
                     val movimento = Movimento(
                         0,
                         TipoMovimento.ALMOXARIFADO_PARA_OBRA,
-                        Local2(it.tipo_origem_id, origemNome ?: "", origemID ?: 0),
-                        Local2(it.tipo_destino_id, destinoNome ?: "", destinoID ?: 0)
+                        Local2(it.tipo_origem_id, origemNome ?: "", origemID ?: 0).apply { this.tabelaID = origemTabelaID},
+                        Local2(it.tipo_destino_id, destinoNome ?: "", destinoID ?: 0).apply { this.tabelaID = destinoTabelaID }
                     )
 
                     Pedido2(

@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.ListaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -43,8 +44,13 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
                     loading.set(false)
 
                     if(result.isNotEmpty()) {
+
+                        val nucleoID = listaPedidoController.getNucleoID()
+                        val listaFiltrada = result.filter {
+                            it.movimento.destino.tipo_id == TIPO_ESTOQUE_OBRA || it.movimento.origem.tabelaID == nucleoID || it.movimento.destino.tabelaID == nucleoID
+                        }
                         isError.set(false)
-                        response.setValue(Response.success(result))
+                        response.setValue(Response.success(listaFiltrada))
                     }
                     else{
                         isError.set(true)
