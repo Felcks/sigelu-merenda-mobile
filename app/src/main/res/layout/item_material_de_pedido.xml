@@ -44,7 +44,7 @@
                 android:id="@+id/tv_pedido_total_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pedido:"
+                android:text="Quantidade Solicitada:"
                 android:textColor="@color/primary_text"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
@@ -63,7 +63,7 @@
                 android:id="@+id/tv_aprovado_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aprovado:"
+                android:text="Quantidade Aprovada:"
                 android:textColor="@color/primary_text"
                 app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
                 app:layout_constraintLeft_toLeftOf="parent"/>
@@ -80,7 +80,7 @@
         <TextView android:id="@+id/tv_material_recebido_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Enviado:"
+                  android:text="Quantidade Enviada:"
                   android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_aprovado_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>
@@ -97,7 +97,7 @@
         <TextView android:id="@+id/tv_material_quantidade_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Disponível:"
+                  android:text="Quantidade Disponível:"
                   android:textColor="@color/primary_text"
                   app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
                   app:layout_constraintLeft_toLeftOf="parent"/>

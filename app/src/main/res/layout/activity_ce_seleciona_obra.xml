@@ -79,7 +79,6 @@
                     android:paddingTop="8dp"
                     app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper

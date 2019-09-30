@@ -142,7 +142,6 @@
                     android:cursorVisible="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="Escreva a observação aqui, se houver."
                     android:paddingRight="@dimen/espacamento_maximo_2"
                     android:paddingBottom="@dimen/espacamento_minimo"
                     android:background="@drawable/edittext_default_no_padding_states"

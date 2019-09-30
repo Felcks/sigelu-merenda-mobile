@@ -12,20 +12,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Local
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Nucleo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.CadastraPedidoViewModelFactory
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_cadastra_pedido_obra.*
+import kotlinx.android.synthetic.main.activity_cp_seleciona_obra.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -41,7 +38,7 @@ class CadastraObraActivity:  AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_pedido_obra)
+        setContentView(R.layout.activity_cp_seleciona_obra)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CadastraObraViewModel::class.java)
         viewModel!!.responseNucleos.observe(this, Observer<Response> { response -> processResponse(response) })

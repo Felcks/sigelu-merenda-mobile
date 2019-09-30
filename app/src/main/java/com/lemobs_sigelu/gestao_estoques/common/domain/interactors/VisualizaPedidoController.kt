@@ -39,8 +39,8 @@ class VisualizaPedidoController @Inject constructor(private val pedidoRepository
         return pedidoRepository.getSituacoesDePedido()
     }
 
-    fun getListaItemPedido(pedidoID: Int): Observable<List<ItemPedido>> {
-        return itemPedidoRepository.getListaItemPedido(pedidoID)
+    fun getListaItemPedido(pedidoID: Int, pedidoSituacaoID: Int = 0): Observable<List<ItemPedido>> {
+        return itemPedidoRepository.getListaItemPedido(pedidoID, pedidoSituacaoID)
     }
 
     fun getListaItemPedidoBD(pedidoID: Int): List<ItemPedido>{

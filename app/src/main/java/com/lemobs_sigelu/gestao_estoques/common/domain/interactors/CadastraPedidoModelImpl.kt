@@ -216,9 +216,9 @@ class CadastraPedidoModelImpl(
         return listaTodosItemEstoque!!
     }
 
-    override suspend fun getListaObra(): List<Obra>? {
+    override suspend fun getListaObra(): List<Obra> {
         listaTodasObra = obraRepository.carregaListaObra()
-        return listaTodasObra
+        return listaTodasObra ?: listOf()
     }
 
     override fun getTextoProximoPasso(): String {

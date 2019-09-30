@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoController
@@ -17,13 +18,41 @@ class SelecionaObraViewModel(private val controller: CadastraPedidoModel): ViewM
     val listaObra = MutableLiveData<Response>()
     private var posObraSelecionada: Int? =  null
 
+    var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
     var carregandoProximaTela = MutableLiveData<Response>().apply { value = Response.empty() }
 
     fun carregaListaObra(){
 
+        loading.set(true)
+        isError.set(false)
+
         CoroutineScope(Dispatchers.IO).launch {
-            listaObra.postValue(Response.success(
-                controller.getListaObra()?.map { ObraDTO(it.id, it.getTitulo()) } ?: listOf()))
+
+            try {
+                val retrieved = controller.getListaObra()
+
+                loading.set(false)
+
+                if(retrieved.isNotEmpty()) {
+
+                    isError.set(false)
+                    val mapped = retrieved.map {
+                        ObraDTO(it.id, it.getTitulo())
+                    }
+                    listaObra.postValue(Response.success(mapped))
+                }
+                else{
+
+                    isError.set(true)
+                    listaObra.postValue(Response.empty())
+                }
+            }
+            catch (e: Exception){
+                loading.set(false)
+                isError.set(true)
+                listaObra.postValue(Response.error(Throwable("")))
+            }
         }
     }
 

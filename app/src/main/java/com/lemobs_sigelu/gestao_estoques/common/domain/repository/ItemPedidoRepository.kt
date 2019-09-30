@@ -6,6 +6,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_EM_ANALISE_ID
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
 import retrofit2.Call
@@ -17,7 +18,7 @@ class ItemPedidoRepository {
 
     val api = RestApi()
 
-    fun getListaItemPedido(pedidoID: Int): Observable<List<ItemPedido>> {
+    fun getListaItemPedido(pedidoID: Int, pedidoSituacaoID: Int = 0): Observable<List<ItemPedido>> {
 
         return Observable.create { subscribe ->
 
@@ -44,14 +45,14 @@ class ItemPedidoRepository {
 
                     val item = ItemPedido(it.id,
                         pedidoID,
-                        it.quantidade_unidade ?: 0.0,
+                        if(pedidoSituacaoID == SITUACAO_EM_ANALISE_ID) 0.0 else it.quantidade_unidade ?: 0.0,
                         0.0,
                         itemEstoque.id,
                         null,
                         itemEstoque)
 
-                    item.quantidadeDisponivel = it.quantidade_disponivel ?: 0.0
-                    item.quantidadeSolicitada = it.quantidade_solicitada ?: 0.0
+                    item.quantidadeDisponivel = if(pedidoSituacaoID == SITUACAO_EM_ANALISE_ID) 0.0 else it.quantidade_disponivel ?: 0.0
+                    item.quantidadeSolicitada =  it.quantidade_solicitada ?: 0.0
                     item.observacao = it.observacao ?: ""
                     item
                 }
