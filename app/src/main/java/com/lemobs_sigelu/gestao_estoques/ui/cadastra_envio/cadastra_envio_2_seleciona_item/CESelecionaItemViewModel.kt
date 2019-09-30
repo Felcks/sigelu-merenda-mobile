@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraEnvioParaObraController
@@ -16,6 +17,8 @@ class CESelecionaItemViewModel(val controller: CadastraEnvioParaObraController):
     private val disposables = CompositeDisposable()
     var listaItemEstoque = MutableLiveData<Response>()
 
+    var loading = ObservableField<Boolean>(false)
+    var isError = ObservableField<Boolean>(false)
     var carregandoProximaTela = MutableLiveData<Response>()
 
     override fun onCleared() {
@@ -26,8 +29,32 @@ class CESelecionaItemViewModel(val controller: CadastraEnvioParaObraController):
 
     fun carregaListagemItem() {
 
+        loading.set(true)
+        isError.set(false)
+
         CoroutineScope(Dispatchers.IO).launch {
-            listaItemEstoque.postValue(Response.success(controller.carregaListagemItemEstoque() ?: listOf()))
+
+            try {
+                val retrieved = controller.carregaListagemItemEstoque()
+
+                loading.set(false)
+
+                if(retrieved.isNotEmpty()) {
+
+                    isError.set(false)
+                    listaItemEstoque.postValue(Response.success(retrieved))
+                }
+                else{
+
+                    isError.set(true)
+                    listaItemEstoque.postValue(Response.empty())
+                }
+            }
+            catch (e: java.lang.Exception){
+                loading.set(false)
+                isError.set(true)
+                listaItemEstoque.postValue(Response.error(Throwable("")))
+            }
         }
     }
 

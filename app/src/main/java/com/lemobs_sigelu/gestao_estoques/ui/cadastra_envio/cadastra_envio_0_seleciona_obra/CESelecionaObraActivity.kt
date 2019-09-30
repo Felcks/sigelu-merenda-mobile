@@ -7,18 +7,22 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCeSelecionaObraBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_cadastra_envio_seleciona_obra.*
+import kotlinx.android.synthetic.main.activity_ce_seleciona_obra.*
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
@@ -28,10 +32,23 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_envio_seleciona_obra)
+        setContentView(R.layout.activity_ce_seleciona_obra)
+
+        val binding: ActivityCeSelecionaObraBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_ce_seleciona_obra
+        )
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
 
         viewModel.listaObra.observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.carregaListaObra()
+
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_lista_obra)
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel.carregaListaObra()
+        }
 
         viewModel.getFluxo().setPassoAtual(1)
         viewModel.getFluxo().setMaximoPasso(4)
@@ -80,7 +97,6 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
             Status.SUCCESS -> {
 
                 if(response.data is List<*>){
-
                     if(response.data.isNotEmpty()) {
                         if (response.data[0] is ObraDTO)
                             renderDataObra(response.data as List<ObraDTO>)
@@ -88,6 +104,7 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
                 }
             }
             Status.ERROR -> {}
+            else -> {}
         }
     }
 

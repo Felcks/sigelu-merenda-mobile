@@ -8,10 +8,10 @@ import io.reactivex.Observable
 
 interface CadastraEnvioParaObraController: Fluxo {
 
-    suspend fun carregaListagemObra(): List<Obra>?
+    suspend fun carregaListagemObra(): List<Obra>
     fun selecionaObra(obraID: Int)
 
-    suspend fun carregaListagemItemEstoque(): List<ItemEstoque>?
+    suspend fun carregaListagemItemEstoque(): List<ItemEstoque>
     fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean
     fun getIDsDeItemAdicionados(): List<Int>
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)

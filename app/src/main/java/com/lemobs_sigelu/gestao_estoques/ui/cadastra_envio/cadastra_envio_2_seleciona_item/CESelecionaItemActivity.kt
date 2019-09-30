@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -17,10 +20,11 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCeSelecionaItemBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_cadastra_envio_seleciona_item.*
+import kotlinx.android.synthetic.main.activity_ce_seleciona_item.*
 import org.koin.android.ext.android.inject
 
 class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParametersClickListener {
@@ -30,10 +34,23 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_envio_seleciona_item)
+        setContentView(R.layout.activity_ce_seleciona_item)
+
+        val binding: ActivityCeSelecionaItemBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_ce_seleciona_item
+        )
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+
+        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro?.text = resources.getString(R.string.erro_carrega_lista_obra)
+        ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
+            viewModel.carregaListagemItem()
+        }
+
 
         viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
-
         this.iniciaStepper()
     }
 
@@ -72,44 +89,37 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
     override fun clicouAnterior() {
         this.onBackPressed()
-        viewModel.getFluxo().decrementaPassoAtual()
-    }
-
-    override fun onResume() {
-        ll_loading.visibility = View.VISIBLE
-        rv_lista.visibility = View.GONE
-        viewModel.carregaListagemItem()
-        viewModel.carregandoProximaTela.value = Response.empty()
-        super.onResume()
     }
 
     fun processResponse(response: Response){
 
         when(response.status){
-            Status.LOADING -> {
-                ll_loading.visibility = View.VISIBLE
-                rv_lista.visibility = View.GONE
-            }
-            Status.ERROR -> {
-                ll_loading.visibility = View.GONE
-                rv_lista.visibility = View.GONE
-                tv_error.visibility = View.VISIBLE
-            }
+            Status.LOADING -> {}
+            Status.ERROR -> {}
             Status.SUCCESS -> {
-                ll_loading.visibility = View.GONE
-                rv_lista.visibility = View.VISIBLE
-
-                val layoutManager = LinearLayoutManager(applicationContext)
-                layoutManager.orientation = LinearLayoutManager.VERTICAL
-                rv_lista.layoutManager = layoutManager
-
-                this.adapter = ListaItemEstoqueAdapterSimples(applicationContext,
-                    response.data as? List<ItemEstoque> ?: listOf(),
-                    this,
-                    viewModel.getIDsDeItemAdicionados())
-                rv_lista.adapter = adapter
+                if(response.data is List<*>) {
+                    if (response.data.isNotEmpty()) {
+                        if (response.data[0] is ItemEstoque) {
+                            this.iniciaLista(response.data as List<ItemEstoque>)
+                        }
+                    }
+                }
             }
+            else -> {}
         }
+    }
+
+    private fun iniciaLista(lista: List<ItemEstoque>){
+
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista.layoutManager = layoutManager
+
+        this.adapter = ListaItemEstoqueAdapterSimples(applicationContext,
+            lista,
+            this,
+            viewModel.getIDsDeItemAdicionados())
+        rv_lista.adapter = adapter
     }
 
     override fun onClick(id: Int, pos: Int) {
@@ -122,6 +132,17 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         catch (e: Exception){
             Toast.makeText(applicationContext, "Ocorreu algum erro", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        viewModel.getFluxo().decrementaPassoAtual()
+        super.onBackPressed()
+    }
+
+    override fun onResume() {
+        viewModel.carregandoProximaTela.value = Response.empty()
+        viewModel.carregaListagemItem()
+        super.onResume()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

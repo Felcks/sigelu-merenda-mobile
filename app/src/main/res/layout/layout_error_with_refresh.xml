@@ -15,11 +15,9 @@
             android:gravity="center"
             android:textColor="@color/colorSecondary"
             android:textSize="14sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/iv_refresh"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.3"
             android:text="Erro ao carregar.\nAperte para recarregar a página."/>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -27,7 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_refresh_grey"
-            app:layout_constraintTop_toBottomOf="@id/tv_erro"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

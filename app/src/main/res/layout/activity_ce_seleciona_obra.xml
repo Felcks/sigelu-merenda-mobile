@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraViewModel"/>
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_all"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:id="@+id/ll_all">
+            android:background="@android:color/white">
 
         <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.TopStepper
                 android:id="@+id/top_stepper"
@@ -32,19 +32,17 @@
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_margin="@dimen/espacamento_maximo_2"/>
+                android:layout_margin="@dimen/espacamento_maximo"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_selecione_fornecedor"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingTop="@dimen/espacamento_grande"
-                android:paddingBottom="@dimen/espacamento_medio"
                 android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/ll_titulo"
                 app:layout_constraintLeft_toLeftOf="@id/ll_titulo"
                 app:layout_constraintBottom_toTopOf="@id/bottom_stepper"
-                android:layout_margin="@dimen/espacamento_maximo_2">
+                android:layout_margin="@dimen/espacamento_maximo">
 
             <TextView
                     android:id="@+id/tv_nucleo_titulo"
@@ -53,7 +51,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:text="Selecione uma obra"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}" />
 
             <Spinner
                     android:id="@+id/spinner_obra"
@@ -63,7 +62,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_nucleo_titulo"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    style="@style/Widget.AppCompat.Spinner.Underlined" />
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}" />
+
+            <include layout="@layout/progressbar_carregamento"
+                    android:id="@+id/ll_loading"
+                    android:visibility="visible"
+                    app:isVisible="@{viewModel.loading}" />
+
+            <include
+                    layout="@layout/layout_error_with_refresh"
+                    android:id="@+id/ll_erro"
+                    android:visibility="visible"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -77,5 +77,6 @@
     <string name="erro_carrega_pedido">Erro ao carregar pedido.\nAperte para tentar novamente.</string>
     <string name="erro_carrega_lista_envio">Erro ao carregar envios.\nAperte para tentar novamente.</string>
     <string name="erro_carrega_lista_item_envio">Erro ao carregar itens.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_lista_obra">Erro ao carregar obras.\nAperte para tentar novamente.</string>
 
 </resources>

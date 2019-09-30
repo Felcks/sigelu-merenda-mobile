@@ -27,9 +27,9 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
     private var passoCorrente = 0
     private var quantidadePasso = 0
 
-    override suspend fun carregaListagemObra(): List<Obra>? {
+    override suspend fun carregaListagemObra(): List<Obra> {
         listaObra = obraRepository.carregaListaObra()
-        return listaObra
+        return listaObra ?: listOf()
     }
 
     override fun selecionaObra(obraID: Int) {
@@ -68,9 +68,9 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         this.envio = Envio2(null, usuario, movimento)
     }
 
-    override suspend fun carregaListagemItemEstoque(): List<ItemEstoque>? {
+    override suspend fun carregaListagemItemEstoque(): List<ItemEstoque> {
         this.listaItemEstoque = itemEstoqueRepository.carregaListaEstoque2()
-        return listaItemEstoque
+        return listaItemEstoque ?: listOf()
     }
 
     override fun veriricaSeItemJaEstaAdicionado(id: Int): Boolean {
