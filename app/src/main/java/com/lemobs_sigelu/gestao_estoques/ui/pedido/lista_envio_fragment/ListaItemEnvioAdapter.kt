@@ -36,6 +36,8 @@ class ListaItemEnvioAdapter (val context: Context,
         holder.itemView.tv_codigo.text = item.itemEstoque?.codigo?.tracoSeVazio()
         holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
         holder.itemView.tv_material_quantidade.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()
+        holder.itemView.tv_observacao_envio.text = item.observacao.tracoSeVazio()
+        holder.itemView.tv_observacao_recebimento.text = item.observacaoRecebimento.tracoSeVazio()
 
         if(item.quantidadeRecebida != null)
             holder.itemView.tv_material_recebido.text = "${item.quantidadeRecebida.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}".tracoSeVazio()

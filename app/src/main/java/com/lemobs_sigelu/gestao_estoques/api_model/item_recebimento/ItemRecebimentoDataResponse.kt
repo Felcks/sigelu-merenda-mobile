@@ -4,4 +4,5 @@ import com.lemobs_sigelu.gestao_estoques.api_model.commons.ItemEstoqueDataRespon
 
 class ItemRecebimentoDataResponse (val id: Int,
                                    val quantidade_unidade: Double?,
+                                   val observacao: String?,
                                    val item_estoque: ItemEstoqueDataResponse)

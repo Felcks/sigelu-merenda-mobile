@@ -44,4 +44,6 @@ class ItemRecebimento (
 
         this.itemEnvio = itemEnvio
     }
+
+    var observacao: String = ""
 }

@@ -62,5 +62,6 @@ class ItemEnvio (
     }
 
     var observacao: String = ""
+    var observacaoRecebimento: String = ""
     var pedidoEstoqueID: Int = 0
 }

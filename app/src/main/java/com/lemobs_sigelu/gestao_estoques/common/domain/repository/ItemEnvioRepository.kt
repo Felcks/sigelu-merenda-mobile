@@ -2,6 +2,7 @@ package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Envio
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEnvio
@@ -9,6 +10,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
+import retrofit2.Call
 
 /**
  * Created by felcks on Jul, 2019
@@ -25,7 +27,7 @@ class ItemEnvioRepository {
 
         return Observable.create { subscriber ->
 
-            val callResponse = api.getItensEnvioDePedido(pedidoID, envioID)
+            val callResponse: Call<List<ItemPedidoDataResponse>> = api.getItensEnvioDePedido(pedidoID, envioID)
             val response = callResponse.execute()
 
             if (response.isSuccessful && response.body() != null) {
@@ -61,6 +63,7 @@ class ItemEnvioRepository {
                     )
 
                     item.quantidadeDisponivel = it.quantidade_disponivel
+                    item.observacao = it.observacao ?: ""
                     item
                 }
 

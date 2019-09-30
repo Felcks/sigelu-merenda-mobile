@@ -199,6 +199,7 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
                         if(index < envio.itens.size) {
                             val itemEnvio = envio.itens[index]
                             itemEnvio.quantidadeRecebida = itemRecebimento.quantidadeRecebida
+                            itemEnvio.observacaoRecebimento = itemRecebimento.observacao
                         }
                     }
                     responseItensRecebimento.value = Response.success(result)
