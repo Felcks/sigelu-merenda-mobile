@@ -78,8 +78,8 @@ class CRSelecionaEnvioViewModel(val cadastraRecebimentoModel: CadastraRecebiment
             ?: throw Exception("Selecione um envio.")
 
         cadastraRecebimentoModel.iniciaRecebimento(
-            envio.pedidoEstoqueEnvioID,
-            envio.pedidoEstoqueID
+            envio.pedidoEstoqueID,
+            envio.pedidoEstoqueEnvioID
         )
     }
 
