@@ -48,7 +48,6 @@ class ListaItemEstoqueAdapter (private val context: Context,
         val item = this.list[position]
 
         holder.itemView.tv_nome_material.text = item.itemEstoqueDTO.nome
-        holder.itemView.tv_quantidade_disponivel.text = item.itemEstoqueDTO.quantidadeDisponivel.toString() ?: "0.0"
         holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoqueDTO.unidadeMedida
         holder.itemView.btn_cancel.setOnClickListener {
             remocaoItemClickListener.onClick(item.itemEstoqueDTO.id, position)
@@ -79,6 +78,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
         }
 
         this.adicionarMascaras(item, holder, position)
+        this.adicionaMascaraObservacao(item, holder, position)
     }
 
     private fun adicionarMascaras(item: MaterialDTO, holder: MyViewHolder, position: Int){
@@ -140,6 +140,44 @@ class ListaItemEstoqueAdapter (private val context: Context,
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
 
+                return@OnKeyListener true
+            }
+
+            false
+        })
+    }
+
+    private fun adicionaMascaraObservacao(item: MaterialDTO, holder: MyViewHolder, position: Int) {
+
+        val mascara = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                item.observacao = s.toString()
+            }
+        }
+        holder.itemView.edt_observacao.addTextChangedListener(mascara)
+
+        holder.itemView.edt_observacao.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+
+            if (event.action != KeyEvent.ACTION_DOWN)
+                return@OnKeyListener true
+
+            val sizeOfStringBeforeDel = holder.itemView.edt_observacao.text.length
+            if (keyCode == KeyEvent.KEYCODE_DEL) {
+                if (sizeOfStringBeforeDel == 0) {
+
+                    holder.itemView.edt_observacao.clearFocus()
+                    holder.itemView.edt_observacao.esconderTeclado()
+                    return@OnKeyListener true
+                }
+            }
+            else if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+                holder.itemView.edt_observacao.clearFocus()
+                holder.itemView.edt_observacao.esconderTeclado()
                 return@OnKeyListener true
             }
 

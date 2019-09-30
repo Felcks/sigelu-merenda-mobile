@@ -8,7 +8,6 @@ class ItemEstoqueDTO(
     val unidadeMedidaSigla: String,
     val descricao: String
 ){
-
     fun getUnidadeMedidaNomeSiglaPorExtenso(): String{
         return "${this.nome} (${this.unidadeMedidaSigla})"
     }

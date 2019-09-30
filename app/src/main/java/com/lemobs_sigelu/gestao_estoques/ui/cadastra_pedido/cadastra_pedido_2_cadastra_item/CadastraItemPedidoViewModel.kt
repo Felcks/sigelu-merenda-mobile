@@ -42,7 +42,8 @@ class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedid
 
         return cadastraPedidoModel.cadastraQuantidadeMaterial(
             listaMaterialRecebido.map { it.itemEstoqueDTO.id },
-            listaMaterialRecebido.map { it.quantidadeRecebida })
+            listaMaterialRecebido.map { it.quantidadeRecebida },
+            listaMaterialRecebido.map { it.observacao })
 
     }
 

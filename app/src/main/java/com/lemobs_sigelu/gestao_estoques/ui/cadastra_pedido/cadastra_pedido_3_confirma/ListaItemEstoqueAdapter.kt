@@ -34,6 +34,7 @@ class ListaItemEstoqueAdapter (val context: Context,
         holder.itemView.tv_2.text = item.itemEstoqueDTO.descricao
         holder.itemView.tv_3.text = item.itemEstoqueDTO.getUnidadeMedidaNomeSiglaPorExtenso()
         holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
+        holder.itemView.edt_observacao.setText(item.observacao)
         this.adicionarMascaras(item, holder, position)
     }
 

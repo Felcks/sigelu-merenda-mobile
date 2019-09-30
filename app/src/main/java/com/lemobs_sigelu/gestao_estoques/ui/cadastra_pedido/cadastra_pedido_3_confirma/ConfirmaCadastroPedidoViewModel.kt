@@ -55,7 +55,7 @@ class ConfirmaCadastroPedidoViewModel(private val cadastraPedidoModel: CadastraP
                         )
                     },
                     it.quantidadeRecebida
-                )
+                ).apply { this.observacao = it.observacao }
             }
         )
     }

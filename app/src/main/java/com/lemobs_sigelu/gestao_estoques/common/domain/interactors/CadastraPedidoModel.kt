@@ -16,7 +16,7 @@ interface CadastraPedidoModel: Fluxo {
 
     fun removeItem(itemEstoqueID: Int)
     fun getListaItensAdicionados(): List<Material>
-    fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>)
+    fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>, listaObservacao: List<String>)
 
     fun cancelaPedido()
     fun getPedido(): Pedido2

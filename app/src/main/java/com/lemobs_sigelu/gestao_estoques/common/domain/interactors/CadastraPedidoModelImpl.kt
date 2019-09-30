@@ -159,7 +159,9 @@ class CadastraPedidoModelImpl(
         }
     }
 
-    override fun cadastraQuantidadeMaterial(listaID: List<Int>, listaValor: List<Double>) {
+    override fun cadastraQuantidadeMaterial(listaID: List<Int>,
+                                            listaValor: List<Double>,
+                                            listaObservacao: List<String>) {
 
         if(pedido == null)
             throw PedidoNaoCriadoException()
@@ -174,6 +176,7 @@ class CadastraPedidoModelImpl(
         for(id in listaID){
 
             val valor = listaValor[count]
+            val observacao = listaObservacao[count]
 
             if(valor <= 0.0){
                 throw ValorMenorQueZeroException()
@@ -181,6 +184,7 @@ class CadastraPedidoModelImpl(
 
             val item = pedido!!.listaMaterial.first { it.itemEstoque.id == id }
             item.quantidadeRecebida = valor
+            item.observacao = observacao
             count += 1
         }
     }

@@ -87,15 +87,13 @@
                     android:text="Observação"
                     android:layout_marginTop="@dimen/espacamento_curto"
                     app:layout_constraintTop_toBottomOf="@id/edt_quantidade_fornecida"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    />
+                    app:layout_constraintLeft_toLeftOf="parent" />
 
            <EditText
                    android:id="@+id/edt_observacao"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   app:layout_constraintTop_toBottomOf="@id/tv_observacao_layout"
-               />
+                   app:layout_constraintTop_toBottomOf="@id/tv_observacao_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
