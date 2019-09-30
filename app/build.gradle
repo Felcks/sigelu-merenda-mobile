@@ -41,8 +41,8 @@ android {
         applicationId 'com.lemobs_sigelu.estoques'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.2.0"
+        versionCode 10
+        versionName "1.2.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
