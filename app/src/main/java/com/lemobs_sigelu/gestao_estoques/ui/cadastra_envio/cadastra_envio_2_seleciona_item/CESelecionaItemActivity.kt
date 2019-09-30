@@ -43,12 +43,9 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro?.text = resources.getString(R.string.erro_carrega_lista_obra)
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.carregaListagemItem()
         }
-
 
         viewModel.listaItemEstoque().observe(this, Observer<Response> { response -> processResponse(response) })
         this.iniciaStepper()

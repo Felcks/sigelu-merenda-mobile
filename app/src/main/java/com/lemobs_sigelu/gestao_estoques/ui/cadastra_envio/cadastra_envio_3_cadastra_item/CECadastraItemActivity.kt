@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.App
@@ -17,6 +20,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCeCadastraItemBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ItemSemQuantidadeDisponivelException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
@@ -24,7 +28,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_cadastra_envio_cadastra_item.*
+import kotlinx.android.synthetic.main.activity_ce_cadastra_item.*
 import org.koin.android.ext.android.inject
 
 class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
@@ -34,7 +38,14 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_envio_cadastra_item)
+        setContentView(R.layout.activity_ce_cadastra_item)
+
+        val binding: ActivityCeCadastraItemBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_ce_cadastra_item
+        )
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
 
         val listaItemEnvio = viewModel.getItensCadastrados()
         if(listaItemEnvio.isNotEmpty()) {

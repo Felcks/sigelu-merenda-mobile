@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ll_all"
+            android:background="@android:color/white">
+
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.TopStepper
+                android:id="@+id/top_stepper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/ll_titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/top_stepper"
+                    android:text="@string/cadastra_envio_titulo_activity"
+                    android:textColor="@color/primary_text"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/espacamento_maximo"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/espacamento_maximo"
+                app:layout_constraintTop_toBottomOf="@+id/ll_titulo"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_stepper"
+                app:layout_constraintLeft_toLeftOf="@+id/top_stepper"
+                app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                    android:id="@+id/tv_total_material_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total de materiais"
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_total_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(0)"
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="@dimen/espacamento_curto"
+                    android:layout_marginTop="@dimen/espacamento_maximo_3"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_total_material_layout"
+                    app:layout_constraintLeft_toRightOf="@id/tv_total_material_layout"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nenhum material cadastrado."
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_material_layout"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_total_material_layout"
+                    android:textSize="16sp"
+                    android:layout_marginTop="@dimen/espacamento_maximo"
+                    android:visibility="gone"/>
+
+            <Button
+                    android:id="@+id/btn_add"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:textSize="14sp"
+                    android:textAlignment="gravity"
+                    android:gravity="center"
+                    android:background="@drawable/ic_plus_rounded"
+                    android:textColor="#000000"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_total_material_layout"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/espacamento_maximo_3"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_lista_material"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:layout_marginTop="@dimen/espacamento_medio"
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_material_layout"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper
+                android:id="@+id/bottom_stepper"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
