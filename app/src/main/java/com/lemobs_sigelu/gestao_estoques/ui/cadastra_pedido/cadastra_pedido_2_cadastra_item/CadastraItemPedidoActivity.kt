@@ -119,11 +119,11 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         }
         catch(e: ValorMenorQueZeroException){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_SHORT).show()
         }
         catch(erro: java.lang.Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Ocorreu algum erro inesperado.", Snackbar.LENGTH_SHORT).show()
         }
     }
 

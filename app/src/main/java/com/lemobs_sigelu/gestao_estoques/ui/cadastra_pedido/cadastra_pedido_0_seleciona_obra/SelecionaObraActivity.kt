@@ -80,7 +80,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
         }
         catch(e: Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 

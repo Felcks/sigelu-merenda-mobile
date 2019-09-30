@@ -79,7 +79,7 @@ class CadastraNucleoActivity: AppCompatActivity() {
             startActivity(intent)
         }
         catch(e: Exception){
-            Snackbar.make(ll_all_nucleo, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all_nucleo, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 

@@ -168,7 +168,7 @@ class DialogUtil {
                 @StringRes
                 messageId: Int){
 
-            val snackbar = Snackbar.make(view, messageId, Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(view, messageId, Snackbar.LENGTH_SHORT)
             snackbar.show()
         }
 

@@ -124,15 +124,15 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
         }
         catch(e: ValorMenorQueZeroException){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar .LENGTH_SHORT).show()
         }
         catch (e: ItemSemQuantidadeDisponivelException){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, "Preencha a quantidade com valor disponível.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Preencha a quantidade com valor disponível.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: java.lang.Exception){
             viewModel.carregandoProximaTela.value = Response.empty()
-            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 

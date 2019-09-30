@@ -199,7 +199,7 @@ class CadastraPedidoDestinoActivity: AppCompatActivity() {
                 startActivity(intent)
             }
             catch (e: Exception){
-                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
             }
         }
 

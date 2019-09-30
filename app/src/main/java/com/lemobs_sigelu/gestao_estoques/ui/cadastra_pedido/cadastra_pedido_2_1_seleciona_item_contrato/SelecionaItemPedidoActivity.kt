@@ -152,7 +152,7 @@ class SelecionaItemPedidoActivity: AppCompatActivity(), TwoIntParametersClickLis
                 this.finishAffinity()
             }
             catch (e: Exception){
-                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
             }
         }
         else if(item?.itemId == android.R.id.home){

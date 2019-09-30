@@ -94,13 +94,13 @@ class CadastraItemPedidoActivity: AppCompatActivity() {
             Snackbar.make(ll_all, "Preencha a quantidade.", Snackbar.LENGTH_SHORT).show()
         }
         catch(e: ValorMenorQueZeroException){
-            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor maior que zero.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: ValorMaiorQuePermitidoException){
-            Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, "Preencha a quantidade com um valor menor que a quantidade disponível.", Snackbar.LENGTH_SHORT).show()
         }
         catch (e: Exception){
-            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
         }
     }
 
