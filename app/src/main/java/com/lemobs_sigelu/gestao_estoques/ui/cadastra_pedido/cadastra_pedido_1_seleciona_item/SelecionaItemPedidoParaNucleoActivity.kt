@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -19,13 +18,12 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.databinding.ActivitySelecionaMaterialPedidoOriginalBinding
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCpSelecionaMaterialBinding
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido_original.*
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido_original.ll_loading
-import kotlinx.android.synthetic.main.activity_seleciona_material_pedido_original.rv_lista
+import kotlinx.android.synthetic.main.activity_cp_seleciona_material.*
+import kotlinx.android.synthetic.main.activity_cp_seleciona_material.rv_lista
 import org.koin.android.ext.android.inject
 
 
@@ -37,14 +35,16 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_seleciona_material_pedido_original)
+        setContentView(R.layout.activity_cp_seleciona_material)
 
-        val binding: ActivitySelecionaMaterialPedidoOriginalBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_seleciona_material_pedido_original)
+        val binding: ActivityCpSelecionaMaterialBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_cp_seleciona_material)
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
-        carregaListaItemEstoque()
+        viewModel.listaItemEstoque.observe(this, Observer<Response> {
+                response -> processResponse(response)
+        })
 
         tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
         tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
@@ -65,12 +65,6 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         bottom_stepper.setAnteriorOnClickListener { clicouAnterior() }
         bottom_stepper.setProximoOnClickListener { clicouProximo() }
-    }
-
-    private fun carregaListaItemEstoque(){
-        viewModel.listaItemEstoque.observe(this, Observer<Response> {
-                response -> processResponse(response)
-        })
     }
 
     override fun clicouProximo() {
@@ -96,13 +90,17 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun clicouAnterior() {
         this.onBackPressed()
-        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onResume() {
         viewModel.refreshListaItemEstoque()
         viewModel.carregandoProximaTela.value = Response.empty()
         super.onResume()
+    }
+
+    override fun onBackPressed() {
+        viewModel.getFluxo().decrementaPassoAtual()
+        super.onBackPressed()
     }
 
     fun processResponse(response: Response){

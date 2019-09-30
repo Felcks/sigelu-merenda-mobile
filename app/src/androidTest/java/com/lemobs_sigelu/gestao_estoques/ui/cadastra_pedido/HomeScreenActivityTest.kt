@@ -10,7 +10,7 @@ import androidx.test.rule.ActivityTestRule
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoViewModel
-import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
+import kotlinx.android.synthetic.main.activity_cp_cadastra_item_pedido.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

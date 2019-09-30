@@ -1,12 +1,10 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma
 
-import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,18 +13,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.databinding.ActivityConfirmaPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_CORRECAO_SOLICITADA
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCpConfirmaPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.getNomeDoTipo
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_confirma_pedido.*
-import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.android.synthetic.main.activity_cp_confirma_pedido.*
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
@@ -36,14 +31,14 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_confirma_pedido)
+        setContentView(R.layout.activity_cp_confirma_pedido)
 
         viewModel.response().observe(this, Observer<Response> { response -> processResponse(response) })
         viewModel.envioPedidoResponse.observe(this, Observer<Response> { response -> processResponseEnvioPedido(response) })
         viewModel.rascunhoPedidoResponse.observe(this, Observer<Response> { response -> processResponseRascunhoPedido(response) })
         viewModel.carregaListaItem()
 
-        val mainBinding: ActivityConfirmaPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_confirma_pedido)
+        val mainBinding: ActivityCpConfirmaPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cp_confirma_pedido)
         mainBinding.viewModel = viewModel
         mainBinding.executePendingBindings()
 
@@ -85,7 +80,6 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
-        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     private fun salvaRascunho(){
@@ -223,6 +217,11 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         adapter = ListaItemEstoqueAdapter(applicationContext, list)
         rv_lista.adapter = adapter
+    }
+
+    override fun onBackPressed() {
+        viewModel.getFluxo().decrementaPassoAtual()
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.*
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_all
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_layout_anterior
 import kotlinx.android.synthetic.main.activity_seleciona_envio_recebimento.ll_layout_proximo
-import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
+import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.*
 import javax.inject.Inject
 
 /**

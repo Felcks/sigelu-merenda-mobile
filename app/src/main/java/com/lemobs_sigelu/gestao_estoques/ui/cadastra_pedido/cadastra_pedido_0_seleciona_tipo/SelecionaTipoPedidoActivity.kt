@@ -16,9 +16,9 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.*
-import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.bottom_stepper
-import kotlinx.android.synthetic.main.activity_seleciona_tipo_pedido.ll_all
+import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.*
+import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.bottom_stepper
+import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.ll_all
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
@@ -28,7 +28,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_seleciona_tipo_pedido)
+        setContentView(R.layout.activity_cp_seleciona_tipo_pedido)
 
         viewModel.proximaTela().observe(this, Observer<Response> { response -> observarMudancaDeTela(response) })
 
@@ -95,10 +95,6 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         top_stepper.atualiza()
         bottom_stepper.atualiza()
         viewModel.selecionaTipoPedido(1)
-    }
-
-    fun clickTerceiroRadioButton(v: View) {
-        //Botão inexistente
     }
 
     override fun onResume() {

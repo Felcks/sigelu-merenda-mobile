@@ -17,17 +17,16 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
-import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCadastraItemPedidoBinding
+import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCpCadastraItemPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.exceptions.CampoNaoPreenchidoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.exceptions.ValorMenorQueZeroException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.*
-import kotlinx.android.synthetic.main.activity_cadastra_item_pedido.ll_all
+import kotlinx.android.synthetic.main.activity_cp_cadastra_item_pedido.*
+import kotlinx.android.synthetic.main.activity_cp_cadastra_item_pedido.ll_all
 import org.koin.android.ext.android.inject
-import java.util.concurrent.locks.ReentrantLock
 
 class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
@@ -36,9 +35,9 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastra_item_pedido)
+        setContentView(R.layout.activity_cp_cadastra_item_pedido)
 
-        val binding: ActivityCadastraItemPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cadastra_item_pedido)
+        val binding: ActivityCpCadastraItemPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_cp_cadastra_item_pedido)
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
@@ -130,12 +129,16 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior(){
         this.onBackPressed()
-        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.carregandoProximaTela.value = Response.empty()
+    }
+
+    override fun onBackPressed() {
+        viewModel.getFluxo().decrementaPassoAtual()
+        super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

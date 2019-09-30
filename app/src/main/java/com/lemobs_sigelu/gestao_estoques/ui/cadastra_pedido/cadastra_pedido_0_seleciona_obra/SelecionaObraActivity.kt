@@ -49,7 +49,6 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
 
     override fun clicouAnterior() {
         this.onBackPressed()
-        viewModel.getFluxo().decrementaPassoAtual()
     }
 
     override fun clicouProximo(){
@@ -105,6 +104,11 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun onResume() {
         super.onResume()
         viewModel.carregandoProximaTela.value = Response.empty()
+    }
+
+    override fun onBackPressed() {
+        viewModel.getFluxo().decrementaPassoAtual()
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
