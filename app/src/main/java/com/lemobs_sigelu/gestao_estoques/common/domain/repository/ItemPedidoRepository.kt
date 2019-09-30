@@ -1,12 +1,14 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.repository
 
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
+import com.lemobs_sigelu.gestao_estoques.api_model.pedido_item.ItemPedidoDataResponse
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Categoria
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemPedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.db
 import io.reactivex.Observable
+import retrofit2.Call
 
 /**
  * Created by felcks on Jul, 2019
@@ -19,7 +21,7 @@ class ItemPedidoRepository {
 
         return Observable.create { subscribe ->
 
-            val callResponse = api.getItensDePedido(pedidoID)
+            val callResponse: Call<List<ItemPedidoDataResponse>> = api.getItensDePedido(pedidoID)
             val response = callResponse.execute()
 
             if(response.isSuccessful && response.body() != null){
@@ -49,6 +51,7 @@ class ItemPedidoRepository {
                         itemEstoque)
 
                     item.quantidadeDisponivel = it.quantidade_disponivel ?: 0.0
+                    item.quantidadeSolicitada = it.quantidade_solicitada ?: 0.0
                     item.observacao = it.observacao ?: ""
                     item
                 }

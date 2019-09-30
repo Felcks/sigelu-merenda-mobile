@@ -33,7 +33,8 @@ class ListaMaterialAdapter (val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
         holder.itemView.tv_descricao_material.text = item.itemEstoque?.descricao
-        holder.itemView.tv_pedido_total.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
+        holder.itemView.tv_pedido_total.text = "${item.quantidadeSolicitada.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
+        holder.itemView.tv_aprovado.text = "${item.quantidadeUnidade.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
         holder.itemView.tv_material_recebido.text = "${quantidadeEnviada.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
         holder.itemView.tv_material_quantidade.text = "${item.quantidadeDisponivel.toString().replace('.',',')} ${item.itemEstoque?.unidadeMedida?.sigla}"
         holder.itemView.tv_observacao.text =  item.observacao.tracoSeVazio()

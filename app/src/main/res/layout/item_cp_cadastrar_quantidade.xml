@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
                     android:text="Quantidade requisitada"
-                    android:textColor="@color/divider"/>
+                    android:textColor="@color/preto055"/>
 
             <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
                     android:id="@+id/edt_quantidade_fornecida"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="Observação"
                     android:layout_marginTop="@dimen/espacamento_curto"
-                    android:textColor="@color/divider"
+                    android:textColor="@color/preto055"
                     app:layout_constraintTop_toBottomOf="@id/edt_quantidade_fornecida"
                     app:layout_constraintLeft_toLeftOf="parent" />
 

@@ -49,6 +49,8 @@ class ItemPedido (
 
     var observacao: String = ""
 
+    var quantidadeSolicitada: Double = 0.0
+
     constructor(id: Int,
                 pedidoID: Int,
                 quantidadeUnidade: Double?,
