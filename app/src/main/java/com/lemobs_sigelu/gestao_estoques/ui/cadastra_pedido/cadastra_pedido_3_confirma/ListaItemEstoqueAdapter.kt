@@ -1,14 +1,13 @@
 package com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_3_confirma
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lemobs_sigelu.gestao_estoques.R
-import kotlinx.android.synthetic.main.item_material_pedido_cadastrado.view.*
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
+import kotlinx.android.synthetic.main.item_cp_confirma.view.*
 
 class ListaItemEstoqueAdapter (val context: Context,
                                val list: List<MaterialDTO>):
@@ -18,7 +17,7 @@ class ListaItemEstoqueAdapter (val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_material_pedido_cadastrado, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_cp_confirma, parent, false)
         return MyViewHolder(view)
     }
 
@@ -30,31 +29,16 @@ class ListaItemEstoqueAdapter (val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_1.text = item.itemEstoqueDTO.nome
-        holder.itemView.tv_2.text = item.itemEstoqueDTO.descricao
-        holder.itemView.tv_3.text = item.itemEstoqueDTO.getUnidadeMedidaNomeSiglaPorExtenso()
-        holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
-        holder.itemView.edt_observacao.setText(item.observacao)
-        this.adicionarMascaras(item, holder, position)
+        holder.itemView.tv_nome_material.text = item.itemEstoqueDTO.nome
+        holder.itemView.tv_descricao_material.text = item.itemEstoqueDTO.descricao
+        holder.itemView.tv_unidade_medida.text = item.itemEstoqueDTO.getUnidadeMedidaNomeSiglaPorExtenso()
+        holder.itemView.tv_pedido_total.text = item.quantidadeRecebida.toString()
+        holder.itemView.tv_observacao.text = item.observacao.tracoSeVazio()
     }
 
     fun getListaObservacoes(): List<String>{
 
         return this.list.map { it.observacao }
-    }
-
-    private fun adicionarMascaras(item: MaterialDTO, holder: MyViewHolder, position: Int) {
-
-        val mascara = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                item.observacao = s.toString()
-            }
-        }
-        holder.itemView.edt_observacao.addTextChangedListener(mascara)
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

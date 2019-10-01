@@ -51,81 +51,46 @@
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_pedido_total"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="0"
-                  android:textColor="@color/primary_text"
-                  android:layout_marginLeft="@dimen/espacamento_curto"
-                  app:layout_constraintLeft_toRightOf="@id/tv_pedido_total_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"/>
-
-        <TextView
-                android:id="@+id/tv_aprovado_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quantidade Aprovada:"
-                android:textColor="@color/primary_text"
-                app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView android:id="@+id/tv_aprovado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/primary_text"
                 android:layout_marginLeft="@dimen/espacamento_curto"
-                app:layout_constraintLeft_toRightOf="@id/tv_aprovado_layout"
-                app:layout_constraintBaseline_toBaselineOf="@id/tv_aprovado_layout"/>
+                app:layout_constraintLeft_toRightOf="@id/tv_pedido_total_layout"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"/>
 
-        <TextView android:id="@+id/tv_material_recebido_layout"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Quantidade Enviada:"
-                  android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toBottomOf="@id/tv_aprovado_layout"
-                  app:layout_constraintLeft_toLeftOf="parent"/>
+        <TextView
+                android:id="@+id/tv_unidade_medida_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unidade:"
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <TextView android:id="@+id/tv_material_recebido"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/primary_text"
-                  android:text="0"
-                  android:layout_marginLeft="@dimen/espacamento_curto"
-                  app:layout_constraintLeft_toRightOf="@id/tv_material_recebido_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_recebido_layout"/>
-
-        <TextView android:id="@+id/tv_material_quantidade_layout"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Quantidade Disponível:"
-                  android:textColor="@color/primary_text"
-                  app:layout_constraintTop_toBottomOf="@id/tv_material_recebido_layout"
-                  app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <TextView android:id="@+id/tv_material_quantidade"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/primary_text"
-                  android:text="0"
-                  android:layout_marginLeft="@dimen/espacamento_curto"
-                  app:layout_constraintLeft_toRightOf="@id/tv_material_quantidade_layout"
-                  app:layout_constraintBaseline_toBaselineOf="@id/tv_material_quantidade_layout"/>
+        <TextView android:id="@+id/tv_unidade_medida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/primary_text"
+                android:layout_marginLeft="@dimen/espacamento_curto"
+                app:layout_constraintLeft_toRightOf="@id/tv_unidade_medida_layout"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_unidade_medida_layout"/>
 
         <TextView android:id="@+id/tv_observacao_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Observação:"
                 android:textColor="@color/primary_text"
-                app:layout_constraintTop_toBottomOf="@id/tv_material_quantidade"
+                app:layout_constraintTop_toBottomOf="@id/tv_unidade_medida"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_observacao"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
                 android:text=""
                 android:layout_marginLeft="@dimen/espacamento_curto"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/tv_observacao_layout"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_observacao_layout"/>
 
