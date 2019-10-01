@@ -1,12 +1,14 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
 import android.util.Log
+import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.PedidoResponseOfRequest
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -69,7 +71,20 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
     }
 
     override suspend fun carregaListagemItemEstoque(): List<ItemEstoque> {
-        this.listaItemEstoque = itemEstoqueRepository.carregaListaEstoque2()
+
+        val nucleoID = AppSharedPreferences.getNucleoID(App.instance)
+        var nucleoEstoqueID: Int = 0
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleoID) }
+
+            nucleoEstoqueID = a.await()
+        }
+
+        while(!job.isCompleted){}
+
+
+        this.listaItemEstoque = itemEstoqueRepository.carregaListaItemEstoque3(nucleoEstoqueID)
         return listaItemEstoque ?: listOf()
     }
 
