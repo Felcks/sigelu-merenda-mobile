@@ -243,4 +243,8 @@ class RestApi {
     suspend fun getListagemAlmoxarifado(): List<AlmoxarifadoDataResponse>{
         return api.getListagemAlmoxarifado(auth)
     }
+
+    suspend fun getListagemItemDeEstoque(pedidoEstoqueID: Int): List<ItemEstoqueDataResponse>? {
+        return api.getListagemItemDeEstoque(auth, pedidoEstoqueID)
+    }
 }

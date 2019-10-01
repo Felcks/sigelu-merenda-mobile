@@ -84,4 +84,31 @@ open class ItemEstoqueRepository: BaseRepository() {
             item
         }
     }
+
+    suspend fun carregaListaItemEstoque3(estoqueID: Int): List<ItemEstoque>? {
+
+        val response = api.getListagemItemDeEstoque(estoqueID)
+
+        return response?.map {
+            val item = ItemEstoque(
+                it.id,
+                it.codigo ?: "",
+                it.descricao ?: "",
+                it.nome_alternativo ?: "",
+                with(it.unidade_medida){
+                    com.lemobs_sigelu.gestao_estoques.common.domain.model.UnidadeMedida(
+                        id,
+                        nome ?: "",
+                        sigla ?: ""
+                    )
+                }
+            )
+
+            item.apply {
+                saldoContrato = it.saldo_contrato
+                quantidadeDisponivel = it.quantidade_disponivel
+            }
+            item
+        }
+    }
 }

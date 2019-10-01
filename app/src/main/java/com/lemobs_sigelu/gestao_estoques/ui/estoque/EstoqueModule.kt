@@ -1,6 +1,7 @@
 package com.lemobs_sigelu.gestao_estoques.ui.estoque
 
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.EstoqueController
+import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemNucleoRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoQuantidadeDeItemEstoqueRepository
@@ -28,5 +29,10 @@ class EstoqueModule {
     @Provides
     fun bindNucleoQuantidadeDeItemEstoqueRepository(): NucleoQuantidadeDeItemEstoqueRepository{
         return NucleoQuantidadeDeItemEstoqueRepository()
+    }
+
+    @Provides
+    fun bindEstoqueRepository(): EstoqueRepository{
+        return EstoqueRepository()
     }
 }

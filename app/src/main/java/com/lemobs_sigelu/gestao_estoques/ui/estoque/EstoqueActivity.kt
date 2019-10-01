@@ -42,11 +42,11 @@ class EstoqueActivity: AppCompatActivity() {
         binding.viewModel = viewModel!!
         binding.executePendingBindings()
 
-        viewModel!!.carregaListaItemEstoque()
+        viewModel!!.carregaListaItemDeEstoque()
         tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
-            viewModel!!.carregaListaItemEstoque()
+            viewModel!!.carregaListaItemDeEstoque()
         }
     }
 

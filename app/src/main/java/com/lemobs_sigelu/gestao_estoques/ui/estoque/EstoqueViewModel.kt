@@ -9,6 +9,9 @@ import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
 
@@ -29,6 +32,36 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
 
     fun response(): MutableLiveData<Response> {
         return response
+    }
+
+    fun carregaListaItemDeEstoque(){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            loading.set(true)
+            isError.set(false)
+
+            try {
+                val retrived = controller.getListaItemEstoque3()
+
+                loading.set(false)
+
+                if(retrived.isNotEmpty()) {
+
+                    isError.set(false)
+                    response.postValue(Response.success(retrived))
+                }
+                else{
+
+                    isError.set(true)
+                    response.postValue(Response.empty())
+                }
+            }
+            catch (e: Exception){
+                loading.set(false)
+                isError.set(true)
+                response.postValue(Response.error(Throwable("")))
+            }
+        }
     }
 
     fun carregaListaItemEstoque(){

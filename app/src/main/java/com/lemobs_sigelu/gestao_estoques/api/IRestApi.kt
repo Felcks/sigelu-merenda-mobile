@@ -183,4 +183,8 @@ interface IRestApi {
 
     @GET("almoxarifado")
     suspend fun getListagemAlmoxarifado(@Header("Authorization") auth: String): List<AlmoxarifadoDataResponse>
+
+    @GET("estoque/{estoque_id}/item")
+    suspend fun getListagemItemDeEstoque(@Header("Authorization") auth: String,
+                                         @Path("estoque_id") pedido_estoque_id: Int): List<ItemEstoqueDataResponse>
 }
