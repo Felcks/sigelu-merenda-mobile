@@ -15,7 +15,7 @@ import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersClickListener
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
-import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.view.*
+import kotlinx.android.synthetic.main.item_ce_cadastra_quantidade.view.*
 import java.text.NumberFormat
 import java.util.*
 
@@ -36,7 +36,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_cp_cadastrar_quantidade, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_ce_cadastra_quantidade, parent, false)
         return MyViewHolder(view)
     }
 
@@ -46,15 +46,16 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+        val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
+        form.isGroupingUsed = false
+
         val item = this.list[position]
 
         holder.itemView.tv_nome_material.text = item.nomeAlternativo
         holder.itemView.edt_quantidade_fornecida_unidade.text = item.unidadeMedida?.nome
+        holder.itemView.tv_disponivel.text = form.format(item.quantidadeDisponivel)
         holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
-
-        val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
-        form.isGroupingUsed = false
 
         if((item.quantidadeRecebida ?: 0.0) > 0.0)
             holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
