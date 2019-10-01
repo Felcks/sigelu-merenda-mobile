@@ -14,21 +14,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.*
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoMovimento
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityVisualizarPedidoBinding
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.geral_fragment.GeralFragment
@@ -39,7 +33,6 @@ import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
-import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -108,12 +101,16 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
                         if(viewModel!!.validaEdicaoPedido()){
                             viewModel!!.editaPedido()
-                            //TODO cada pedido cai numa tela diferente na hora da edição
-                        }
 
+                            val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
+                            startActivity(intent)
+                        }
+                        else{
+                            Snackbar.make(ll_all, "Pedido não editável.", Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                     catch (e: Exception){
-
+                        Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

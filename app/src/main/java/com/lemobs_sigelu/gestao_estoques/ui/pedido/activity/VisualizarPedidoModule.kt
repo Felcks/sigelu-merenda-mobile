@@ -1,5 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModelImpl
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.*
 import dagger.Module

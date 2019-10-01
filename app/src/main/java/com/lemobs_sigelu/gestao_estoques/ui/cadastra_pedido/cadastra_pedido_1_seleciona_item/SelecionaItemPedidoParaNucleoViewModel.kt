@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedid
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.Fluxo
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import io.reactivex.disposables.CompositeDisposable
@@ -74,4 +75,6 @@ open class SelecionaItemPedidoParaNucleoViewModel(private val controller: Cadast
     }
 
     fun getFluxo(): Fluxo = controller
+
+    fun getPedido(): Pedido2 = controller.getPedido()
 }

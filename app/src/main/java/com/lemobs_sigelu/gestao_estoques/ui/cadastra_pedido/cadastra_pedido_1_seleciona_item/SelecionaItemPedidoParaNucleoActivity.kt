@@ -19,6 +19,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCpSelecionaMaterialBinding
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.SITUACAO_RASCUNHO
+import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -51,6 +53,11 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.refreshListaItemEstoque()
+        }
+
+        if(viewModel.getPedido().getSituacao()?.situacao_id == SITUACAO_RASCUNHO) {
+            viewModel.getFluxo().setPassoAtual(1)
+            viewModel.getFluxo().setMaximoPasso(FluxoInfo.NUCLEO.maximoPassos - 1)
         }
 
         this.iniciaStepper()

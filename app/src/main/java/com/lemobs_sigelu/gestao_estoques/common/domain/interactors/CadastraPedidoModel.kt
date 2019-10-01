@@ -9,6 +9,7 @@ interface CadastraPedidoModel: Fluxo {
 
     fun iniciaRMParaEstoque()
     fun iniciaRMParaObra(obraID: Int)
+    fun iniciaPedidoAPartirDeRascunho(pedido: Pedido2)
 
     fun selecionaListaMaterial(listaIDAdicao: List<Int>, listaIDRemocao: List<Int>)
     fun verificaSeItemJaAdicionado(id: Int): Boolean

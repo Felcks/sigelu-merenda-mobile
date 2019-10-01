@@ -2,6 +2,8 @@ package com.lemobs_sigelu.gestao_estoques.ui.pedido.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModelImpl
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 
 class VisualizarPedidoViewModelFactory(val controller: VisualizaPedidoController): ViewModelProvider.Factory {

@@ -4,7 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
+import androidx.lifecycle.viewModelScope
 import com.lemobs_sigelu.gestao_estoques.App
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModel
+import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.CadastraPedidoModelImpl
 import com.lemobs_sigelu.gestao_estoques.common.domain.interactors.VisualizaPedidoController
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
@@ -95,7 +98,6 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
     fun carregarItensDePedido() {
 
         val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
-        val situacaoPedidoEmAnalise = pedido?.getSituacao()?.situacao_id == SITUACAO_EM_ANALISE_ID
 
         disposables.add(controller.getListaItemPedido(pedidoID, pedido?.getSituacao()?.situacao_id ?: 0)
             .subscribeOn(Schedulers.io())
@@ -103,7 +105,13 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
             .doOnSubscribe { responseMateriais.setValue(Response.loading()) }
             .subscribe(
                 { result ->
-                    //pedido?.materiais = result
+                    pedido?.listaMaterial = result.map {
+                        Material(
+                            null,
+                            it.itemEstoque!!,
+                            it.quantidadeRecebida
+                        )
+                    } as MutableList<Material>
                     responseMateriais.setValue(Response.success(result))
                 },
                 { throwable ->
@@ -241,44 +249,9 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
 
     fun editaPedido(){
 
-//        val pedidoCadastro = PedidoCadastro(
-//            pedido!!.id,
-//            pedido!!.codigo,
-//            pedido!!.origemNome,
-//            pedido!!.destinoNome,
-//            pedido!!.origem,
-//            pedido!!.destino,
-//            pedido!!.origemID,
-//            pedido!!.destinoID,
-//            Date(),
-//            Date(),
-//            pedido!!.situacao
-//        )
-//
-//        if(pedido!!.origem == "Fornecedor"){
-//            pedidoCadastro.contratoEstoque = pedido!!.contrato
-//        }
-
-//        val listItemContrato = pedido?.materiais?.map {
-//            val item = ItemContrato(
-//                it.id,
-//                0,
-//                "",
-//                it.quantidadeUnidade ?: 0.0,
-//                0.0,
-//                "",
-//                0.0,
-//                null,
-//                it.itemEstoqueID
-//            )
-//
-//            item.itemEstoque = it.itemEstoque
-//            item
-//        } ?: listOf()
-
-//        pedidoCadastro.isEdicao = true
-//        //pedidoCadastro.listaItemContrato.addAll(listItemContrato) ja estava comentada antes
-//        CadastraPedidoController2.pedidoCadastro = pedidoCadastro
+        if(pedido != null) {
+            CadastraPedidoModelImpl.Companion.pedido = pedido
+        }
     }
 
     fun getSituacaoDePedido(): Situacao{

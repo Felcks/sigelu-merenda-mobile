@@ -1,6 +1,5 @@
 package com.lemobs_sigelu.gestao_estoques.common.domain.interactors
 
-import android.util.Log
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.EstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.IObraRepository
@@ -16,7 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 
 class CadastraPedidoModelImpl(
     private val usuarioModel: UsuarioModel,
@@ -26,11 +24,14 @@ class CadastraPedidoModelImpl(
     private val pedidoRepository: PedidoRepository,
     private val estoqueRepository: EstoqueRepository): CadastraPedidoModel{
 
-    private var pedido: Pedido2? = null
     private var listaTodosItemEstoque: List<ItemEstoque>? = null
     private var listaTodasObra: List<Obra>? = null
     private var passoCorrente = 0
     private var quantidadePasso = 0
+
+    companion object{
+        var pedido: Pedido2? = null
+    }
 
     override fun iniciaRMParaEstoque() {
 
@@ -99,7 +100,12 @@ class CadastraPedidoModelImpl(
             throw MovimentoInvalidoException()
         }
 
-        this.pedido = Pedido2(null, usuario, movimento)
+        pedido = Pedido2(null, usuario, movimento)
+    }
+
+    override fun iniciaPedidoAPartirDeRascunho(pedido: Pedido2) {
+
+        CadastraPedidoModelImpl.Companion.pedido = pedido
     }
 
     override fun selecionaListaMaterial(listaIDAdicao: List<Int>, listaIDRemocao: List<Int>) {
@@ -208,7 +214,7 @@ class CadastraPedidoModelImpl(
     override fun cancelaPedido() {}
 
     override fun getPedido(): Pedido2 {
-        return this.pedido ?: throw PedidoNaoCriadoException()
+        return pedido ?: throw PedidoNaoCriadoException()
     }
 
     override suspend fun getListaItemEstoque(): List<ItemEstoque> {
