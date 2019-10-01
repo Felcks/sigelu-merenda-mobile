@@ -49,6 +49,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoqueDTO.nome
         holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoqueDTO.unidadeMedida
+
         holder.itemView.btn_cancel.setOnClickListener {
             remocaoItemClickListener.onClick(item.itemEstoqueDTO.id, position)
         }

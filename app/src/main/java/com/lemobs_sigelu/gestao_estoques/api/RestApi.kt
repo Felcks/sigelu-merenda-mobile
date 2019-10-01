@@ -179,6 +179,10 @@ class RestApi {
         return api.postPedidoNucleoObra2(auth, pedidoDataRequest)
     }
 
+    suspend fun putPedido(pedidoEstoqueID: Int, pedidoDataRequest: PedidoDataRequest): PedidoResponseOfRequest {
+        return api.putPedidoNucleoObra2(auth, pedidoEstoqueID, pedidoDataRequest)
+    }
+
     /* Pedido fornecedor-nucleo */
     fun postPedidoFornecedorNucleo(pedidoRequest: PedidoDataRequestFornecedorNucleo): Call<Unit>{
         return api.postPedidoFornecedorNucleo(auth, pedidoRequest)

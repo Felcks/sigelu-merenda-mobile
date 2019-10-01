@@ -146,6 +146,11 @@ interface IRestApi {
                                       @Body pedidoRequest: PedidoDataRequest): PedidoResponseOfRequest
 
     @PUT("pedido-estoque/{pedido_estoque_id}")
+    suspend fun putPedidoNucleoObra2(@Header("Authorization") auth: String,
+                                     @Path("pedido_estoque_id") pedidoEstoqueID: Int,
+                                     @Body pedidoRequest: PedidoDataRequest): PedidoResponseOfRequest
+
+    @PUT("pedido-estoque/{pedido_estoque_id}")
     fun putPedidoNucleoObra(@Header("Authorization") auth: String,
                              @Path("pedido_estoque_id") pedido_estoque_id: Int,
                              @Body pedidoRequest: PedidoDataRequestNucleoObra): Call<Unit>

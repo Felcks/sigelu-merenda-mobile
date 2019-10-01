@@ -332,9 +332,11 @@ open class PedidoRepository {
             }
         )
 
-        val a = api.postPedido(pedidoDataRequest)
-
-        return a
+        return if(pedido.getSituacao()?.situacao_id == SITUACAO_RASCUNHO){
+            api.putPedido(pedido.id ?: 0, pedidoDataRequest)
+        }
+        else
+            api.postPedido(pedidoDataRequest)
     }
 
     suspend fun cancelaPedido(pedidoEstoqueID: Int){
