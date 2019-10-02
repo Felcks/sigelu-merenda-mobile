@@ -49,6 +49,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
 
         holder.itemView.tv_nome_material.text = item.itemEstoqueDTO.nome
         holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoqueDTO.unidadeMedida
+        holder.itemView.edt_observacao.setText(item.observacao.get())
 
         holder.itemView.btn_cancel.setOnClickListener {
             remocaoItemClickListener.onClick(item.itemEstoqueDTO.id, position)
@@ -58,16 +59,16 @@ class ListaItemEstoqueAdapter (private val context: Context,
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
 
-        if((item.quantidadeRecebida ?: 0.0) > 0.0)
-            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
+        if((item.quantidadeRecebida.get() ?: 0.0) > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida.get() ?: 0.0))
         else
             holder.itemView.edt_quantidade_fornecida.setText("")
 
 
-        if(item.quantidadeRecebida ?: 0.0 == 0.0){
+        if(item.quantidadeRecebida.get() ?: 0.0 == 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
         }
-        else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
+        else if(item.quantidadeRecebida.get() ?: 0.0 > 0.0 ?: 0.0){
             //ONDE TEM ZERO NESSE IF TINHA QUANTIDADE DISPONIVEL
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
         }
@@ -98,11 +99,11 @@ class ListaItemEstoqueAdapter (private val context: Context,
                     catch (e: NumberFormatException) { }
 
                 }
-                item.quantidadeRecebida = doubleValue
+                item.quantidadeRecebida.set(doubleValue)
                 if(item.quantidadeRecebida ?: 0.0 == 0.0){
                     holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
                 }
-                else if(item.quantidadeRecebida ?: 0.0 > 0.0 ?: 0.0){
+                else if(item.quantidadeRecebida.get() ?: 0.0 > 0.0 ?: 0.0){
                     //ONDE TEM ZERO NESSE IF TINHA QUANTIDADE DISPONIVEL
                     holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
                 }
@@ -156,7 +157,7 @@ class ListaItemEstoqueAdapter (private val context: Context,
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                item.observacao = s.toString()
+                item.observacao.set(s.toString())
             }
         }
         holder.itemView.edt_observacao.addTextChangedListener(mascara)

@@ -114,7 +114,8 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         envio?.listaItemEstoque?.addAll(listaParaAdicionar)
     }
 
-    override fun confirmaCadastroItem(listaValoresRecebidos: List<Double>) {
+    override fun confirmaCadastroItem(listaValoresRecebidos: List<Double>,
+                                      listaObservacao: List<String>) {
 
         if(envio == null)
             throw EnvioNaoCriadoException()
@@ -129,6 +130,7 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         for(item in envio!!.listaItemEstoque){
 
             val valor = listaValoresRecebidos[count]
+            val observacao = listaObservacao[count]
 
             if(valor <= 0.0){
                 throw ValorMenorQueZeroException()
@@ -139,6 +141,7 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
             }
 
             item.quantidadeRecebida = valor
+            item.observacao = observacao
             count += 1
         }
     }

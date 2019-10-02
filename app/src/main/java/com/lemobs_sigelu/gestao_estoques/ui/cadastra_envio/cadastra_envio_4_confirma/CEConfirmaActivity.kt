@@ -172,7 +172,7 @@ class CEConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil1.buildAlertDialogOk(this,
             "Sucesso",
-            "Envio cadastrado com sucesso!",
+            "Envio cadastrado com sucesso!\nRM gerada automaticamente.",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)

@@ -16,7 +16,7 @@ interface CadastraEnvioParaObraController: Fluxo {
     fun getIDsDeItemAdicionados(): List<Int>
     fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>)
 
-    fun confirmaCadastroItem(listaValoresRecebidos: List<Double>)
+    fun confirmaCadastroItem(listaValoresRecebidos: List<Double>, listaObservacao: List<String>)
     fun getItensCadastrados(): List<ItemEstoque>
     fun removeItem(id: Int)
 

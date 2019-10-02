@@ -108,7 +108,7 @@ class CECadastraItemActivity: AppCompatActivity(), ActivityDeFluxo {
 
         try {
             viewModel.carregandoProximaTela.value = Response.loading()
-            viewModel.confirmaCadastroMaterial(this.adapter?.getListaValoresItemEnvio() ?: listOf())
+            viewModel.confirmaCadastroMaterial(this.adapter?.getLista() ?: listOf())
 
             viewModel.getFluxo().incrementaPassoAtual()
             val intent = Intent(this, CEConfirmaActivity::class.java)

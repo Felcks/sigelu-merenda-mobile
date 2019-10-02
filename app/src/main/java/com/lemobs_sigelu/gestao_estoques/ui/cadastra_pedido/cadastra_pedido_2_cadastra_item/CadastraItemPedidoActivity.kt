@@ -136,6 +136,11 @@ class CadastraItemPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         viewModel.carregandoProximaTela.value = Response.empty()
     }
 
+    override fun onPause() {
+        super.onPause()
+
+    }
+
     override fun onBackPressed() {
         viewModel.getFluxo().decrementaPassoAtual()
         super.onBackPressed()

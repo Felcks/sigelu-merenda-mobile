@@ -9,6 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.PedidoCadastro
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
+import kotlin.math.absoluteValue
 
 class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedidoModel): ViewModel() {
 
@@ -29,7 +30,8 @@ class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedid
                         this.unidadeMedida?.sigla ?: ""
                     )
                 },
-                it.quantidadeRecebida
+                it::quantidadeRecebida,
+                it::observacao
             )
         }
     }
@@ -42,9 +44,8 @@ class CadastraItemPedidoViewModel(private val cadastraPedidoModel: CadastraPedid
 
         return cadastraPedidoModel.cadastraQuantidadeMaterial(
             listaMaterialRecebido.map { it.itemEstoqueDTO.id },
-            listaMaterialRecebido.map { it.quantidadeRecebida },
-            listaMaterialRecebido.map { it.observacao })
-
+            listaMaterialRecebido.map { it.quantidadeRecebida.get() },
+            listaMaterialRecebido.map { it.observacao.get() })
     }
 
     fun getFluxo() = cadastraPedidoModel

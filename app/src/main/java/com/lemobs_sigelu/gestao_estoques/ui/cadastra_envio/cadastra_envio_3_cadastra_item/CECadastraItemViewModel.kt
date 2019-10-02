@@ -20,10 +20,13 @@ class CECadastraItemViewModel(private val controller: CadastraEnvioParaObraContr
         return controller.removeItem(id)
     }
 
-    fun confirmaCadastroMaterial(listValoresRecebidos: List<Double>) {
+    fun confirmaCadastroMaterial(listaItem: List<ItemEstoque>) {
 
-        if(listValoresRecebidos.isNotEmpty()){
-            controller.confirmaCadastroItem(listValoresRecebidos)
+        if(listaItem.isNotEmpty()){
+            controller.confirmaCadastroItem(
+                listaItem.map { it.quantidadeRecebida ?: 0.0},
+                listaItem.map { it.observacao }
+            )
         }
         else{
             throw NenhumItemSelecionadoException()

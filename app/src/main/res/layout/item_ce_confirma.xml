@@ -11,7 +11,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
@@ -86,12 +85,13 @@
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView android:id="@+id/tv_observacao"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
                 android:text=""
                 android:layout_marginLeft="@dimen/espacamento_curto"
                 app:layout_constraintLeft_toRightOf="@id/tv_observacao_layout"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_observacao_layout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
