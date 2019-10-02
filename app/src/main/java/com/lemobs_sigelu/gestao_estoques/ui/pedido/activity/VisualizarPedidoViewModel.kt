@@ -109,8 +109,8 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
                         Material(
                             null,
                             it.itemEstoque!!,
-                            it.quantidadeRecebida
-                        )
+                            it.quantidadeSolicitada
+                        ).apply { this.observacao = it.observacao }
                     } as MutableList<Material>
                     responseMateriais.setValue(Response.success(result))
                 },
