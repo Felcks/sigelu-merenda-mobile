@@ -150,5 +150,7 @@ class CRConfirmaActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun onResume() {
         super.onResume()
         viewModel.carregaListaItemRecebimento()
+        top_stepper.atualiza()
+        bottom_stepper.atualiza()
     }
 }

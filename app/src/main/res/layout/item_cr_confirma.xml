@@ -1,157 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<layout
+<androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-                name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoViewModel"/>
-    </data>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/espacamento_curto"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="false"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="1dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:padding="1dp"
-            android:background="@color/colorAccent"
-            android:layout_marginRight="@dimen/espacamento_grande"
-            android:layout_marginBottom="@dimen/espacamento_grande"
-            android:layout_marginLeft="@dimen/espacamento_curto"
-            android:layout_marginTop="@dimen/espacamento_curto">
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="@dimen/espacamento_grande"
+            android:layout_marginBottom="@dimen/espacamento_minimo">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <TextView
+                android:id="@+id/tv_nome_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"
+                android:text="Cimento de brita"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_descricao_material"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_nome_material"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:background="@android:color/white"
-                android:padding="@dimen/espacamento_medio">
+                app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                    android:id="@+id/layout_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Nome: "
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"/>
-            <TextView
-                    android:id="@+id/tv_1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toRightOf="@id/layout_1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"/>
+        <TextView
+                android:id="@+id/tv_pedido_total_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantidade Recebida:"
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_descricao_material"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <TextView
-                    android:id="@+id/layout_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Descrição: "
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"/>
-            <TextView
-                    android:id="@+id/tv_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toRightOf="@id/layout_2"
-                    app:layout_constraintTop_toBottomOf="@id/tv_1"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"/>
+        <TextView android:id="@+id/tv_pedido_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/primary_text"
+                android:layout_marginLeft="@dimen/espacamento_curto"
+                app:layout_constraintLeft_toRightOf="@id/tv_pedido_total_layout"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_pedido_total_layout"/>
 
+        <TextView
+                android:id="@+id/tv_unidade_medida_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unidade:"
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toBottomOf="@id/tv_pedido_total_layout"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <TextView
-                    android:id="@+id/layout_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_2"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Unidade: "
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"/>
-            <TextView
-                    android:id="@+id/tv_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_2"
-                    app:layout_constraintLeft_toRightOf="@id/layout_3"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"/>
+        <TextView android:id="@+id/tv_unidade_medida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/primary_text"
+                android:layout_marginLeft="@dimen/espacamento_curto"
+                app:layout_constraintLeft_toRightOf="@id/tv_unidade_medida_layout"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_unidade_medida_layout"/>
 
+        <TextView android:id="@+id/tv_observacao_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Observação:"
+                android:textColor="@color/primary_text"
+                app:layout_constraintTop_toBottomOf="@id/tv_unidade_medida"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <TextView
-                    android:id="@+id/layout_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quantidade: "
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"
-                    app:layout_constraintTop_toBottomOf="@id/tv_3"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <TextView
-                    android:id="@+id/tv_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_3"
-                    app:layout_constraintLeft_toRightOf="@id/layout_4"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_minimo"/>
-
-            <TextView android:id="@+id/tv_observacao_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Observação: "
-                    android:textSize="14sp"
-                    android:visibility="visible"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginTop="@dimen/espacamento_curto"
-                    app:layout_constraintTop_toBottomOf="@id/layout_4"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
-                    android:id="@+id/edt_observacao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:editable="false"
-                    android:layout_weight="9"
-                    android:gravity="top"
-                    android:maxLength="255"
-                    android:imeOptions="actionDone"
-                    android:paddingRight="@dimen/espacamento_maximo_2"
-                    android:paddingBottom="@dimen/espacamento_minimo"
-                    android:background="@drawable/edittext_default_no_padding_states"
-                    android:textColor="@color/primary_text"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:inputType="textMultiLine|textCapSentences|textCapSentences"
-                    app:layout_constraintTop_toBottomOf="@id/tv_observacao_layout"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginTop="@dimen/espacamento_curto" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView android:id="@+id/tv_observacao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:text=""
+                android:layout_marginLeft="@dimen/espacamento_curto"
+                app:layout_constraintLeft_toRightOf="@id/tv_observacao_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_observacao_layout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.cardview.widget.CardView>

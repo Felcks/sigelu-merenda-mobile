@@ -6,6 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lemobs_sigelu.gestao_estoques.R
+import com.lemobs_sigelu.gestao_estoques.extensions_constants.tracoSeVazio
+import kotlinx.android.synthetic.main.item_cr_confirma.view.*
+import kotlinx.android.synthetic.main.item_cr_confirma.view.tv_descricao_material
+import kotlinx.android.synthetic.main.item_cr_confirma.view.tv_nome_material
+import kotlinx.android.synthetic.main.item_cr_confirma.view.tv_unidade_medida
 import kotlinx.android.synthetic.main.item_cr_confirma.view.*
 
 class CRConfirmaAdapter (private val context: Context,
@@ -27,11 +32,11 @@ class CRConfirmaAdapter (private val context: Context,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val item = this.list[position]
-        holder.itemView.tv_1.text = item.itemEstoque.nomeAlternativo
-        holder.itemView.tv_2.text = item.itemEstoque.descricao
-        holder.itemView.tv_3.text = item.itemEstoque.unidadeMedida.getNomeESiglaPorExtenso()
-        holder.itemView.tv_4.text = item.quantidadeRecebida.toString()
-        holder.itemView.edt_observacao.setText(item.observacao)
+        holder.itemView.tv_nome_material.text = item.itemEstoque.nomeAlternativo
+        holder.itemView.tv_descricao_material.text = item.itemEstoque.descricao
+        holder.itemView.tv_unidade_medida.text = item.itemEstoque.unidadeMedida.getNomeESiglaPorExtenso()
+        holder.itemView.tv_pedido_total.text = item.quantidadeRecebida.toString()
+        holder.itemView.tv_observacao.text = item.observacao.tracoSeVazio()
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

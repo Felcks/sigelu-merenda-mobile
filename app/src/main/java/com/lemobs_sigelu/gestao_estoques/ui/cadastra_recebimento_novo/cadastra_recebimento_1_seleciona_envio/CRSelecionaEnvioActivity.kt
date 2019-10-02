@@ -29,6 +29,7 @@ import java.lang.Exception
 class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParametersClickListener{
 
     val viewModel: CRSelecionaEnvioViewModel by inject()
+    var tvErro: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +42,8 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntPara
 
         viewModel.listaEnvioResponse().observe(this, Observer<Response> { response -> processResponse(response) })
 
-        val tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro?.text = resources.getString(R.string.erro_carrega_lista_envio)
+        this.tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+
 
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.carregaListaEnvio()
@@ -98,7 +99,12 @@ class CRSelecionaEnvioActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntPara
                     }
                 }
             }
-            else -> {}
+            Status.ERROR -> {
+                tvErro?.text = resources.getString(R.string.erro_carrega_lista_envio)
+            }
+            else -> {
+                tvErro?.text = resources.getString(R.string.erro_lista_envio_vazia)
+            }
         }
     }
 
