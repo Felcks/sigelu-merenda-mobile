@@ -41,14 +41,14 @@ class EstoqueViewModel (val controller: EstoqueController): ViewModel(){
             isError.set(false)
 
             try {
-                val retrived = controller.getListaItemEstoque3()
+                val retrieved = controller.getListaItemEstoque3()
 
                 loading.set(false)
 
-                if(retrived.isNotEmpty()) {
+                if(retrieved.isNotEmpty()) {
 
                     isError.set(false)
-                    response.postValue(Response.success(retrived))
+                    response.postValue(Response.success(retrieved))
                 }
                 else{
 

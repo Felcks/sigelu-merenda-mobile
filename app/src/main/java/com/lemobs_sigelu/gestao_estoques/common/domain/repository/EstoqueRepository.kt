@@ -8,8 +8,8 @@ class EstoqueRepository {
 
     suspend fun getEstoqueIDNucleo(nucleoID: Int): Int{
 
-        val nucleo = api.getNucleo(nucleoID)
-        return nucleo.estoque_id ?: 0
+        val nucleo = api.getNucleo(nucleoID)?.body()
+        return nucleo?.estoque_id ?: 0
     }
 
     suspend fun getEstoqueIDAlmoxarifado(): Int{

@@ -89,7 +89,7 @@ open class ItemEstoqueRepository: BaseRepository() {
 
         val response = api.getListagemItemDeEstoque(estoqueID)
 
-        return response?.map {
+        return response?.body()?.map {
             val item = ItemEstoque(
                 it.id,
                 it.codigo ?: "",

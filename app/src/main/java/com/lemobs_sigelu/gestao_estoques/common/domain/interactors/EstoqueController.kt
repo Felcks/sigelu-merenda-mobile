@@ -10,10 +10,8 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.repository.ItemNucleoRepo
 import com.lemobs_sigelu.gestao_estoques.common.domain.repository.NucleoQuantidadeDeItemEstoqueRepository
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import io.reactivex.Observable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class EstoqueController @Inject constructor(private val itemEstoqueRepository: ItemEstoqueRepository,
@@ -38,12 +36,17 @@ class EstoqueController @Inject constructor(private val itemEstoqueRepository: I
         var nucleoEstoqueID: Int = 0
 
         val job = CoroutineScope(Dispatchers.IO).launch {
-            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleoID) }
 
-            nucleoEstoqueID = a.await()
+            try{
+                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
+            }
+            catch(e: Exception){
+                nucleoEstoqueID = 0
+            }
         }
+        while(!job.isCompleted && !job.isCancelled){}
 
-        while(!job.isCompleted){}
+        if(job.isCancelled) return listOf()
 
         return itemEstoqueRepository.carregaListaItemEstoque3(nucleoEstoqueID) ?: listOf()
     }

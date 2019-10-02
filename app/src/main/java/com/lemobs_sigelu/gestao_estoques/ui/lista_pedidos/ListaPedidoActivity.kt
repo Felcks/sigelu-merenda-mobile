@@ -71,7 +71,6 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ListaPedidoViewModel::class.java)
         viewModel!!.response().observe(this, Observer<Response> { response -> processResponse(response) })
-        viewModel!!.carregaListaPedido()
 
         val binding: ActivityListaPedidoBinding = DataBindingUtil.setContentView(this, R.layout.activity_lista_pedido)
         binding.viewModel = viewModel!!
@@ -79,27 +78,16 @@ class ListaPedidoActivity: AppCompatActivity() {
 
         this.iniciarAdapter(listOf())
 
-        /* Float button Cadastra pedido */
         menu_item_cadastrar_pedido.setOnClickListener {
             val intent = Intent(this, SelecionaTipoPedidoActivity::class.java)
             startActivity(intent)
         }
-
-        /* FloatButton Cadastra Envio */
         menu_item_cadastra_envio.setOnClickListener {
             val intent = Intent(this, CESelecionaObraActivity::class.java)
             startActivity(intent)
         }
 
-//        Opção de cadastrar recebimento sem pedido retirada (para voltar descomente as próximas 4 linhas e também as linhas no layout)
-//        menu_item_cadastrar_recebimento_sem_pedido.setOnClickListener {
-//            val intent = Intent(this, CadastraInformacoesActivity::class.java)
-//            startActivity(intent)
-//        }
-
         tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
-        tvErro?.text = resources.getString(R.string.erro_carrega_lista_pedido)
-
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaPedido()
         }
@@ -160,8 +148,12 @@ class ListaPedidoActivity: AppCompatActivity() {
         when (response?.status) {
             Status.LOADING -> renderLoadingState()
             Status.SUCCESS -> renderDataState(response.data)
-            Status.ERROR -> renderErrorState(response.error)
-            Status.EMPTY_RESPONSE -> tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
+            Status.ERROR -> {
+                tvErro?.text = resources.getString(R.string.erro_carrega_lista_pedido)
+            }
+            Status.EMPTY_RESPONSE -> {
+                tvErro?.text = resources.getString(R.string.erro_lista_pedido_vazia)
+            }
         }
     }
 
@@ -175,15 +167,6 @@ class ListaPedidoActivity: AppCompatActivity() {
         }
     }
 
-    private fun renderErrorState(throwable: Throwable?) {
-
-        if(throwable is ListaVaziaException){
-            viewModel!!.errorMessage.set("Nenhum item encontrado.")
-        }
-        else{
-            viewModel!!.errorMessage.set(throwable?.message)
-        }
-    }
 
     private fun iniciarAdapter(list: List<Pedido2>){
 
@@ -277,7 +260,6 @@ class ListaPedidoActivity: AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-
     /* Funções de deslogar o usuário */
     var progressDialog: ProgressDialog? = null
     private fun showProgressoDeslogandoUsuario(){
@@ -339,5 +321,10 @@ class ListaPedidoActivity: AppCompatActivity() {
             true)
 
         this.errorDialog?.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel!!.carregaListaPedido()
     }
 }

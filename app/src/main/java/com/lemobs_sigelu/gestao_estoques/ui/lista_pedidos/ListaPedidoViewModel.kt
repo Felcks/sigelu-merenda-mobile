@@ -49,8 +49,15 @@ class ListaPedidoViewModel(private val listaPedidoController: ListaPedidoControl
                         val listaFiltrada = result.filter {
                             it.movimento.destino.tipo_id == TIPO_ESTOQUE_OBRA || it.movimento.origem.tabelaID == nucleoID || it.movimento.destino.tabelaID == nucleoID
                         }
-                        isError.set(false)
-                        response.setValue(Response.success(listaFiltrada))
+
+                        if(listaFiltrada.isNotEmpty()) {
+                            isError.set(false)
+                            response.setValue(Response.success(listaFiltrada))
+                        }
+                        else{
+                            isError.set(true)
+                            response.setValue(Response.empty())
+                        }
                     }
                     else{
                         isError.set(true)

@@ -71,7 +71,12 @@
 
     <!-- Erros -->
     <string name="erro_carrega_lista_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
+    <string name="erro_lista_pedido_vazia">Nenhum pedido cadastrado.\nAperte para atualizar.</string>
+
     <string name="erro_carrega_estoque">Erro ao carregar estoque.\nAperte para tentar novamente.</string>
+    <string name="erro_estoque_vazio">Nenhum item em estoque.\nAperte para atualizar.</string>
+
+
     <string name="erro_carrega_lista_item_estoque">Erro ao carregar materiais disponíveis.\nAperte para tentar novamente.</string>
     <string name="erro_nenhum_item_cadastrado">Nenhum item em estoque.\nAperte para atualizar.</string>
     <string name="erro_carrega_pedido">Erro ao carregar pedido.\nAperte para tentar novamente.</string>

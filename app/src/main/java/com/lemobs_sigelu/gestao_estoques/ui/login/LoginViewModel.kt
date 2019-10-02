@@ -107,7 +107,7 @@ class LoginViewModel (private val loginController: LoginController): ViewModel()
                     when (e) {
                         is JsonDataException -> response.value = Response.error(Throwable("Ocorreu um erro inesperado"))
                         is UnknownHostException -> response.value = Response.error(Throwable("Sem conexão"))
-                        else -> response.value = Response.error(Throwable("Ocorreu um erro inesperado"))
+                        else -> response.value = Response.error(Throwable(e.message ?: ""))
                     }
                 }
             )

@@ -100,7 +100,7 @@ interface IRestApi {
 
     @GET("nucleo/{nucleo_id}")
     suspend fun getNucleo(@Header("Authorization") auth: String,
-                          @Path("nucleo_id") nucleo_id: Int): NucleoDataResponse
+                          @Path("nucleo_id") nucleo_id: Int): Response<NucleoDataResponse>
 
     @GET("contrato-estoque")
     fun getContratos(@Header("Authorization") auth: String): Call<List<ContratoEstoqueDataResponse>>
@@ -186,5 +186,5 @@ interface IRestApi {
 
     @GET("estoque/{estoque_id}/item")
     suspend fun getListagemItemDeEstoque(@Header("Authorization") auth: String,
-                                         @Path("estoque_id") pedido_estoque_id: Int): List<ItemEstoqueDataResponse>
+                                         @Path("estoque_id") pedido_estoque_id: Int): Response<List<ItemEstoqueDataResponse>>
 }

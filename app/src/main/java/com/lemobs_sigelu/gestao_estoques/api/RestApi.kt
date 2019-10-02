@@ -228,7 +228,7 @@ class RestApi {
         return api.getListaItemNucleo(auth, nucleoID)
     }
 
-    suspend fun getNucleo(nucleoID: Int): NucleoDataResponse{
+    suspend fun getNucleo(nucleoID: Int): Response<NucleoDataResponse>{
         return api.getNucleo(auth, nucleoID)
     }
 
@@ -244,7 +244,7 @@ class RestApi {
         return api.getListagemAlmoxarifado(auth)
     }
 
-    suspend fun getListagemItemDeEstoque(pedidoEstoqueID: Int): List<ItemEstoqueDataResponse>? {
+    suspend fun getListagemItemDeEstoque(pedidoEstoqueID: Int): Response<List<ItemEstoqueDataResponse>> {
         return api.getListagemItemDeEstoque(auth, pedidoEstoqueID)
     }
 }

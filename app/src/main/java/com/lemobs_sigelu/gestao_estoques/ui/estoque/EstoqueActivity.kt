@@ -78,7 +78,7 @@ class EstoqueActivity: AppCompatActivity() {
                 tvErro?.text = resources.getString(R.string.erro_carrega_estoque)
             }
             Status.EMPTY_RESPONSE -> {
-                tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
+                tvErro?.text = resources.getString(R.string.erro_estoque_vazio)
             }
         }
     }
