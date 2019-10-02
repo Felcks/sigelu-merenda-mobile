@@ -11,10 +11,7 @@ import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_ALMOX
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.FluxoInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class CadastraPedidoModelImpl(
     private val usuarioModel: UsuarioModel,
@@ -46,14 +43,21 @@ class CadastraPedidoModelImpl(
         var almoxarifadoEstoqueID: Int = 0
 
         val job = CoroutineScope(Dispatchers.IO).launch {
-            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleo.id) }
-            val b = async { estoqueRepository.getEstoqueIDAlmoxarifado() }
 
-            nucleoEstoqueID = a.await()
-            almoxarifadoEstoqueID = b.await()
+            try {
+                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleo.id)
+                almoxarifadoEstoqueID = estoqueRepository.getEstoqueIDAlmoxarifado()
+            }
+            catch (e: java.lang.Exception) {
+                this.cancel()
+            }
         }
 
-        while(!job.isCompleted){}
+        while(!job.isCompleted && !job.isCancelled){}
+
+        if(job.isCancelled){
+            throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
+        }
 
 
         val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, NOME_ALMOXARIFADO, almoxarifadoEstoqueID)
@@ -79,12 +83,16 @@ class CadastraPedidoModelImpl(
         var almoxarifadoEstoqueID: Int = 0
 
         val job = CoroutineScope(Dispatchers.IO).launch {
-            val b = async { estoqueRepository.getEstoqueIDAlmoxarifado() }
-
-            almoxarifadoEstoqueID = b.await()
+            try {
+                almoxarifadoEstoqueID = estoqueRepository.getEstoqueIDAlmoxarifado()
+            }
+            catch (e: java.lang.Exception){
+                this.cancel()
+            }
         }
+        while(!job.isCompleted && !job.isCancelled){}
 
-        while(!job.isCompleted){}
+        if(job.isCancelled) throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
 
         if(this.listaTodasObra == null){
             throw Exception("Lista obra não carregada.")

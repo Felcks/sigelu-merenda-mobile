@@ -9,10 +9,7 @@ import com.lemobs_sigelu.gestao_estoques.exceptions.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_NUCLEO
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.TIPO_ESTOQUE_OBRA
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
                                           val itemEstoqueRepository: ItemEstoqueRepository,
@@ -46,12 +43,17 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         var nucleoEstoqueID: Int = 0
 
         val job = CoroutineScope(Dispatchers.IO).launch {
-            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleo.id) }
 
-            nucleoEstoqueID = a.await()
+            try{
+                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleo.id)
+            }
+            catch (e: java.lang.Exception){
+                this.cancel()
+            }
         }
+        while(!job.isCompleted && !job.isCancelled){}
 
-        while(!job.isCompleted){}
+        if(job.isCancelled) throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
 
         if(this.listaObra == null){
             throw Exception("Lista obra não carregada.")
@@ -76,13 +78,18 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         var nucleoEstoqueID: Int = 0
 
         val job = CoroutineScope(Dispatchers.IO).launch {
-            val a = async { estoqueRepository.getEstoqueIDNucleo(nucleoID) }
 
-            nucleoEstoqueID = a.await()
+            try{
+                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
+            }
+            catch (e: java.lang.Exception){
+                this.cancel()
+            }
         }
 
-        while(!job.isCompleted){}
+        while(!job.isCompleted && !job.isCancelled){}
 
+        if(job.isCancelled) return listOf()
 
         this.listaItemEstoque = itemEstoqueRepository.carregaListaItemEstoque3(nucleoEstoqueID)
         return listaItemEstoque ?: listOf()

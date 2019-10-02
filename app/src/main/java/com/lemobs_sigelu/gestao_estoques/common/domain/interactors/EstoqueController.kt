@@ -42,6 +42,7 @@ class EstoqueController @Inject constructor(private val itemEstoqueRepository: I
             }
             catch(e: Exception){
                 nucleoEstoqueID = 0
+                this.cancel()
             }
         }
         while(!job.isCompleted && !job.isCancelled){}
