@@ -36,6 +36,10 @@ class Pedido2 (val id: Int?,
         return "Código - $codigo"
     }
 
+    fun getCodigo(): String{
+        return this.codigo ?: ""
+    }
+
     fun getOrigemFormatado() = when(movimento.origem.tipo_id){
         TIPO_ESTOQUE_NUCLEO -> "Núcleo ${movimento.origem.nome}"
         else -> movimento.origem.nome
@@ -73,4 +77,14 @@ class Pedido2 (val id: Int?,
     }
 
     fun getTipoMovimento() = this.movimento.tipo
+
+    fun getDataPedido() = this.dataPedido
+
+    fun getDataUltimoEnvio() = this.dataUltimoEnvio
+
+    fun getDataUltimoRecebimento() = this.dataUltimoRecebimento
+
+    fun getOrigem() = this.movimento.origem
+
+    fun getDestino() = this.movimento.origem
 }

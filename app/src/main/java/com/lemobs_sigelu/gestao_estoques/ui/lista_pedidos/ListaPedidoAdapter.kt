@@ -106,21 +106,22 @@ class ListaPedidoAdapter(private val context: Context,
         filterList.removeAll { true }
 
         for (item in list) {
-//
-//            val dataPedido = item.dataPedido?.toDiaMesAno()
-//            if (text == "") {
-//                filterList.add(item)
-//            }
-//            else if(item.codigo?.contains(text, ignoreCase = true) == true ||
-//                item.origem?.contains(text, ignoreCase = true) == true ||
-//                item.origemNome?.contains(text, ignoreCase = true) == true ||
-//                item.destino?.contains(text, ignoreCase = true) == true ||
-//                item.destinoNome?.contains(text, ignoreCase = true) == true ||
-//                item.situacao?.situacao_nome?.contains(text, ignoreCase = true) == true ||
-//                dataPedido?.contains(text, ignoreCase = true) == true){
-//
-//                filterList.add(item)
-//            }
+
+            val dataPedido = item.getDataPedido()?.toDiaMesAno()
+            if (text == "") {
+                filterList.add(item)
+            }
+            else if(
+                item.getCodigo().contains(text, ignoreCase = true) ||
+                item.getOrigem().nome.contains(text, ignoreCase = true) == true ||
+                item.getOrigem().getTipoNome().contains(text, ignoreCase = true) == true ||
+                item.getDestino().nome.contains(text, ignoreCase = true) == true ||
+                item.getDestino().getTipoNome().contains(text, ignoreCase = true) == true ||
+                item.getSituacao()?.situacao_nome?.contains(text, ignoreCase = true) == true ||
+                dataPedido?.contains(text, ignoreCase = true) == true){
+
+                filterList.add(item)
+            }
         }
 
         notifyDataSetChanged()
