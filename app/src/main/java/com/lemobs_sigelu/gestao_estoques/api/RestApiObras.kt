@@ -47,6 +47,10 @@ open class RestApiObras {
     }
 
     fun getObras2(): Deferred<Response<List<ObraDiretaDataResponse>>> {
-        return api.getObras2(auth)
+
+        var nucleoID: Int? = AppSharedPreferences.getNucleoID(App.instance)
+        if(nucleoID == 0) nucleoID = null
+
+        return api.getObras2(auth, nucleoID)
     }
 }

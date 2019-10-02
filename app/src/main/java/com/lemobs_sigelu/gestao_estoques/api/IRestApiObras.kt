@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 /**
  * Created by felcks on Jun, 2019
@@ -16,5 +17,6 @@ interface IRestApiObras{
     fun getObras(@Header("Authorization") auth: String): Call<List<ObraDiretaDataResponse>>
 
     @GET("obra-direta")
-    fun getObras2(@Header("Authorization") auth: String): Deferred<Response<List<ObraDiretaDataResponse>>>
+    fun getObras2(@Header("Authorization") auth: String,
+                  @Query("nucleo_id") nucleo_id: Int?): Deferred<Response<List<ObraDiretaDataResponse>>>
 }
