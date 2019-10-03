@@ -112,7 +112,7 @@
                 android:id="@+id/layout_data_pedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data do pedido:"
+                android:text="Data da RM:"
                 android:padding="@dimen/espacamento_minimo"
                 android:textColor="@color/primary_text"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -174,7 +174,7 @@ class ConfirmaCadastraPedidoNucleoActivity: AppCompatActivity() {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido cadastrado com sucesso!",
+            "RM cadastrada com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
@@ -223,8 +223,8 @@ class ConfirmaCadastraPedidoNucleoActivity: AppCompatActivity() {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
-                    "Deseja sair e cancelar o pedido?",
+                    "Cancelar RM ",
+                    "Deseja sair e cancelar a RM?",
                     {
                         this.viewModel!!.cancelarPedido()
                         finish()

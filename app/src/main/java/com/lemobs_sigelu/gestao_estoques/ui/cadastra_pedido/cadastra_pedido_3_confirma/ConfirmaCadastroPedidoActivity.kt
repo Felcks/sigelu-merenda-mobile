@@ -121,7 +121,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderLoadingStateRascunho() {
 
         progressDialog = DialogUtil.buildDialogCarregamento(this,
-            "Salvando pedido como rascunho",
+            "Salvando RM como rascunho",
             "Por favor, espere...")
     }
 
@@ -132,7 +132,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido salvo com sucesso!",
+            "RM salva com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
@@ -170,7 +170,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderLoadingStateEnvio() {
 
         progressDialog = DialogUtil.buildDialogCarregamento(this,
-            "Cadastrando pedido",
+            "Cadastrando RM",
             "Por favor, espere...")
     }
 
@@ -182,7 +182,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido cadastrado com sucesso!",
+            "RM cadastrada com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)
@@ -200,7 +200,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         this.errorDialog = DialogUtil.buildAlertDialogOk(this,
             "Erro",
-            "Ocorreu um erro ao incluir o Pedido. Contate o administrador do sistema.",
+            "Ocorreu um erro ao incluir a RM. Contate o administrador do sistema.",
             {
                 viewModel.carregandoProximaTela.value = Response.empty()
             },
@@ -237,8 +237,8 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
-                    "Deseja sair e cancelar o pedido?",
+                    "Cancelar RM",
+                    "Deseja sair e cancelar a RM?",
                     {
                         this.viewModel.cancelaPedido()
                         finish()

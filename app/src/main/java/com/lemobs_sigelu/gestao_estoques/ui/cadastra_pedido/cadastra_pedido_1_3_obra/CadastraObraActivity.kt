@@ -126,8 +126,8 @@ class CadastraObraActivity:  AppCompatActivity() {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar pedido ",
-                    "Deseja sair e cancelar o pedido?",
+                    "Cancelar RM ",
+                    "Deseja sair e cancelar a RM?",
                     {
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

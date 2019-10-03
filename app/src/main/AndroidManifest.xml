@@ -43,7 +43,7 @@
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity"
-                  android:label="Visualizando Pedido" />
+                  android:label="Visualizando RM" />
 
 
         <!-- CADASTRA PEDIDO NOVO -->

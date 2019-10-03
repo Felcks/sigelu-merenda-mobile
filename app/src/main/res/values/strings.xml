@@ -70,8 +70,8 @@
     <string name="layout_destino">%s %s</string>
 
     <!-- Erros -->
-    <string name="erro_carrega_lista_pedido">Erro ao carregar pedidos.\nAperte para tentar novamente.</string>
-    <string name="erro_lista_pedido_vazia">Nenhum pedido cadastrado.\nAperte para atualizar.</string>
+    <string name="erro_carrega_lista_pedido">Erro ao carregar RMs.\nAperte para tentar novamente.</string>
+    <string name="erro_lista_pedido_vazia">Nenhuma RM cadastrada.\nAperte para atualizar.</string>
 
     <string name="erro_carrega_estoque">Erro ao carregar estoque.\nAperte para tentar novamente.</string>
     <string name="erro_estoque_vazio">Nenhum item em estoque.\nAperte para atualizar.</string>

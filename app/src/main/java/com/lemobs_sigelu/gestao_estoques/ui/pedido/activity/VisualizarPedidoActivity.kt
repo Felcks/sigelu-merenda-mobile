@@ -173,7 +173,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
     private fun renderLoadingStateCancelamentoPedido() {
 
         progressDialog = DialogUtil.buildDialogCarregamento(this,
-            "Cancelando pedido",
+            "Cancelando RM",
             "Por favor, espere...")
     }
 
@@ -185,7 +185,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "Pedido cancelado com sucesso!",
+            "RM cancelada com sucesso!",
             {
                 val intent = Intent(activity, VisualizarPedidoActivity::class.java)
                 startActivity(intent)
@@ -203,7 +203,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
         this.errorDialog = DialogUtil.buildAlertDialogOk(this,
             "Erro",
-            "Ocorreu um erro ao cancelar o Pedido. Contate o administrador do sistema.",
+            "Ocorreu um erro ao cancelar a RM. Contate o administrador do sistema.",
             {
 
             },
@@ -227,8 +227,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
 
                 if (viewModel!!.podeCancelarPedido()) {
                     DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
-                        "Cancelar Pedido",
-                        "Tem certeza que deseja cancelar esse pedido?",
+                        "Cancelar RM",
+                        "Tem certeza que deseja cancelar essa RM?",
                         {
                             viewModel!!.cancelaPedido()
                         },
@@ -236,7 +236,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     ).show()
                 }
                 else{
-                    Snackbar.make(ll_all, "Não é possível cancelar esse pedido.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(ll_all, "Não é possível cancelar essa RM.", Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

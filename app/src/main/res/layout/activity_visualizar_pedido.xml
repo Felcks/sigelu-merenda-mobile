@@ -157,7 +157,7 @@
                             android:paddingLeft="40dp"
                             android:paddingBottom="5dp"
                             android:paddingTop="5dp"
-                            android:text="Editar pedido"
+                            android:text="Editar RM"
                             android:textColor="@android:color/white"
                             android:visibility="gone"/>
 
