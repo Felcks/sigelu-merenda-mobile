@@ -7,6 +7,7 @@ import com.lemobs_sigelu.gestao_estoques.api_model.pedido.PedidoListagemDataResp
 import com.lemobs_sigelu.gestao_estoques.api_model.post_pedido.*
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.*
+import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.FlowSharedPreferences
 import io.reactivex.Observable
 import org.threeten.bp.ZonedDateTime
@@ -322,6 +323,7 @@ open class PedidoRepository {
             pedido.movimento.destino.estoque_id,
             null,
             null,
+            AppSharedPreferences.getNucleoID(App.instance),
             isRascunho,
             pedido.listaMaterial.map {
                 ItemPedidoCadastroDataRequest(

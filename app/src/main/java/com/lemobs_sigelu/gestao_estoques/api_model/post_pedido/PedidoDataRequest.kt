@@ -6,6 +6,7 @@ class PedidoDataRequest(val tipo_origem_id: Int?,
                         val destino_estoque_id: Int?,
                         val origem_fornecedor_id: Int?,
                         val contrato_estoque_id: Int?,
+                        val orgao_solicitante_id: Int?,
                         val rascunho: Boolean,
                         val items: List<ItemPedidoCadastroDataRequest>)
 
