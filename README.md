@@ -12,6 +12,20 @@ Versão atual: **v1.1.4**
 - Android Studio
 
 ### Changelog
+## [1.3.1] - 2019-10-09
+### Required
+- Api v1.20.0
+
+### Changed
+- Novas cores na situação de pedido no aplicativo: https://trello.com/c/xcyyInOF/1091-novas-cores-situa%C3%A7%C3%A3o-logistica
+
+## [1.3.0] - 2019-10-03
+### Required
+- Api v1.20.0
+
+### Added
+- Novo fluxo de recebimento de material: https://trello.com/c/qo5EqCUK/1052-recebimento-de-material-aplicativo
+
 ## [1.2.0] - 2019-09-25
 ### Required
 - Api v1.20.0
