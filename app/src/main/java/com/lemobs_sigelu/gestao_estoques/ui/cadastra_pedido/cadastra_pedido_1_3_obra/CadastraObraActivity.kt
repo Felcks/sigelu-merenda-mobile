@@ -100,16 +100,16 @@ class CadastraObraActivity:  AppCompatActivity() {
 
         val listaTextoOrigem = list.map { it.getTitulo() }
         var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
-        spinner_obra.adapter = adapter
-
-        spinner_obra.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                obraSelecionada = position
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>) {}
-        }
+//        spinner_obra.adapter = adapter
+//
+//        spinner_obra.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//
+//            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+//                obraSelecionada = position
+//            }
+//
+//            override fun onNothingSelected(parentView: AdapterView<*>) {}
+//        }
 
     }
 
