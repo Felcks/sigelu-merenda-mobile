@@ -3,6 +3,8 @@ package com.lemobs_sigelu.gestao_estoques.api
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.api_model.obra.ObraDiretaDataResponse
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.Obra
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.ObraSituacao
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.Versao
 import kotlinx.coroutines.Deferred
@@ -51,6 +53,6 @@ open class RestApiObras {
         var nucleoID: Int? = AppSharedPreferences.getNucleoID(App.instance)
         if(nucleoID == 0) nucleoID = null
 
-        return api.getObras2(auth, nucleoID)
+        return api.getObras2(auth, nucleoID, ObraSituacao.EM_ANDAMENTO.ordinal)
     }
 }

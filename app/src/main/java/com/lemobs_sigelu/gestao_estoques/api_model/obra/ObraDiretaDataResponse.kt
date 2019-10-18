@@ -6,4 +6,5 @@ package com.lemobs_sigelu.gestao_estoques.api_model.obra
 open class ObraDiretaDataResponse (val id: Int,
                                    val nome: String?,
                                    val ordem_servico: OrdemServicoDataResponse,
-                                   val estoque_id: Int?)
+                                   val estoque_id: Int?,
+                                   val encarregados: List<EncarregadoDataResponse>?)

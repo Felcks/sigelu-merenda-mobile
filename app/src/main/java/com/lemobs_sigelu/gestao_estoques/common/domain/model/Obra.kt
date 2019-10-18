@@ -11,11 +11,12 @@ open class Obra(var id: Int,
                 var situacao: String,
                 val endereco: String,
                 val tipo: String,
-                val estoqueID: Int){
+                val estoqueID: Int,
+                val encarregado: Encarregado){
 
 
     fun getTitulo(): String{
-        return "${this.codigo} - ${this.tipo} / ${this.endereco}"
+        return "${this.codigo} - ${this.encarregado.nome} / ${this.endereco}"
     }
 
     fun getStatusDeConclusao(): String{
@@ -77,4 +78,11 @@ open class Obra(var id: Int,
 
         return color
     }
+
+    companion object{
+         enum class Situacao {
+
+        }
+    }
+
 }

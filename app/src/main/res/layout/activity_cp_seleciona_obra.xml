@@ -58,6 +58,8 @@
                     android:id="@+id/rv_lista"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
                     app:layout_constraintTop_toBottomOf="@+id/tv_nucleo_titulo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

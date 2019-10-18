@@ -59,7 +59,6 @@ class SelecionaObraAdapter(val listaObra: List<ObraDTO>): RecyclerView.Adapter<S
         }
 
 
-
         holder.itemView.ll_all.setOnClickListener {
             if(ultimoItemClicado?.posicao != position){
 
