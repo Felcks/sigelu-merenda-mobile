@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/top_stepper"
                 app:layout_constraintTop_toBottomOf="@id/top_stepper"
-                android:text="@string/info_pedido"
+                android:text="@string/pedido_passo00_titulo"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -44,23 +44,13 @@
                 app:layout_constraintBottom_toTopOf="@id/bottom_stepper"
                 android:layout_margin="@dimen/espacamento_maximo">
 
-            <TextView
-                    android:id="@+id/tv_nucleo_titulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="Selecione uma obra"
-                    android:textSize="16sp"
-                    app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}" />
-
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_lista"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scrollbars="vertical"
                     android:fadeScrollbars="false"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_nucleo_titulo"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

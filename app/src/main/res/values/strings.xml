@@ -35,6 +35,11 @@
     <string name="proxitens">Próximo: Itens</string>
     <string name="prox_materiais">Próximo: Materiais</string>
     <string name="info_pedido">Informações da RM</string>
+    <string name="pedido_passo0_titulo">Tipo de Transação</string>
+    <string name="pedido_passo00_titulo">Selecione a obra</string>
+    <string name="pedido_passo1_titulo">Selecione os itens</string>
+    <string name="pedido_passo2_titulo">Cadastre as quantidades</string>
+    <string name="pedido_passo3_titulo">Confirme as informações</string>
 
     <!-- Cadastrar pedido -->
     <string name="pedido_fornecedor">Pedir para fornecedor</string>
