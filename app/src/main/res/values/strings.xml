@@ -66,8 +66,8 @@
     <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
 
     <!-- Novo cadastra recebimento activity -->
-    <string name="cadastra_recebimento_nome_activity_1">Selecione o Envio</string>
-    <string name="cadastra_recebimento_nome_activity_2">Selecione as Quantidades</string>
+    <string name="cadastra_recebimento_nome_activity_1">Selecione o envio</string>
+    <string name="cadastra_recebimento_nome_activity_2">Cadastre as quantidades</string>
     <string name="cadastra_recebimento_nome_activity_3">Confirme as informações</string>
     <string name="cadastra_recebimento_titulo">Informações do Recebimento</string>
 

@@ -235,15 +235,15 @@
 
         <!-- NOVO CADASTRA RECEBIMENTO -->
         <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
-                android:label="@string/cadastra_recebimento_nome_activity_1"
+                android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity"
-                android:label="@string/cadastra_recebimento_nome_activity_2"
+                android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity"
-                android:label="@string/cadastra_recebimento_nome_activity_3"
+                android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
     </application>

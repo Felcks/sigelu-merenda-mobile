@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/linear_layout_passos"
             app:layout_constraintTop_toBottomOf="@id/linear_layout_passos"
-            android:text="Informações do recebimento"
+            android:text="@string/cadastra_recebimento_nome_activity_1"
             android:textColor="@color/primary_text"
             android:textSize="24sp"
             android:textStyle="bold"
