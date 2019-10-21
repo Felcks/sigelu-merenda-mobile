@@ -48,18 +48,16 @@ class SelecionaObraAdapter(val listaObra: List<ObraDTO>): RecyclerView.Adapter<S
         holder.itemView.tv_name.text = item.nome
 
         if(item.getSelecionado()){
-
             holder.itemView.ll_background.setBackgroundColor(colorAdicionarItem!!)
             holder.itemView.tv_name.setTextColor(colorBranco!!)
         }
         else{
-
             holder.itemView.ll_background.setBackgroundColor(colorBranco!!)
             holder.itemView.tv_name.setTextColor(colorSecundaryText!!)
         }
 
 
-        holder.itemView.ll_all.setOnClickListener {
+        holder.itemView.ll_background.setOnClickListener {
             if(ultimoItemClicado?.posicao != position){
 
                 ultimoItemClicado?.item?.tiraSelecao()
@@ -73,7 +71,7 @@ class SelecionaObraAdapter(val listaObra: List<ObraDTO>): RecyclerView.Adapter<S
         }
     }
 
-    fun getPosicaoSelecionada() = ultimoItemClicado?.posicao ?: -1
+    fun getPosicaoSelecionada(): Int? = ultimoItemClicado?.posicao
 
     private inner class InformacoesItemClicado(val posicao: Int, val item: ObraDTO)
 

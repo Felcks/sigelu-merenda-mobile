@@ -69,7 +69,7 @@ class SelecionaObraViewModel(private val controller: CadastraPedidoModel): ViewM
         controller.iniciaRMParaObra(obra.id)
     }
 
-    fun setPosObraSelecionada(pos: Int){
+    fun setPosObraSelecionada(pos: Int?){
         posObraSelecionada = pos
     }
 

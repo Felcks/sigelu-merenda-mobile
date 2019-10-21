@@ -74,7 +74,7 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
             return
 
         try{
-            viewModel.setPosObraSelecionada(adapter?.getPosicaoSelecionada() ?: -1)
+            viewModel.setPosObraSelecionada(adapter?.getPosicaoSelecionada())
             viewModel.confirmaPedido()
 
             viewModel.getFluxo().incrementaPassoAtual()

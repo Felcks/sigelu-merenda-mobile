@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"
         android:paddingTop="@dimen/espacamento_maximo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textAlignment="viewStart"
+                android:textAlignment="gravity"
                 android:gravity="center"
                 android:padding="2dp"
                 android:textColor="@color/primary_text"
