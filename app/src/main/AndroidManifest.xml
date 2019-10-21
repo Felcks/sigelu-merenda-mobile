@@ -141,19 +141,19 @@
         <!-- CADASTRA PARA ENVIO PARA OBRA NOVO -->
         <!-- CADASTRA ENVIO ACTIVITY -->
         <activity android:name=".ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity"
-                android:label="@string/cadastra_envio_nome_activity_1"
+                android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity"
-                android:label="@string/cadastra_envio_nome_activity_2"
+                android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity"
-                android:label="@string/cadastra_envio_nome_activity_3"
+                android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity"
-                android:label="@string/cadastra_envio_nome_activity_4"
+                android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
 

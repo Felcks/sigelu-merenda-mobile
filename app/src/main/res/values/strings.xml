@@ -35,11 +35,6 @@
     <string name="proxitens">Próximo: Itens</string>
     <string name="prox_materiais">Próximo: Materiais</string>
     <string name="info_pedido">Informações da RM</string>
-    <string name="pedido_passo0_titulo">Tipo de Transação</string>
-    <string name="pedido_passo00_titulo">Selecione a obra</string>
-    <string name="pedido_passo1_titulo">Selecione os itens</string>
-    <string name="pedido_passo2_titulo">Cadastre as quantidades</string>
-    <string name="pedido_passo3_titulo">Confirme as informações</string>
 
     <!-- Cadastrar pedido -->
     <string name="pedido_fornecedor">Pedir para fornecedor</string>
@@ -50,6 +45,12 @@
     <string name="selecione_nucleo">Selecione um núcleo</string>
     <string name="selecione_obra">Selecione a Obra</string>
     <string name="cadastra_itens">Próximo: Cadastrar</string>
+
+    <string name="cadastra_pedido_titulo_activity_0">Tipo de transação</string>
+    <string name="cadastra_pedido_titulo_activity_00">Selecione a obra</string>
+    <string name="cadastra_pedido_titulo_activity_1">Selecione os itens</string>
+    <string name="cadastra_pedido_titulo_activity_2">Cadastre as quantidades</string>
+    <string name="cadastra_pedido_titulo_activity_3">Confirme as informações</string>
     <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
 
     <!-- Login activity -->
@@ -58,10 +59,10 @@
     <string name="senha_invalida">Senha inválida!</string>
 
     <!-- Novo cadastra envio activity -->
-    <string name="cadastra_envio_nome_activity_1">Selecione a Obra</string>
-    <string name="cadastra_envio_nome_activity_2">Selecione os Itens</string>
-    <string name="cadastra_envio_nome_activity_3">Selecione as Quantidades</string>
-    <string name="cadastra_envio_nome_activity_4">Confirme as Informações</string>
+    <string name="cadastra_envio_nome_activity_1">Selecione a obra</string>
+    <string name="cadastra_envio_nome_activity_2">Selecione os itens</string>
+    <string name="cadastra_envio_nome_activity_3">Cadastre as quantidades</string>
+    <string name="cadastra_envio_nome_activity_4">Confirme as informações</string>
     <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
 
     <!-- Novo cadastra recebimento activity -->

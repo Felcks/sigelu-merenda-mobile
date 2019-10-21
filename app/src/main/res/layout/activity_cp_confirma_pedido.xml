@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@id/top_stepper"
                 app:layout_constraintTop_toBottomOf="@id/top_stepper"
-                android:text="@string/pedido_passo3_titulo"
+                android:text="@string/cadastra_pedido_titulo_activity_3"
                 android:textColor="@color/primary_text"
                 android:textSize="24sp"
                 android:textStyle="bold"
