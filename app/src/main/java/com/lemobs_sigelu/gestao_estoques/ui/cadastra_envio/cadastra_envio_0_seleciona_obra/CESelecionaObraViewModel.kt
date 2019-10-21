@@ -62,7 +62,7 @@ class CESelecionaObraViewModel(val controller: CadastraEnvioParaObraController):
         return controller.selecionaObra(obra.id)
     }
 
-    fun setPosObraSelecionada(pos: Int){
+    fun setPosObraSelecionada(pos: Int?){
         posObraSelecionada = pos
     }
 

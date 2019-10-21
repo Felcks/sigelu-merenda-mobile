@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ActivityDeFluxo
@@ -29,6 +30,7 @@ import java.lang.Exception
 class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
 
     val viewModel: CESelecionaObraViewModel by inject()
+    private var adapter: SelecionaObraAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +81,7 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
 
         try{
             viewModel.carregandoProximaTela.value = Response.loading()
+            viewModel.setPosObraSelecionada(adapter?.getPosicaoSelecionada())
             viewModel.confirmaPedido()
 
             viewModel.getFluxo().incrementaPassoAtual()
@@ -110,17 +113,14 @@ class CESelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo  {
 
     private fun renderDataObra(list: List<ObraDTO>){
 
-        val listaTextoOrigem = list.map { it.titulo }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,  listaTextoOrigem)
-        spinner_obra.adapter = adapter
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        rv_lista.layoutManager = layoutManager
 
-        spinner_obra.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                viewModel.setPosObraSelecionada(position)
-            }
-            override fun onNothingSelected(parentView: AdapterView<*>) {}
-        }
+        this.adapter = SelecionaObraAdapter(
+            list
+        )
+        rv_lista.adapter = adapter
     }
 
     override fun onResume() {
