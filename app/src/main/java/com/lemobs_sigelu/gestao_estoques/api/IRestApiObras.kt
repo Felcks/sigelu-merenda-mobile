@@ -19,5 +19,5 @@ interface IRestApiObras{
     @GET("obra-direta")
     fun getObras2(@Header("Authorization") auth: String,
                   @Query("nucleo_id") nucleo_id: Int?,
-                  @Query("situacao_id") situacao_id: Int?): Deferred<Response<List<ObraDiretaDataResponse>>>
+                  @Query("situacao_id") situacao_id: List<Int>?): Deferred<Response<List<ObraDiretaDataResponse>>>
 }

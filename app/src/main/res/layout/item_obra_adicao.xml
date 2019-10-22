@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textAlignment="gravity"
-                android:gravity="center"
+                android:gravity="left"
                 android:padding="2dp"
                 android:textColor="@color/primary_text"
                 android:clickable="false"

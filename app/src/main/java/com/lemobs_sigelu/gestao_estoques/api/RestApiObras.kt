@@ -53,6 +53,10 @@ open class RestApiObras {
         var nucleoID: Int? = AppSharedPreferences.getNucleoID(App.instance)
         if(nucleoID == 0) nucleoID = null
 
-        return api.getObras2(auth, nucleoID, ObraSituacao.EM_ANDAMENTO.ordinal)
+        return api.getObras2(auth, nucleoID, listOf(
+            ObraSituacao.PLANEJADA.ordinal,
+            ObraSituacao.EM_ANDAMENTO.ordinal,
+            ObraSituacao.PARALISADA.ordinal)
+        )
     }
 }
