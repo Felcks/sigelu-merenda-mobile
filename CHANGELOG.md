@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Novas cores na situação de pedido no aplicativo: https://trello.com/c/xcyyInOF/1091-novas-cores-situa%C3%A7%C3%A3o-logistica
 
+### Fixed
+- Corrigido bug de quantidade de material antes do envio
+- Corrigido mensagem de erro quando núcleo sem material no envio para obra
+
 ## [1.3.0] - 2019-10-03
 ### Required
 - Api v1.20.0
