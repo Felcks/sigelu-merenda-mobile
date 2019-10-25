@@ -21,6 +21,7 @@ import com.lemobs_sigelu.gestao_estoques.common.domain.model.TwoIntParametersCli
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityCeSelecionaItemBinding
+import com.lemobs_sigelu.gestao_estoques.exceptions.NenhumItemSelecionadoException
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
@@ -31,6 +32,8 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
     val viewModel: CESelecionaItemViewModel by inject()
     var adapter: ListaItemEstoqueAdapterSimples? = null
+
+    var tvErro: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,7 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
         binding.viewModel = viewModel
         binding.executePendingBindings()
 
+        tvErro = ll_erro.findViewById(R.id.tv_erro)
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel.carregaListagemItem()
         }
@@ -69,6 +73,9 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
 
         try{
             viewModel.carregandoProximaTela.value = Response.loading()
+            if(this.adapter == null)
+                throw NenhumItemSelecionadoException()
+
             viewModel.confirmaSelecaoItens(
                 this.adapter?.itemsParaAdicao as List<ItemEstoque>,
                 this.adapter?.itemsParaRemocao as List<ItemEstoque>)
@@ -91,8 +98,12 @@ class CESelecionaItemActivity: AppCompatActivity(), ActivityDeFluxo, TwoIntParam
     fun processResponse(response: Response){
 
         when(response.status){
-            Status.LOADING -> {}
-            Status.ERROR -> {}
+            Status.ERROR -> {
+                tvErro?.text = resources.getString(R.string.erro_carrega_lista_item_estoque)
+            }
+            Status.EMPTY_RESPONSE -> {
+                tvErro?.text = resources.getString(R.string.erro_nenhum_item_cadastrado)
+            }
             Status.SUCCESS -> {
                 if(response.data is List<*>) {
                     if (response.data.isNotEmpty()) {
