@@ -2,9 +2,11 @@ package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.net.Uri
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +20,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.R
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.Pedido2
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.TipoPedido
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
@@ -270,13 +270,17 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     private fun showDuvidaDeslogarUsuario(){
         val alertDialogView = DialogUtil.buildAlertDialogOkCancel(this,
-            "Sair do aplicativo",
-            "Tem certeza que deseja sair do aplicativo?",
+            "Aviso",
+            "Deseja sair do Sigelu Logística?",
             {
                 this.showProgressoDeslogandoUsuario()
                 try{
-                    controladorLogout?.deslogarUsuario()
-                    this.showSucessoDeslogouUsuario()
+                    CarregaDados.limpar()
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
+                    intent.action = Intent.ACTION_VIEW
+                    startActivity(intent)
+
+                    finish()
                 }
                 catch (e: Exception){
                     this.showFalhaDeslogouUsuario(e.toString())
@@ -285,27 +289,9 @@ class ListaPedidoActivity: AppCompatActivity() {
             {
 
             },
-            cancelavel = false)
+            cancelavel = true)
 
         alertDialogView.show()
-    }
-
-    var sucessDialog: AlertDialogView? = null
-    private fun showSucessoDeslogouUsuario(){
-
-        progressDialog?.dismiss()
-        val activity = this
-        this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
-            "Logout",
-            "Logout feito com sucesso.",
-            {
-                val intent = Intent(activity, LoginActivity::class.java)
-                startActivity(intent)
-                this.finishAffinity()
-            },
-            false)
-
-        this.sucessDialog?.show()
     }
 
     var errorDialog: AlertDialogView? = null
@@ -326,5 +312,32 @@ class ListaPedidoActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel!!.carregaListaPedido()
+    }
+
+    override fun onBackPressed() {
+
+        val alertDialogView = DialogUtil.buildAlertDialogOkCancel(this,
+            "Aviso",
+            "Deseja sair do Sigelu Logística?",
+            {
+                this.showProgressoDeslogandoUsuario()
+                try{
+                    CarregaDados.limpar()
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
+                    intent.action = Intent.ACTION_VIEW
+                    startActivity(intent)
+
+                    finish()
+                }
+                catch (e: Exception){
+                    this.showFalhaDeslogouUsuario(e.toString())
+                }
+            },
+            {
+
+            },
+            cancelavel = true)
+
+        alertDialogView.show()
     }
 }

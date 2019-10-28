@@ -224,6 +224,8 @@ dependencies {
     testImplementation "io.mockk:mockk:$project.mockkVersion"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 }
 
 android {
