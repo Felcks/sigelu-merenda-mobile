@@ -1,0 +1,64 @@
+package com.sigelu.logistica.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
+import com.sigelu.logistica.common.domain.interactors.CadastraRecebimentoSemPedidoController
+import com.sigelu.logistica.common.domain.model.ItemEstoque
+import com.sigelu.logistica.common.viewmodel.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
+/**
+ * Created by felcks on Jul, 2019
+ */
+class SelecionaItemViewModel (val controller: CadastraRecebimentoSemPedidoController): ViewModel(){
+
+    private val disposables = CompositeDisposable()
+    var response = MutableLiveData<Response>()
+    var loading = ObservableField<Boolean>()
+
+    override fun onCleared() {
+        disposables.clear()
+    }
+
+    fun response(): MutableLiveData<Response> {
+        return response
+    }
+
+    fun carregaListaItens(){
+
+        this.loading.set(true)
+
+        disposables.add(controller.getListaItemEstoque()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { response.setValue(Response.loading()) }
+            .subscribe(
+                { result ->
+                    loading.set(false)
+                    response.value = Response.success(result)
+                },
+                { throwable ->
+
+                    loading.set(false)
+                    response.setValue(Response.error(throwable))
+                }
+            )
+        )
+
+    }
+
+    fun selecionaItem(itemID: Int): Boolean{
+        return controller.selecionaItem(itemID)
+    }
+
+    fun getIdItensAdicionados(): List<Int>{
+        return controller.getItensJaAdicionados()
+    }
+
+    fun confirmaSelecaoItens(listaParaAdicionar: List<ItemEstoque>, listaParaRemover: List<ItemEstoque>){
+        return controller.confirmaSelecaoItens(listaParaAdicionar, listaParaRemover)
+    }
+}

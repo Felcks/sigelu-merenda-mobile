@@ -1,0 +1,96 @@
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio
+
+import android.content.Context
+import androidx.core.content.ContextCompat
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.sigelu.logistica.App
+import com.sigelu.logistica.R
+import com.sigelu.logistica.common.domain.model.Envio
+import com.sigelu.logistica.common.domain.model.ItemEnvio
+import com.sigelu.logistica.extensions_constants.toDiaMesAno
+import com.sigelu.logistica.extensions_constants.toHoraMinutoSegundo
+import com.sigelu.logistica.ui.pedido.lista_envio_fragment.ListaItemEnvioAdapter
+import kotlinx.android.synthetic.main.item_envio_selecionavel.view.*
+
+/**
+ * Created by felcks on Jun, 2019
+ */
+class ListaEnvioSelecionavelAdapter(val context: Context,
+                                    val list: List<Envio>): RecyclerView.Adapter<ListaEnvioSelecionavelAdapter.MyViewHolder>() {
+
+    val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    val colorItemEntregue = ContextCompat.getColor(App.instance, R.color.envio_entregue)
+    val colorItemSelecionado = ContextCompat.getColor(App.instance, R.color.envio_selecionado)
+    val colorItemNaoSelecionado = ContextCompat.getColor(App.instance, R.color.envio_nao_selecionado)
+
+    var layoutSelecionado: CardView? = null
+    private var posicaoSelecionada: Int = -1
+
+    //var mExpandedPosition = -1
+
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
+
+        val view = mLayoutInflater.inflate(R.layout.item_envio_selecionavel, parent, false)
+        return MyViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+        val item = list[position]
+
+        holder.itemView.tv_nome.text = item.responsavel
+        holder.itemView.tv_titulo.text = item.codigo
+        holder.itemView.tv_saida.text = "${item.dataSaida?.toDiaMesAno()} às ${item.dataSaida?.toHoraMinutoSegundo()}"
+        holder.itemView.tv_situacao_atual.text = item.situacao
+
+        if(item.isEntregue){
+            holder.itemView.ll_all.setBackgroundColor(colorItemEntregue)
+            holder.itemView.ll_content.setBackgroundColor(colorItemEntregue)
+        }
+
+        //val isExpanded: Boolean = position == mExpandedPosition
+        holder.itemView.rv_itens_envio.visibility = View.VISIBLE
+
+        holder.itemView.ll_all.setOnClickListener {
+
+            if(!item.isEntregue) {
+                layoutSelecionado?.setBackgroundColor(colorItemNaoSelecionado)
+                holder.itemView.ll_all.setBackgroundColor(colorItemSelecionado)
+                posicaoSelecionada = position
+                layoutSelecionado = holder.itemView.ll_all
+            }
+            else{
+                Toast.makeText(context, "Envio já entregue", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if(!item.isEntregue)
+            this.startAdapter(holder, item.itens)
+    }
+
+    private fun startAdapter(holder: MyViewHolder, itens: List<ItemEnvio>){
+
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        holder.itemView.rv_itens_envio.layoutManager = layoutManager
+
+        val adapter = ListaItemEnvioAdapter(App.instance, itens)
+        holder.itemView.rv_itens_envio.adapter = adapter
+    }
+
+    fun getPosicaoSelecionadaID(): Int = this.list[posicaoSelecionada].envioID
+
+    fun getPosicaoSelecionada(): Int = posicaoSelecionada
+
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+}

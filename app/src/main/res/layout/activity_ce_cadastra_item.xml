@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemViewModel"/>
+                type="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/ll_all"
             android:background="@android:color/white">
 
-        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.TopStepper
+        <com.sigelu.logistica.ui.cadastra_pedido.TopStepper
                 android:id="@+id/top_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.BottomStepper
+        <com.sigelu.logistica.ui.cadastra_pedido.BottomStepper
                 android:id="@+id/bottom_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
