@@ -1,21 +1,16 @@
 package com.lemobs_sigelu.gestao_estoques.ui.main
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.api.RestApi
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.CarregaDados
-import com.lemobs_sigelu.gestao_estoques.common.domain.model.DataHolder
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts.CarregaDados
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts.DataHolder
 import com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
-import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
 import com.lemobs_sigelu.gestao_estoques.utils.ControladorFonte
 import com.sigelu.core.lib.DialogUtil
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: AppCompatActivity() {
 
@@ -26,7 +21,9 @@ class MainActivity: AppCompatActivity() {
         this.checkFontSize()
 
         if (!DataHolder.carregado()) {
-            if (intent != null) CarregaDados(intent.getBundleExtra("sigelu.dados"))
+            if (intent != null) CarregaDados(
+                intent.getBundleExtra("sigelu.dados")
+            )
         }
 
         if (DataHolder.IsAmbienteCorreto() == false) {

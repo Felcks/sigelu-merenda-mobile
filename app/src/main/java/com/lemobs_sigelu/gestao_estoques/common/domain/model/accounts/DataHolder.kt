@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.common.domain.model
+package com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts
 
 object DataHolder {
 
@@ -49,6 +49,6 @@ object DataHolder {
     }
 
     fun IsAmbienteCorreto(): Boolean? {
-        return DataHolder.ambienteCorreto
+        return ambienteCorreto
     }
 }

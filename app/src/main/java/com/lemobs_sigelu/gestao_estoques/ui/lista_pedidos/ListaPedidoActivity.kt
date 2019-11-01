@@ -1,8 +1,6 @@
 package com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos
 
-import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -16,25 +14,21 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import com.lemobs_sigelu.gestao_estoques.BuildConfig
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.*
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts.CarregaDados
+import com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts.DataHolder
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Response
 import com.lemobs_sigelu.gestao_estoques.common.viewmodel.Status
 import com.lemobs_sigelu.gestao_estoques.databinding.ActivityListaPedidoBinding
-import com.lemobs_sigelu.gestao_estoques.exceptions.ListaVaziaException
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.esconderTeclado
 import com.lemobs_sigelu.gestao_estoques.extensions_constants.reiniciarActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioActivity
 import com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity
-import com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
 import com.lemobs_sigelu.gestao_estoques.ui.estoque.EstoqueActivity
-import com.lemobs_sigelu.gestao_estoques.ui.login.LoginActivity
 import com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity
 import com.lemobs_sigelu.gestao_estoques.utils.AlertDialogView
 import com.lemobs_sigelu.gestao_estoques.utils.AppSharedPreferences
@@ -43,7 +37,6 @@ import com.lemobs_sigelu.gestao_estoques.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
-import kotlinx.android.synthetic.main.dialogo_padrao.*
 import javax.inject.Inject
 
 class ListaPedidoActivity: AppCompatActivity() {

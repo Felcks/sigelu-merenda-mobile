@@ -1,4 +1,4 @@
-package com.lemobs_sigelu.gestao_estoques.common.domain.model
+package com.lemobs_sigelu.gestao_estoques.common.domain.model.accounts
 
 import android.os.Bundle
 import com.google.gson.Gson
