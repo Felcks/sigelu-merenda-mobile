@@ -17,8 +17,6 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        this.startApp()
-        this.checkFontSize()
 
         if (!DataHolder.carregado()) {
             if (intent != null) CarregaDados(
@@ -26,19 +24,46 @@ class MainActivity: AppCompatActivity() {
             )
         }
 
-        if (DataHolder.IsAmbienteCorreto() == false) {
+        if(!DataHolder.carregado()) {
+            DialogUtil.buildAlertDialogOk(
+                this@MainActivity,
+                "Aviso",
+                "O aplicativo não pode ser aberto diretamente. Abra pelo Sigelu.",
+                {
+                    closeApplication()
+                },
+                cancelavel = false
+            ).show()
+        }
+        else if (DataHolder.IsAmbienteCorreto() == false) {
             DialogUtil.buildAlertDialogOk(this@MainActivity,
                 "Alerta de Inconsistência",
                 "Os ambientes do Launcher e deste aplicativo diferem. O aplicativo será fechado.",
                 {
-                    CarregaDados.limpar()
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
-                    intent.action = Intent.ACTION_VIEW
-                    startActivity(intent)
-                    finish()
+                    backToLauncher()
                 },
-                cancelavel = false)
+                cancelavel = false
+            ).show()
         }
+        else{
+            this.startApp()
+            this.checkFontSize()
+        }
+    }
+
+    private fun backToLauncher(){
+        CarregaDados.limpar()
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
+        intent.action = Intent.ACTION_VIEW
+        startActivity(intent)
+        finish()
+    }
+
+    private fun closeApplication(){
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(intent)
+        android.os.Process.killProcess(android.os.Process.myPid())
     }
 
     private fun checkFontSize() {
