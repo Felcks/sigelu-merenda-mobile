@@ -43,6 +43,7 @@
         <!-- LISTA PEDIDO ACTIVITY -->
         <activity android:name="com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity"
                   android:configChanges="orientation"
+                android:theme="@style/AppThemeNoActionBar"
                   android:screenOrientation="portrait"/>
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->

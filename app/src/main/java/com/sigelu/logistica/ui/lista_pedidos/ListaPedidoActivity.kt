@@ -36,6 +36,7 @@ import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.logistica.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
 import com.sigelu.logistica.extensions_constants.closeApplication
+import com.sigelu.utils.menu_lateral.PrepararMenuLateral
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
@@ -81,7 +82,7 @@ class ListaPedidoActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-        tvErro = ll_erro.findViewById<TextView>(R.id.tv_erro)
+        tvErro = ll_erro.findViewById(R.id.tv_erro)
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {
             viewModel!!.carregaListaPedido()
         }
@@ -89,6 +90,7 @@ class ListaPedidoActivity: AppCompatActivity() {
         this.controladorFonte = ControladorFonte(this)
         this.controladorLogout = ControladorLogout(this)
         this.iniciaCampoBusca()
+        this.prepararMenuLateral()
     }
 
     private fun iniciaCampoBusca(){
@@ -240,10 +242,6 @@ class ListaPedidoActivity: AppCompatActivity() {
                 this.reiniciarActivity()
                 true
             }
-            R.id.btn_logout -> {
-                this.showDuvidaDeslogarUsuario()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -262,8 +260,8 @@ class ListaPedidoActivity: AppCompatActivity() {
             "Por favor, espere...")
     }
 
-    private fun showDuvidaDeslogarUsuario(){
-        val alertDialogView = DialogUtil.buildAlertDialogOkCancel(this,
+    fun showDuvidaDeslogarUsuario(){
+        val alertDialogView = DialogUtil.buildAlertDialogSimNao(this,
             "Aviso",
             "Deseja sair do Sigelu Logística?",
             {
@@ -310,5 +308,10 @@ class ListaPedidoActivity: AppCompatActivity() {
 
     override fun onBackPressed() {
         this.closeApplication()
+    }
+
+    private fun prepararMenuLateral() {
+        val prepararMenuLateral = PrepararMenuLateral(PreparadorConcreto(this))
+        prepararMenuLateral.prepara()
     }
 }
