@@ -35,6 +35,7 @@ import com.sigelu.logistica.utils.AppSharedPreferences
 import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.logistica.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
+import com.sigelu.logistica.extensions_constants.closeApplication
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
 import javax.inject.Inject
@@ -308,29 +309,6 @@ class ListaPedidoActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
-        val alertDialogView = DialogUtil.buildAlertDialogOkCancel(this,
-            "Aviso",
-            "Deseja sair do Sigelu Logística?",
-            {
-                this.showProgressoDeslogandoUsuario()
-                try{
-                    CarregaDados.limpar()
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
-                    intent.action = Intent.ACTION_VIEW
-                    startActivity(intent)
-
-                    finish()
-                }
-                catch (e: Exception){
-                    this.showFalhaDeslogouUsuario(e.toString())
-                }
-            },
-            {
-
-            },
-            cancelavel = true)
-
-        alertDialogView.show()
+        this.closeApplication()
     }
 }

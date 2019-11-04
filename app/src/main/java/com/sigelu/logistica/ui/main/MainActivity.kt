@@ -11,6 +11,7 @@ import com.sigelu.logistica.common.domain.model.accounts.DataHolder
 import com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.core.lib.DialogUtil
+import com.sigelu.logistica.extensions_constants.closeApplication
 
 class MainActivity: AppCompatActivity() {
 
@@ -59,12 +60,7 @@ class MainActivity: AppCompatActivity() {
         finish()
     }
 
-    private fun closeApplication(){
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        startActivity(intent)
-        android.os.Process.killProcess(android.os.Process.myPid())
-    }
+
 
     private fun checkFontSize() {
         val controladorFonte = ControladorFonte(this)

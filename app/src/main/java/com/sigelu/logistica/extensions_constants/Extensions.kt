@@ -84,3 +84,10 @@ fun Activity.reiniciarActivity(){
     startActivity(intent)
     finish()
 }
+
+fun Activity.closeApplication(){
+    val intent = Intent(Intent.ACTION_MAIN)
+    intent.addCategory(Intent.CATEGORY_HOME)
+    startActivity(intent)
+    android.os.Process.killProcess(android.os.Process.myPid())
+}
