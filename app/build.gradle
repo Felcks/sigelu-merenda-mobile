@@ -38,7 +38,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId 'com.lemobs_sigelu.estoques'
+        applicationId 'com.sigelu.logistica'
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 15
