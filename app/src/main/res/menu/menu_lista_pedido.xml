@@ -18,10 +18,6 @@
           android:title="Aumentar fonte"
           app:showAsAction="collapseActionView" />
 
-    <item android:id="@+id/btn_logout"
-          app:showAsAction="collapseActionView"
-          android:title="Sair"/>
-
     <item android:id="@+id/btn_usuario"
           android:title="Usuário"
           app:showAsAction="collapseActionView" />

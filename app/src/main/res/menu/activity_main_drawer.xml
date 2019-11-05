@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_chat"
+                android:icon="@drawable/ic_chat"
+                android:title="@string/chat_zendesk" />
+
+        <item
+                android:id="@+id/nav_sobre"
+                android:icon="@drawable/ic_info_full"
+                android:title="@string/sobre" />
+
+        <item
+                android:id="@+id/nav_voltar_menu"
+                android:icon="@drawable/ic_arrow_back"
+                android:title="@string/menuprincipal" />
+    </group>
+</menu>

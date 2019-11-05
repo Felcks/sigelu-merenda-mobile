@@ -7,7 +7,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioViewModel"/>
+                type="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioViewModel"/>
     </data>
 
 
@@ -109,7 +109,7 @@
                     android:gravity="center">
 
 
-                <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                <com.sigelu.logistica.utils.EditTextV2
                         android:id="@+id/edt_data_saida"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                     android:layout_gravity="center"
                     android:gravity="center">
 
-                <com.lemobs_sigelu.gestao_estoques.utils.EditTextV2
+                <com.sigelu.logistica.utils.EditTextV2
                         android:id="@+id/edt_hora_saida"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"

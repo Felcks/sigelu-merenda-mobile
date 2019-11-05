@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  xmlns:tools="http://schemas.android.com/tools"
-		  package="com.lemobs_sigelu.gestao_estoques">
+		  package="com.sigelu.logistica">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-            android:name=".App"
+            android:name="com.sigelu.logistica.App"
             android:allowBackup="true"
 			android:label="@string/app_name"
             android:icon="@mipmap/icone_round"
@@ -21,83 +21,87 @@
 
         <!-- MAIN ACTIVITY -->
         <activity
-                android:name="com.lemobs_sigelu.gestao_estoques.ui.main.MainActivity"
+                android:name="com.sigelu.logistica.ui.main.MainActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait">
 
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="logistica" />
             </intent-filter>
         </activity>
 
         <!-- LOGIN ACTIVITY -->
-        <activity android:name=".ui.login.LoginActivity"
+        <activity android:name="com.sigelu.logistica.ui.login.LoginActivity"
                   android:label="SIGELU Estoques - Login"/>
 
         <!-- LISTA PEDIDO ACTIVITY -->
-        <activity android:name=".ui.lista_pedidos.ListaPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity"
                   android:configChanges="orientation"
+                android:theme="@style/AppThemeNoActionBar"
                   android:screenOrientation="portrait"/>
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.pedido.activity.VisualizarPedidoActivity"
                   android:label="Visualizando RM" />
 
 
         <!-- CADASTRA PEDIDO NOVO -->
 
         <!-- SELECIONA TIPO PEDIDO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity"
                   android:label="Informações da RM" />
 
         <!-- SELECIONA OBRA ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_0_seleciona_obra.SelecionaObraActivity"
                 android:label="Informações da RM" />
 
         <!-- SELECIONA ITEM -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity"
                 android:label="Informações da RM" />
 
         <!-- CADASTRA ITEM -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_2_cadastra_item.CadastraItemPedidoActivity"
                 android:label="Informações da RM"
                 android:windowSoftInputMode="adjustPan" />
 
         <!-- CONFIRMA ITEM -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_3_confirma.ConfirmaCadastroPedidoActivity"
                 android:label="Informações da RM"
                 android:windowSoftInputMode="adjustPan"/>
 
         <!-- CADASTRA FORNECEDOR ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_1_fornecedor.CadastraFornecedorActivity"
                   android:label="Selecione o fornecedor" />
 
         <!-- CADASTRA NÚCLEO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_2_nucleo.CadastraNucleoActivity"
                   android:label="Selecione o núcleo" />
 
         <!-- CADASTRA OBRA ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_3_obra.CadastraObraActivity"
                   android:label="Selecione a obra" />
 
         <!-- CADASTRA PEDIDO DESTINO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_informacoes_basicas.CadastraPedidoDestinoActivity"
                   android:label="Cadastrar Pedido" />
 
         <!-- FLUXO FORNECEDOR - NUCLEO -->
         <!-- SELECIONA ITEM ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_2_1_seleciona_item_contrato.SelecionaItemPedidoActivity"
                   android:label="Selecione os itens"/>
 
         <!-- CADASTRA ITEM PEDIDO ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_1_cadastra_item_contrato.CadastraItemPedidoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_3_1_cadastra_item_contrato.CadastraItemPedidoActivity"
                   android:label="Selecione as quantidades"
                   android:windowSoftInputMode="adjustPan"/>
 
         <!-- CONFIRMA CADASTRO PEDIDO -->
-        <activity android:name= ".ui.cadastra_pedido.cadastra_pedido_4_1_confirma.ConfirmaCadastroPedidoActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_4_1_confirma.ConfirmaCadastroPedidoActivity"
                   android:label="Confirme informações"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
@@ -105,14 +109,14 @@
 
         <!-- FLUXO NUCLEO - OBRA ou NUCLEO - NUCLEO -->
         <!-- SELECIONA ITEM ACTIVITY -->
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_2_2_seleciona_item_nucleo.SelecionaItemNucleoActivity"
                   android:label="Selecione os itens"/>
 
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_3_2_cadastra_item_nucleo.CadastraItemNucleoActivity"
                   android:label="Selecione as quantidades"
                   android:windowSoftInputMode="adjustPan"/>
 
-        <activity android:name=".ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_4_2_confirma_nucleo.ConfirmaCadastraPedidoNucleoActivity"
                   android:label="Confirme informações"
                 android:windowSoftInputMode="stateHidden"/>
 
@@ -122,37 +126,37 @@
         <!-- CADASTRA RECEBIMENTO -->
 
         <!-- SELECIONA ENVIO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.SelecionaEnvioRecebimentoActivity"
                   android:label="Selecione o envio"/>
 
         <!-- SELECIONA MATERIAL RECEBIMENTO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_seleciona_item.SelecionaItemEnvioRecebimentoActivity"
                   android:label="Selecione os itens" />
 
         <!-- CADASTRA MATERIAL RECEBIMENTO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_3_cadastra_item.CadastraItemRecebimentoActivity"
                   android:label="Selecione as quantidades"/>
 
         <!-- CONFIRMA MATERIAL RECEBIMENTO ACTIVITY -->
-        <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_4_confirma.ConfirmaRecebimentoActivity"
                   android:label="Confirme Informações"
                   android:screenOrientation="portrait" />
 
         <!-- CADASTRA PARA ENVIO PARA OBRA NOVO -->
         <!-- CADASTRA ENVIO ACTIVITY -->
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity"
                 android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="stateAlwaysVisible" />
 
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_2_seleciona_item.CESelecionaItemActivity"
                 android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_3_cadastra_item.CECadastraItemActivity"
                 android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_4_confirma.CEConfirmaActivity"
                 android:label="@string/cadastra_envio_titulo_activity"
                 android:windowSoftInputMode="adjustPan" />
 
@@ -160,24 +164,24 @@
         <!-- CADASTRA ENVIO -->
 
         <!-- CADASTRA ENVIO ACTIVITY -->
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity"
                   android:label="Nome do motorista"
                   android:windowSoftInputMode="stateAlwaysVisible"
                  />
 
         <!-- SELECIONA ITEM ENVIO ACTIVITY -->
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioActivity"
                   android:label="Selecione os itens"
                   />
 
         <!-- CADASTRA ITEM ENVIO ACTIVITY -->
-        <activity android:name=".ui.cadastra_envio.cadastra_envio_33_cadastra_item.CadastraItemEnvioActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_33_cadastra_item.CadastraItemEnvioActivity"
                   android:label="Selecione as quantidades"
                   android:windowSoftInputMode="adjustPan"
                   />
 
         <!-- CONFIRMA CADASTRO ENVIO -->
-        <activity android:name= ".ui.cadastra_envio.cadastra_envio_44_confirma.ConfirmaCadastroEnvioActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_44_confirma.ConfirmaCadastroEnvioActivity"
                   android:label="Confirme informações"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
@@ -187,22 +191,22 @@
         <!-- CADASTRA RECEBIMENTO SEM PEDIDO-->
 
         <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM PEDIDO  -->
-        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_1_origem_destino.CadastraInformacoesActivity"
                   android:label="Cadastrar recebimento"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_2_seleciona_item.SelecionaItemActivity"
                   android:label="Selecione um item"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_3_cadastra_item.CadastraItemActivity"
                   android:label="Cadastre o item"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name= ".ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_pedido.cadastra_recebimento_sem_pedido_4_confirma.ConfirmaRecebimentoSPActivity"
                   android:label="Confirme o recebimento"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
@@ -212,37 +216,37 @@
         <!-- CADASTRA RECEBIMENTO SEM ENVIO-->
 
         <!-- SELECIONA ITEM CADASTRO RECEBIMENTO SEM ENVIO  -->
-        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity"
                   android:label="Selecione os itens"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item.CadastraRecebimentoSECadastraItemActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item.CadastraRecebimentoSECadastraItemActivity"
                   android:label="Selecione as quantidades"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name= ".ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma.CadastraRecebimentoSEConfirmaActivity"
+        <activity android:name= "com.sigelu.logistica.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_3_confirma.CadastraRecebimentoSEConfirmaActivity"
                   android:label="Confirme o recebimento"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
         <!-- VISUALIZA ESTOQUE -->
-        <activity android:name= ".ui.estoque.EstoqueActivity"
+        <activity android:name= "com.sigelu.logistica.ui.estoque.EstoqueActivity"
                   android:label="Materiais em estoque"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
         <!-- NOVO CADASTRA RECEBIMENTO -->
-        <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 

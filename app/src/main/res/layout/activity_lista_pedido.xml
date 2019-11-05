@@ -7,159 +7,201 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.lemobs_sigelu.gestao_estoques.ui.lista_pedidos.ListaPedidoViewModel"/>
+                type="com.sigelu.logistica.ui.lista_pedidos.ListaPedidoViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:fab="http://schemas.android.com/tools">
-
-        <LinearLayout
-                android:id="@+id/ll_busca"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_margin="8dp"
-                android:paddingRight="8dp"
-                android:background="@drawable/square_customized_search_bar"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
-
-            <EditText
-                    android:id="@+id/tv_busca"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="7"
-                    android:hint="Código, Origem, Destino, Status ou Data"
-                    android:backgroundTint="@android:color/transparent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:imeOptions="actionSearch"
-                    android:textSize="16sp"/>
-
-            <ImageButton
-                    android:id="@+id/img_busca"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical|left"
-                    android:background="@drawable/ic_magn_glass"/>
-        </LinearLayout>
-
-        <include
-                layout="@layout/progressbar_carregamento"
-                android:id="@+id/ll_loading"
-                app:isVisible="@{viewModel.loading}"/>
-
-        <include
-                layout="@layout/layout_error_with_refresh"
-                android:id="@+id/ll_erro"
-                android:visibility="visible"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp"
-                android:paddingTop="8dp"
-                app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_lista"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}"
-                android:layout_marginTop="@dimen/espacamento_grande"
-                android:scrollbars="vertical"
-                android:fadeScrollbars="false"
-                app:layout_constraintVertical_bias="0"
-                app:layout_constraintTop_toBottomOf="@+id/ll_busca"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
-
-        <com.github.clans.fab.FloatingActionMenu
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/menu"
+        <androidx.drawerlayout.widget.DrawerLayout
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/drawer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                fab:menu_fab_size="normal"
-                fab:menu_showShadow="true"
-                fab:menu_shadowColor="#66000000"
-                fab:menu_shadowRadius="4dp"
-                fab:menu_shadowXOffset="1dp"
-                fab:menu_shadowYOffset="3dp"
-                fab:menu_colorNormal="@color/colorAccentDark"
-                fab:menu_colorPressed="@color/colorAccent"
-                fab:menu_colorRipple="#99FFFFFF"
-                fab:menu_animationDelayPerItem="50"
-                fab:menu_icon="@drawable/fab_add"
-                fab:menu_buttonSpacing="0dp"
-                fab:menu_labels_margin="0dp"
-                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-                fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-                fab:menu_labels_paddingTop="4dp"
-                fab:menu_labels_paddingRight="8dp"
-                fab:menu_labels_paddingBottom="4dp"
-                fab:menu_labels_paddingLeft="8dp"
-                fab:menu_labels_padding="8dp"
-                fab:menu_labels_textColor="#000000"
-                fab:menu_labels_textSize="14sp"
-                fab:menu_labels_cornerRadius="3dp"
-                fab:menu_labels_colorNormal="#333333"
-                fab:menu_labels_colorPressed="#444444"
-                fab:menu_labels_colorRipple="#66FFFFFF"
-                fab:menu_labels_showShadow="true"
-                fab:menu_labels_singleLine="true"
-                fab:menu_labels_ellipsize="none"
-                fab:menu_labels_maxLines="2"
-                app:menu_colorNormal="@color/colorAccentDark"
-                app:menu_colorPressed="@color/colorAccent"
-                fab:menu_labels_position="left"
-                fab:menu_openDirection="up"
-                fab:menu_backgroundColor="@android:color/transparent"
-                fab:menu_fab_label="your_label_here"
-                fab:menu_fab_show_animation="@anim/my_show_animation"
-                fab:menu_fab_hide_animation="@anim/my_hide_animation">
+                android:fitsSystemWindows="true"
+                tools:openDrawer="start">
 
-            <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/menu_item_cadastrar_pedido"
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_shopping_cart"
-                    fab:fab_size="mini"
-                    app:fab_colorNormal="@color/colorAccentDark"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@android:color/white"
-                    app:fab_label="Cadastrar RM"/>
+                    android:background="@android:color/white"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:fab="http://schemas.android.com/tools">
 
-            <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/menu_item_cadastra_envio"
-                    android:layout_width="match_parent"
+                <com.google.android.material.appbar.AppBarLayout
+                        android:id="@+id/app_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent">
+
+                        <androidx.appcompat.widget.Toolbar
+                                android:id="@+id/toolbar"
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@color/colorPrimary"
+                                app:titleTextColor="@android:color/white"
+                                app:subtitleTextColor="@android:color/white"
+                                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                                app:layout_collapseMode="pin"
+                                app:title="@string/app_name"
+                                app:layout_scrollFlags="scroll|enterAlways"/>
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <LinearLayout
+                        android:id="@+id/ll_busca"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_margin="8dp"
+                        android:paddingRight="8dp"
+                        android:background="@drawable/square_customized_search_bar"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/app_bar"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
+
+                    <EditText
+                            android:id="@+id/tv_busca"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:hint="Código, Origem, Destino, Status ou Data"
+                            android:backgroundTint="@android:color/transparent"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:imeOptions="actionSearch"
+                            android:textSize="16sp"/>
+
+                    <ImageButton
+                            android:id="@+id/img_busca"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical|left"
+                            android:background="@drawable/ic_magn_glass"/>
+                </LinearLayout>
+
+                <include
+                        layout="@layout/progressbar_carregamento"
+                        android:id="@+id/ll_loading"
+                        app:isVisible="@{viewModel.loading}"/>
+
+                <include
+                        layout="@layout/layout_error_with_refresh"
+                        android:id="@+id/ll_erro"
+                        android:visibility="visible"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
+                        app:isVisible="@{viewModel.isError &amp;&amp; !viewModel.loading}"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_lista"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:isVisible="@{!viewModel.loading &amp;&amp; !viewModel.isError}"
+                        android:layout_marginTop="@dimen/espacamento_grande"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_busca"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
+
+                <com.github.clans.fab.FloatingActionMenu
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        fab:menu_fab_size="normal"
+                        fab:menu_showShadow="true"
+                        fab:menu_shadowColor="#66000000"
+                        fab:menu_shadowRadius="4dp"
+                        fab:menu_shadowXOffset="1dp"
+                        fab:menu_shadowYOffset="3dp"
+                        fab:menu_colorNormal="@color/colorAccentDark"
+                        fab:menu_colorPressed="@color/colorAccent"
+                        fab:menu_colorRipple="#99FFFFFF"
+                        fab:menu_animationDelayPerItem="50"
+                        fab:menu_icon="@drawable/fab_add"
+                        fab:menu_buttonSpacing="0dp"
+                        fab:menu_labels_margin="0dp"
+                        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+                        fab:menu_labels_paddingTop="4dp"
+                        fab:menu_labels_paddingRight="8dp"
+                        fab:menu_labels_paddingBottom="4dp"
+                        fab:menu_labels_paddingLeft="8dp"
+                        fab:menu_labels_padding="8dp"
+                        fab:menu_labels_textColor="#000000"
+                        fab:menu_labels_textSize="14sp"
+                        fab:menu_labels_cornerRadius="3dp"
+                        fab:menu_labels_colorNormal="#333333"
+                        fab:menu_labels_colorPressed="#444444"
+                        fab:menu_labels_colorRipple="#66FFFFFF"
+                        fab:menu_labels_showShadow="true"
+                        fab:menu_labels_singleLine="true"
+                        fab:menu_labels_ellipsize="none"
+                        fab:menu_labels_maxLines="2"
+                        app:menu_colorNormal="@color/colorAccentDark"
+                        app:menu_colorPressed="@color/colorAccent"
+                        fab:menu_labels_position="left"
+                        fab:menu_openDirection="up"
+                        fab:menu_backgroundColor="@android:color/transparent"
+                        fab:menu_fab_label="your_label_here"
+                        fab:menu_fab_show_animation="@anim/my_show_animation"
+                        fab:menu_fab_hide_animation="@anim/my_hide_animation">
+
+                    <com.github.clans.fab.FloatingActionButton
+                            android:id="@+id/menu_item_cadastrar_pedido"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_shopping_cart"
+                            fab:fab_size="mini"
+                            app:fab_colorNormal="@color/colorAccentDark"
+                            app:fab_colorPressed="@color/colorAccent"
+                            app:fab_colorRipple="@android:color/white"
+                            app:fab_label="Cadastrar RM"/>
+
+                    <com.github.clans.fab.FloatingActionButton
+                            android:id="@+id/menu_item_cadastra_envio"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_truck_right"
+                            fab:fab_size="mini"
+                            app:fab_colorNormal="@color/colorAccentDark"
+                            app:fab_colorPressed="@color/colorAccent"
+                            app:fab_colorRipple="@android:color/white"
+                            app:fab_label="Enviar para Obra"/>
+
+        <!--            <com.github.clans.fab.FloatingActionButton-->
+        <!--                    android:id="@+id/menu_item_cadastrar_recebimento_sem_pedido"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:src="@drawable/ic_truck_left_with_question"-->
+        <!--                    fab:fab_size="mini"-->
+        <!--                    app:fab_colorNormal="@color/colorAccentDark"-->
+        <!--                    app:fab_colorPressed="@color/colorAccent"-->
+        <!--                    app:fab_colorRipple="@android:color/white"-->
+        <!--                    app:fab_label="Cadastrar recebimento sem pedido"/>-->
+                </com.github.clans.fab.FloatingActionMenu>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                    android:id="@+id/nav_view"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_truck_right"
-                    fab:fab_size="mini"
-                    app:fab_colorNormal="@color/colorAccentDark"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@android:color/white"
-                    app:fab_label="Enviar para Obra"/>
-
-<!--            <com.github.clans.fab.FloatingActionButton-->
-<!--                    android:id="@+id/menu_item_cadastrar_recebimento_sem_pedido"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:src="@drawable/ic_truck_left_with_question"-->
-<!--                    fab:fab_size="mini"-->
-<!--                    app:fab_colorNormal="@color/colorAccentDark"-->
-<!--                    app:fab_colorPressed="@color/colorAccent"-->
-<!--                    app:fab_colorRipple="@android:color/white"-->
-<!--                    app:fab_label="Cadastrar recebimento sem pedido"/>-->
-        </com.github.clans.fab.FloatingActionMenu>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="start"
+                    android:fitsSystemWindows="true"
+                    android:background="@color/colorAccent"
+                    app:itemTextColor="@color/branco"
+                    app:itemIconTint="@color/branco"
+                    app:headerLayout="@layout/nav_header_main"
+                    app:menu="@menu/activity_main_drawer" />
+        </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

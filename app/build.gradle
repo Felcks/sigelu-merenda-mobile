@@ -38,8 +38,8 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId 'com.lemobs_sigelu.estoques'
-        minSdkVersion 16
+        applicationId 'com.sigelu.logistica'
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 15
         versionName "1.3.1"
@@ -63,7 +63,7 @@ android {
     flavorDimensions "default"
     productFlavors {
         dev {
-            minSdkVersion 16
+            minSdkVersion 19
             versionNameSuffix "-dev"
             applicationIdSuffix '.dev'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
@@ -73,7 +73,7 @@ android {
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.dev.sigelu.com/obra-direta/diario/foto/\"")
         }
         cidade {
-            minSdkVersion 16
+            minSdkVersion 19
             versionNameSuffix "-cidade"
             applicationIdSuffix '.cidade'
             resValue "string", "google_maps_api_key", "AIzaSyAy05_nuFY7Trn0pAtz6DcLyLKbnCE_4E0"
@@ -82,7 +82,7 @@ android {
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.cidade.sigelu.com/obra-direta/diario/foto/\"")
         }
         homolog {
-            minSdkVersion 16
+            minSdkVersion 19
             versionNameSuffix "-homologação"
             applicationIdSuffix '.homolog'
             resValue "string", "google_maps_api_key", "AIzaSyBGK2Q2VxeXHikz4fVeE3rJQ4yKwHC22pk"
@@ -91,14 +91,14 @@ android {
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.maricahom.sigelu.com/obra-direta/diario/foto/\"")
         }
         prod {
-            minSdkVersion 16
+            minSdkVersion 19
             resValue "string", "google_maps_api_key", "AIzaSyAOG7_mKY-O9GjwPAaA8MFaba02j7f2Hfk"
             buildConfigField("String", "BASE_URL", "\"https://api.obras.marica.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.marica.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.marica.sigelu.com/obra-direta/diario/foto/\"")
         }
         demo {
-            minSdkVersion 16
+            minSdkVersion 19
             versionNameSuffix "-demonstração"
             applicationIdSuffix '.demo'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
@@ -224,6 +224,11 @@ dependencies {
     testImplementation "io.mockk:mockk:$project.mockkVersion"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    implementation project(path: ':sigeluutils-debug')
+
 }
 
 android {
