@@ -6,10 +6,10 @@ object DataHolder {
     private var ambienteCorreto: Boolean? = null
     private var schemeLauncher: String? = null
 
-    internal val nomeUsuario: String
+    val nomeUsuario: String
         get() = usuario?.nome ?: ""
 
-    internal val emailUsuario: String
+    val emailUsuario: String
         get() = usuario?.email ?: ""
 
     var token: String
@@ -21,7 +21,7 @@ object DataHolder {
     val userID: Int?
         get() = usuario?.usuario_id ?: 0
 
-    internal val fotoUsuario: String?
+    val fotoUsuario: String?
         get() {
             if (usuario == null) return null
             val caminhoFoto = usuario?.foto

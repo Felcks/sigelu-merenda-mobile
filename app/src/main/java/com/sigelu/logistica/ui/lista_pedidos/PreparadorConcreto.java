@@ -30,7 +30,7 @@ class PreparadorConcreto implements Preparador {
 
     @Override
     public String getNomeUsuario() {
-        return this.dataHolder.getNomeUsuario$app_devDebug();
+        return this.dataHolder.getNomeUsuario();
     }
 
     @Override
@@ -95,7 +95,7 @@ class PreparadorConcreto implements Preparador {
                 PrepararMenuLateral.irParaSobre(this.activity);
                 break;
             case R.id.nav_chat:
-                PrepararMenuLateral.irParaChatZendesk(activity, dataHolder.getNomeUsuario$app_devDebug(), dataHolder.getEmailUsuario$app_devDebug(), activity.getString(R.string.app_name));
+                PrepararMenuLateral.irParaChatZendesk(activity, dataHolder.getNomeUsuario(), dataHolder.getEmailUsuario(), activity.getString(R.string.app_name));
                 break;
             case R.id.nav_voltar_menu:
                 this.activity.showDuvidaDeslogarUsuario();
