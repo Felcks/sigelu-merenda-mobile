@@ -4,21 +4,15 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
-import com.sigelu.core.lib.DialogUtil;
 import com.sigelu.logistica.R;
 import com.sigelu.logistica.common.domain.model.accounts.DataHolder;
 import com.sigelu.utils.menu_lateral.Preparador;
@@ -80,14 +74,7 @@ class PreparadorConcreto implements Preparador {
     }
 
     @Override
-    public void removerMenus(Menu menu) {
-//        if (dataHolder.getPackagesFiscaliza() == null) {
-//            menu.removeItem(R.id.nav_fiscaliza);
-//            menu.removeItem(R.id.nav_impressora);
-//        }
-//        menu.removeItem(R.id.nav_legislacao);
-//        menu.removeItem(R.id.nav_atende);
-    }
+    public void removerMenus(Menu menu) {}
 
     @Override
     public void trocarModulo(Integer moduloId) {

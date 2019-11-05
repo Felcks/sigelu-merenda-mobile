@@ -29,6 +29,7 @@
                         android:id="@+id/app_bar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent">
 
@@ -37,6 +38,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="?attr/actionBarSize"
                                 android:background="@color/colorPrimary"
+                                app:titleTextColor="@android:color/white"
+                                app:subtitleTextColor="@android:color/white"
+                                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                                 app:layout_collapseMode="pin"
                                 app:title="@string/app_name"
                                 app:layout_scrollFlags="scroll|enterAlways"/>

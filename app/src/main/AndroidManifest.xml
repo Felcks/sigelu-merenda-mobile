@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="logistica" />
@@ -43,7 +42,7 @@
         <!-- LISTA PEDIDO ACTIVITY -->
         <activity android:name="com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity"
                   android:configChanges="orientation"
-                android:theme="@style/Theme.Design.NoActionBar"
+                android:theme="@style/AppThemeNoActionBar"
                   android:screenOrientation="portrait"/>
 
         <!-- VISUALIZA PEDIDO ACTIVITY -->
