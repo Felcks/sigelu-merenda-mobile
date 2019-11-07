@@ -45,7 +45,6 @@
         <activity android:name="com.lemobs_sigelu.gestao_estoques.ui.pedido.activity.VisualizarPedidoActivity"
                   android:label="Visualizando RM" />
 
-
         <!-- CADASTRA PEDIDO NOVO -->
 
         <!-- SELECIONA TIPO PEDIDO ACTIVITY -->

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import com.lemobs_sigelu.gestao_estoques.R
@@ -72,7 +73,6 @@ class EstoqueActivity: AppCompatActivity() {
                          }
                      }
                 }
-
             }
             Status.ERROR -> {
                 tvErro?.text = resources.getString(R.string.erro_carrega_estoque)

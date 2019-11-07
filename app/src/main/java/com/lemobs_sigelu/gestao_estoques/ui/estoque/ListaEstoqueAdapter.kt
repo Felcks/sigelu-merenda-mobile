@@ -9,6 +9,7 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.lemobs_sigelu.gestao_estoques.App
 import com.lemobs_sigelu.gestao_estoques.R
 import com.lemobs_sigelu.gestao_estoques.common.domain.model.ItemEstoque
@@ -36,7 +37,6 @@ class ListaEstoqueAdapter (val context: Context,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         val item = list[position]
 
         holder.itemView.tv_nome_material.text = item.nomeAlternativo

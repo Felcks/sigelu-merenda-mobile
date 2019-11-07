@@ -42,23 +42,15 @@ class CadastraPedidoModelImpl(
         var nucleoEstoqueID: Int = 0
         var almoxarifadoEstoqueID: Int = 0
 
-        val job = CoroutineScope(Dispatchers.IO).launch {
-
+        runBlocking {
             try {
                 nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleo.id)
                 almoxarifadoEstoqueID = estoqueRepository.getEstoqueIDAlmoxarifado()
             }
             catch (e: java.lang.Exception) {
-                this.cancel()
+                throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
             }
         }
-
-        while(!job.isCompleted && !job.isCancelled){}
-
-        if(job.isCancelled){
-            throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
-        }
-
 
         val localOrigem = Local2(TIPO_ESTOQUE_ALMOXARIFADO, NOME_ALMOXARIFADO, almoxarifadoEstoqueID)
         val localDestino = Local2(TIPO_ESTOQUE_NUCLEO, nucleo.nome, nucleoEstoqueID)
@@ -82,20 +74,18 @@ class CadastraPedidoModelImpl(
 
         var almoxarifadoEstoqueID: Int = 0
 
-        val job = CoroutineScope(Dispatchers.IO).launch {
+        runBlocking {
             try {
                 almoxarifadoEstoqueID = estoqueRepository.getEstoqueIDAlmoxarifado()
             }
             catch (e: java.lang.Exception){
-                this.cancel()
+                throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
             }
         }
-        while(!job.isCompleted && !job.isCancelled){}
 
-        if(job.isCancelled) throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
 
         if(this.listaTodasObra == null){
-            throw Exception("Lista obra não carregada.")
+            throw Exception("Lista de obra não carregada.")
         }
 
         val obra = listaTodasObra?.first { it.id == obraID } ?: throw Exception("Ocorreu um erro, tente novamente.")

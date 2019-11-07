@@ -31,23 +31,15 @@ class EstoqueController @Inject constructor(private val itemEstoqueRepository: I
     }
 
     suspend fun getListaItemEstoque3(): List<ItemEstoque>{
-
         val nucleoID = AppSharedPreferences.getNucleoID(App.instance)
         var nucleoEstoqueID: Int = 0
 
-        val job = CoroutineScope(Dispatchers.IO).launch {
-
-            try{
-                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
-            }
-            catch(e: Exception){
-                nucleoEstoqueID = 0
-                this.cancel()
-            }
+        try{
+            nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
         }
-        while(!job.isCompleted && !job.isCancelled){}
-
-        if(job.isCancelled) return listOf()
+        catch(e: Exception){
+            throw Exception("Lista de estoque não carregada.")
+        }
 
         return itemEstoqueRepository.carregaListaItemEstoque3(nucleoEstoqueID) ?: listOf()
     }

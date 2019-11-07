@@ -42,18 +42,15 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
 
         var nucleoEstoqueID: Int = 0
 
-        val job = CoroutineScope(Dispatchers.IO).launch {
 
+        runBlocking {
             try{
                 nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleo.id)
             }
             catch (e: java.lang.Exception){
-                this.cancel()
+                throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
             }
         }
-        while(!job.isCompleted && !job.isCancelled){}
-
-        if(job.isCancelled) throw java.lang.Exception("Conecte-se a internet para fazer um pedido.")
 
         if(this.listaObra == null){
             throw Exception("Lista obra não carregada.")
@@ -68,7 +65,6 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         if(!movimento.validaMovimento()){
             throw MovimentoInvalidoException()
         }
-
         this.envio = Envio2(null, usuario, movimento)
     }
 
@@ -77,19 +73,12 @@ class CadastraEnvioParaObraControllerImpl(val obraRepository: IObraRepository,
         val nucleoID = AppSharedPreferences.getNucleoID(App.instance)
         var nucleoEstoqueID: Int = 0
 
-        val job = CoroutineScope(Dispatchers.IO).launch {
-
-            try{
-                nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
-            }
-            catch (e: java.lang.Exception){
-                this.cancel()
-            }
+        try{
+            nucleoEstoqueID = estoqueRepository.getEstoqueIDNucleo(nucleoID)
         }
-
-        while(!job.isCompleted && !job.isCancelled){}
-
-        if(job.isCancelled) return listOf()
+        catch (e: java.lang.Exception){
+            throw java.lang.Exception("Lista não carregada")
+        }
 
         this.listaItemEstoque = itemEstoqueRepository.carregaListaItemEstoque3(nucleoEstoqueID)
         return listaItemEstoque ?: listOf()
