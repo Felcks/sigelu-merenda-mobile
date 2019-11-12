@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="branco">#FFFFFFFF</color>
+    <color name="corBotaoDesativado">#DEDEDE</color>
+    <color name="fonte_label_integrante_escolha_equipe">#808080</color>
+    <color name="fundo_action_bar">#5c636d</color>
+    <color name="fundo_icone_desativado">#dddddd</color>
+    <color name="fundo_logo_autenticacao">#ECECEC</color>
+    <color name="sigeluLight">#FF00b8b6</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="comprimento_menu_lateral">200dp</dimen>
+    <dimen name="espacamento_curto">5dp</dimen>
+    <dimen name="espacamento_medio">10dp</dimen>
+    <dimen name="nav_header_height">166dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <string name="adicionar_assinatura">Adicionar assinatura</string>
+    <string name="apagar">Apagar</string>
+    <string name="app_name">SigeluUtils</string>
+    <string name="assinatura_info">Atesto que o serviço referente ao Protocolo [XXXX/20XX] foi realizado conforme solicitado.</string>
+    <string name="assinatura_linha">_______________________________________</string>
+    <string name="assinatura_nome">[nome_solicitante]</string>
+    <string name="atende">Atende</string>
+    <string name="bem_vindo">Bem-vindo(a), %1$s</string>
+    <string name="chat_zendesk">Chat</string>
+    <string name="fiscaliza">Fiscaliza</string>
+    <string name="impressora">Impressora</string>
+    <string name="legislacao">Legislação</string>
+    <string name="menuprincipal">Menu Principal</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="navigation_drawer_close">Fechar navegação</string>
+    <string name="navigation_drawer_open">Abrir navegação</string>
+    <string name="salvar">Salvar</string>
+    <string name="sigelu_mobile">SIGELU Mobile</string>
+    <string name="site_lemobs">www.lemobs.com.br</string>
+    <string name="sobre">Sobre</string>
+    <string name="teste">teste</string>
+    <string name="title_activity_sobre">Sobre</string>
+    <string name="txt_rodape_sobre">"Copyright © Lemobs | versão %1$s | 2016"</string>
+    <string name="txt_texto_sobre">O módulo MOBILE faz parte do modulo multiplataforma de gestão integrada da limpeza urbana SIGELU. Desenvolvido para uso exclusivo dos agentes de fiscalização, o aplicativo permite o registro de advertências e autuações no nome de cidadãos que não cumprem as leis nacionais e locais que regulam o descarte de lixo. Aprimorado com GPS, preenchimento automático e corretor ortográfico, o aplicativo possibilita maior velocidade na realização do registro, aumentando a produtividade do agente. Em conjunto com a impressora portátil que acompanha o kit, o aplicativo gera uma notificação impressa da advertência ou multa para entrega imediata ao infrator. Todas as informações registradas através do módulo são sincronizadas com o banco de dados SIGELU e rapidamente disponibilizadas para o gestor através do módulo MANAGER.</string>
+</resources>

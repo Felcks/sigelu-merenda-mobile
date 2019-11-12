@@ -267,12 +267,7 @@ class ListaPedidoActivity: AppCompatActivity() {
             {
                 this.showProgressoDeslogandoUsuario()
                 try{
-                    CarregaDados.limpar()
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
-                    intent.action = Intent.ACTION_VIEW
-                    startActivity(intent)
-
-                    finish()
+                    backToLauncher()
                 }
                 catch (e: Exception){
                     this.showFalhaDeslogouUsuario(e.toString())
@@ -307,11 +302,20 @@ class ListaPedidoActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        this.closeApplication()
+        showDuvidaDeslogarUsuario()
     }
 
     private fun prepararMenuLateral() {
         val prepararMenuLateral = PrepararMenuLateral(PreparadorConcreto(this))
         prepararMenuLateral.prepara()
+    }
+
+    private fun backToLauncher(){
+        CarregaDados.limpar()
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DataHolder.getSchemeLauncher()))
+        intent.action = Intent.ACTION_VIEW
+        startActivity(intent)
+        finish()
+        android.os.Process.killProcess(android.os.Process.myPid())
     }
 }

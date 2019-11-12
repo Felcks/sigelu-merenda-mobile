@@ -29,7 +29,7 @@ android {
         config {
             keyAlias 'sigelu_estoques'
             keyPassword 's1g3luEst0qu3s'
-            storeFile file('/home/vitor/Documentos/chaves/sigelu_estoques.jks')
+            storeFile file('/home/felcks/Documents/chaves/sigelu_estoques.jks')
             storePassword 's1g3luEst0qu3s'
         }
     }

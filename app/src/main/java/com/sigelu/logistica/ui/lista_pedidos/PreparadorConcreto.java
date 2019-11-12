@@ -98,7 +98,7 @@ class PreparadorConcreto implements Preparador {
                 PrepararMenuLateral.irParaChatZendesk(activity, dataHolder.getNomeUsuario(), dataHolder.getEmailUsuario(), activity.getString(R.string.app_name));
                 break;
             case R.id.nav_voltar_menu:
-                this.activity.showDuvidaDeslogarUsuario();
+                this.activity.onBackPressed();
                 break;
         }
         return false;
