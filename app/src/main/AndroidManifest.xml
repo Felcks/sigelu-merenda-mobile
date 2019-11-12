@@ -49,7 +49,6 @@
         <activity android:name="com.sigelu.logistica.ui.pedido.activity.VisualizarPedidoActivity"
                   android:label="Visualizando RM" />
 
-
         <!-- CADASTRA PEDIDO NOVO -->
 
         <!-- SELECIONA TIPO PEDIDO ACTIVITY -->

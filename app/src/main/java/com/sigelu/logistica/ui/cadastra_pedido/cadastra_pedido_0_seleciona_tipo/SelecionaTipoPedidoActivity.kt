@@ -39,6 +39,7 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     }
 
     private fun iniciaStepper(){
+
         top_stepper.setFluxo(viewModel.getFluxo())
         bottom_stepper.setFluxo(viewModel.getFluxo())
 
@@ -72,7 +73,6 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
 
         if(response != null && response.status == Status.SUCCESS){
             if(response.data is Intent){
-
                 viewModel.setProximaTelaUndefined()
                 startActivity(response.data)
             }
