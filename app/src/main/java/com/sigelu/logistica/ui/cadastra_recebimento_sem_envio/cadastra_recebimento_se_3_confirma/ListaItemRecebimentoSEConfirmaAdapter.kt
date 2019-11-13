@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.sigelu.logistica.R
 import com.sigelu.logistica.common.domain.model.ItemPedido
-import kotlinx.android.synthetic.main.item_material_cadastrado_recebimento.view.*
 
 class ListaItemRecebimentoSEConfirmaAdapter(val context: Context,
                                             val list: List<ItemPedido>): RecyclerView.Adapter<ListaItemRecebimentoSEConfirmaAdapter.MyViewHolder>() {
