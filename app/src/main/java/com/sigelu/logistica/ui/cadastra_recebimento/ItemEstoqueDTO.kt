@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo
+package com.sigelu.logistica.ui.cadastra_recebimento
 
 class ItemEstoqueDTO(val itemEstoqueID: Int,
                      val codigo: String,

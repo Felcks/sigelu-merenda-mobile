@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio
 
 import android.content.Context
 import android.view.LayoutInflater

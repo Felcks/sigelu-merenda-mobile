@@ -22,11 +22,9 @@ import com.sigelu.logistica.common.domain.model.accounts.CarregaDados
 import com.sigelu.logistica.common.domain.model.accounts.DataHolder
 import com.sigelu.logistica.common.viewmodel.Response
 import com.sigelu.logistica.common.viewmodel.Status
-import com.sigelu.logistica.databinding.ActivityListaPedidoBinding
 import com.sigelu.logistica.extensions_constants.esconderTeclado
 import com.sigelu.logistica.extensions_constants.reiniciarActivity
 import com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.CESelecionaObraActivity
-import com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_22_seleciona_item.SelecionaItemEnvioActivity
 import com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_0_seleciona_tipo.SelecionaTipoPedidoActivity
 import com.sigelu.logistica.ui.estoque.EstoqueActivity
 import com.sigelu.logistica.ui.pedido.activity.VisualizarPedidoActivity
@@ -35,7 +33,7 @@ import com.sigelu.logistica.utils.AppSharedPreferences
 import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.logistica.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
-import com.sigelu.logistica.extensions_constants.closeApplication
+import com.sigelu.logistica.databinding.ActivityListaPedidoBinding
 import com.sigelu.utils.menu_lateral.PrepararMenuLateral
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
@@ -204,7 +202,7 @@ class ListaPedidoActivity: AppCompatActivity() {
 //                TipoPedido.MEU_NUCLEO_PARA_OBRA -> Intent(applicationContext, CadastraEnvioActivity::class.java)
 //                TipoPedido.FORNECEDOR_PARA_MEU_NUCLEO -> Intent(applicationContext, CadastraRecebimentoSESelecionaItemActivity::class.java)
 //                TipoPedido.OUTRO_NUCLEO_PARA_MEU_NUCLEO -> Intent(applicationContext, SelecionaEnvioRecebimentoActivity::class.java)
-                else -> Intent(applicationContext, SelecionaItemEnvioActivity::class.java)
+                else -> Intent(applicationContext, ListaPedidoActivity::class.java)
             }
 
             startActivity(intent)

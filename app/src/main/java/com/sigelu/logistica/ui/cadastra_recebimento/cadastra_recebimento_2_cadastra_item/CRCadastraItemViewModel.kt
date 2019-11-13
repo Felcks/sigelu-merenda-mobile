@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +8,8 @@ import com.sigelu.logistica.common.domain.model.ItemEstoque
 import com.sigelu.logistica.common.domain.model.ItemRecebimento2
 import com.sigelu.logistica.common.domain.model.UnidadeMedida
 import com.sigelu.logistica.common.viewmodel.Response
-import com.sigelu.logistica.ui.cadastra_recebimento_novo.ItemEstoqueDTO
-import com.sigelu.logistica.ui.cadastra_recebimento_novo.UnidadeMedidaDTO
+import com.sigelu.logistica.ui.cadastra_recebimento.ItemEstoqueDTO
+import com.sigelu.logistica.ui.cadastra_recebimento.UnidadeMedidaDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

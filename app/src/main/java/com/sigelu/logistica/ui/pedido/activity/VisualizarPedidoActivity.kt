@@ -19,18 +19,16 @@ import com.sigelu.logistica.*
 import com.sigelu.logistica.common.domain.model.Pedido2
 import com.sigelu.logistica.common.viewmodel.Response
 import com.sigelu.logistica.common.viewmodel.Status
-import com.sigelu.logistica.databinding.ActivityVisualizarPedidoBinding
 import com.sigelu.logistica.extensions_constants.*
-import com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_1_informacoes_basicas.CadastraEnvioActivity
 import com.sigelu.logistica.ui.cadastra_pedido.cadastra_pedido_1_seleciona_item.SelecionaItemPedidoParaNucleoActivity
-import com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity
-import com.sigelu.logistica.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_1_seleciona_item.CadastraRecebimentoSESelecionaItemActivity
+import com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity
 import com.sigelu.logistica.ui.pedido.geral_fragment.GeralFragment
 import com.sigelu.logistica.ui.pedido.lista_envio_fragment.ListaEnvioFragment
 import com.sigelu.logistica.ui.pedido.lista_material_fragment.ListaMaterialFragment
 import com.sigelu.logistica.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
 import com.sigelu.logistica.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
+import com.sigelu.logistica.databinding.ActivityVisualizarPedidoBinding
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import java.lang.Exception
@@ -144,16 +142,16 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 val intent = Intent(this, CRSelecionaEnvioActivity::class.java)
                 startActivity(intent)
             }
-            btn_cadastra_envio.setOnClickListener {
-
-                val intent = Intent(this, CadastraEnvioActivity::class.java)
-                startActivity(intent)
-            }
-            btn_cadastra_recebimento_sem_envio.setOnClickListener {
-
-                val intent = Intent(this, CadastraRecebimentoSESelecionaItemActivity::class.java)
-                startActivity(intent)
-            }
+//            btn_cadastra_envio.setOnClickListener {
+//
+//                val intent = Intent(this, CadastraEnvioActivity::class.java)
+//                startActivity(intent)
+//            }
+//            btn_cadastra_recebimento_sem_envio.setOnClickListener {
+//
+//                val intent = Intent(this, CadastraRecebimentoSESelecionaItemActivity::class.java)
+//                startActivity(intent)
+//            }
         }
         else{
             btn_cadastra_recebimento.visibility = View.GONE

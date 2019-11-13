@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.sigelu.logistica.common.viewmodel.Response
 import com.sigelu.logistica.common.viewmodel.Status
 import com.sigelu.logistica.databinding.ActivityCrSelecionaEnvioBinding
 import com.sigelu.logistica.ui.cadastra_pedido.FluxoInfo
-import com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity
+import com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity
 import com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cr_seleciona_envio.*

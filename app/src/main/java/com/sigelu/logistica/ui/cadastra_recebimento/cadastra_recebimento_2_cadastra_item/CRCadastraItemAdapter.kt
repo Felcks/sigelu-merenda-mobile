@@ -1,8 +1,6 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_sem_envio.cadastra_recebimento_se_2_cadastra_item
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item
 
 import android.content.Context
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -10,19 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.sigelu.logistica.App
 import com.sigelu.logistica.R
-import com.sigelu.logistica.common.domain.model.ItemPedido
-import com.sigelu.logistica.common.domain.model.TwoIntParametersClickListener
 import com.sigelu.logistica.extensions_constants.esconderTeclado
-import kotlinx.android.synthetic.main.item_cp_cadastrar_quantidade.view.*
+import kotlinx.android.synthetic.main.item_cr_cadastra_quantidade.view.*
 import java.text.NumberFormat
 import java.util.*
 
-class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
-                                             private val list: List<ItemPedido>,
-                                             private val remocaoItemClickListener: TwoIntParametersClickListener
-): RecyclerView.Adapter<ListaItemRecebimentoSECadastroAdapter.MyViewHolder>() {
+class CRCadastraItemAdapter (private val context: Context,
+                             private val list: List<ItemRecebimentoDTO>
+): RecyclerView.Adapter<CRCadastraItemAdapter.MyViewHolder>() {
 
     val mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     val colorItemAprovado = ContextCompat.getColor(App.instance, R.color.fundo_item_aprovado)
@@ -37,7 +34,7 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
 
-        val view = mLayoutInflater.inflate(R.layout.item_cp_cadastrar_quantidade, parent, false)
+        val view = mLayoutInflater.inflate(R.layout.item_cr_cadastra_quantidade, parent, false)
         return MyViewHolder(view)
     }
 
@@ -49,23 +46,24 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
 
         val item = this.list[position]
 
-        holder.itemView.tv_nome_material.text = item.itemEstoque?.nomeAlternativo
-        holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoque?.unidadeMedida?.nome ?: ""
-        holder.itemView.btn_cancel.setOnClickListener {remocaoItemClickListener.onClick(item.id, position)}
+        holder.itemView.tv_nome_material.text = item.itemEstoque.nomeAlternativo
+        holder.itemView.edt_quantidade_fornecida_unidade.text = item.itemEstoque.unidadeMedida.sigla
+
         editTexts[position] = holder.itemView.edt_quantidade_fornecida
 
         val form: NumberFormat = NumberFormat.getNumberInstance(Locale.GERMANY)
         form.isGroupingUsed = false
 
-        if((item.quantidadeRecebida)  > 0.0)
-            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida))
+        if(item.quantidadeRecebida > 0.0)
+            holder.itemView.edt_quantidade_fornecida.setText(form.format(item.quantidadeRecebida ?: 0.0))
         else
             holder.itemView.edt_quantidade_fornecida.setText("")
+
 
         if(item.quantidadeRecebida == 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
         }
-        else if(item.quantidadeRecebida > item.quantidadeDisponivel ?: 0.0){
+        else if(item.quantidadeRecebida > item.quantidadeEnviada ?: 0.0){
             holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
         }
         else
@@ -76,9 +74,10 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
         }
 
         this.adicionarMascaras(item, holder, position)
+        this.adicionaMascaraObservacao(item, holder, position)
     }
 
-    private fun adicionarMascaras(item: ItemPedido, holder: MyViewHolder, position: Int){
+    private fun adicionarMascaras(item: ItemRecebimentoDTO, holder: MyViewHolder, position: Int){
 
         val mascara = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -95,6 +94,14 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
 
                 }
                 item.quantidadeRecebida = doubleValue
+                if(item.quantidadeRecebida == 0.0){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemNeutro)
+                }
+                else if(item.quantidadeRecebida > item.quantidadeEnviada){
+                    holder.itemView.ll_border.setBackgroundColor(colorItemReprovado)
+                }
+                else
+                    holder.itemView.ll_border.setBackgroundColor(colorItemAprovado)
             }
         }
         mascaras[position] = mascara
@@ -122,10 +129,8 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
             else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                 if (position + 1 <= ultimaPosicao) {
-                    notifyItemChanged(position)
                     editTexts[position + 1]?.requestFocus()
                 } else {
-                    notifyItemChanged(position)
                     holder.itemView.edt_quantidade_fornecida.clearFocus()
                     holder.itemView.edt_quantidade_fornecida.esconderTeclado()
                 }
@@ -137,13 +142,22 @@ class ListaItemRecebimentoSECadastroAdapter (private val context: Context,
         })
     }
 
-    fun removeItem(position: Int){
-        ultimaPosicao = 0
-        notifyItemRemoved(position)
+    private fun adicionaMascaraObservacao(item: ItemRecebimentoDTO, holder: MyViewHolder, position: Int) {
+
+        val mascara = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                item.observacaoRecebimento = s.toString()
+            }
+        }
+        holder.itemView.edt_observacao.addTextChangedListener(mascara)
     }
 
-    fun getListaValoresItemEnvio(): List<Double>{
-        return list.map { it.quantidadeRecebida ?: 0.0 }
+    fun getListaMateriaisPreenchidos(): List<ItemRecebimentoDTO>{
+        return list
     }
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

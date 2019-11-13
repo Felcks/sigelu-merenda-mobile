@@ -237,15 +237,15 @@
                   android:windowSoftInputMode="stateHidden"/>
 
         <!-- NOVO CADASTRA RECEBIMENTO -->
-        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_1_seleciona_envio.CRSelecionaEnvioActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item.CRCadastraItemActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma.CRConfirmaActivity"
+        <activity android:name="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_3_confirma.CRConfirmaActivity"
                 android:label="@string/cadastra_recebimento_titulo"
                 android:windowSoftInputMode="adjustPan" />
 

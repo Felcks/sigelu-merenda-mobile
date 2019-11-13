@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_3_confirma
+package com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_3_confirma
 
 import android.app.ProgressDialog
 import android.content.Intent

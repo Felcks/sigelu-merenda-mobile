@@ -1,4 +1,4 @@
-package com.sigelu.logistica.ui.cadastra_recebimento_novo
+package com.sigelu.logistica.ui.cadastra_recebimento
 
 class UnidadeMedidaDTO(val unidadeMedidaID: Int,
                        val nome: String,
