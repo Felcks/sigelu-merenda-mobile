@@ -68,7 +68,6 @@ android {
             applicationIdSuffix '.dev'
             resValue "string", "google_maps_api_key", "AIzaSyCrSJCpZqUMOeQ-CcpQ9p3-rkJZ_PMhdIo"
             buildConfigField("String", "BASE_URL", "\"https://api.obras.dev.sigelu.com/v1/\"")
-            //buildConfigField("String", "BASE_URL", "\"http://192.168.4.97:2999/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.dev.sigelu.com/v1/\"")
             buildConfigField("String", "FOTO_URL", "\"https://api.obras.dev.sigelu.com/obra-direta/diario/foto/\"")
         }
@@ -84,7 +83,7 @@ android {
         homolog {
             minSdkVersion 19
             versionNameSuffix "-homologação"
-            applicationIdSuffix '.homolog'
+            applicationIdSuffix '.hom'
             resValue "string", "google_maps_api_key", "AIzaSyBGK2Q2VxeXHikz4fVeE3rJQ4yKwHC22pk"
             buildConfigField("String", "BASE_URL", "\"https://api.obras.maricahom.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.maricahom.sigelu.com/v1/\"")
@@ -92,6 +91,8 @@ android {
         }
         prod {
             minSdkVersion 19
+            versionNameSuffix "-Maricá"
+            applicationIdSuffix '.marica'
             resValue "string", "google_maps_api_key", "AIzaSyAOG7_mKY-O9GjwPAaA8MFaba02j7f2Hfk"
             buildConfigField("String", "BASE_URL", "\"https://api.obras.marica.sigelu.com/v1/\"")
             buildConfigField("String", "ACCOUNT_URL", "\"https://api.accounts.obras.marica.sigelu.com/v1/\"")
