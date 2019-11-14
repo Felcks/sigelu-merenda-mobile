@@ -63,6 +63,9 @@ class MainActivity: AppCompatActivity() {
                 catch (t: Throwable){ }
             }
 
+            //Retirar daqui após integração concluída
+            AppSharedPreferences.setNucleoID(App.instance, 2)
+            AppSharedPreferences.setNucleoNome(App.instance, "Centro")
             this.startApp()
             this.checkFontSize()
         }

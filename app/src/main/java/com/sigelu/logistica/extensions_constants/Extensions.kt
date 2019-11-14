@@ -100,8 +100,6 @@ fun Activity.closeApplication(){
 
 fun verificaPermissao(permissao: String, body: () -> Unit): Boolean{
 
-    throw Throwable("Sem permissão.")
-
     for(p in AppSharedPreferences.getUserPermissoes(App.instance)){
         if(p == permissao){
             body()
@@ -110,16 +108,4 @@ fun verificaPermissao(permissao: String, body: () -> Unit): Boolean{
     }
 
     throw Throwable("Sem permissão.")
-}
-
-fun View.verificaPermissaoMostraSnackbar(permissao: String, body: () -> Unit): Boolean{
-
-    for(p in AppSharedPreferences.getUserPermissoes(App.instance)){
-        if(p == permissao){
-            body()
-            return true
-        }
-    }
-    Snackbar.make(this, "Perfil não autorizado a Permissão Genérica.", Snackbar.LENGTH_SHORT).show()
-    return false
 }

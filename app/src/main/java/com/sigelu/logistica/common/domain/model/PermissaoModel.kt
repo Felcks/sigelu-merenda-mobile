@@ -20,6 +20,6 @@ class PermissaoModel {
         val visualizarRM = "logistica-requisicao-listar"
         val cancelarRM = "logistica-requisicao-cancelar"
         val editarRM = "logistica-requisicao-editar"
-        val incuirRM = "logistica-requisicao-incluir"
+        val incluirRM = "logistica-requisicao-incluir"
     }
 }
