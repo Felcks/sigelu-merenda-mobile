@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sigelu.logistica.common.domain.interactors.CadastraEnvioParaObraController
 import com.sigelu.logistica.common.domain.interactors.Fluxo
 import com.sigelu.logistica.common.viewmodel.Response
+import com.sigelu.logistica.ui.cadastra_envio.cadastra_envio_0_seleciona_obra.ObraDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

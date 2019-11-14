@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.sigelu.logistica.ui.cadastra_recebimento_novo.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel"/>
+                type="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
