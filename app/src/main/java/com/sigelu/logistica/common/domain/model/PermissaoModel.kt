@@ -17,7 +17,7 @@ class PermissaoModel {
         val visualizarMovimentacao = "logistica-movimentacao-visualizar"
         //RM
         val listarRM = "logistica-requisicao-listar"
-        val visualizarRM = "logistica-requisicao-listar"
+        val visualizarRM = "logistica-requisicao-visualizar"
         val cancelarRM = "logistica-requisicao-cancelar"
         val editarRM = "logistica-requisicao-editar"
         val incluirRM = "logistica-requisicao-incluir"

@@ -209,9 +209,17 @@ class ListaPedidoActivity: AppCompatActivity() {
     private val visualizarPedidoClickListener = object : OneIntParameterClickListener {
         override fun onClick(id: Int) {
 
-            viewModel!!.armazenaPedidoNoFluxo(id)
-            val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
-            startActivity(intent)
+            try{
+                verificaPermissao(PermissaoModel.visualizarRM){
+                    viewModel!!.armazenaPedidoNoFluxo(id)
+                    val intent = Intent(applicationContext, VisualizarPedidoActivity::class.java)
+                    startActivity(intent)
+                }
+
+            }
+            catch (t: Throwable){
+                Snackbar.make(ll_all, "Sem permissão para visualizar pedido.", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

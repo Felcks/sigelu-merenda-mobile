@@ -8,6 +8,7 @@ import com.sigelu.logistica.common.domain.interactors.CadastraPedidoModelImpl
 import com.sigelu.logistica.common.domain.interactors.VisualizaPedidoController
 import com.sigelu.logistica.common.domain.model.*
 import com.sigelu.logistica.common.viewmodel.Response
+import com.sigelu.logistica.extensions_constants.verificaPermissao
 import com.sigelu.logistica.utils.FlowSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -142,28 +143,36 @@ class VisualizarPedidoViewModel(private val controller: VisualizaPedidoControlle
 
     fun carregaEnviosDePedido(){
 
-        val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
+        try{
+            verificaPermissao(PermissaoModel.listarMovimentacao){
+                val pedidoID = FlowSharedPreferences.getPedidoId(App.instance)
 
-        if(pedido != null) {
-            disposables.add(controller.getListaEnvio(pedidoID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { responseEnvios.value = Response.loading() }
-                .subscribe(
-                    { result ->
-                        quantidadeEnviosCarregando = result.size
-                        quantidadeDeEnvios = result.size
-                        responseEnvios.value = Response.success(result)
-                    },
-                    { throwable ->
-                        responseEnvios.value = Response.error(throwable)
-                    }
-                )
-            )
+                if(pedido != null) {
+                    disposables.add(controller.getListaEnvio(pedidoID)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe { responseEnvios.value = Response.loading() }
+                        .subscribe(
+                            { result ->
+                                quantidadeEnviosCarregando = result.size
+                                quantidadeDeEnvios = result.size
+                                responseEnvios.value = Response.success(result)
+                            },
+                            { throwable ->
+                                responseEnvios.value = Response.error(throwable)
+                            }
+                        )
+                    )
+                }
+                else{
+                    responseEnvios.value = Response.error(Throwable("Pedido inválido."))
+                }
+            }
         }
-        else{
-            responseEnvios.value = Response.error(Throwable("Pedido inválido."))
+        catch (t: Throwable){
+            errorEnvios.set(true)
         }
+
     }
 
     fun limparListaEnvio(){

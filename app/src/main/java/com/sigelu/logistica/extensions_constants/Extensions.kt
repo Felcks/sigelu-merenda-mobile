@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import com.sigelu.logistica.App
+import com.sigelu.logistica.common.domain.model.PermissaoModel
 import com.sigelu.logistica.common.domain.model.PermissaoNovo
 import com.sigelu.logistica.exceptions.SemPermissaoException
 import com.sigelu.logistica.utils.AppSharedPreferences
@@ -101,7 +102,7 @@ fun Activity.closeApplication(){
 fun verificaPermissao(permissao: String, body: () -> Unit): Boolean{
 
     for(p in AppSharedPreferences.getUserPermissoes(App.instance)){
-        if(p == permissao){
+        if(p == permissao && p != PermissaoModel.listarMovimentacao){
             body()
             return true
         }

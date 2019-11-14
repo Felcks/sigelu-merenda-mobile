@@ -28,7 +28,9 @@ import com.sigelu.logistica.ui.pedido.lista_material_fragment.ListaMaterialFragm
 import com.sigelu.logistica.ui.pedido.lista_situacao_fragment.ListaSituacaoFragment
 import com.sigelu.logistica.utils.AlertDialogView
 import com.sigelu.core.lib.DialogUtil
+import com.sigelu.logistica.common.domain.model.PermissaoModel
 import com.sigelu.logistica.databinding.ActivityVisualizarPedidoBinding
+import com.sigelu.logistica.exceptions.SemPermissaoException
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_visualizar_pedido.*
 import java.lang.Exception
@@ -96,7 +98,6 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 btn_edita_pedido.visibility = View.VISIBLE
                 btn_edita_pedido.setOnClickListener {
                     try{
-
                         if(viewModel!!.validaEdicaoPedido()){
                             viewModel!!.editaPedido()
 
@@ -109,6 +110,9 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     }
                     catch (e: Exception){
                         Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
+                    }
+                    catch (t: SemPermissaoException){
+                        Snackbar.make(ll_all, "Sem permissão para editar o pedido.", Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -138,9 +142,15 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         if(situacaoPedido.situacao_id == SITUACAO_APROVADO_ID || situacaoPedido.situacao_id == SITUACAO_PARCIAL_ID){
 
             btn_cadastra_recebimento.setOnClickListener {
-
-                val intent = Intent(this, CRSelecionaEnvioActivity::class.java)
-                startActivity(intent)
+                try{
+                    verificaPermissao(PermissaoModel.incluirRecebimento){
+                        val intent = Intent(this, CRSelecionaEnvioActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+                catch (t: Throwable){
+                    Snackbar.make(ll_all, "Sem permissão para cadastrar recebimento.", Snackbar.LENGTH_SHORT).show()
+                }
             }
 //            btn_cadastra_envio.setOnClickListener {
 //
@@ -223,18 +233,28 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         when(item?.itemId){
             R.id.btn_cancela -> {
 
-                if (viewModel!!.podeCancelarPedido()) {
-                    DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
-                        "Cancelar RM",
-                        "Tem certeza que deseja cancelar essa RM?",
-                        {
-                            viewModel!!.cancelaPedido()
-                        },
-                        {}
-                    ).show()
+                try{
+                    verificaPermissao(PermissaoModel.cancelarRM) {
+                        if (viewModel!!.podeCancelarPedido()) {
+                            DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
+                                "Cancelar RM",
+                                "Tem certeza que deseja cancelar essa RM?",
+                                {
+                                    viewModel!!.cancelaPedido()
+                                },
+                                {}
+                            ).show()
+                        } else {
+                            Snackbar.make(
+                                ll_all,
+                                "Não é possível cancelar essa RM.",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
-                else{
-                    Snackbar.make(ll_all, "Não é possível cancelar essa RM.", Snackbar.LENGTH_SHORT).show()
+                catch (t: Throwable){
+                    Snackbar.make(ll_all, "Sem permissão para cancelar o pedido.", Snackbar.LENGTH_SHORT).show()
                 }
             }
         }
