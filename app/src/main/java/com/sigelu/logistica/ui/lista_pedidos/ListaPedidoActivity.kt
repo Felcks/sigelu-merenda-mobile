@@ -15,6 +15,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import com.google.android.material.snackbar.Snackbar
 import com.sigelu.logistica.BuildConfig
 import com.sigelu.logistica.R
 import com.sigelu.logistica.common.domain.model.*
@@ -34,6 +35,9 @@ import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.logistica.utils.ControladorLogout
 import com.sigelu.core.lib.DialogUtil
 import com.sigelu.logistica.databinding.ActivityListaPedidoBinding
+import com.sigelu.logistica.exceptions.SemPermissaoException
+import com.sigelu.logistica.extensions_constants.verificaPermissao
+import com.sigelu.logistica.extensions_constants.verificaPermissaoMostraSnackbar
 import com.sigelu.utils.menu_lateral.PrepararMenuLateral
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_lista_pedido.*
@@ -143,7 +147,12 @@ class ListaPedidoActivity: AppCompatActivity() {
             Status.LOADING -> renderLoadingState()
             Status.SUCCESS -> renderDataState(response.data)
             Status.ERROR -> {
-                tvErro?.text = resources.getString(R.string.erro_carrega_lista_pedido)
+                if(response.error is SemPermissaoException){
+                    tvErro?.text = response.error.message
+                }
+                else{
+                    tvErro?.text = resources.getString(R.string.erro_carrega_lista_pedido)
+                }
             }
             Status.EMPTY_RESPONSE -> {
                 tvErro?.text = resources.getString(R.string.erro_lista_pedido_vazia)
@@ -231,8 +240,15 @@ class ListaPedidoActivity: AppCompatActivity() {
                 true
             }
             R.id.btn_visualiza_estoque -> {
-                val intent = Intent(this, EstoqueActivity::class.java)
-                startActivity(intent)
+                try{
+                    verificaPermissao(PermissaoModel.listarEstoque) {
+                        val intent = Intent(this, EstoqueActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+                catch (t: Throwable){
+                    Snackbar.make(ll_all, "Sem permissão para visualizar estoque.", Snackbar.LENGTH_LONG).show()
+                }
                 true
             }
             R.id.btn_aumentar_fonte -> {

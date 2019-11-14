@@ -5,8 +5,21 @@ class PermissaoModel {
     companion object{
         val PERMISSAO_CADASTRA_PEDIDO = ""
         val PERMISSAO_CADASTRA_RECEBIMENTO = ""
-        val PermissaoListarContrato = "logistica-contrato-listar"
-        val PermissaoVisualizarContrato = "logistica-contrato-visualizar"
-        val PermissaoVisualizarContrato = "logistica-contrato-visualizar"
+
+        //Estoque
+        val listarEstoque = "logistica-estoque-listar"
+        //Envio
+        val incluirEnvio = "logistica-envio-incluir"
+        //Recebimento
+        val incluirRecebimento = "logistica-recebimento-incluir"
+        //Movimentação
+        val listarMovimentacao = "logistica-movimentacao-listar"
+        val visualizarMovimentacao = "logistica-movimentacao-visualizar"
+        //RM
+        val listarRM = "logistica-requisicao-listar"
+        val visualizarRM = "logistica-requisicao-listar"
+        val cancelarRM = "logistica-requisicao-cancelar"
+        val editarRM = "logistica-requisicao-editar"
+        val incuirRM = "logistica-requisicao-incluir"
     }
 }
