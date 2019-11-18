@@ -98,20 +98,27 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                 btn_edita_pedido.visibility = View.VISIBLE
                 btn_edita_pedido.setOnClickListener {
                     try{
-                        if(viewModel!!.validaEdicaoPedido()){
-                            viewModel!!.editaPedido()
+                        verificaPermissao(PermissaoModel.editarRM) {
 
-                            val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
-                            startActivity(intent)
+                            if (viewModel!!.validaEdicaoPedido()) {
+                                viewModel!!.editaPedido()
+
+                                val intent = Intent(this, SelecionaItemPedidoParaNucleoActivity::class.java)
+                                startActivity(intent)
+                            }
+                            else {
+                                Snackbar.make(ll_all, "Pedido não editável.", Snackbar.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
-                        else{
-                            Snackbar.make(ll_all, "Pedido não editável.", Snackbar.LENGTH_SHORT).show()
-                        }
+                    }
+                    catch (t: SemPermissaoException){
+                        Snackbar.make(ll_all, "Sem permissão para editar o pedido.", Snackbar.LENGTH_SHORT).show()
                     }
                     catch (e: Exception){
                         Snackbar.make(ll_all, e.message.toString(), Snackbar.LENGTH_SHORT).show()
                     }
-                    catch (t: SemPermissaoException){
+                    catch (t: Throwable){
                         Snackbar.make(ll_all, "Sem permissão para editar o pedido.", Snackbar.LENGTH_SHORT).show()
                     }
                 }

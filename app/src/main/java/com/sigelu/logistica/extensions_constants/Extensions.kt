@@ -102,7 +102,7 @@ fun Activity.closeApplication(){
 fun verificaPermissao(permissao: String, body: () -> Unit): Boolean{
 
     for(p in AppSharedPreferences.getUserPermissoes(App.instance)){
-        if(p == permissao && p != PermissaoModel.listarMovimentacao){
+        if(p == permissao){
             body()
             return true
         }
