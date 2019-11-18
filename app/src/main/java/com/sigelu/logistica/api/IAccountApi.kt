@@ -1,8 +1,11 @@
 package com.sigelu.logistica.api
 
 import com.sigelu.logistica.api_model.login.LoginDataResponse
+import com.sigelu.logistica.api_model.permissao.PermissaoDataResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
@@ -17,4 +20,8 @@ interface IAccountApi {
     @GET("token")
     fun login(@Query(value = "username") username: String,
               @Query(value = "senha") senha: String) : Call<LoginDataResponse>
+
+    @GET("usuario/permissao")
+    suspend fun getListaPermissao(@Header("token-usuario") auth: String,
+                                  @Query(value = "modulo_nome") moduloNome: String): Response<PermissaoDataResponse>
 }

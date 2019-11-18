@@ -4,7 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.view.View
 import android.widget.EditText
+import com.google.android.material.snackbar.Snackbar
+import com.sigelu.logistica.App
+import com.sigelu.logistica.common.domain.model.PermissaoModel
+import com.sigelu.logistica.common.domain.model.PermissaoNovo
+import com.sigelu.logistica.exceptions.SemPermissaoException
+import com.sigelu.logistica.utils.AppSharedPreferences
 import com.sigelu.logistica.utils.HourRangeFormat
 
 fun EditText.checarHoraValida(): Boolean {
@@ -90,4 +97,16 @@ fun Activity.closeApplication(){
     intent.addCategory(Intent.CATEGORY_HOME)
     startActivity(intent)
     android.os.Process.killProcess(android.os.Process.myPid())
+}
+
+fun verificaPermissao(permissao: String, body: () -> Unit): Boolean{
+
+    for(p in AppSharedPreferences.getUserPermissoes(App.instance)){
+        if(p == permissao){
+            body()
+            return true
+        }
+    }
+
+    throw Throwable("Sem permissão.")
 }

@@ -11,9 +11,15 @@ import com.sigelu.logistica.common.domain.model.accounts.DataHolder
 import com.sigelu.logistica.ui.lista_pedidos.ListaPedidoActivity
 import com.sigelu.logistica.utils.ControladorFonte
 import com.sigelu.core.lib.DialogUtil
+import com.sigelu.logistica.App
+import com.sigelu.logistica.common.domain.repository.PermissaoSistemaRepository
 import com.sigelu.logistica.extensions_constants.closeApplication
+import com.sigelu.logistica.utils.AppSharedPreferences
+import kotlinx.coroutines.runBlocking
 
 class MainActivity: AppCompatActivity() {
+
+    private val permissaoSistemaRepository = PermissaoSistemaRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +53,19 @@ class MainActivity: AppCompatActivity() {
             ).show()
         }
         else{
+
+            runBlocking {
+                try {
+                    val permissoes = permissaoSistemaRepository.carregaPermissao()
+                    AppSharedPreferences.setUserPermissoes(App.instance, permissoes.map { it.nome })
+
+                }
+                catch (t: Throwable){ }
+            }
+
+            //Retirar daqui após integração concluída
+            AppSharedPreferences.setNucleoID(App.instance, 2)
+            AppSharedPreferences.setNucleoNome(App.instance, "Centro")
             this.startApp()
             this.checkFontSize()
         }
