@@ -92,7 +92,7 @@
                   app:layout_constraintLeft_toLeftOf="parent"
                   app:layout_constraintRight_toRightOf="parent"/>
 
-        <com.sigelu.logistica.utils.EditTextV2
+        <com.sigelu.merenda.utils.EditTextV2
                 android:id="@+id/edt_quantidade_entregue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -41,7 +41,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-        <com.sigelu.logistica.utils.EditTextV2
+        <com.sigelu.merenda.utils.EditTextV2
                 android:id="@+id/search_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

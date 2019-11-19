@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO Este FrameLayout foi uma tentativa de colocar os 3 novos TextViews no fundo.
+     TODO Parece funcionar no Preview do Android Studio, mas no celular o comportamento não acompanha.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/innerLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/branco"
+            android:screenOrientation="sensorLandscape">
+
+            <TextView
+                android:id="@+id/text_view_info"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textSize="15dp"
+                android:textColor="#000000"
+                android:gravity="center|bottom"
+                android:background="@android:color/white"
+                android:text="@string/assinatura_info"/>
+
+            <TextView
+                android:id="@+id/text_view_line"
+                android:layout_width="match_parent"
+                android:layout_height="121dp"
+                android:fontFamily="monospace"
+                android:gravity="center|bottom"
+                android:background="@android:color/white"
+                android:text="@string/assinatura_linha"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:gravity="center|top"
+                android:background="@android:color/white"
+                android:text="@string/assinatura_nome" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:windowBackground="@android:color/transparent"
+        android:windowIsTranslucent="true"
+        android:screenOrientation="sensorLandscape">
+
+        <LinearLayout android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/linearLayout" android:layout_width="match_parent" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2_5"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0"
+            android:background="@android:color/transparent"
+            android:gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btn_limpar_captura_assinatura"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/fundo_botao_generico"
+                    android:drawableStart="@drawable/ic_borracha"
+                    android:textColor="@color/branco"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/apagar"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="end|bottom"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btn_salvar_captura_assinatura"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/fundo_botao_generico_desativado"
+                    android:drawableStart="@drawable/ic_salvar_desativado"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textAllCaps="false"
+                    android:enabled="false"
+                    android:text="@string/salvar"
+                    android:textColor="@color/branco" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

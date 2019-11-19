@@ -7,7 +7,7 @@
         <data>
                 <variable
                         name="viewModel"
-                        type="com.sigelu.logistica.ui.estoque.EstoqueViewModel"/>
+                        type="com.sigelu.merenda.ui.estoque.EstoqueViewModel"/>
         </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

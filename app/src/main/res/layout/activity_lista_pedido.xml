@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.sigelu.logistica.ui.lista_pedidos.ListaPedidoViewModel"/>
+                type="com.sigelu.merenda.ui.lista_pedidos.ListaPedidoViewModel"/>
     </data>
 
         <androidx.drawerlayout.widget.DrawerLayout

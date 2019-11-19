@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.sigelu.logistica.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel"/>
+                type="com.sigelu.merenda.ui.cadastra_recebimento.cadastra_recebimento_2_cadastra_item.CRCadastraItemViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
             android:background="@android:color/white"
             android:id="@+id/ll_all">
 
-        <com.sigelu.logistica.ui.cadastra_pedido.TopStepper
+        <com.sigelu.merenda.ui.cadastra_pedido.TopStepper
                 android:id="@+id/top_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.sigelu.logistica.ui.cadastra_pedido.BottomStepper
+        <com.sigelu.merenda.ui.cadastra_pedido.BottomStepper
                 android:id="@+id/bottom_stepper"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

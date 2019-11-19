@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/branco"
+    tools:context="com.sigelu.utils.sobre.SobreActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:background="@color/fundo_logo_autenticacao"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="60dp"
+            android:paddingLeft="60dp"
+            android:contentDescription="@string/sigelu_mobile"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_logo_sigelu_v2"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="0.3"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:padding="@dimen/activity_vertical_margin"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:baselineAligned="false" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/txt_texto_sobre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/fonte_label_integrante_escolha_equipe"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/txt_texto_sobre" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/txt_rodape_sobre"
+                android:id="@+id/txt_versao_sobre"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+
+            <TextView
+                android:text="@string/site_lemobs"
+                android:id="@+id/TextView2"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:autoLink="web">
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

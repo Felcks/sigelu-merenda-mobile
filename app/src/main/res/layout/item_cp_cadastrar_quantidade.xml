@@ -59,7 +59,7 @@
                     android:text="Quantidade requisitada"
                     android:textColor="@color/preto055"/>
 
-            <com.sigelu.logistica.utils.EditTextV2
+            <com.sigelu.merenda.utils.EditTextV2
                     android:id="@+id/edt_quantidade_fornecida"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                     app:layout_constraintTop_toBottomOf="@id/edt_quantidade_fornecida"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
-            <com.sigelu.logistica.utils.EditTextV2
+            <com.sigelu.merenda.utils.EditTextV2
                     android:id="@+id/edt_observacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
