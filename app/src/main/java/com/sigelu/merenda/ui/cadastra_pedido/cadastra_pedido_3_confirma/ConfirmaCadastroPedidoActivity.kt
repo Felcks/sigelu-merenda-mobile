@@ -237,8 +237,8 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar RM",
-                    "Deseja sair e cancelar a RM?",
+                    this@ConfirmaCadastroPedidoActivity.getString(R.string.dialogo_titulo_cancelar_requisicao),
+                    this@ConfirmaCadastroPedidoActivity.getString(R.string.dialogo_mensagem_cancelar_requisicao),
                     {
                         this.viewModel.cancelaPedido()
                         finish()

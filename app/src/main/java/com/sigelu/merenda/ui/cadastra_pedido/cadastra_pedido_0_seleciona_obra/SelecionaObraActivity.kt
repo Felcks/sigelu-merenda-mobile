@@ -148,8 +148,8 @@ class SelecionaObraActivity: AppCompatActivity(), ActivityDeFluxo {
                 val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
                 DialogUtil.buildAlertDialogSimNao(
                     this,
-                    "Cancelar RM ",
-                    "Deseja sair e cancelar a RM?",
+                    this@SelecionaObraActivity.getString(R.string.dialogo_titulo_cancelar_requisicao),
+                    this@SelecionaObraActivity.getString(R.string.dialogo_mensagem_cancelar_requisicao),
                     {
                         finish()
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

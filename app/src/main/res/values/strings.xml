@@ -2,10 +2,39 @@
     <string name="app_name">S. Merenda</string>
 
     <!-- Diálogos -->
-    <string name="dialogo_button_ok">Ok</string>
-    <string name="dialogo_button_cancel">Cancelar</string>
-    <string name="dialogo_button_sim">Sim</string>
-    <string name="dialogo_button_nao">Não</string>
+        <string name="dialogo_button_ok">Ok</string>
+        <string name="dialogo_button_cancel">Cancelar</string>
+        <string name="dialogo_button_sim">Sim</string>
+        <string name="dialogo_button_nao">Não</string>
+
+        <string name="dialogo_titulo_cancelar_requisicao">Cancelar Requisição de Alimentos</string>
+        <string name="dialogo_mensagem_cancelar_requisicao">Deseja sair e cancelar a RA?</string>
+
+    <!-- Titulos das activitys -->
+        <string name="visualiza_requisicao_activity">Visualizando Requisição de Alimento</string>
+
+        <!-- cadastra envio activity -->
+        <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
+        <string name="cadastra_envio_nome_activity_1">Selecione a obra</string>
+        <string name="cadastra_envio_nome_activity_2">Selecione os itens</string>
+        <string name="cadastra_envio_nome_activity_3">Cadastre as quantidades</string>
+        <string name="cadastra_envio_nome_activity_4">Confirme as informações</string>
+
+        <!-- cadastra recebimento activity -->
+        <string name="cadastra_recebimento_titulo">Informações do Recebimento</string>
+        <string name="cadastra_recebimento_nome_activity_1">Selecione o envio</string>
+        <string name="cadastra_recebimento_nome_activity_2">Cadastre as quantidades</string>
+        <string name="cadastra_recebimento_nome_activity_3">Confirme as informações</string>
+
+        <!-- cadastra pedido activity -->
+        <string name="cadastra_requisicao_titulo_activity">Informações da RA</string>
+        <string name="cadastra_pedido_titulo_activity_0">Tipo de transação</string>
+        <string name="cadastra_pedido_titulo_activity_00">Selecione a obra</string>
+        <string name="cadastra_pedido_titulo_activity_1">Selecione os alimentos</string>
+        <string name="cadastra_pedido_titulo_activity_2">Cadastre as quantidades</string>
+        <string name="cadastra_pedido_titulo_activity_3">Confirme as informações</string>
+        <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
+
 
     <!-- Top Bar - Motorista -->
     <string name="passo1">Passo 1 de 4</string>
@@ -36,6 +65,8 @@
     <string name="prox_materiais">Próximo: Materiais</string>
     <string name="info_pedido">Informações da RM</string>
 
+
+
     <!-- Cadastrar pedido -->
     <string name="pedido_fornecedor">Pedir para fornecedor</string>
     <string name="pedido_nucleo">Pedir para Núcleo</string>
@@ -46,51 +77,32 @@
     <string name="selecione_obra">Selecione a Obra</string>
     <string name="cadastra_itens">Próximo: Cadastrar</string>
 
-    <string name="cadastra_pedido_titulo_activity_0">Tipo de transação</string>
-    <string name="cadastra_pedido_titulo_activity_00">Selecione a obra</string>
-    <string name="cadastra_pedido_titulo_activity_1">Selecione os itens</string>
-    <string name="cadastra_pedido_titulo_activity_2">Cadastre as quantidades</string>
-    <string name="cadastra_pedido_titulo_activity_3">Confirme as informações</string>
-    <string name="infoEnviosp">Informações do Envio Sem Pedido</string>
 
     <!-- Login activity -->
     <string name="campos_nao_preenchidos">Preencha os campos.</string>
     <string name="usuario_nao_encontrado">Usuário não encontrado!</string>
     <string name="senha_invalida">Senha inválida!</string>
 
-    <!-- Novo cadastra envio activity -->
-    <string name="cadastra_envio_nome_activity_1">Selecione a obra</string>
-    <string name="cadastra_envio_nome_activity_2">Selecione os itens</string>
-    <string name="cadastra_envio_nome_activity_3">Cadastre as quantidades</string>
-    <string name="cadastra_envio_nome_activity_4">Confirme as informações</string>
-    <string name="cadastra_envio_titulo_activity">Informações do Envio</string>
-
-    <!-- Novo cadastra recebimento activity -->
-    <string name="cadastra_recebimento_nome_activity_1">Selecione o envio</string>
-    <string name="cadastra_recebimento_nome_activity_2">Cadastre as quantidades</string>
-    <string name="cadastra_recebimento_nome_activity_3">Confirme as informações</string>
-    <string name="cadastra_recebimento_titulo">Informações do Recebimento</string>
 
     <!-- Formatações -->
     <string name="numero_em_parenteses">(%d)</string>
     <string name="layout_destino">%s %s</string>
 
     <!-- Erros -->
-    <string name="erro_carrega_lista_pedido">Erro ao carregar RMs.\nAperte para tentar novamente.</string>
-    <string name="erro_lista_pedido_vazia">Nenhuma RM cadastrada.\nAperte para atualizar.</string>
+    <string name="erro_carrega_lista_pedido">Erro ao carregar RAs.\nAperte para tentar novamente.</string>
+    <string name="erro_lista_pedido_vazia">Nenhuma RA cadastrada.\nAperte para atualizar.</string>
 
     <string name="erro_carrega_estoque">Erro ao carregar estoque.\nAperte para tentar novamente.</string>
-    <string name="erro_estoque_vazio">Nenhum item em estoque.\nAperte para atualizar.</string>
+    <string name="erro_estoque_vazio">Nenhum alimento em estoque.\nAperte para atualizar.</string>
 
 
-    <string name="erro_carrega_lista_item_estoque">Erro ao carregar materiais disponíveis.\nAperte para tentar novamente.</string>
-    <string name="erro_nenhum_item_cadastrado">Nenhum item em estoque.\nAperte para atualizar.</string>
-    <string name="erro_carrega_pedido">Erro ao carregar pedido.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_lista_item_estoque">Erro ao carregar alimentos disponíveis.\nAperte para tentar novamente.</string>
+    <string name="erro_nenhum_item_cadastrado">Nenhum alimento em estoque.\nAperte para atualizar.</string>
+    <string name="erro_carrega_pedido">Erro ao carregar RA.\nAperte para tentar novamente.</string>
 
     <string name="erro_carrega_lista_envio">Erro ao carregar envios.\nAperte para tentar novamente.</string>
     <string name="erro_lista_envio_vazia">Nenhum envio feito.\nAperte para atualizar.</string>
 
-    <string name="erro_carrega_lista_item_envio">Erro ao carregar itens.\nAperte para tentar novamente.</string>
+    <string name="erro_carrega_lista_item_envio">Erro ao carregar alimentos.\nAperte para tentar novamente.</string>
     <string name="erro_carrega_lista_obra">Erro ao carregar obras.\nAperte para tentar novamente.</string>
-
 </resources>

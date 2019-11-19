@@ -90,7 +90,7 @@
         <TextView android:id="@+id/tv_data_pedido_layout"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Data da RM:"
+                  android:text="Data da RA:"
                   android:textColor="@color/primary_text"
                   android:layout_marginTop="@dimen/espacamento_medio"
                   app:layout_constraintTop_toBottomOf="@id/view_2"

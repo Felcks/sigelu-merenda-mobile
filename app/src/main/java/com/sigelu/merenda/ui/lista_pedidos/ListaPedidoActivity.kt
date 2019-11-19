@@ -300,7 +300,7 @@ class ListaPedidoActivity: AppCompatActivity() {
     fun showDuvidaDeslogarUsuario(){
         val alertDialogView = DialogUtil.buildAlertDialogSimNao(this,
             "Aviso",
-            "Deseja sair do Sigelu Logística?",
+            "Deseja sair do Sigelu Merenda?",
             {
                 this.showProgressoDeslogandoUsuario()
                 try{

@@ -152,8 +152,8 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
             val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
             DialogUtil.buildAlertDialogSimNao(
                 this,
-                "Cancelar RM ",
-                "Deseja sair e cancelar a RM?",
+                this@SelecionaItemPedidoParaNucleoActivity.getString(R.string.dialogo_titulo_cancelar_requisicao),
+                this@SelecionaItemPedidoParaNucleoActivity.getString(R.string.dialogo_mensagem_cancelar_requisicao),
                 {
                     finish()
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
