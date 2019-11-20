@@ -200,7 +200,7 @@ class VisualizarPedidoActivity: AppCompatActivity() {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "RM cancelada com sucesso!",
+            "RA cancelada com sucesso!",
             {
                 val intent = Intent(activity, VisualizarPedidoActivity::class.java)
                 startActivity(intent)
@@ -244,8 +244,8 @@ class VisualizarPedidoActivity: AppCompatActivity() {
                     verificaPermissao(PermissaoModel.cancelarRM) {
                         if (viewModel!!.podeCancelarPedido()) {
                             DialogUtil.buildAlertDialogSimNao(this@VisualizarPedidoActivity,
-                                "Cancelar RM",
-                                "Tem certeza que deseja cancelar essa RM?",
+                                "Cancelar RA",
+                                "Tem certeza que deseja cancelar essa RA?",
                                 {
                                     viewModel!!.cancelaPedido()
                                 },

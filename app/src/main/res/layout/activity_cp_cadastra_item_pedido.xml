@@ -49,7 +49,7 @@
                     android:id="@+id/tv_total_material_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total de materiais"
+                    android:text="Total de alimentos"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     android:textSize="18sp"

@@ -121,7 +121,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     private fun renderLoadingStateRascunho() {
 
         progressDialog = DialogUtil.buildDialogCarregamento(this,
-            "Salvando RM como rascunho",
+            "Salvando RA como rascunho",
             "Por favor, espere...")
     }
 
@@ -182,7 +182,7 @@ class ConfirmaCadastroPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
         val activity = this
         this.sucessDialog = DialogUtil.buildAlertDialogOk(this,
             "Sucesso",
-            "RM cadastrada com sucesso!",
+            "RA cadastrada com sucesso!",
             {
                 val intent = Intent(activity, ListaPedidoActivity::class.java)
                 startActivity(intent)

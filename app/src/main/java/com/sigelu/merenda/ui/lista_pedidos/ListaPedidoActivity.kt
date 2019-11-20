@@ -86,6 +86,8 @@ class ListaPedidoActivity: AppCompatActivity() {
                 Snackbar.make(ll_all, "Sem permissão para fazer RM.", Snackbar.LENGTH_LONG).show()
             }
         }
+
+        /* Botão de cadastrar envio herdado do logística
         menu_item_cadastra_envio.setOnClickListener {
 
             try{
@@ -98,6 +100,7 @@ class ListaPedidoActivity: AppCompatActivity() {
                 Snackbar.make(ll_all, "Sem permissão para fazer envio.", Snackbar.LENGTH_LONG).show()
             }
         }
+        */
 
         tvErro = ll_erro.findViewById(R.id.tv_erro)
         ll_erro.findViewById<AppCompatImageView>(R.id.iv_refresh).setOnClickListener {

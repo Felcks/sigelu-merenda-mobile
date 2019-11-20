@@ -34,12 +34,12 @@ class SelecionaTipoPedidoViewModel (private val controller: CadastraPedidoModel)
         if(tipoMovimento == TipoMovimento.ALMOXARIFADO_PARA_NUCLEO){
 
             controller.iniciaRMParaEstoque()
-            proximaTela.value = Response.success(Intent(App.instance, SelecionaItemPedidoParaNucleoActivity::class.java))
+            proximaTela.postValue(Response.success(Intent(App.instance, SelecionaItemPedidoParaNucleoActivity::class.java)))
         }
         else if(tipoMovimento == TipoMovimento.ALMOXARIFADO_PARA_OBRA){
 
             //Não inicia RM pois a obra ainda não foi definida
-            proximaTela.value = Response.success(Intent(App.instance, SelecionaObraActivity::class.java))
+            proximaTela.postValue(Response.success(Intent(App.instance, SelecionaObraActivity::class.java)))
         }
     }
 

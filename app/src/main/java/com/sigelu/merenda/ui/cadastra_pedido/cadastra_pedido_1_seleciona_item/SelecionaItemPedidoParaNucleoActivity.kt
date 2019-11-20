@@ -107,7 +107,10 @@ class SelecionaItemPedidoParaNucleoActivity: AppCompatActivity(), TwoIntParamete
 
     override fun onBackPressed() {
         viewModel.getFluxo().decrementaPassoAtual()
-        super.onBackPressed()
+        val intent = Intent(applicationContext, ListaPedidoActivity::class.java)
+        finish()
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 
     fun processResponse(response: Response){
