@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Requisição de Material para Núcleo"
+                        android:text="Requisição de Alimento para Escola"
                         android:onClick="clickPrimeiroRadioButton"/>
             </androidx.cardview.widget.CardView>
 
@@ -72,6 +72,7 @@
                     app:cardElevation="1dp"
                     app:contentPadding="20dp"
                     android:layout_margin="@dimen/espacamento_grande"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/ll_titulo">
 
                 <RadioButton

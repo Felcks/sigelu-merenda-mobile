@@ -19,9 +19,6 @@ import com.sigelu.core.lib.DialogUtil
 import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.*
 import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.bottom_stepper
 import kotlinx.android.synthetic.main.activity_cp_seleciona_tipo_pedido.ll_all
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 
@@ -105,7 +102,6 @@ class SelecionaTipoPedidoActivity: AppCompatActivity(), ActivityDeFluxo {
     override fun onResume() {
         super.onResume()
         viewModel.proximaTela().value = Response.empty()
-        this.clicouProximo()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
